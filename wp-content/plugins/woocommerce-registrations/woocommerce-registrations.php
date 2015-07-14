@@ -35,14 +35,9 @@ if ( ! function_exists( 'woothemes_queue_update' ) || ! function_exists( 'is_woo
 }
 
 /**
- * Plugin updates
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), '6115e6d7e297b623a169fdcf5728b224', '27147' );
-
-/**
- * Check if WooCommerce is active, and if it isn't, disable Subscriptions.
+ * Check if WooCommerce is active, and if it isn't, disable Registrations.
  *
- * @since 1.0
+ * @since 0.0.1
  */
 if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_version' ), '2.1', '<' ) ) {
 	add_action( 'admin_notices', 'WC_Registrations::woocommerce_inactive_notice' );
@@ -109,7 +104,6 @@ class WC_Registrations {
 	public static function init() {
 
 		add_action( 'admin_init', __CLASS__ . '::maybe_activate_woocommerce_registrations' );
-		add_action( 'admin_init', __CLASS__ . '::includes' );
 
 		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
 
@@ -156,22 +150,98 @@ class WC_Registrations {
     /*
      * ADMIN PANEL
      */
+
+ 	add_action( 'admin_enqueue_scripts', __CLASS__ . '::enqueue_styles_scripts' );
+
     // Add subscriptions to the product select box
     add_filter( 'product_type_selector', __CLASS__ . '::add_registrations_to_select' );
 
-    // Add subscription pricing fields on edit product page
-    add_action( 'woocommerce_product_options_general_product_data', __CLASS__ . '::registrations_pricing_fields' );
+    // Add registration fields to general tab
+    add_action( 'woocommerce_product_options_general_product_data', __CLASS__ . '::registrations_general_fields' );
+
+	// Add registration fields to general tab
+    add_action( 'woocommerce_product_after_variable_attributes', __CLASS__ . '::variable_registration_pricing_fields', 10, 3 );
 
     add_action( 'woocommerce_process_product_meta_course', __CLASS__ . '::save_registrations_meta', 11 );
 	}
 
-	public static function includes() {
-		// Functions
-		//include_once( 'includes/admin/wc-registrations-meta-box-functions.php' );
+	/**
+	 * Adds all necessary admin styles.
+	 *
+	 * @param array Array of Product types & their labels, excluding the Subscription product type.
+	 * @return array Array of Product types & their labels, including the Subscription product type.
+	 * @since 1.0
+	 */
+	public static function enqueue_styles_scripts() {
+		global $woocommerce, $post;
+
+		// Get admin screen id
+		$screen = get_current_screen();
+
+		$is_woocommerce_screen = ( in_array( $screen->id, array( 'product', 'edit-shop_order', 'shop_order', 'users', 'woocommerce_page_wc-settings' ) ) ) ? true : false;
+
+		if ( $is_woocommerce_screen ) {
+
+			$dependencies = array( 'jquery' );
+
+			// Version juggling
+			if ( WC_Registrations::is_woocommerce_pre_2_1() ) { // WC 2.0
+				$woocommerce_admin_script_handle = 'woocommerce_writepanel';
+			} elseif ( WC_Registrations::is_woocommerce_pre_2_2() ) { // WC 2.1
+				$woocommerce_admin_script_handle = 'woocommerce_admin_meta_boxes';
+			} else {
+				$woocommerce_admin_script_handle = 'wc-admin-meta-boxes';
+			}
+
+			if( $screen->id == 'product' ) {
+				$dependencies[] = $woocommerce_admin_script_handle;
+
+				if ( ! WC_Subscriptions::is_woocommerce_pre_2_2() ) {
+					$dependencies[] = 'wc-admin-product-meta-boxes';
+					$dependencies[] = 'wc-admin-variation-meta-boxes';
+				}
+
+				$script_params = array(
+					'productType'              => WC_Registrations::$name,
+				);
+			}
+
+			$script_params['ajaxLoaderImage'] = $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif';
+			$script_params['ajaxUrl']         = admin_url('admin-ajax.php');
+			$script_params['isWCPre21']       = var_export( WC_Subscriptions::is_woocommerce_pre_2_1(), true );
+			$script_params['isWCPre22']       = var_export( WC_Subscriptions::is_woocommerce_pre_2_2(), true );
+			$script_params['isWCPre23']       = var_export( WC_Subscriptions::is_woocommerce_pre_2_3(), true );
+
+			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . 'js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/admin.js' ) );
+			wp_localize_script( 'woocommerce_registrations_admin', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
+		}
+
+		// Maybe add the admin notice
+		if ( $is_activation_screen ) {
+
+			$woocommerce_plugin_dir_file = self::get_woocommerce_plugin_dir_file();
+
+			if ( ! empty( $woocommerce_plugin_dir_file ) ) {
+
+				wp_enqueue_style( 'woocommerce-activation', plugins_url(  '/assets/css/activation.css', self::get_woocommerce_plugin_dir_file() ), array(), WC_Subscriptions::$version );
+
+				if ( ! isset( $_GET['page'] ) || 'wcs-about' != $_GET['page'] ) {
+					add_action( 'admin_notices', __CLASS__ . '::admin_installed_notice' );
+				}
+
+			}
+			delete_transient( WC_Subscriptions::$activation_transient );
+		}
+
+		if ( $is_woocommerce_screen || $is_activation_screen ) {
+			wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css', array(), WC_Subscriptions::$version );
+			wp_enqueue_style( 'woocommerce_subscriptions_admin', plugin_dir_url( WC_Subscriptions::$plugin_file ) . 'css/admin.css', array( 'woocommerce_admin_styles' ), WC_Subscriptions::$version );
+		}
+
 	}
 
   /**
-	 * Add the 'course' product type to the WooCommerce product type select box.
+	 * Add the 'registration' product type to the WooCommerce product type select box.
 	 *
 	 * @param array Array of Product types & their labels, excluding the Course product type.
 	 * @return array Array of Product types & their labels, including the Course product type.
@@ -189,7 +259,7 @@ class WC_Registrations {
 	 *
 	 * @since 0.1
 	 */
-	public static function registrations_pricing_fields() {
+	public static function registrations_general_fields() {
 		global $post;
 
 		echo '<div class="options_group registrations_pricing show_if_registration">';
@@ -208,19 +278,55 @@ class WC_Registrations {
 			)
 		);
 
+		do_action( 'woocommerce_registrations_options_pricing' );
+
+		echo '</div>';
+		echo '<div class="show_if_registration clear"></div>';
+	}
+
+	/**
+	 * Output the registration specific fields on the "Edit Product" admin page.
+	 *
+	 * @since 0.1
+	 */
+	public static function variable_registration_pricing_fields( $loop, $variation_data, $variation ) {
+		global $woocommerce, $thepostid;
+
+		// Set month as the default billing period
+		if ( ! $event_start_date = get_post_meta( $variation->ID, '_event_start_date', true ) ) {
+			$event_start_date = '';
+		}
+
+		// When called via Ajax
+		if ( ! function_exists( 'woocommerce_wp_text_input' ) ) {
+			require_once( $woocommerce->plugin_path() . '/admin/post-types/writepanels/writepanels-init.php' );
+		}
+
+		if ( ! isset( $thepostid ) ) {
+			$thepostid = $variation->post_parent;
+		}
+
 		woocommerce_wp_text_input( array(
 			'id'          => '_event_start_date',
 			'class'       => 'wc_input_event_start_date',
 			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
 			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
-			'type'        => 'date'
+			'type'        => 'date',
+		'value'       => get_post_meta( $variation->ID, '_event_start_date', true )
 			)
 		);
 
-		do_action( 'woocommerce_registrations_options_pricing' );
+		woocommerce_wp_text_input( array(
+			'id'          => '_event_end_date',
+			'class'       => 'wc_input_event_start_date',
+			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
+			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
+			'type'        => 'date',
+		'value'       => get_post_meta( $variation->ID, '_event_start_date', true )
+			)
+		);
 
-		echo '</div>';
-		echo '<div class="show_if_registration clear"></div>';
+		do_action( 'woocommerce_variable_subscription_pricing', $loop, $variation_data, $variation );
 	}
 
   /**
@@ -593,11 +699,11 @@ class WC_Registrations {
 		if ( current_user_can( 'activate_plugins' ) ) :
 			if ( ! is_woocommerce_active() ) : ?>
 <div id="message" class="error">
-	<p><?php printf( __( '%sWooCommerce Subscriptions is inactive.%s The %sWooCommerce plugin%s must be active for WooCommerce Subscriptions to work. Please %sinstall & activate WooCommerce%s', 'woocommerce-subscriptions' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
+	<p><?php printf( __( '%sWooCommerce Registrations is inactive.%s The %sWooCommerce plugin%s must be active for WooCommerce Subscriptions to work. Please %sinstall & activate WooCommerce%s', 'woocommerce-subscriptions' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
 </div>
 		<?php elseif ( version_compare( get_option( 'woocommerce_db_version' ), '2.1', '<' ) ) : ?>
 <div id="message" class="error">
-	<p><?php printf( __( '%sWooCommerce Subscriptions is inactive.%s This version of Subscriptions requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version 2.1 or newer%s', 'woocommerce-subscriptions' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
+	<p><?php printf( __( '%sWooCommerce Registrations is inactive.%s This version of Subscriptions requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version 2.1 or newer%s', 'woocommerce-subscriptions' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
 </div>
 		<?php endif; ?>
 	<?php endif;
