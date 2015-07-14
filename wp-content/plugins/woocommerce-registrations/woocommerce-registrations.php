@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: WooCommerce Course Products
+ * Plugin Name: WooCommerce Registrations
  * Plugin URI: http://www.hastedesign.com.br
- * Description: Add courses product type to your Woocommerce.
- * Author: Haste Design
+ * Description: Add registration product type to your Woocommerce.
+ * Author: Haste Design, Allyson Souza, Anyssa Ferreira
  * Author URI: http://www.hastedesign.com.br
  * Version: 0.0.1
  *
@@ -45,7 +45,7 @@ woothemes_queue_update( plugin_basename( __FILE__ ), '6115e6d7e297b623a169fdcf57
  * @since 1.0
  */
 if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_version' ), '2.1', '<' ) ) {
-	add_action( 'admin_notices', 'WC_Course_Products::woocommerce_inactive_notice' );
+	add_action( 'admin_notices', 'WC_Registrations::woocommerce_inactive_notice' );
 	return;
 }
 
@@ -89,11 +89,11 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
  *
  * @since 0.1
  */
-class WC_Course_Products {
+class WC_Registrations {
 
-	public static $name = 'course';
+	public static $name = 'registrations';
 
-	public static $activation_transient = 'woocommerce_course_products_activated';
+	public static $activation_transient = 'woocommerce_registrations_activated';
 
 	public static $plugin_file = __FILE__;
 
@@ -108,9 +108,10 @@ class WC_Course_Products {
 	 **/
 	public static function init() {
 
-		add_action( 'admin_init', __CLASS__ . '::maybe_activate_woocommerce_course_products' );
+		add_action( 'admin_init', __CLASS__ . '::maybe_activate_woocommerce_registrations' );
+		add_action( 'admin_init', __CLASS__ . '::includes' );
 
-		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_course_products' );
+		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
 
 		// Overide the WC default "Add to Cart" text to "Sign Up Now" (in various places/templates)
 		//add_filter( 'woocommerce_order_button_text', __CLASS__ . '::order_button_text' );
@@ -156,12 +157,17 @@ class WC_Course_Products {
      * ADMIN PANEL
      */
     // Add subscriptions to the product select box
-    add_filter( 'product_type_selector', __CLASS__ . '::add_course_products_to_select' );
+    add_filter( 'product_type_selector', __CLASS__ . '::add_registrations_to_select' );
 
     // Add subscription pricing fields on edit product page
-    add_action( 'woocommerce_product_options_general_product_data', __CLASS__ . '::course_products_pricing_fields' );
+    add_action( 'woocommerce_product_options_general_product_data', __CLASS__ . '::registrations_pricing_fields' );
 
-    add_action( 'woocommerce_process_product_meta_course', __CLASS__ . '::save_course_products_meta', 11 );
+    add_action( 'woocommerce_process_product_meta_course', __CLASS__ . '::save_registrations_meta', 11 );
+	}
+
+	public static function includes() {
+		// Functions
+		//include_once( 'includes/admin/wc-registrations-meta-box-functions.php' );
 	}
 
   /**
@@ -171,9 +177,9 @@ class WC_Course_Products {
 	 * @return array Array of Product types & their labels, including the Course product type.
 	 * @since 0.1
 	 */
-	public static function add_course_products_to_select( $product_types ){
+	public static function add_registrations_to_select( $product_types ){
 
-		$product_types[ WC_Course_Products::$name ] = __( 'Course Product', 'woocommerce-course-products' );
+		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'woocommerce-course-products' );
 
 		return $product_types;
 	}
@@ -183,17 +189,17 @@ class WC_Course_Products {
 	 *
 	 * @since 0.1
 	 */
-	public static function course_products_pricing_fields() {
+	public static function registrations_pricing_fields() {
 		global $post;
 
-		echo '<div class="options_group course_pricing show_if_course">';
+		echo '<div class="options_group registrations_pricing show_if_registration">';
 
 		// Subscription Price
 		woocommerce_wp_text_input( array(
-			'id'          => '_course_price',
-			'class'       => 'wc_input_course_price wc_input_price',
-			'label'       => sprintf( __( 'Course Price (%s)', 'woocommerce-course-products' ), get_woocommerce_currency_symbol() ),
-			'placeholder' => __( 'e.g. 5.90', 'woocommerce-course-products' ),
+			'id'          => '_registration_price',
+			'class'       => 'wc_input_registration_price wc_input_price',
+			'label'       => sprintf( __( 'Registration Price (%s)', 'woocommerce-registrations' ), get_woocommerce_currency_symbol() ),
+			'placeholder' => __( 'e.g. 5.90', 'woocommerce-registrations' ),
 			'type'        => 'text',
 			'custom_attributes' => array(
 					'step' => 'any',
@@ -202,10 +208,19 @@ class WC_Course_Products {
 			)
 		);
 
-		do_action( 'woocommerce_course_product_options_pricing' );
+		woocommerce_wp_text_input( array(
+			'id'          => '_event_start_date',
+			'class'       => 'wc_input_event_start_date',
+			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
+			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
+			'type'        => 'date'
+			)
+		);
+
+		do_action( 'woocommerce_registrations_options_pricing' );
 
 		echo '</div>';
-		echo '<div class="show_if_course clear"></div>';
+		echo '<div class="show_if_registration clear"></div>';
 	}
 
   /**
@@ -215,9 +230,9 @@ class WC_Course_Products {
 	 * @return array Array of Product types & their labels, including the Course product type.
 	 * @since 0.1
 	 */
-	public static function save_course_products_meta( $post_id ) {
+	public static function save_registrations_meta( $post_id ) {
 
-		if ( ! isset( $_POST['product-type'] ) || ! in_array( $_POST['product-type'], apply_filters( 'woocommerce_course_product_types', array( WC_Course_Products::$name ) ) ) ) {
+		if ( ! isset( $_POST['product-type'] ) || ! in_array( $_POST['product-type'], apply_filters( 'woocommerce_registrations_types', array( WC_Registrations::$name ) ) ) ) {
 			return;
 		}
 
@@ -593,10 +608,10 @@ class WC_Course_Products {
 	 *
 	 * @since 0.1
 	 */
-	public static function maybe_activate_woocommerce_course_products(){
+	public static function maybe_activate_woocommerce_registrations(){
 		global $wpdb;
 
-		$is_active = get_option( 'woocommerce_course_products_is_active', false );
+		$is_active = get_option( 'woocommerce_registrations_is_active', false );
 
 		if ( $is_active == false ) {
 
@@ -605,10 +620,10 @@ class WC_Course_Products {
 				wp_insert_term( self::$name, 'product_type' );
 			}
 
-			add_option( 'woocommerce_course_products_is_active', true );
+			add_option( 'woocommerce_registrations_is_active', true );
 
 			//set_transient( self::$activation_transient, true, 60 * 60 );
-			//do_action( 'woocommerce_course_products_activated' );
+			//do_action( 'woocommerce_registrations_activated' );
 		}
 
 	}
@@ -618,11 +633,11 @@ class WC_Course_Products {
 	 *
 	 * @since 0.1
 	 */
-	public static function deactivate_woocommerce_course_products() {
+	public static function deactivate_woocommerce_registrations() {
 
-		delete_option( 'woocommerce_course_products_is_active' );
+		delete_option( 'woocommerce_registrations_is_active' );
 
-		//do_action( 'woocommerce_course_products_deactivated' );
+		//do_action( 'woocommerce_registrations_deactivated' );
 	}
 
 	/**
@@ -637,7 +652,7 @@ class WC_Course_Products {
 		// Allow upgrade safe, site specific language files in /wp-content/languages/woocommerce-subscriptions/
 		load_textdomain( 'woocommerce-course-products', WP_LANG_DIR.'/woocommerce/woocommerce-course-products-'.$locale.'.mo' );
 
-		$plugin_rel_path = apply_filters( 'woocommerce_course_products_translation_file_rel_path', dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		$plugin_rel_path = apply_filters( 'woocommerce_registrations_translation_file_rel_path', dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 		// Then check for a language file in /wp-content/plugins/woocommerce-subscriptions/languages/ (this will be overriden by any file already loaded)
 		load_plugin_textdomain( 'woocommerce-course-products', false, $plugin_rel_path );
@@ -1627,12 +1642,12 @@ class WC_Course_Products {
 	/**
 	 * Was called when a plugin is activated using official register_activation_hook() API
 	 *
-	 * Upgrade routine is now in @see maybe_activate_woocommerce_course_products()
+	 * Upgrade routine is now in @see maybe_activate_woocommerce_registrations()
 	 *
 	 * @since 1.0
 	 */
 	public static function activate_woocommerce_subscriptions(){
-		_deprecated_function( __METHOD__, '1.1', __CLASS__ . '::maybe_activate_woocommerce_course_products()' );
+		_deprecated_function( __METHOD__, '1.1', __CLASS__ . '::maybe_activate_woocommerce_registrations()' );
 	}
 
 	/**
@@ -1668,4 +1683,4 @@ class WC_Course_Products {
 	}
 }
 
-WC_Course_Products::init();
+WC_Registrations::init();
