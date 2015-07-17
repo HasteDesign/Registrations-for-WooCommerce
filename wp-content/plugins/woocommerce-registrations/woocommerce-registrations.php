@@ -179,6 +179,7 @@ class WC_Registrations {
 		$screen = get_current_screen();
 
 		$is_woocommerce_screen = ( in_array( $screen->id, array( 'product', 'edit-shop_order', 'shop_order', 'users', 'woocommerce_page_wc-settings' ) ) ) ? true : false;
+		$is_activation_screen  = ( get_transient( WC_Registrations::$activation_transient ) == true ) ? true : false;
 
 		if ( $is_woocommerce_screen ) {
 
@@ -196,7 +197,7 @@ class WC_Registrations {
 			if( $screen->id == 'product' ) {
 				$dependencies[] = $woocommerce_admin_script_handle;
 
-				if ( ! WC_Subscriptions::is_woocommerce_pre_2_2() ) {
+				if ( ! WC_Registrations::is_woocommerce_pre_2_2() ) {
 					$dependencies[] = 'wc-admin-product-meta-boxes';
 					$dependencies[] = 'wc-admin-variation-meta-boxes';
 				}
@@ -208,9 +209,9 @@ class WC_Registrations {
 
 			$script_params['ajaxLoaderImage'] = $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif';
 			$script_params['ajaxUrl']         = admin_url('admin-ajax.php');
-			$script_params['isWCPre21']       = var_export( WC_Subscriptions::is_woocommerce_pre_2_1(), true );
-			$script_params['isWCPre22']       = var_export( WC_Subscriptions::is_woocommerce_pre_2_2(), true );
-			$script_params['isWCPre23']       = var_export( WC_Subscriptions::is_woocommerce_pre_2_3(), true );
+			$script_params['isWCPre21']       = var_export( WC_Registrations::is_woocommerce_pre_2_1(), true );
+			$script_params['isWCPre22']       = var_export( WC_Registrations::is_woocommerce_pre_2_2(), true );
+			$script_params['isWCPre23']       = var_export( WC_Registrations::is_woocommerce_pre_2_3(), true );
 
 			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . 'js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/admin.js' ) );
 			wp_localize_script( 'woocommerce_registrations_admin', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
@@ -230,12 +231,12 @@ class WC_Registrations {
 				}
 
 			}
-			delete_transient( WC_Subscriptions::$activation_transient );
+			delete_transient( WC_Registrations::$activation_transient );
 		}
 
 		if ( $is_woocommerce_screen || $is_activation_screen ) {
-			wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css', array(), WC_Subscriptions::$version );
-			wp_enqueue_style( 'woocommerce_subscriptions_admin', plugin_dir_url( WC_Subscriptions::$plugin_file ) . 'css/admin.css', array( 'woocommerce_admin_styles' ), WC_Subscriptions::$version );
+			wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css', array(), WC_Registrations::$version );
+			wp_enqueue_style( 'woocommerce_subscriptions_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . 'css/admin.css', array( 'woocommerce_admin_styles' ), WC_Registrations::$version );
 		}
 
 	}
