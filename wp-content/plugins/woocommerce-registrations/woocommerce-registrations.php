@@ -309,7 +309,7 @@ class WC_Registrations {
 
 		woocommerce_wp_text_input( array(
 			'id'          => '_event_start_date',
-			'class'       => 'wc_input_event_start_date',
+			'class'       => 'wc_input_event_start_date show_if_registration',
 			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
 			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
 			'type'        => 'date',
