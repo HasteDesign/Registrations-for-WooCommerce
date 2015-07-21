@@ -105,6 +105,8 @@ class WC_Registrations {
 
 		// Saves registrations meta fields
 	    add_action( 'woocommerce_process_product_meta_course', __CLASS__ . '::save_registrations_meta', 11 );
+
+		add_action( 'woocommerce_product_write_panel_tabs', __CLASS__ . '::registration_dates_tab' );
 	}
 
 	/**
@@ -346,6 +348,9 @@ class WC_Registrations {
 		*/
 	}
 
+	public static function registration_dates_tab() {
+		echo '<li class="dates_tab show_if_registration"><a href="#dates_tab_data">' . __( 'Dates' , 'woocommerce-registrations') . '</a></li>';
+	}
 	/*
 	 * Plugin House Keeping
 	 */
