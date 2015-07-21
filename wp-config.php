@@ -71,6 +71,7 @@ $table_prefix  = 'wr_';
  */
 define('WP_DEBUG', true);
 define('WP_DEBUG_DISPLAY', true);
+define('WP_DEBUG_LOG', true);
 
 /* Isto é tudo, pode parar de editar! :) */
 
