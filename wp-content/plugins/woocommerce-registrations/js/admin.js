@@ -3,9 +3,7 @@ jQuery(document).ready(function($){
 
 	$.extend({
 		showHideRegistrationMeta: function(){
-			if ($('select#product-type').val()==WCRegistrations.productType) {
-				$('.show_if_registration').show();
-
+			if ( $('select#product-type').val() == 'registrations' ) {
 				//$('input#_downloadable').prop('checked', false);
 				//$('input#_virtual').removeAttr('checked');
 
@@ -20,10 +18,13 @@ jQuery(document).ready(function($){
 		}
 	});
 
+	// Show/Hide fields when product type changes
 	$('body').bind('woocommerce-product-type-change',function(){
 		$.showHideRegistrationMeta();
 	});
 
+	// Grants correct fields display when product already saved as registration product
+	$.showHideRegistrationMeta();
 	/*
 	$('.options_group.pricing ._sale_price_field .description').prepend('<span id="sale-price-period" style="display: none;"></span>');
 
@@ -35,13 +36,15 @@ jQuery(document).ready(function($){
 	if($('#variable_product_options .variable_subscription_pricing').length > 0) {
 		$.moveSubscriptionVariationFields();
 	}
+	*/
 
-	// When a variation is added
+	// Called when a variation is added
 	$('#variable_product_options').on('woocommerce_variations_added',function(){
-		$.moveSubscriptionVariationFields();
-		$.showHideVariableSubscriptionMeta();
+		//$.moveSubscriptionVariationFields();
+		$.showHideRegistrationMeta();
 	});
 
+	/*
 	if($('.options_group.pricing').length > 0) {
 		$.setSalePeriod();
 		$.showHideSubscriptionMeta();
@@ -70,19 +73,21 @@ jQuery(document).ready(function($){
 		$.showHideSubscriptionMeta();
 		$.showHideVariableSubscriptionMeta();
 	});
+	*/
 
 	// Make sure the "Used for variations" checkbox is visible when adding attributes to a variable subscription
-	if ('true' == WCSubscriptions.isWCPre23){
+	if ('true' == WCRegistrations.isWCPre23){
 		$('button.add_attribute').on('click', function(){
-			$.showHideVariableSubscriptionMeta();
+			$.showHideRegistrationMeta();
 		});
 	} else {
 		// WC 2.3 - run after the Ajax request has inserted variation HTML
 		$('body').on('woocommerce_added_attribute', function(){
-			$.showHideVariableSubscriptionMeta();
+			$.showHideRegistrationMeta();
 		});
 	}
 
+	/*
 	if($.getParameterByName('select_subscription')=='true'){
 		$('select#product-type option[value="'+WCSubscriptions.productType+'"]').attr('selected', 'selected');
 		$('select#product-type').select().change();

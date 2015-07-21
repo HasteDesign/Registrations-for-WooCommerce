@@ -151,7 +151,7 @@ class WC_Registrations {
      * ADMIN PANEL
      */
 
- 	add_action( 'admin_enqueue_scripts', __CLASS__ . '::enqueue_styles_scripts' );
+ 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::enqueue_styles_scripts' );
 
     // Add subscriptions to the product select box
     add_filter( 'product_type_selector', __CLASS__ . '::add_registrations_to_select' );
@@ -213,7 +213,7 @@ class WC_Registrations {
 			$script_params['isWCPre22']       = var_export( WC_Registrations::is_woocommerce_pre_2_2(), true );
 			$script_params['isWCPre23']       = var_export( WC_Registrations::is_woocommerce_pre_2_3(), true );
 
-			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . 'js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/admin.js' ) );
+			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . '/js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/admin.js' ) );
 			wp_localize_script( 'woocommerce_registrations_admin', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 		}
 
@@ -263,12 +263,12 @@ class WC_Registrations {
 	public static function registrations_general_fields() {
 		global $post;
 
-		echo '<div class="options_group registrations_pricing show_if_registration">';
+		echo '<div class="registrations_pricing show_if_registration">';
 
 		// Subscription Price
 		woocommerce_wp_text_input( array(
 			'id'          => '_registration_price',
-			'class'       => 'wc_input_registration_price wc_input_price',
+			'class'       => 'wc_input_registration_price wc_input_price show_if_registration',
 			'label'       => sprintf( __( 'Registration Price (%s)', 'woocommerce-registrations' ), get_woocommerce_currency_symbol() ),
 			'placeholder' => __( 'e.g. 5.90', 'woocommerce-registrations' ),
 			'type'        => 'text',
@@ -319,7 +319,7 @@ class WC_Registrations {
 
 		woocommerce_wp_text_input( array(
 			'id'          => '_event_end_date',
-			'class'       => 'wc_input_event_start_date',
+			'class'       => 'wc_input_event_start_date show_if_registration',
 			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
 			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
 			'type'        => 'date',
