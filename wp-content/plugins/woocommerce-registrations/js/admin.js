@@ -2,11 +2,12 @@ jQuery(document).ready(function($){
 	$.extend({
 		showHideRegistrationMeta: function(){
 			if ( $('select#product-type').val() == 'registrations' ) {
-				$('.hide_if_virtual').show();
+				$('.hide_if_virtual').hide();
 
 				$('.show_if_variable').show();
 				$('.show_if_registration').show();
 				$('.hide_if_registration').hide();
+
 			} else {
 				$('.show_if_registration').hide();
 			}
