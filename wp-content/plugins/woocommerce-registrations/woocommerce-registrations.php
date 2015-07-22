@@ -88,27 +88,6 @@ class WC_Registrations {
 
 		// WooCommerce 2.0 Notice
 		//add_action( 'admin_notices', __CLASS__ . '::woocommerce_dependancy_notice' );
-
-	    /*
-	     * Admin Panel
-	     */
-
-	 	// Enqueue scripts in product edit page
-		// add_action( 'admin_enqueue_scripts', __CLASS__ . '::enqueue_styles_scripts' );
-		//
-	    // // Add subscriptions to the product select box
-	    // add_filter( 'product_type_selector', __CLASS__ . '::add_registrations_to_select' );
-		//
-	    // // Add registration fields to general tab
-	    // add_action( 'woocommerce_product_options_general_product_data', __CLASS__ . '::registrations_general_fields' );
-		//
-		// // Add registration fields to general tab
-	    // add_action( 'woocommerce_product_after_variable_attributes', __CLASS__ . '::variable_registration_pricing_fields', 10, 3 );
-		//
-		// // Saves registrations meta fields
-	    // add_action( 'woocommerce_process_product_meta_course', __CLASS__ . '::save_registrations_meta', 11 );
-		//
-		// add_action( 'woocommerce_product_tabs', __CLASS__ . '::registration_dates_tab' );
 	}
 
   // **
