@@ -37,9 +37,9 @@ class WC_Registrations_Admin {
 		// Saves registrations meta fields
 	    add_action( 'woocommerce_process_product_meta_course', __CLASS__ . '::save_registrations_meta', 11 );
 
-		add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registration_dates_tab' );
+		//add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registration_dates_tab' );
 
-        add_action( 'woocommerce_product_data_panels', __CLASS__. '::show_dates_tab_content' );
+        add_action( 'woocommerce_product_options_attributes', __CLASS__. '::show_dates_tab_content' );
 	}
 
     /**
@@ -317,8 +317,7 @@ class WC_Registrations_Admin {
             $event_end_date = '';
         }
 
-        echo '<div id="registration_dates" class="panel woocommerce_options_panel">';
-            echo '<div class="options_group dates">';
+            echo '<div class="options_group dates show_if_registration">';
 
 			echo '<input type="hidden" class="attribute_name" name="attribute_names[0]" value="Dates">';
 			echo '<input type="hidden" name="attribute_position[0]" class="attribute_position" value="0">';
@@ -354,7 +353,6 @@ class WC_Registrations_Admin {
 			echo '</p>';
 
             echo '</div>';
-        echo '</div>';
     }
 }
 
