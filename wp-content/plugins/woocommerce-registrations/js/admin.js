@@ -1,6 +1,10 @@
 jQuery(document).ready(function($){
 	console.log( WCRegistrations );
 
+	$('#_event_start_date').on( 'click', function() {
+		console.log( document.getElementById('_event_start_date').value );
+	});
+
 	$.extend({
 		showHideRegistrationMeta: function(){
 			if ( $('select#product-type').val() == 'registrations' ) {

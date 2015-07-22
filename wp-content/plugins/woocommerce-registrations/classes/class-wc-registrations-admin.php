@@ -287,15 +287,57 @@ class WC_Registrations_Admin {
 		$tabs['dates'] = array(
 			'label' 	=> __( 'Dates', 'woocommerce-registrations' ),
 			'target' 	=> 'registration_dates',
-			'class' 	=> 'show_if_registration'
+			'class' 	=> array('show_if_registration')
 		);
 
 		return $tabs;
 	}
 
     public static function show_dates_tab_content() {
+        global $thepostid, $post, $woocommerce;
+
+        if( empty( $thepostid ) ) {
+            $thepostid = $post->ID;
+        }
+
+        $event_start_date = get_post_meta( $thepostid, '_event_start_date', true );
+
+        if( empty( $event_start_date ) ) {
+            $event_start_date = ' ';
+        }
+
+        $event_end_date = get_post_meta( $thepostid, '_event_end_date', true );
+
+        if( empty( $event_end_date ) ) {
+            $event_end_date = ' ';
+        }
+
         echo '<div id="registration_dates" class="panel woocommerce_registration_dates_panel">';
-        echo '<h1> Registration Dates </h1>';
+            echo '<div class="options_group dates">';
+
+            woocommerce_wp_text_input(
+                array(
+        			'id'          => 'event_start_date',
+        			'class'       => 'wc_input_event_start_date',
+        			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
+        			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
+        			'type'        => 'date',
+                    'value'       => $event_start_date
+    			)
+    		);
+
+    		woocommerce_wp_text_input(
+                array(
+        			'id'          => 'event_end_date',
+        			'class'       => 'wc_input_event_end_date',
+        			'label'       => __( 'Event End Date', 'woocommerce-registrations' ),
+        			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
+        			'type'        => 'date',
+                    'value'       => $event_end_date
+    			)
+    		);
+
+            echo '</div>';
         echo '</div>';
     }
 }
