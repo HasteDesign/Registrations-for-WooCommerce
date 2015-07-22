@@ -11,6 +11,21 @@ jQuery(document).ready(function($){
 			} else {
 				$('.show_if_registration').hide();
 			}
+		},
+		setDefaultVariationValues: function () {
+			if ( $('select#product-type').val() == 'registrations' ) {
+				// Toggle Virtual
+				checkbox = $('input[name^="variable_is_virtual"]');
+				checkbox.attr( 'checked', true );
+				$( 'input.variable_is_virtual' ).change();
+
+				// Toggle Stock
+				checkbox = $('input[name^="variable_manage_stock"]');
+				checkbox.attr( 'checked', true );
+				$( 'input.variable_manage_stock' ).change();
+			} else {
+				//Nothing
+			}
 		}
 	});
 
@@ -38,6 +53,7 @@ jQuery(document).ready(function($){
 	// Called when a variation is added
 	$('#variable_product_options').on('woocommerce_variations_added',function(){
 		//$.moveSubscriptionVariationFields();
+		$.setDefaultVariationValues();
 		$.showHideRegistrationMeta();
 	});
 
