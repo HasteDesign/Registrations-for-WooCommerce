@@ -312,7 +312,7 @@ class WC_Registrations_Admin {
             $event_end_date = ' ';
         }
 
-        echo '<div id="registration_dates" class="panel woocommerce_registration_dates_panel">';
+        echo '<div id="registration_dates" class="panel woocommerce_options_panel">';
             echo '<div class="options_group dates">';
 
             woocommerce_wp_text_input(
