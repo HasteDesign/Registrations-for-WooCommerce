@@ -37,9 +37,8 @@ class WC_Registrations_Admin {
 		// Saves registrations meta fields
 	    add_action( 'woocommerce_process_product_meta_course', __CLASS__ . '::save_registrations_meta', 11 );
 
-		//add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registration_dates_tab' );
-
-        add_action( 'woocommerce_product_options_attributes', __CLASS__. '::show_dates_tab_content' );
+		// Add date inputs to attributes tab
+        add_action( 'woocommerce_product_options_attributes', __CLASS__. '::registrations_date_fields' );
 	}
 
     /**
@@ -286,24 +285,18 @@ class WC_Registrations_Admin {
 		*/
 	}
 
-	public static function registration_dates_tab( $tabs ) {
-		// Adds the new tab
-
-		$tabs['dates'] = array(
-			'label' 	=> __( 'Dates', 'woocommerce-registrations' ),
-			'target' 	=> 'registration_dates',
-			'class' 	=> array('show_if_registration')
-		);
-
-		return $tabs;
-	}
-
-    public static function show_dates_tab_content() {
+    public static function registrations_date_fields() {
         global $thepostid, $post, $woocommerce;
 
         if( empty( $thepostid ) ) {
             $thepostid = $post->ID;
         }
+
+		$select_date = get_post_meta( $thepostid, '_selec_date_type', true );
+
+		if( empty( $select_date ) ) {
+			$select_date = '';
+		}
 
         $event_start_date = get_post_meta( $thepostid, '_event_start_date', true );
 
@@ -325,6 +318,20 @@ class WC_Registrations_Admin {
 			echo '<input type="hidden" class="checkbox" checked="checked" name="attribute_visibility[0]" value="1">';
 			echo '<input type="hidden" class="checkbox" name="attribute_variation[0]" value="1">';
 			echo '<input type="hidden" id="hidden_date" name="attribute_values[0]" value="">';
+
+			woocommerce_wp_select(
+				array(
+					'id'          => '_selec_date_type',
+					'label'       => __( 'Date Type', 'woocommerce-registrations' ),
+					'description' => __( 'Choose a date type to define.', 'woocommerce-registrations' ),
+					'value'       => $select_date,
+					'options' => array(
+						'one'   => __( 'Single Day', 'woocommerce-registrations' ),
+						'two'   => __( 'Range', 'woocommerce-registrations' ),
+						'three' => __( 'Multiple Days', 'woocommerce-registrations' )
+						)
+					)
+			);
 
             woocommerce_wp_text_input(
             	array(
