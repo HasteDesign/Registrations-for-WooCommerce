@@ -90,8 +90,13 @@ class WC_Registrations_Admin {
 			$script_params['isWCPre22']       = var_export( WC_Registrations::is_woocommerce_pre_2_2(), true );
 			$script_params['isWCPre23']       = var_export( WC_Registrations::is_woocommerce_pre_2_3(), true );
 
+			// WooCommerce Registrations Admin - admin.js
 			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . '/js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/admin.js' ) );
 			wp_localize_script( 'woocommerce_registrations_admin', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
+
+			// WooCommerce Registrations Ajax - wc-registration-ajax.js
+			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( WC_Registrations::$plugin_file ) . '/js/wc-registration-ajax.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/wc-registration-ajax.js' ) );
+			wp_localize_script( 'woocommerce_registrations_ajax', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 		}
 
 		// Maybe add the admin notice
@@ -113,7 +118,7 @@ class WC_Registrations_Admin {
 
 		if ( $is_woocommerce_screen || $is_activation_screen ) {
 			wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css', array(), WC_Registrations::$version );
-			wp_enqueue_style( 'woocommerce_subscriptions_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . 'css/admin.css', array( 'woocommerce_admin_styles' ), WC_Registrations::$version );
+			//wp_enqueue_style( 'woocommerce_subscriptions_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . 'css/admin.css', array( 'woocommerce_admin_styles' ), WC_Registrations::$version );
 		}
 
 	}
@@ -127,7 +132,7 @@ class WC_Registrations_Admin {
 	 */
 	public static function add_registrations_to_select( $product_types ){
 
-		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'woocommerce-course-products' );
+		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'woocommerce-registrations' );
 
 		return $product_types;
 	}
@@ -190,7 +195,7 @@ class WC_Registrations_Admin {
 			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
 			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
 			'type'        => 'date',
-		'value'       => get_post_meta( $variation->ID, '_event_start_date', true )
+			'value'       => get_post_meta( $variation->ID, '_event_start_date', true )
 			)
 		);
 
@@ -200,7 +205,7 @@ class WC_Registrations_Admin {
 			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
 			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
 			'type'        => 'date',
-		'value'       => get_post_meta( $variation->ID, '_event_start_date', true )
+			'value'       => get_post_meta( $variation->ID, '_event_start_date', true )
 			)
 		);
 
@@ -303,22 +308,29 @@ class WC_Registrations_Admin {
         $event_start_date = get_post_meta( $thepostid, '_event_start_date', true );
 
         if( empty( $event_start_date ) ) {
-            $event_start_date = ' ';
+            $event_start_date = '';
         }
 
         $event_end_date = get_post_meta( $thepostid, '_event_end_date', true );
 
         if( empty( $event_end_date ) ) {
-            $event_end_date = ' ';
+            $event_end_date = '';
         }
 
         echo '<div id="registration_dates" class="panel woocommerce_options_panel">';
             echo '<div class="options_group dates">';
 
+			echo '<input type="hidden" class="attribute_name" name="attribute_names[0]" value="Dates">';
+			echo '<input type="hidden" name="attribute_position[0]" class="attribute_position" value="0">';
+			echo '<input type="hidden" name="attribute_is_taxonomy[0]" value="0">';
+			echo '<input type="hidden" class="checkbox" checked="checked" name="attribute_visibility[0]" value="1">';
+			echo '<input type="hidden" class="checkbox" name="attribute_variation[0]" value="1">';
+			echo '<input type="hidden" id="hidden_date" name="attribute_values[0]" value="">';
+
             woocommerce_wp_text_input(
-                array(
+            	array(
         			'id'          => 'event_start_date',
-        			'class'       => 'wc_input_event_start_date',
+        			'class'       => 'wc_input_event_start_date event_date',
         			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
         			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
         			'type'        => 'date',
@@ -329,13 +341,17 @@ class WC_Registrations_Admin {
     		woocommerce_wp_text_input(
                 array(
         			'id'          => 'event_end_date',
-        			'class'       => 'wc_input_event_end_date',
+        			'class'       => 'wc_input_event_end_date event_date',
         			'label'       => __( 'Event End Date', 'woocommerce-registrations' ),
         			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
         			'type'        => 'date',
                     'value'       => $event_end_date
     			)
     		);
+
+			echo '<p class="toolbar">';
+			echo '<button type="button" class="button save_date_attributes">Salvar Datas</button>';
+			echo '</p>';
 
             echo '</div>';
         echo '</div>';

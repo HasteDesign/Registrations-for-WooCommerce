@@ -1,16 +1,7 @@
 jQuery(document).ready(function($){
-	console.log( WCRegistrations );
-
-	$('#_event_start_date').on( 'click', function() {
-		console.log( document.getElementById('_event_start_date').value );
-	});
-
 	$.extend({
 		showHideRegistrationMeta: function(){
 			if ( $('select#product-type').val() == 'registrations' ) {
-				//$('input#_downloadable').prop('checked', false);
-				//$('input#_virtual').removeAttr('checked');
-
 				$('.hide_if_virtual').show();
 
 				$('.show_if_variable').show();
@@ -22,13 +13,14 @@ jQuery(document).ready(function($){
 		}
 	});
 
+	// Grants correct fields display when product already saved as registration product
+	$.showHideRegistrationMeta();
+
 	// Show/Hide fields when product type changes
 	$('body').bind('woocommerce-product-type-change',function(){
 		$.showHideRegistrationMeta();
 	});
 
-	// Grants correct fields display when product already saved as registration product
-	$.showHideRegistrationMeta();
 	/*
 	$('.options_group.pricing ._sale_price_field .description').prepend('<span id="sale-price-period" style="display: none;"></span>');
 
@@ -46,6 +38,13 @@ jQuery(document).ready(function($){
 	$('#variable_product_options').on('woocommerce_variations_added',function(){
 		//$.moveSubscriptionVariationFields();
 		$.showHideRegistrationMeta();
+	});
+
+	// Add date values to hidden field
+	$('.event_date').on( 'change', function() {
+		var value = $('#hidden_date').val() + $(this).val() + '|';
+		$('#hidden_date').val( value );
+		console.log( $('.dates').children('input').serialize() );
 	});
 
 	/*
@@ -453,141 +452,141 @@ jQuery(document).ready(function($){
 	*/
 
 	/* Manage Subscriptions filters */
-	if( $('#subscriptions-filter select#dropdown_customers').length > 0 ) {
-		$('#subscriptions-filter select#dropdown_customers').css('width', '250px').ajaxChosen({
-			method: 		'GET',
-			url: 			WCSubscriptions.ajaxUrl,
-			dataType:      'json',
-			afterTypeDelay: 350,
-			minTermLength:  1,
-			data: {
-				action:   'woocommerce_json_search_customers',
-				security: WCSubscriptions.searchCustomersNonce,
-				default:  WCSubscriptions.searchCustomersLabel
-			}
-		}, function (data) {
-
-			var terms = {};
-
-			$.each(data, function (i, val) {
-				terms[i] = val;
-			});
-
-			return terms;
-		});
-	}
-
-	if( $('#subscriptions-filter select#dropdown_products_and_variations').length > 0 ) {
-		$('#subscriptions-filter select#dropdown_products_and_variations').ajaxChosen({
-			method: 	'GET',
-			url: 		WCSubscriptions.ajaxUrl,
-			dataType: 	'json',
-			afterTypeDelay: 350,
-			data: {
-				action:   'woocommerce_json_search_products_and_variations',
-				security: WCSubscriptions.searchProductsNonce
-			}
-		}, function (data) {
-
-			var terms = {};
-
-			$.each(data, function (i, val) {
-				terms[i] = val;
-			});
-
-			return terms;
-		});
-	}
+	// if( $('#subscriptions-filter select#dropdown_customers').length > 0 ) {
+	// 	$('#subscriptions-filter select#dropdown_customers').css('width', '250px').ajaxChosen({
+	// 		method: 		'GET',
+	// 		url: 			WCSubscriptions.ajaxUrl,
+	// 		dataType:      'json',
+	// 		afterTypeDelay: 350,
+	// 		minTermLength:  1,
+	// 		data: {
+	// 			action:   'woocommerce_json_search_customers',
+	// 			security: WCSubscriptions.searchCustomersNonce,
+	// 			default:  WCSubscriptions.searchCustomersLabel
+	// 		}
+	// 	}, function (data) {
+	//
+	// 		var terms = {};
+	//
+	// 		$.each(data, function (i, val) {
+	// 			terms[i] = val;
+	// 		});
+	//
+	// 		return terms;
+	// 	});
+	// }
+	//
+	// if( $('#subscriptions-filter select#dropdown_products_and_variations').length > 0 ) {
+	// 	$('#subscriptions-filter select#dropdown_products_and_variations').ajaxChosen({
+	// 		method: 	'GET',
+	// 		url: 		WCSubscriptions.ajaxUrl,
+	// 		dataType: 	'json',
+	// 		afterTypeDelay: 350,
+	// 		data: {
+	// 			action:   'woocommerce_json_search_products_and_variations',
+	// 			security: WCSubscriptions.searchProductsNonce
+	// 		}
+	// 	}, function (data) {
+	//
+	// 		var terms = {};
+	//
+	// 		$.each(data, function (i, val) {
+	// 			terms[i] = val;
+	// 		});
+	//
+	// 		return terms;
+	// 	});
+	// }
 
 	// WC >= 2.1 variation bulk edit handling
-	$(document).on('variable_subscription_sign_up_fee variable_subscription_period_interval variable_subscription_period variable_subscription_trial_period variable_subscription_trial_length variable_subscription_length', 'select#field_to_edit', function(event) {
-		var value;
-
-		switch( event.type ) {
-			case 'variable_subscription_period':
-			case 'variable_subscription_trial_period':
-				value = prompt( WCSubscriptions.bulkEditPeriodMessage );
-				break;
-			case 'variable_subscription_period_interval':
-				value = prompt( WCSubscriptions.bulkEditIntervalhMessage );
-				break;
-			case 'variable_subscription_trial_length':
-			case 'variable_subscription_length':
-				value = prompt( WCSubscriptions.bulkEditLengthMessage );
-				break;
-			default:
-				value = prompt( woocommerce_admin_meta_boxes_variations.i18n_enter_a_value );
-				break;
-		}
-
-		if (value) {
-			$( ':input[name^="' + event.type + '["]').val( value ).change();
-		}
-	});
+	// $(document).on('variable_subscription_sign_up_fee variable_subscription_period_interval variable_subscription_period variable_subscription_trial_period variable_subscription_trial_length variable_subscription_length', 'select#field_to_edit', function(event) {
+	// 	var value;
+	//
+	// 	switch( event.type ) {
+	// 		case 'variable_subscription_period':
+	// 		case 'variable_subscription_trial_period':
+	// 			value = prompt( WCSubscriptions.bulkEditPeriodMessage );
+	// 			break;
+	// 		case 'variable_subscription_period_interval':
+	// 			value = prompt( WCSubscriptions.bulkEditIntervalhMessage );
+	// 			break;
+	// 		case 'variable_subscription_trial_length':
+	// 		case 'variable_subscription_length':
+	// 			value = prompt( WCSubscriptions.bulkEditLengthMessage );
+	// 			break;
+	// 		default:
+	// 			value = prompt( woocommerce_admin_meta_boxes_variations.i18n_enter_a_value );
+	// 			break;
+	// 	}
+	//
+	// 	if (value) {
+	// 		$( ':input[name^="' + event.type + '["]').val( value ).change();
+	// 	}
+	// });
 
 	// We're on the Subscriptions settings page
-	if($('#woocommerce_subscriptions_allow_switching').length > 0 ){
-		var allowSwitching = $('#woocommerce_subscriptions_allow_switching').val(),
-			$switchSettingsRows = $('#woocommerce_subscriptions_allow_switching').parents('tr').siblings('tr'),
-			$syncProratationRow = $('#woocommerce_subscriptions_prorate_synced_payments').parents('tr'),
-			$suspensionExtensionRow = $('#woocommerce_subscriptions_recoup_suspension').parents('tr');
-
-		if('no'==allowSwitching){
-			$switchSettingsRows.hide();
-		}
-
-		$('#woocommerce_subscriptions_allow_switching').on('change',function(){
-			if('no'==$(this).val()){
-				$switchSettingsRows.children('td, th').animate({paddingTop:0, paddingBottom:0}).wrapInner('<div />').children().slideUp(function(){
-					$(this).closest('tr').hide();
-					$(this).replaceWith($(this).html());
-				});
-			} else if('no'==allowSwitching) { // switching was previously disable, so settings will be hidden
-				$switchSettingsRows.fadeIn();
-				$switchSettingsRows.children('td, th').css({paddingTop:0, paddingBottom:0}).animate({paddingTop:'15px', paddingBottom:'15px'}).wrapInner('<div style="display: none;"/>').children().slideDown(function(){
-					$switchSettingsRows.children('td, th').removeAttr('style');
-					$(this).replaceWith($(this).html());
-				});
-			}
-			allowSwitching = $(this).val();
-		});
-
-
-		// Show/hide suspension extension setting
-		if ($('#woocommerce_subscriptions_max_customer_suspensions').val() > 0) {
-			$suspensionExtensionRow.show();
-		} else {
-			$suspensionExtensionRow.hide();
-		}
-
-		$('#woocommerce_subscriptions_max_customer_suspensions').on('change', function(){
-			if ($(this).val() > 0) {
-				$suspensionExtensionRow.show();
-			} else {
-				$suspensionExtensionRow.hide();
-			}
-		});
-
-		// Show/hide sync proration setting
-		if ($('#woocommerce_subscriptions_sync_payments').is(':checked')) {
-			$syncProratationRow.show();
-		} else {
-			$syncProratationRow.hide();
-		}
-
-		$('#woocommerce_subscriptions_sync_payments').on('change', function(){
-			if ($(this).is(':checked')) {
-				$syncProratationRow.show();
-			} else {
-				$syncProratationRow.hide();
-			}
-		});
-	}
+	// if($('#woocommerce_subscriptions_allow_switching').length > 0 ){
+	// 	var allowSwitching = $('#woocommerce_subscriptions_allow_switching').val(),
+	// 		$switchSettingsRows = $('#woocommerce_subscriptions_allow_switching').parents('tr').siblings('tr'),
+	// 		$syncProratationRow = $('#woocommerce_subscriptions_prorate_synced_payments').parents('tr'),
+	// 		$suspensionExtensionRow = $('#woocommerce_subscriptions_recoup_suspension').parents('tr');
+	//
+	// 	if('no'==allowSwitching){
+	// 		$switchSettingsRows.hide();
+	// 	}
+	//
+	// 	$('#woocommerce_subscriptions_allow_switching').on('change',function(){
+	// 		if('no'==$(this).val()){
+	// 			$switchSettingsRows.children('td, th').animate({paddingTop:0, paddingBottom:0}).wrapInner('<div />').children().slideUp(function(){
+	// 				$(this).closest('tr').hide();
+	// 				$(this).replaceWith($(this).html());
+	// 			});
+	// 		} else if('no'==allowSwitching) { // switching was previously disable, so settings will be hidden
+	// 			$switchSettingsRows.fadeIn();
+	// 			$switchSettingsRows.children('td, th').css({paddingTop:0, paddingBottom:0}).animate({paddingTop:'15px', paddingBottom:'15px'}).wrapInner('<div style="display: none;"/>').children().slideDown(function(){
+	// 				$switchSettingsRows.children('td, th').removeAttr('style');
+	// 				$(this).replaceWith($(this).html());
+	// 			});
+	// 		}
+	// 		allowSwitching = $(this).val();
+	// 	});
+	//
+	//
+	// 	// Show/hide suspension extension setting
+	// 	if ($('#woocommerce_subscriptions_max_customer_suspensions').val() > 0) {
+	// 		$suspensionExtensionRow.show();
+	// 	} else {
+	// 		$suspensionExtensionRow.hide();
+	// 	}
+	//
+	// 	$('#woocommerce_subscriptions_max_customer_suspensions').on('change', function(){
+	// 		if ($(this).val() > 0) {
+	// 			$suspensionExtensionRow.show();
+	// 		} else {
+	// 			$suspensionExtensionRow.hide();
+	// 		}
+	// 	});
+	//
+	// 	// Show/hide sync proration setting
+	// 	if ($('#woocommerce_subscriptions_sync_payments').is(':checked')) {
+	// 		$syncProratationRow.show();
+	// 	} else {
+	// 		$syncProratationRow.hide();
+	// 	}
+	//
+	// 	$('#woocommerce_subscriptions_sync_payments').on('change', function(){
+	// 		if ($(this).is(':checked')) {
+	// 			$syncProratationRow.show();
+	// 		} else {
+	// 			$syncProratationRow.hide();
+	// 		}
+	// 	});
+	// }
 
 	// Don't display the variation notice for variable subscription products
-	$( 'body' ).on( 'woocommerce-display-product-type-alert', function(e, select_val) {
-		if (select_val=='variable-subscription') {
-			return false;
-		}
-	});
+	// $( 'body' ).on( 'woocommerce-display-product-type-alert', function(e, select_val) {
+	// 	if (select_val=='variable-subscription') {
+	// 		return false;
+	// 	}
+	// });
 });
