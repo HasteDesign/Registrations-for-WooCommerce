@@ -442,7 +442,7 @@ msgstr "Parece que o arquivo <code>wp-config.php</code> não existe. Preciso des
 msgid "Links for %s"
 msgstr "Links para %s"
 
-#: wp-includes/wp-db.php:2990
+#: wp-includes/wp-db.php:2977
 msgid "<strong>ERROR</strong>: WordPress %1$s requires MySQL %2$s or higher"
 msgstr "<strong>ERRO</strong>: o WordPress %1$s requer MySQL %2$s ou superior"
 
@@ -4128,33 +4128,33 @@ msgid "ERROR: This is not a valid feed template."
 msgstr "ERRO: Este não é um modelo de feed válido."
 
 #. translators: used to join items in a list with only 2 items
-#: wp-includes/formatting.php:3690
+#: wp-includes/formatting.php:3798
 msgid "%s and %s"
 msgstr "%s e %s"
 
 #. translators: used to join last two items in a list with more than 2 times
-#: wp-includes/formatting.php:3688
+#: wp-includes/formatting.php:3796
 msgid "%s, and %s"
 msgstr "%s e %s"
 
 #. translators: used to join items in a list with more than 2 items
-#: wp-includes/formatting.php:3686
+#: wp-includes/formatting.php:3794
 msgid "%s, %s"
 msgstr "%s, %s"
 
-#: wp-includes/formatting.php:3487
+#: wp-includes/formatting.php:3580
 msgid "The timezone you have entered is not valid. Please select a valid timezone."
 msgstr "O fuso horário que você digitou não é válido. Selecione um fuso horário válido."
 
-#: wp-includes/formatting.php:3440
+#: wp-includes/formatting.php:3525
 msgid "The Site address you entered did not appear to be a valid URL. Please enter a valid URL."
 msgstr "Aparentemente, o endereço de site que você digitou não é um URL válido. Digite um URL válido."
 
-#: wp-includes/formatting.php:3429
+#: wp-includes/formatting.php:3512
 msgid "The WordPress address you entered did not appear to be a valid URL. Please enter a valid URL."
 msgstr "Aparentemente, o endereço do WordPress que você digitou não é um URL válido. Digite um URL válido."
 
-#: wp-includes/formatting.php:3339
+#: wp-includes/formatting.php:3412
 msgid "The email address entered did not appear to be a valid email address. Please enter a valid email address."
 msgstr "O endereço de email inserido não parece ser um endereço de email válido. Digite um endereço de email válido."
 
@@ -4164,47 +4164,47 @@ msgstr "O endereço de email inserido não parece ser um endereço de email vál
 #. translators: If your word count is based on single characters (East Asian
 #. characters), 		   enter 'characters'. Otherwise, enter 'words'. Do not
 #. translate into your own language.
-#: wp-includes/formatting.php:2667 wp-includes/script-loader.php:379
+#: wp-includes/formatting.php:2738 wp-includes/script-loader.php:379
 msgctxt "word count: words or characters?"
 msgid "words"
 msgstr "words"
 
-#: wp-includes/formatting.php:2662 wp-includes/general-template.php:2721
+#: wp-includes/formatting.php:2733 wp-includes/general-template.php:2721
 msgid "&hellip;"
 msgstr "&hellip;"
 
-#: wp-includes/formatting.php:2575
+#: wp-includes/formatting.php:2646
 msgid "%s year"
 msgid_plural "%s years"
 msgstr[0] "%s ano"
 msgstr[1] "%s anos"
 
-#: wp-includes/formatting.php:2570
+#: wp-includes/formatting.php:2641
 msgid "%s month"
 msgid_plural "%s months"
 msgstr[0] "%s mês"
 msgstr[1] "%s meses"
 
-#: wp-includes/formatting.php:2565
+#: wp-includes/formatting.php:2636
 msgid "%s week"
 msgid_plural "%s weeks"
 msgstr[0] "%s semana"
 msgstr[1] "%s semanas"
 
-#: wp-includes/formatting.php:2560
+#: wp-includes/formatting.php:2631
 msgid "%s day"
 msgid_plural "%s days"
 msgstr[0] "%s dia"
 msgstr[1] "%s dias"
 
-#: wp-includes/formatting.php:2555
+#: wp-includes/formatting.php:2626
 msgid "%s hour"
 msgid_plural "%s hours"
 msgstr[0] "%s hora"
 msgstr[1] "%s horas"
 
 #. translators: min=minute
-#: wp-includes/formatting.php:2550
+#: wp-includes/formatting.php:2621
 msgid "%s min"
 msgid_plural "%s mins"
 msgstr[0] "%s minuto"
@@ -4259,7 +4259,7 @@ msgid "&#8221;"
 msgstr "&#8221;"
 
 #. translators: opening curly double quote
-#: wp-includes/formatting.php:62 wp-includes/formatting.php:3927
+#: wp-includes/formatting.php:62 wp-includes/formatting.php:4035
 msgctxt "opening curly double quote"
 msgid "&#8220;"
 msgstr "&#8220;"
