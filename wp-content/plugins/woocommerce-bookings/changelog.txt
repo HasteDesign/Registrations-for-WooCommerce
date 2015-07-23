@@ -1,0 +1,154 @@
+*** WooCommerce Bookings Changelog ***
+
+2014.10.16 - version 1.4.9
+* More fixes for december.
+
+2014.10.14 - version 1.4.8
+* Fix - ParseInt octal integers.
+* Fix - Correctly show bookings on the calendar in december.
+
+2014.10.01 - version 1.4.7
+* Fix - Ensure time: rules get mapped to a day.
+* Fix - Only cancel orders if the order has 1 booking inside.
+* Tweak - Hide person type from cart is qty is 0.
+
+2014.08.26 - version 1.4.6
+* Feature - Customer Sync Across Booking and Order.
+* Fix - Allow booking forms to function independently when multiple are shown on the same page.
+* Fix - wc_booking_sanitize_time function to make time saving more reliable across browsers.
+* Fix - Modify "Improved range rule handling. Only enable days when hours are defined if no other day based rules are present" to ignore global rules.
+* Fix - Last day when booking hours and have set a day based max date.
+* Tweak - Use Minimum duration when getting base cost/from cost.
+
+2014.08.15 - version 1.4.5
+* Fix - Fix error in create_wc_booking.
+
+2014.08.12 - version 1.4.4
+* Feature - Send an email to the user for cancelled bookings.
+* Feature - Improved range rule handling. Only enable days when hours are defined if no other day based rules are present.
+* Fix - Improved admin messages after editing bookings.
+* Fix - Set from price based on 'min' value for person types.
+* Fix - Make bookings emails function when no order ID is set.
+* Fix - Notices when creating a booking without an order.
+* Tweak - Use get_base_cost() to set the _price meta for a bookable product.
+* WC 2.2 Compatibility.
+
+2014.07.28 - version 1.4.3
+* Fix - Auto assigned resources didn't pull the rules from all resources.
+* Fix - Resources with times, but no times on product, didn't show blocks.
+* Fix - Hide costs when form changes.
+* Fix - When hour/minute blocks, ensure block costs are increased for each block (not just 1)
+* Fix - Tweaked divide/multiply logic for block costs.
+* Fix - Corrrectly link custom to manually created booking.
+* Fix - Resources/persons stay when switched to simple product.
+* Fix - Error when booking product is not set when syncing to google.
+* Tweak - Add resource button text.
+* Tweak - Per additonal block text.
+* Tweak - Link to booking in admin in notification.
+
+2014.07.01 - version 1.4.2
+* Fix - Stop all day bookings form taking up next day.
+* Fix - Allow same day/month booking.
+* Fix - End date availability check for customer defined blocks.
+* Tweak - Show disabled book now button rather than keep it hidden.
+
+2014.06.26 - version 1.4.1
+* Feature - Option to 'create booking' and add it to an existing order.
+* Fix - Resource issue which would make entire day fully booked.
+* Fix - Removed duplicate Max bookings per block field.
+* Fix - Range of weeks/months costs.
+* Fix - Changes to day/month/week/custom cost rules. Rather than break out at first match and multiply by duration, handle each matching rule independently and run through all rules. This allows, for example, a different cost for a different day without affecting other booked days.
+* Fix - Set _price so things like price filters work.
+* Fix - If there are no costs/additonal costs, label as free.
+* Fix - Weeks display on booking form when greater than 7 days.
+
+2014.06.18 - version 1.4.0
+* Feature - Global resources. Resources can be shared between products and have their own availability settings.
+* Feature - WP_LANG_DIR support for localisations.
+* Fix - complete_order should return 'completed' status, not 'complete'.
+* Fix - start and end date display in certain emails.
+* Fix - Correctly set 'has_additional_costs' when saving products.
+
+2014.06.17 - version 1.3.4
+* Fix - When getting blocks, ensure no blocks are returned over the end time. Corrects issues with automatically assigned resources.
+* Fix - Don't hide tax settings.
+* Fix - Link bookings in day view to booking.
+* Fix - When outputting available time blocks, base interval should be used.
+* Fix - Show first available date on calendar rather than showing the current date.
+
+2014.06.10 - version 1.3.3
+* Feature - Option to keep calendar visible.
+* Fix - Ensure global availability rules run in the correct order when getting available blocks.
+* Fix - Make calendar update when changing the date input boxes manually on the datepicker.
+* Fix - Validate min and max date when dealing with time slots.
+
+2014.06.06 - version 1.3.2
+* Feature - Allow blocks to start at un-uniform times.
+* Fix - When setting times on a day, make that day available on date picker.
+* Fix - Show a different blocks available message for hour and minute blocks.
+* Fix - Hide unavailable times automatically when using customer defined blocks.
+* Tweak - Adjusted calendar styling and made it display other months.
+
+2014.05.29 - version 1.3.1
+* Fix - Error when resources are automatically assigned.
+* Fix - Add classes to year/month/day fields so they can be re-arranged.
+* Fix - When checking for fully booked days (date time), check if there are blocks left on the current day.
+* Tweak - When showing 7 days (or any number divisible by 7), show 'weeks' for the label.
+
+2014.05.27 - version 1.3.0
+* Feature - Google Calendar integration.
+* Feature - Ability to define block as well as base cost rules.
+* Feature - Link to booking from order page, and back again from booking page.
+* Feature - Get blocks (on a date) via ajax so only available blocks get displayed.
+* Feature - Avaialability can be defined by day.
+* Dev - Wrap booking get_price_html in standard woocommerce_get_price_html filter.
+* Fix - Store booking times in YmdHis format which is more WP friendly and avoid MySQL timezone abnormalities.
+* Fix - Date picker availability when durations are days/minutes.
+* Fix - Fix last week of the month in calendar view.
+* Fix - Booking heights in calendar view.
+* Fix - Fix min date bookable logic.
+* Fix - Prevent booking of dates/times in the past. Sorry timetravellers.
+
+2014.05.19 - version 1.2.3
+* Fix - Backend saving of product ID.
+* Fix - Base cost to include min person type cost.
+* Fix - Custom get_price method for wider plugin compatibility
+
+2014.05.14 - version 1.2.2
+* Feature - Option to attach .ics file from "send notification" form.
+* Tweak - Added WordPress time format option in datetime picker.
+* Tweak - Changed some labels in admin.
+* Fix - Automatically assigned resources.
+* Fix - Ensure save_product_data only triggers for bookings.
+* Fix - Minute checks when duration is customer defined.
+
+2014.05.13 - version 1.2.1
+* Fix - addon block multiplyer.
+* Fix - time rules near midnight.
+* Fix - Empty regular/sale prices on save.
+* Fix - Notices when creating a booking without an order.
+* Fix - MySQL datetime search was ignoring 24 hour time formats.
+
+2014.05.09 - version 1.2.0
+* Feature - Attach .ics calendar files to confirmed and reminder emails for customers.
+* Tweak - manage_bookings capability for admin pages.
+* Fix - persons display in emails.
+* Fix - When getting blocks for times, don't check the day.
+* Fix - More robust time checking in check_availability_rules_against_time().
+* Fix - For customer defined blocks, ensure the total duration is shown after making a booking.
+* Fix - Ensure cost rules check all days being booked.
+* Fix - Price display after adding booking to cart.
+
+2014.05.08 - version 1.1.0
+* Feature - For the booking form and bookable produce, respect shop tax display settings.
+* Feature - Added option to check only the first block against availability rules.
+* Fix - date-picker.js so each day being checked for availability uses default setting.
+* Fix - Handle hours when getting max Date.
+* Fix - get_bookings_in_date_range() by using 24 hour time format.
+* Localisation - Included POT file.
+* Localisation - sv_SE translation (Thanks Patricio).
+* Dev - Hooks for integration with other plugins.
+* Dev - Added a woocommerce_booking_get_availability_rules filter for modifiying rules per product programatically.
+
+2014.05.06 - version 1.0.0
+ * First Release.

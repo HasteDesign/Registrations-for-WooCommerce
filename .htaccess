@@ -2,11 +2,11 @@
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /Workspace/side/woocommerce-registrations/
+RewriteBase /Workspace/side/woo-registrations/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /Workspace/side/woocommerce-registrations/index.php [L]
+RewriteRule . /Workspace/side/woo-registrations/index.php [L]
 </IfModule>
 
 # END WordPress

@@ -1,0 +1,2035 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Bookings v1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-05-07 18:56:38+0000\n"
+"Last-Translator: crealevant <info@crealevant.co.uk>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: includes/admin/class-wc-bookings-admin.php:93
+#: includes/admin/class-wc-bookings-admin.php:421
+#, php-format
+#@ woocommerce-bookings
+msgid "Resource #%d"
+msgstr "Resurs #%d"
+
+#: includes/admin/class-wc-bookings-admin.php:137
+#: includes/admin/class-wc-bookings-admin.php:455
+#, php-format
+#@ woocommerce-bookings
+msgid "Person Type #%d"
+msgstr "Persontyp #%d"
+
+#: includes/admin/class-wc-bookings-admin.php:186
+#@ woocommerce-bookings
+msgid "Bookable product"
+msgstr "Bokningsbarprodukt"
+
+#: includes/admin/class-wc-bookings-admin.php:240
+#@ woocommerce-bookings
+msgid "Are you sure you want to remove this person type?"
+msgstr "Säker att du vill radera persontypen?"
+
+#: includes/admin/class-wc-bookings-admin.php:244
+#@ woocommerce-bookings
+msgid "Are you sure you want to remove this resource?"
+msgstr "Säker att du vill radera denna resurs?"
+
+#: includes/admin/class-wc-bookings-admin.php:485
+#@ woocommerce-bookings
+msgid "Has persons"
+msgstr "Har personer"
+
+#: includes/admin/class-wc-bookings-admin.php:486
+#@ woocommerce-bookings
+msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
+msgstr "Aktivera detta om produkten kan bokas av en kunds definierat antal personer."
+
+#: includes/admin/class-wc-bookings-admin.php:492
+#@ woocommerce-bookings
+msgid "Has resources"
+msgstr "Har resurser"
+
+#: includes/admin/class-wc-bookings-admin.php:493
+#@ woocommerce-bookings
+msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
+msgstr "Aktivera detta om produkten har flera bokningsbara resurser, exempelvis rumstyper eller instruktörer."
+
+#: includes/admin/class-wc-bookings-ajax.php:26
+#@ woocommerce-bookings
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Du har inte tillräcklig behörighet för att komma åt denna sida."
+
+#: includes/admin/class-wc-bookings-ajax.php:29
+#@ woocommerce-bookings
+msgid "You have taken too long. Please go back and retry."
+msgstr "Du har tagit för lång tid. Gå tillbaka och försök igen."
+
+#: includes/admin/class-wc-bookings-ajax.php:62
+#@ woocommerce-bookings
+msgid "This booking is unavailable."
+msgstr "Denna bokning är inte tillgänglig."
+
+#: includes/admin/class-wc-bookings-ajax.php:78
+#: includes/admin/views/html-booking-pricing.php:9
+#@ woocommerce-bookings
+msgid "Booking cost"
+msgstr "Bokningskostnad"
+
+#: includes/admin/class-wc-bookings-ajax.php:110
+#: includes/admin/class-wc-bookings-details-meta-box.php:32
+#@ woocommerce-bookings
+msgctxt "hash before order number"
+msgid "#"
+msgstr "#"
+
+#: includes/admin/class-wc-bookings-calendar.php:82
+#: includes/admin/class-wc-bookings-calendar.php:184
+#@ woocommerce-bookings
+msgid "Booked by"
+msgstr "Bokad av"
+
+#: includes/admin/class-wc-bookings-calendar.php:86
+#@ woocommerce-bookings
+msgid "All Day"
+msgstr "Hela dagen"
+
+#: includes/admin/class-wc-bookings-calendar.php:91
+#: includes/admin/class-wc-bookings-calendar.php:187
+#@ woocommerce-bookings
+msgid "Resource #"
+msgstr "Resurs #"
+
+#: includes/admin/class-wc-bookings-cpt.php:84
+#@ woocommerce-bookings
+msgid "Confirm bookings"
+msgstr "Bekräfta bokningar"
+
+#: includes/admin/class-wc-bookings-cpt.php:86
+#@ woocommerce-bookings
+msgid "Unconfirm bookings"
+msgstr "Avboka"
+
+#: includes/admin/class-wc-bookings-cpt.php:88
+#@ woocommerce-bookings
+msgid "Cancel bookings"
+msgstr "Avbryt bokning"
+
+#: includes/admin/class-wc-bookings-cpt.php:90
+#@ woocommerce-bookings
+msgid "Mark bookings as paid"
+msgstr "Markera bokningar som betalda"
+
+#: includes/admin/class-wc-bookings-cpt.php:92
+#@ woocommerce-bookings
+msgid "Mark bookings as unpaid"
+msgstr "Markera bokningar som obetalda"
+
+#: includes/admin/class-wc-bookings-cpt.php:166
+#, php-format
+#@ default
+msgid "Booking status changed."
+msgid_plural "%s booking statuses changed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-wc-bookings-cpt.php:180
+#@ woocommerce-bookings
+msgid "Booking Title"
+msgstr "Bookingstitel"
+
+#: includes/admin/class-wc-bookings-cpt.php:199
+#: templates/myaccount/my-bookings.php:20
+#@ woocommerce-bookings
+msgid "Status"
+msgstr "Status"
+
+#: includes/admin/class-wc-bookings-cpt.php:200
+#: templates/myaccount/my-bookings.php:15
+#@ woocommerce-bookings
+msgid "ID"
+msgstr "ID"
+
+#: includes/admin/class-wc-bookings-cpt.php:201
+#: includes/admin/class-wc-bookings-details-meta-box.php:149
+#: templates/emails/admin-new-booking.php:17
+#: templates/emails/customer-booking-confirmed.php:21
+#: templates/emails/customer-booking-notification.php:14
+#: templates/emails/customer-booking-reminder.php:16
+#@ woocommerce-bookings
+msgid "Booked Product"
+msgstr "Bokad produkt"
+
+#: includes/admin/class-wc-bookings-cpt.php:202
+#@ woocommerce-bookings
+msgid "Booked By"
+msgstr "Bokad av"
+
+#: includes/admin/class-wc-bookings-cpt.php:203
+#: templates/myaccount/my-bookings.php:17
+#@ woocommerce-bookings
+msgid "Order"
+msgstr "Order"
+
+#: includes/admin/class-wc-bookings-cpt.php:204
+#: templates/myaccount/my-bookings.php:18
+#@ woocommerce-bookings
+msgid "Start Date"
+msgstr "Startdatum"
+
+#: includes/admin/class-wc-bookings-cpt.php:205
+#: templates/myaccount/my-bookings.php:19
+#@ woocommerce-bookings
+msgid "End Date"
+msgstr "Slutdatum"
+
+#: includes/admin/class-wc-bookings-cpt.php:206
+#@ woocommerce-bookings
+msgid "Actions"
+msgstr "Åtgärder"
+
+#: includes/admin/class-wc-bookings-cpt.php:247
+#, php-format
+#@ woocommerce-bookings
+msgid "Booking #%d"
+msgstr "Bokning #%d"
+
+#: includes/admin/class-wc-bookings-cpt.php:288
+#@ woocommerce-bookings
+msgid "View"
+msgstr "Vy"
+
+#: includes/admin/class-wc-bookings-cpt.php:295
+#@ woocommerce-bookings
+msgid "Confirm"
+msgstr "Bekräfta"
+
+#: includes/admin/class-wc-bookings-cpt.php:403
+#@ woocommerce-bookings
+msgid "All Bookable Products"
+msgstr "Alla bokade produkter"
+
+#: includes/admin/class-wc-bookings-create.php:21
+#@ woocommerce-bookings
+msgid "Error - please try again"
+msgstr "Fel - försök igen"
+
+#: includes/admin/class-wc-bookings-create.php:30
+#@ woocommerce-bookings
+msgid "Please choose a bookable product"
+msgstr "Välj en bokningsbar produkt"
+
+#: includes/admin/class-wc-bookings-create.php:62
+#@ woocommerce-bookings
+msgid "Error: Could not create order"
+msgstr "Fel: Det gick inte att skapa ordern"
+
+#: includes/admin/class-wc-bookings-create.php:70
+#@ woocommerce-bookings
+msgid "Error: Could not create item"
+msgstr "Fel: Kunde inte skapa objektet"
+
+#: includes/admin/class-wc-bookings-create.php:123
+#, php-format
+#@ woocommerce-bookings
+msgid "Order &ndash; %s"
+msgstr "Order &ndash; %s"
+
+#: includes/admin/class-wc-bookings-create.php:123
+#, php-format
+#@ woocommerce-bookings
+msgctxt "Order date parsed by strftime"
+msgid "%b %d, %Y @ %I:%M %p"
+msgstr "%b %d, %Y @ %I:%M %p"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:15
+#@ woocommerce-bookings
+msgid "Booking details"
+msgstr "Bokningsdetaljer"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:41
+#@ woocommerce-bookings
+msgid "Booking Details"
+msgstr "Bokningsdetaljer"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:44
+#@ woocommerce-bookings
+msgid "Booking number"
+msgstr "Bokningsnummer"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:51
+#@ woocommerce-bookings
+msgid "General Details"
+msgstr "Allmänna detaljer"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:54
+#@ woocommerce-bookings
+msgid "Order ID:"
+msgstr "Order ID:"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:55
+#@ woocommerce-bookings
+msgid "Select an order&hellip;"
+msgstr "Välj en order&hellip;"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:64
+#@ woocommerce-bookings
+msgid "Date created:"
+msgstr "Datum skapad:"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:65
+#@ woocommerce-bookings
+msgid "h"
+msgstr "t"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:65
+#@ woocommerce-bookings
+msgid "m"
+msgstr "m"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:70
+#@ woocommerce-bookings
+msgid "unpaid"
+msgstr "obetald"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:71
+#@ woocommerce-bookings
+msgid "pending"
+msgstr "avaktande"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:72
+#@ woocommerce-bookings
+msgid "confirmed"
+msgstr "bekräftad"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:73
+#@ woocommerce-bookings
+msgid "paid"
+msgstr "betalt"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:74
+#@ woocommerce-bookings
+msgid "cancelled"
+msgstr "avbruten"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:75
+#@ woocommerce-bookings
+msgid "complete"
+msgstr "klar"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:80
+#@ woocommerce-bookings
+msgid "Booking Status:"
+msgstr "Bokning status:"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:91
+#@ woocommerce-bookings
+msgid "Customer:"
+msgstr "Kund:"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:93
+#: includes/admin/views/html-create-booking-page.php:19
+#@ woocommerce-bookings
+msgid "Guest"
+msgstr "Gäst"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:108
+#@ woocommerce-bookings
+msgid "Booking Specification"
+msgstr "Bokning specifikation"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:112
+#@ woocommerce-bookings
+msgid "N/A"
+msgstr "N/A"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:151
+#@ woocommerce-bookings
+msgid "Parent Booking ID"
+msgstr "Förälder boknings ID"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:158
+#: includes/wc-bookings-functions.php:28
+#@ woocommerce-bookings
+msgid "Person(s)"
+msgstr "Person(er)"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:168
+#@ woocommerce-bookings
+msgid "Booking Date/Time"
+msgstr "Bokning Datum/Tid"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:172
+#@ woocommerce-bookings
+msgid "Start date"
+msgstr "Startdatum"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:174
+#@ woocommerce-bookings
+msgid "End date"
+msgstr "Slutdatum"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:176
+#@ woocommerce-bookings
+msgid "All day"
+msgstr "Hela dagen"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:176
+#@ woocommerce-bookings
+msgid "Check this box if the booking is for all day."
+msgstr "Markera denna ruta om bokningen är för hela dagen."
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:178
+#@ woocommerce-bookings
+msgid "Start time"
+msgstr "Starttid"
+
+#: includes/admin/class-wc-bookings-details-meta-box.php:180
+#@ woocommerce-bookings
+msgid "End time"
+msgstr "Sluttid"
+
+#: includes/admin/class-wc-bookings-menus.php:68
+#: includes/admin/views/html-create-booking-page-2.php:4
+#: includes/admin/views/html-create-booking-page-2.php:25
+#: includes/admin/views/html-create-booking-page.php:4
+#@ woocommerce-bookings
+msgid "Create Booking"
+msgstr "Skapa bokning"
+
+#: includes/admin/class-wc-bookings-menus.php:69
+#@ woocommerce-bookings
+msgid "Calendar"
+msgstr "Kalender"
+
+#: includes/admin/class-wc-bookings-menus.php:70
+#: includes/admin/views/html-notifications-page.php:3
+#: includes/admin/views/html-notifications-page.php:43
+#@ woocommerce-bookings
+msgid "Send Notification"
+msgstr "Skicka meddelande"
+
+#: includes/admin/class-wc-bookings-menus.php:71
+#@ woocommerce-bookings
+msgid "WC Bookings Settings"
+msgstr "Bokings inställningar"
+
+#: includes/admin/class-wc-bookings-menus.php:71
+#: includes/class-wc-bookings-gateway.php:29
+#@ woocommerce-bookings
+#@ woocommerce
+msgid "Settings"
+msgstr "Inställningar"
+
+#: includes/admin/class-wc-bookings-menus.php:125
+#@ woocommerce-bookings
+msgid "Please choose a product"
+msgstr "Välj en produkt"
+
+#: includes/admin/class-wc-bookings-menus.php:128
+#@ woocommerce-bookings
+msgid "Please enter a message"
+msgstr "Knappa in ett meddelande"
+
+#: includes/admin/class-wc-bookings-menus.php:131
+#@ woocommerce-bookings
+msgid "Please enter a subject"
+msgstr "Ange ett ämne"
+
+#: includes/admin/class-wc-bookings-menus.php:141
+#@ woocommerce-bookings
+msgid "Notification sent successfully"
+msgstr "Meddelande lyckades"
+
+#: includes/admin/class-wc-bookings-menus.php:192
+#@ woocommerce-bookings
+msgid "Settings saved"
+msgstr "Inställningar sparades"
+
+#: includes/admin/class-wc-bookings-save-meta-box.php:15
+#: includes/admin/class-wc-bookings-save-meta-box.php:27
+#@ woocommerce-bookings
+msgid "Save Booking"
+msgstr "Spara bokning"
+
+#: includes/admin/class-wc-bookings-save-meta-box.php:27
+#@ woocommerce-bookings
+msgid "Save/update the booking"
+msgstr "Spara / uppdatera bokning"
+
+#: includes/admin/views/html-booking-availability-fields.php:5
+#: includes/admin/views/html-booking-pricing-fields.php:5
+#@ woocommerce-bookings
+msgid "January"
+msgstr "Januari"
+
+#: includes/admin/views/html-booking-availability-fields.php:6
+#: includes/admin/views/html-booking-pricing-fields.php:6
+#@ woocommerce-bookings
+msgid "Febuary"
+msgstr "Februari"
+
+#: includes/admin/views/html-booking-availability-fields.php:7
+#: includes/admin/views/html-booking-pricing-fields.php:7
+#@ woocommerce-bookings
+msgid "March"
+msgstr "Mars"
+
+#: includes/admin/views/html-booking-availability-fields.php:8
+#: includes/admin/views/html-booking-pricing-fields.php:8
+#@ woocommerce-bookings
+msgid "April"
+msgstr "April"
+
+#: includes/admin/views/html-booking-availability-fields.php:9
+#: includes/admin/views/html-booking-pricing-fields.php:9
+#@ woocommerce-bookings
+msgid "May"
+msgstr "Maj"
+
+#: includes/admin/views/html-booking-availability-fields.php:10
+#: includes/admin/views/html-booking-pricing-fields.php:10
+#@ woocommerce-bookings
+msgid "June"
+msgstr "Juni"
+
+#: includes/admin/views/html-booking-availability-fields.php:11
+#: includes/admin/views/html-booking-pricing-fields.php:11
+#@ woocommerce-bookings
+msgid "July"
+msgstr "Juli"
+
+#: includes/admin/views/html-booking-availability-fields.php:12
+#: includes/admin/views/html-booking-pricing-fields.php:12
+#@ woocommerce-bookings
+msgid "August"
+msgstr "Augusti"
+
+#: includes/admin/views/html-booking-availability-fields.php:13
+#: includes/admin/views/html-booking-pricing-fields.php:13
+#@ woocommerce-bookings
+msgid "September"
+msgstr "September"
+
+#: includes/admin/views/html-booking-availability-fields.php:14
+#: includes/admin/views/html-booking-pricing-fields.php:14
+#@ woocommerce-bookings
+msgid "October"
+msgstr "Oktober"
+
+#: includes/admin/views/html-booking-availability-fields.php:15
+#: includes/admin/views/html-booking-pricing-fields.php:15
+#@ woocommerce-bookings
+msgid "November"
+msgstr "November"
+
+#: includes/admin/views/html-booking-availability-fields.php:16
+#: includes/admin/views/html-booking-pricing-fields.php:16
+#@ woocommerce-bookings
+msgid "December"
+msgstr "December"
+
+#: includes/admin/views/html-booking-availability-fields.php:20
+#: includes/admin/views/html-booking-pricing-fields.php:20
+#@ woocommerce-bookings
+msgid "Monday"
+msgstr "Måndag"
+
+#: includes/admin/views/html-booking-availability-fields.php:21
+#: includes/admin/views/html-booking-pricing-fields.php:21
+#@ woocommerce-bookings
+msgid "Tuesday"
+msgstr "Tisdag"
+
+#: includes/admin/views/html-booking-availability-fields.php:22
+#: includes/admin/views/html-booking-pricing-fields.php:22
+#@ woocommerce-bookings
+msgid "Wednesday"
+msgstr "Onsdag"
+
+#: includes/admin/views/html-booking-availability-fields.php:23
+#: includes/admin/views/html-booking-pricing-fields.php:23
+#@ woocommerce-bookings
+msgid "Thursday"
+msgstr "Torsdag"
+
+#: includes/admin/views/html-booking-availability-fields.php:24
+#: includes/admin/views/html-booking-pricing-fields.php:24
+#@ woocommerce-bookings
+msgid "Friday"
+msgstr "Fredag"
+
+#: includes/admin/views/html-booking-availability-fields.php:25
+#: includes/admin/views/html-booking-pricing-fields.php:25
+#@ woocommerce-bookings
+msgid "Saturday"
+msgstr "Lördag"
+
+#: includes/admin/views/html-booking-availability-fields.php:26
+#: includes/admin/views/html-booking-pricing-fields.php:26
+#@ woocommerce-bookings
+msgid "Sunday"
+msgstr "Söndag"
+
+#: includes/admin/views/html-booking-availability-fields.php:30
+#: includes/admin/views/html-booking-pricing-fields.php:30
+#, php-format
+#@ default
+msgid "Week %s"
+msgstr "Veckor %s"
+
+#: includes/admin/views/html-booking-availability-fields.php:40
+#: includes/admin/views/html-booking-pricing-fields.php:42
+#@ woocommerce-bookings
+msgid "Custom date range"
+msgstr "Anpassad datumintervall"
+
+#: includes/admin/views/html-booking-availability-fields.php:41
+#: includes/admin/views/html-booking-pricing-fields.php:43
+#@ woocommerce-bookings
+msgid "Range of months"
+msgstr "Intervall månader"
+
+#: includes/admin/views/html-booking-availability-fields.php:42
+#: includes/admin/views/html-booking-pricing-fields.php:44
+#@ woocommerce-bookings
+msgid "Range of weeks"
+msgstr "Intervall veckor"
+
+#: includes/admin/views/html-booking-availability-fields.php:43
+#: includes/admin/views/html-booking-pricing-fields.php:45
+#@ woocommerce-bookings
+msgid "Range of days"
+msgstr "Intervall dagar"
+
+#: includes/admin/views/html-booking-availability-fields.php:44
+#: includes/admin/views/html-booking-pricing-fields.php:46
+#@ woocommerce-bookings
+msgid "Time Range"
+msgstr "Intervall tid"
+
+#: includes/admin/views/html-booking-availability-fields.php:110
+#@ woocommerce-bookings
+msgid "No"
+msgstr "Nej"
+
+#: includes/admin/views/html-booking-availability-fields.php:111
+#@ woocommerce-bookings
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/admin/views/html-booking-availability.php:8
+#@ woocommerce-bookings
+msgid "Minimum date bookable"
+msgstr "Minsta bokningsbara datum"
+
+#: includes/admin/views/html-booking-availability.php:11
+#: includes/admin/views/html-booking-availability.php:28
+#: includes/admin/views/html-booking-data.php:16
+#: includes/class-wc-booking-form.php:101
+#@ woocommerce-bookings
+msgid "Month(s)"
+msgstr "Månad(er)"
+
+#: includes/admin/views/html-booking-availability.php:12
+#: includes/admin/views/html-booking-availability.php:29
+#: includes/class-wc-booking-form.php:107
+#@ woocommerce-bookings
+msgid "Week(s)"
+msgstr "Vecka(or)"
+
+#: includes/admin/views/html-booking-availability.php:13
+#: includes/admin/views/html-booking-availability.php:30
+#: includes/admin/views/html-booking-data.php:17
+#: includes/class-wc-booking-form.php:113
+#@ woocommerce-bookings
+msgid "Day(s)"
+msgstr "Dag(ar)"
+
+#: includes/admin/views/html-booking-availability.php:14
+#: includes/admin/views/html-booking-availability.php:31
+#: includes/admin/views/html-booking-data.php:18
+#: includes/class-wc-booking-form.php:119
+#@ woocommerce-bookings
+msgid "Hour(s)"
+msgstr "Timme(ar)"
+
+#: includes/admin/views/html-booking-availability.php:15
+#: includes/admin/views/html-booking-availability.php:32
+#@ woocommerce-bookings
+msgid "into the future"
+msgstr "in i framatiden"
+
+#: includes/admin/views/html-booking-availability.php:25
+#@ woocommerce-bookings
+msgid "Maximum date bookable"
+msgstr "Maximal bokningsbara datum"
+
+#: includes/admin/views/html-booking-availability.php:38
+#@ woocommerce-bookings
+msgid "All dates are..."
+msgstr "Alla datum är..."
+
+#: includes/admin/views/html-booking-availability.php:42
+#@ woocommerce-bookings
+msgid "available by default"
+msgstr "tillgängliga som standard"
+
+#: includes/admin/views/html-booking-availability.php:43
+#@ woocommerce-bookings
+msgid "not-available by default"
+msgstr "ej tillgängliga som standard"
+
+#: includes/admin/views/html-booking-availability.php:45
+#@ woocommerce-bookings
+msgid "This option affects how you use the rules below."
+msgstr "Detta alternativ påverkar hur du använder reglerna nedan."
+
+#: includes/admin/views/html-booking-availability.php:50
+#@ woocommerce-bookings
+msgid "First block starts at..."
+msgstr "Första blocket börjar ..."
+
+#: includes/admin/views/html-booking-availability.php:60
+#: includes/admin/views/html-booking-pricing.php:21
+#: includes/admin/views/html-settings-page.php:16
+#@ woocommerce-bookings
+msgid "Range type"
+msgstr "Intervalltyp"
+
+#: includes/admin/views/html-booking-availability.php:61
+#: includes/admin/views/html-booking-pricing.php:22
+#: includes/admin/views/html-settings-page.php:17
+#@ woocommerce-bookings
+msgid "From"
+msgstr "Från"
+
+#: includes/admin/views/html-booking-availability.php:62
+#: includes/admin/views/html-booking-pricing.php:23
+#: includes/admin/views/html-settings-page.php:18
+#@ woocommerce-bookings
+msgid "To"
+msgstr "Till"
+
+#: includes/admin/views/html-booking-availability.php:63
+#: includes/admin/views/html-settings-page.php:19
+#@ woocommerce-bookings
+msgid "Bookable"
+msgstr "Bokningsbar"
+
+#: includes/admin/views/html-booking-availability.php:63
+#: includes/admin/views/html-settings-page.php:19
+#@ woocommerce-bookings
+msgid "If not bookable, users won't be able to choose this block for their booking."
+msgstr "Om ej bokningsbar, kommer användarna inte att kunna välja detta block för sin bokning."
+
+#: includes/admin/views/html-booking-availability.php:75
+#: includes/admin/views/html-booking-pricing.php:36
+#: includes/admin/views/html-settings-page.php:31
+#@ woocommerce-bookings
+msgid "Add Range"
+msgstr "Lägg till intervall"
+
+#: includes/admin/views/html-booking-availability.php:76
+#: includes/admin/views/html-settings-page.php:32
+#@ woocommerce-bookings
+msgid "Rules further down the table will override those at the top."
+msgstr "Regler längre ner i tabellen kommer att åsidosätta de i toppen."
+
+#: includes/admin/views/html-booking-data.php:9
+#@ woocommerce-bookings
+msgid "Booking duration"
+msgstr "Bokningens varaktighet"
+
+#: includes/admin/views/html-booking-data.php:11
+#@ woocommerce-bookings
+msgid "Fixed blocks of"
+msgstr "Fasta block av"
+
+#: includes/admin/views/html-booking-data.php:12
+#@ woocommerce-bookings
+msgid "Customer defined blocks of"
+msgstr "Kunddefinierade block av"
+
+#: includes/admin/views/html-booking-data.php:19
+#@ woocommerce-bookings
+msgid "Minutes(s)"
+msgstr "Minut(er)"
+
+#: includes/admin/views/html-booking-data.php:25
+#@ woocommerce-bookings
+msgid "Minimum duration"
+msgstr "Minimun varaktighet"
+
+#: includes/admin/views/html-booking-data.php:25
+#@ woocommerce-bookings
+msgid "The minimum allowed duration the user can input."
+msgstr "Minsta tillåtna längd användaren kan ange."
+
+#: includes/admin/views/html-booking-data.php:30
+#@ woocommerce-bookings
+msgid "Maximum duration"
+msgstr "Maximun varaktighet"
+
+#: includes/admin/views/html-booking-data.php:30
+#@ woocommerce-bookings
+msgid "The maximum allowed duration the user can input."
+msgstr "Maximalt tillåten längd användaren kan ange."
+
+#: includes/admin/views/html-booking-data.php:37
+#@ woocommerce-bookings
+msgid "Max bookings per block"
+msgstr "Max antal bokningar per block"
+
+#: includes/admin/views/html-booking-data.php:37
+#@ woocommerce-bookings
+msgid "The maximum bookings allowed for each block. Can be overridden at resource level."
+msgstr "De maximala bokningar som tillåts för varje block. Kan överskridas på resursnivå."
+
+#: includes/admin/views/html-booking-data.php:43
+#@ woocommerce-bookings
+msgid "Requires confirmation?"
+msgstr "Kräver bekräftelse?"
+
+#: includes/admin/views/html-booking-data.php:43
+#@ woocommerce-bookings
+msgid "Check this box if the booking requires admin approval/confirmation. Payment will not be taken during checkout."
+msgstr "Markera denna ruta om bokningen kräver admin godkännande / bekräftelse. Betalning kommer ej att tas i kassan."
+
+#: includes/admin/views/html-booking-person.php:9
+#: includes/admin/views/html-booking-resource.php:9
+#@ woocommerce-bookings
+msgid "Remove"
+msgstr "Radera"
+
+#: includes/admin/views/html-booking-person.php:10
+#: includes/admin/views/html-booking-resource.php:10
+#@ woocommerce-bookings
+msgid "Click to toggle"
+msgstr "Klicka för att öppna"
+
+#: includes/admin/views/html-booking-person.php:21
+#@ woocommerce-bookings
+msgid "Person Type Name"
+msgstr "Persontyp Namn"
+
+#: includes/admin/views/html-booking-person.php:22
+#@ woocommerce-bookings
+msgid "Person Type #"
+msgstr "Persontyp #"
+
+#: includes/admin/views/html-booking-person.php:25
+#: includes/admin/views/html-booking-resource.php:31
+#@ woocommerce-bookings
+msgid "Base Cost"
+msgstr "Baskostnad"
+
+#: includes/admin/views/html-booking-person.php:31
+#@ woocommerce-bookings
+msgid "Description"
+msgstr "Beskrivning"
+
+#: includes/admin/views/html-booking-person.php:37
+#@ woocommerce-bookings
+msgid "Min"
+msgstr "Min"
+
+#: includes/admin/views/html-booking-person.php:41
+#@ woocommerce-bookings
+msgid "Max"
+msgstr "Max"
+
+#: includes/admin/views/html-booking-persons.php:5
+#@ woocommerce-bookings
+msgid "Min persons"
+msgstr "Min personer"
+
+#: includes/admin/views/html-booking-persons.php:5
+#@ woocommerce-bookings
+msgid "The minimum number of persons per booking."
+msgstr "Minsta antal personer per bokning."
+
+#: includes/admin/views/html-booking-persons.php:10
+#@ woocommerce-bookings
+msgid "Max persons"
+msgstr "Max personer"
+
+#: includes/admin/views/html-booking-persons.php:10
+#@ woocommerce-bookings
+msgid "The maximum number of persons per booking."
+msgstr "Det maximala antalet personer per bokning."
+
+#: includes/admin/views/html-booking-persons.php:15
+#@ woocommerce-bookings
+msgid "Multiply all costs by person count"
+msgstr "Multiplicera alla kostnader per person"
+
+#: includes/admin/views/html-booking-persons.php:15
+#@ woocommerce-bookings
+msgid "Enable this to multiply the cost of the booking by the person count."
+msgstr "Aktivera detta för att multiplicera kostnaden för bokningen baserad per person."
+
+#: includes/admin/views/html-booking-persons.php:17
+#@ woocommerce-bookings
+msgid "Count persons as bookings"
+msgstr "Räkna personer som bokningar"
+
+#: includes/admin/views/html-booking-persons.php:17
+#@ woocommerce-bookings
+msgid "Enable this to count each person as a booking until the max bookings per block (above) is reached."
+msgstr "Aktivera detta för att räkna varje person som en bokning tills max bokningar per block (ovan) har uppnåtts."
+
+#: includes/admin/views/html-booking-persons.php:19
+#@ woocommerce-bookings
+msgid "Enable person types"
+msgstr "Aktivera persontyper"
+
+#: includes/admin/views/html-booking-persons.php:19
+#: includes/admin/views/html-booking-persons.php:47
+#@ woocommerce-bookings
+msgid "Person types allow you to offer different booking costs for different types of individuals, for example, adults and children."
+msgstr "Person typer gör att du kan erbjuda olika bokningskostnader för olika typer av individer, till exempel, vuxna och barn."
+
+#: includes/admin/views/html-booking-persons.php:26
+#@ woocommerce-bookings
+msgid "Person types"
+msgstr "Persontyper"
+
+#: includes/admin/views/html-booking-persons.php:27
+#: includes/admin/views/html-booking-resources.php:18
+#@ woocommerce-bookings
+msgid "Close all"
+msgstr "Stäng allt"
+
+#: includes/admin/views/html-booking-persons.php:27
+#: includes/admin/views/html-booking-resources.php:18
+#@ woocommerce-bookings
+msgid "Expand all"
+msgstr "Öppna alla"
+
+#: includes/admin/views/html-booking-persons.php:65
+#@ woocommerce-bookings
+msgid "Add Person Type"
+msgstr "Lägg till persontyp"
+
+#: includes/admin/views/html-booking-pricing-fields.php:47
+#@ woocommerce-bookings
+msgid "Person count"
+msgstr "Antal personer"
+
+#: includes/admin/views/html-booking-pricing-fields.php:48
+#@ woocommerce-bookings
+msgid "Block count"
+msgstr "Antal block"
+
+#: includes/admin/views/html-booking-pricing.php:4
+#@ woocommerce-bookings
+msgid "Base cost"
+msgstr "Baskostnad"
+
+#: includes/admin/views/html-booking-pricing.php:4
+#@ woocommerce-bookings
+msgid "One-off cost for the booking as a whole."
+msgstr "Engångskostnaden för bokning som helhet."
+
+#: includes/admin/views/html-booking-pricing.php:9
+#@ woocommerce-bookings
+msgid "This is the cost per block booked. All other costs (for resources and persons) are added to this."
+msgstr "Detta är kostnaden per block bokad. Alla övriga kostnader (för resurser och personer) läggs till detta."
+
+#: includes/admin/views/html-booking-pricing.php:24
+#@ woocommerce-bookings
+msgid "Cost"
+msgstr "Kostnad"
+
+#: includes/admin/views/html-booking-pricing.php:24
+#@ woocommerce-bookings
+msgid "Enter a cost for this rule."
+msgstr "Ange en kostnad för denna regel."
+
+#: includes/admin/views/html-booking-pricing.php:37
+#@ woocommerce-bookings
+msgid "All matching rules will be applied to the booking."
+msgstr "Alla matchande regler kommer att tillämpas på bokningen."
+
+#: includes/admin/views/html-booking-resource.php:21
+#@ woocommerce-bookings
+msgid "Resource Name"
+msgstr "Resursnamn"
+
+#: includes/admin/views/html-booking-resource.php:22
+#@ woocommerce-bookings
+msgid "Resouce #"
+msgstr "Resurs #"
+
+#: includes/admin/views/html-booking-resource.php:25
+#@ woocommerce-bookings
+msgid "Qty available per block"
+msgstr "Antal tillgängliga per block"
+
+#: includes/admin/views/html-booking-resource.php:26
+#@ woocommerce-bookings
+msgid "Inherit from max bookings"
+msgstr "Ärv från max bokningar"
+
+#: includes/admin/views/html-booking-resources.php:5
+#: includes/class-wc-booking-form.php:198
+#@ woocommerce-bookings
+msgid "Type"
+msgstr "Typ"
+
+#: includes/admin/views/html-booking-resources.php:5
+#@ woocommerce-bookings
+msgid "Label"
+msgstr "Etikett"
+
+#: includes/admin/views/html-booking-resources.php:5
+#@ woocommerce-bookings
+msgid "The label shown on the frontend if the resource is customer defined."
+msgstr "Etiketten visas i frontend om resursen är kund definierade."
+
+#: includes/admin/views/html-booking-resources.php:7
+#@ woocommerce-bookings
+msgid "Resources are..."
+msgstr "Resurser är ..."
+
+#: includes/admin/views/html-booking-resources.php:8
+#@ woocommerce-bookings
+msgid "Customer defined"
+msgstr "Kunddefinierad"
+
+#: includes/admin/views/html-booking-resources.php:9
+#@ woocommerce-bookings
+msgid "Automatically assigned"
+msgstr "Automatiskt tilldelade"
+
+#: includes/admin/views/html-booking-resources.php:10
+#@ woocommerce-bookings
+msgid "Customer defined resources allow customers to choose one from the booking form."
+msgstr "Kund definierade resurser ger kunderna möjlighet att välja en från bokningsformuläret."
+
+#: includes/admin/views/html-booking-resources.php:17
+#: includes/admin/views/html-booking-tab.php:4
+#@ woocommerce-bookings
+msgid "Resources"
+msgstr "Resurser"
+
+#: includes/admin/views/html-booking-resources.php:39
+#@ woocommerce-bookings
+msgid "Resources are used if you have multiple bookable items, for example, rooms (room types), instructors or ticket types."
+msgstr "Resurser används om du har flera bokningsbara objekt, till exempel, rum (rumstyper ), instruktörer eller biljettyper."
+
+#: includes/admin/views/html-booking-resources.php:59
+#@ woocommerce-bookings
+msgid "Add Resource"
+msgstr "Lägg till resurs"
+
+#: includes/admin/views/html-booking-tab.php:1
+#@ woocommerce-bookings
+msgid "Availability"
+msgstr "Tillgänglighet"
+
+#: includes/admin/views/html-booking-tab.php:2
+#@ woocommerce-bookings
+msgid "Costs"
+msgstr "Kostnad"
+
+#: includes/admin/views/html-booking-tab.php:3
+#: includes/class-wc-booking-form.php:167
+#: includes/class-wc-booking-form.php:327
+#@ woocommerce-bookings
+msgid "Persons"
+msgstr "Personer"
+
+#: includes/admin/views/html-calendar-day.php:3
+#@ woocommerce-bookings
+msgid "Bookings by day"
+msgstr "Bokningar per dag"
+
+#: includes/admin/views/html-calendar-day.php:13
+#: includes/admin/views/html-calendar-month.php:14
+#@ woocommerce-bookings
+msgid "Filter Bookings"
+msgstr "Filtrera bokningar"
+
+#: includes/admin/views/html-calendar-day.php:27
+#@ woocommerce-bookings
+msgid "Month View"
+msgstr "Månadsvy"
+
+#: includes/admin/views/html-calendar-month.php:3
+#@ woocommerce-bookings
+msgid "Bookings by month"
+msgstr "Bokningar per månad"
+
+#: includes/admin/views/html-calendar-month.php:39
+#@ woocommerce-bookings
+msgid "Day View"
+msgstr "Dygnsvy"
+
+#: includes/admin/views/html-calendar-month.php:51
+#@ woocommerce-bookings
+msgid "Mon"
+msgstr "Mån"
+
+#: includes/admin/views/html-calendar-month.php:52
+#@ woocommerce-bookings
+msgid "Tue"
+msgstr "Tis"
+
+#: includes/admin/views/html-calendar-month.php:53
+#@ woocommerce-bookings
+msgid "Wed"
+msgstr "Ons"
+
+#: includes/admin/views/html-calendar-month.php:54
+#@ woocommerce-bookings
+msgid "Thu"
+msgstr "Tors"
+
+#: includes/admin/views/html-calendar-month.php:55
+#@ woocommerce-bookings
+msgid "Fri"
+msgstr "Fre"
+
+#: includes/admin/views/html-calendar-month.php:56
+#@ woocommerce-bookings
+msgid "Sat"
+msgstr "Lör"
+
+#: includes/admin/views/html-calendar-month.php:57
+#@ woocommerce-bookings
+msgid "Sun"
+msgstr "Sön"
+
+#: includes/admin/views/html-create-booking-page-2.php:13
+#@ woocommerce-bookings
+msgid "Booking Data"
+msgstr "Bokningsdata"
+
+#: includes/admin/views/html-create-booking-page.php:6
+#@ woocommerce-bookings
+msgid "You can create a new booking for a customer here. This form will create a booking for the user, and optionally an associated order. Created orders will be marked as pending payment."
+msgstr "Du kan skapa en ny bokning för en kund här. Detta formulär kommer att skapa en bokning för användaren, och eventuellt en tillhörande beställning. Skapad order kommer att markeras som i avvaktande betalning."
+
+#: includes/admin/views/html-create-booking-page.php:15
+#@ woocommerce-bookings
+msgid "Customer"
+msgstr "Kund"
+
+#: includes/admin/views/html-create-booking-page.php:25
+#@ woocommerce-bookings
+msgid "Bookable Product"
+msgstr "Bokningbarprodukt"
+
+#: includes/admin/views/html-create-booking-page.php:29
+#@ woocommerce-bookings
+msgid "Select a bookable product..."
+msgstr "Välj en bokningsbarprodukt ..."
+
+#: includes/admin/views/html-create-booking-page.php:38
+#@ woocommerce-bookings
+msgid "Create Order"
+msgstr "Skapa en order"
+
+#: includes/admin/views/html-create-booking-page.php:43
+#@ woocommerce-bookings
+msgid "Check this box to create a corresponding order for this new booking. Please note - the booking will not be active until the order is processed/completed."
+msgstr "Markera rutan för att skapa en motsvarande order för den nya bokningen. Observera - bokningen kommer inte att vara aktiv tills ordern bearbetas / klar."
+
+#: includes/admin/views/html-create-booking-page.php:50
+#@ woocommerce-bookings
+msgid "Next"
+msgstr "Nästa"
+
+#: includes/admin/views/html-notifications-page.php:5
+#@ woocommerce-bookings
+msgid "You may send an email notification to all customers who have a <strong>future</strong> booking for a particular product. This will use the default template specified under <code>WooCommerce > Settings > Emails</code>."
+msgstr "Du kan skicka ett e-postmeddelande till alla kunder som har ett <strong> förhandsbokning</ strong> för en viss produkt. Detta kommer att använda standardmallen anges under <code> WooCommerce> Inställningar> E-post </ code>."
+
+#: includes/admin/views/html-notifications-page.php:12
+#@ woocommerce-bookings
+msgid "Booking Product"
+msgstr "Bokningsprodukt"
+
+#: includes/admin/views/html-notifications-page.php:16
+#@ woocommerce-bookings
+msgid "Select a booking product..."
+msgstr "Välj en bokningsprodukt ..."
+
+#: includes/admin/views/html-notifications-page.php:25
+#: includes/emails/class-wc-email-booking-confirmed.php:118
+#: includes/emails/class-wc-email-booking-reminder.php:110
+#: includes/emails/class-wc-email-new-booking.php:121
+#@ woocommerce-bookings
+msgid "Subject"
+msgstr "Ämne"
+
+#: includes/admin/views/html-notifications-page.php:28
+#@ woocommerce-bookings
+msgid "Email subject"
+msgstr "E-postämne"
+
+#: includes/admin/views/html-notifications-page.php:33
+#@ woocommerce-bookings
+msgid "Message"
+msgstr "Meddelande"
+
+#: includes/admin/views/html-notifications-page.php:36
+#@ woocommerce-bookings
+msgid "The message you wish to send"
+msgstr "Meddelandet som du vill skicka"
+
+#: includes/admin/views/html-notifications-page.php:37
+#@ woocommerce-bookings
+msgid "The following tags can be inserted in your message/subject and will be replaced dynamically"
+msgstr "Följande taggar kan infogas i ditt meddelande / ämne och kommer att ersättas dynamiskt"
+
+#: includes/admin/views/html-settings-page.php:2
+#@ woocommerce-bookings
+msgid "Bookings Settings"
+msgstr "Bokningsinställningar"
+
+#: includes/admin/views/html-settings-page.php:8
+#@ woocommerce-bookings
+msgid "Global availability"
+msgstr "Global tillgänglighet"
+
+#: includes/admin/views/html-settings-page.php:10
+#@ woocommerce-bookings
+msgid "The availability rules you define here will affect all bookable products in your store."
+msgstr "Villkorens tillgänglighet du väljer här kommer att påverka alla bokningsbara produkter i din butik."
+
+#: includes/admin/views/html-settings-page.php:52
+#@ woocommerce-bookings
+msgid "Save Changes"
+msgstr "Spara ändringar"
+
+#: includes/class-wc-booking-form-date-picker.php:30
+#: includes/class-wc-booking-form-datetime-picker.php:31
+#@ woocommerce-bookings
+msgid "Date"
+msgstr "Datum"
+
+#: includes/class-wc-booking-form-month-picker.php:30
+#: templates/booking-form/date-picker.php:13
+#: templates/booking-form/datetime-picker.php:14
+#@ woocommerce-bookings
+msgid "Month"
+msgstr "Månad"
+
+#: includes/class-wc-booking-form-picker.php:18
+#, php-format
+#@ woocommerce-bookings
+msgid "Start %s"
+msgstr "Start %s"
+
+#: includes/class-wc-booking-form.php:34
+#@ woocommerce-bookings
+msgid "Close"
+msgstr "Stäng"
+
+#: includes/class-wc-booking-form.php:35
+#@ woocommerce-bookings
+msgid "Today"
+msgstr "Idag"
+
+#: includes/class-wc-booking-form.php:62
+#@ woocommerce-bookings
+msgid "This date is unavailable"
+msgstr "Detta datum är inte tillgänglig"
+
+#: includes/class-wc-booking-form.php:99
+#, php-format
+#@ woocommerce-bookings
+msgid "&times; %s Months"
+msgstr "&times; %s Månader"
+
+#: includes/class-wc-booking-form.php:105
+#, php-format
+#@ woocommerce-bookings
+msgid "&times; %s weeks"
+msgstr "&times; %s veckor"
+
+#: includes/class-wc-booking-form.php:111
+#, php-format
+#@ woocommerce-bookings
+msgid "&times; %s days"
+msgstr "&times; %s dagar"
+
+#: includes/class-wc-booking-form.php:117
+#, php-format
+#@ woocommerce-bookings
+msgid "&times; %s hours"
+msgstr "&times; %s timmar"
+
+#: includes/class-wc-booking-form.php:123
+#, php-format
+#@ woocommerce-bookings
+msgid "&times; %s minutes"
+msgstr "&times; %s minuter"
+
+#: includes/class-wc-booking-form.php:125
+#@ woocommerce-bookings
+msgid "Minute(s)"
+msgstr "Minut(er)"
+
+#: includes/class-wc-booking-form.php:131
+#: includes/wc-bookings-functions.php:26
+#@ woocommerce-bookings
+msgid "Duration"
+msgstr "Varaktighet"
+
+#: includes/class-wc-booking-form.php:347
+#@ woocommerce-bookings
+msgid "month"
+msgid_plural "months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-booking-form.php:350
+#@ woocommerce-bookings
+msgid "day"
+msgid_plural "days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-booking-form.php:353
+#@ woocommerce-bookings
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-booking-form.php:357
+#@ woocommerce-bookings
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-booking-form.php:419
+#@ woocommerce-bookings
+msgid "Please choose a resource type"
+msgstr "Välj en resurstyp"
+
+#: includes/class-wc-booking-form.php:428
+#@ woocommerce-bookings
+msgid "Duration is required - please enter a duration greater than zero above"
+msgstr "Varaktighet krävs - ange en längre tid än noll ovan"
+
+#: includes/class-wc-booking-form.php:431
+#, php-format
+#@ woocommerce-bookings
+msgid "The maximum duration is %d"
+msgstr "Den maximala tiden är %d"
+
+#: includes/class-wc-booking-form.php:434
+#, php-format
+#@ woocommerce-bookings
+msgid "The minimum duration is %d"
+msgstr "Minimilängden är %d"
+
+#: includes/class-wc-booking-form.php:440
+#@ woocommerce-bookings
+msgid "Date is required - please choose one above"
+msgstr "Datum krävs - välj en ovan"
+
+#: includes/class-wc-booking-form.php:443
+#@ woocommerce-bookings
+msgid "Time is required - please choose one above"
+msgstr "Tid krävs - välj en ovan"
+
+#: includes/class-wc-booking-form.php:451
+#@ woocommerce-bookings
+msgid "Persons are required - please enter the number of persons above"
+msgstr "Personer krävs - ange antalet personer över"
+
+#: includes/class-wc-booking-form.php:454
+#, php-format
+#@ woocommerce-bookings
+msgid "The maximum persons per group is %d"
+msgstr "De maximala personer per grupp är %d"
+
+#: includes/class-wc-booking-form.php:457
+#, php-format
+#@ woocommerce-bookings
+msgid "The minimum persons per group is %d"
+msgstr "Minimi personer per grupp är %d"
+
+#: includes/class-wc-booking-form.php:465
+#, php-format
+#@ woocommerce-bookings
+msgid "The maximum %s per group is %d"
+msgstr "Den maximala %s per grupp är %d"
+
+#: includes/class-wc-booking-form.php:470
+#, php-format
+#@ woocommerce-bookings
+msgid "The minimum %s per group is %d"
+msgstr "Minimi %s per grupp är %d"
+
+#: includes/class-wc-booking-form.php:482
+#@ woocommerce-bookings
+msgid "Sorry, the selected block is not available"
+msgstr "Tyvärr är inte tillgänglig på valt block"
+
+#: includes/class-wc-booking.php:140
+#, php-format
+#@ woocommerce-bookings
+msgid "Booking &ndash; %s"
+msgstr "Bokning &ndash; %s"
+
+#: includes/class-wc-booking.php:140
+#, php-format
+#@ woocommerce-bookings
+msgctxt "Booking date parsed by strftime"
+msgid "%b %d, %Y @ %I:%M %p"
+msgstr "%b %d, %Y @ %I:%M %p"
+
+#: includes/class-wc-bookings-addons.php:28
+#@ woocommerce-bookings
+msgid "Bookings: Multiply cost by person count"
+msgstr "Bokningar: Multiplicera kostnaden per person"
+
+#: includes/class-wc-bookings-addons.php:32
+#@ woocommerce-bookings
+msgid "Bookings: Multiply cost by block count"
+msgstr "Bokningar: Multiplicera kostnad per block"
+
+#: includes/class-wc-bookings-cart.php:244
+#@ woocommerce-bookings
+msgid "A booking that requires confirmation has been removed from your cart. It is not possible to complete the purchased along with a booking that doesn't require confirmation."
+msgstr "En bokning som kräver bekräftelse har tagits bort från din varukorg. Det är inte möjligt att fullborda köp tillsammans med en bokning som inte kräver bekräftelse."
+
+#: includes/class-wc-bookings-gateway.php:18
+#@ woocommerce-bookings
+msgid "Check booking availability"
+msgstr "Kontrollera boknings tillgänglighet"
+
+#: includes/class-wc-bookings-gateway.php:20
+#@ woocommerce-bookings
+msgid "Request Confirmation"
+msgstr "Begär Bekräftelse"
+
+#: includes/class-wc-bookings-gateway.php:33
+#@ woocommerce-bookings
+msgid "This is fictitious payment method used for bookings that requires confirmation."
+msgstr "Detta är fiktiv betalningsmetod som används för bokningar som kräver bekräftelse."
+
+#: includes/class-wc-bookings-gateway.php:34
+#@ woocommerce-bookings
+msgid "This gateway requires no configuration."
+msgstr "Denna gateway kräver ingen konfiguration."
+
+#: includes/class-wc-bookings-gateway.php:54
+#@ woocommerce-bookings
+msgid "This order is awaiting confirmation from the shop manager"
+msgstr "Denna order väntar på bekräftelse från butikschefen"
+
+#: includes/class-wc-bookings-gateway.php:70
+#@ woocommerce-bookings
+msgid "Your booking is awaiting confirmation. You will be notified by email as soon as we've confirmed availability."
+msgstr "Din bokning väntar på bekräftelse. Du kommer att meddelas via e-post när vi har bekräftat tillgänglighet."
+
+#: includes/class-wc-product-booking.php:176
+#, php-format
+#@ woocommerce-bookings
+msgid "From: %s"
+msgstr "Från: %s"
+
+#: includes/class-wc-product-booking.php:519
+#, php-format
+#@ woocommerce-bookings
+msgid "There are %d places remaining on %s"
+msgstr "Det finns %d platser kvar på %s"
+
+#: includes/class-wc-product-booking.php:869
+#@ woocommerce-bookings
+msgid "Check Availability"
+msgstr "Kontrollera tillgänglighet"
+
+#: includes/class-wc-product-booking.php:872
+#@ woocommerce-bookings
+msgid "Book now"
+msgstr "Boka nu"
+
+#: includes/emails/class-wc-email-booking-confirmed.php:21
+#: includes/emails/class-wc-email-booking-confirmed.php:24
+#@ woocommerce-bookings
+msgid "Booking Confirmed"
+msgstr "Bokningen är bekräftat"
+
+#: includes/emails/class-wc-email-booking-confirmed.php:22
+#@ woocommerce-bookings
+msgid "Booking confirmed emails are sent when the status of a booking goes to confirmed."
+msgstr "Bokningsbekräftade e-post skickas när statusen för en bokning går till bekräftad."
+
+#: includes/emails/class-wc-email-booking-confirmed.php:25
+#@ woocommerce-bookings
+msgid "[{blogname}] Your booking of \"{product_title}\" has been confirmed (Order {order_number}) - {order_date}"
+msgstr "[{blogname}] Din bokning av \"{product_title}\" är bekräftad (Order {order_number}) - {order_date}"
+
+#: includes/emails/class-wc-email-booking-confirmed.php:112
+#: includes/emails/class-wc-email-booking-notification.php:120
+#: includes/emails/class-wc-email-booking-reminder.php:104
+#: includes/emails/class-wc-email-new-booking.php:108
+#@ woocommerce-bookings
+msgid "Enable/Disable"
+msgstr "Aktivera / inaktivera"
+
+#: includes/emails/class-wc-email-booking-confirmed.php:114
+#: includes/emails/class-wc-email-booking-notification.php:122
+#: includes/emails/class-wc-email-booking-reminder.php:106
+#: includes/emails/class-wc-email-new-booking.php:110
+#@ woocommerce-bookings
+msgid "Enable this email notification"
+msgstr "Aktivera det här e-postmeddelande"
+
+#: includes/emails/class-wc-email-booking-confirmed.php:120
+#: includes/emails/class-wc-email-booking-reminder.php:112
+#: includes/emails/class-wc-email-new-booking.php:123
+#, php-format
+#@ woocommerce-bookings
+msgid "This controls the email subject line. Leave blank to use the default subject: <code>%s</code>."
+msgstr "Detta kontrollerar ämnesraden i e-post. Lämna tomt för att använda standard ämnet: <code>%s </ code>."
+
+#: includes/emails/class-wc-email-booking-confirmed.php:125
+#: includes/emails/class-wc-email-booking-reminder.php:117
+#: includes/emails/class-wc-email-new-booking.php:128
+#@ woocommerce-bookings
+msgid "Email Heading"
+msgstr "E-postrubrik"
+
+#: includes/emails/class-wc-email-booking-confirmed.php:127
+#: includes/emails/class-wc-email-booking-reminder.php:119
+#: includes/emails/class-wc-email-new-booking.php:130
+#, php-format
+#@ woocommerce-bookings
+msgid "This controls the main heading contained within the email notification. Leave blank to use the default heading: <code>%s</code>."
+msgstr "Denna kontrollerar huvudrubrik som finns i e-postmeddelandet. Lämna tomt för att använda standard rubriken: <code>%s </ code>."
+
+#: includes/emails/class-wc-email-booking-confirmed.php:132
+#: includes/emails/class-wc-email-booking-notification.php:126
+#: includes/emails/class-wc-email-booking-reminder.php:124
+#: includes/emails/class-wc-email-new-booking.php:135
+#@ woocommerce-bookings
+msgid "Email type"
+msgstr "E-posttyp"
+
+#: includes/emails/class-wc-email-booking-confirmed.php:134
+#: includes/emails/class-wc-email-booking-notification.php:128
+#: includes/emails/class-wc-email-booking-reminder.php:126
+#: includes/emails/class-wc-email-new-booking.php:137
+#@ woocommerce-bookings
+msgid "Choose which format of email to send."
+msgstr "Välj vilket format för e-post för att skicka."
+
+#: includes/emails/class-wc-email-booking-confirmed.php:138
+#: includes/emails/class-wc-email-booking-notification.php:132
+#: includes/emails/class-wc-email-booking-reminder.php:130
+#: includes/emails/class-wc-email-new-booking.php:141
+#@ woocommerce-bookings
+msgid "Plain text"
+msgstr "Enkel text"
+
+#: includes/emails/class-wc-email-booking-confirmed.php:139
+#: includes/emails/class-wc-email-booking-notification.php:133
+#: includes/emails/class-wc-email-booking-reminder.php:131
+#: includes/emails/class-wc-email-new-booking.php:142
+#@ woocommerce-bookings
+msgid "HTML"
+msgstr "HTML"
+
+#: includes/emails/class-wc-email-booking-confirmed.php:140
+#: includes/emails/class-wc-email-booking-notification.php:134
+#: includes/emails/class-wc-email-booking-reminder.php:132
+#: includes/emails/class-wc-email-new-booking.php:143
+#@ woocommerce-bookings
+msgid "Multipart"
+msgstr "Multi"
+
+#: includes/emails/class-wc-email-booking-notification.php:21
+#@ woocommerce-bookings
+msgid "Booking Notification"
+msgstr "Bokningsmeddelande"
+
+#: includes/emails/class-wc-email-booking-notification.php:22
+#@ woocommerce-bookings
+msgid "Booking notification emails are sent manually from WooCommerce > Bookings > Send Notification."
+msgstr "Boknings e-postmeddelanden skickas manuellt från WooCommerce> Bokning> Skicka Meddelande."
+
+#: includes/emails/class-wc-email-booking-reminder.php:20
+#: includes/emails/class-wc-email-booking-reminder.php:23
+#@ woocommerce-bookings
+msgid "Booking Reminder"
+msgstr "Bokningspåminnelse"
+
+#: includes/emails/class-wc-email-booking-reminder.php:21
+#@ woocommerce-bookings
+msgid "Booking reminders are sent to the customer to remind them of an upcoming booking."
+msgstr "Bokningspåminnelser skickas till kunden för att påminna dem om en kommande bokning."
+
+#: includes/emails/class-wc-email-booking-reminder.php:24
+#@ woocommerce-bookings
+msgid "[{blogname}] A reminder about your booking of \"{product_title}\""
+msgstr "[{blogname}] En påminnelse om din bokning av \"{product_title}\""
+
+#: includes/emails/class-wc-email-new-booking.php:21
+#: woocommmerce-bookings.php:161
+#@ woocommerce-bookings
+msgid "New Booking"
+msgstr "Ny bokning"
+
+#: includes/emails/class-wc-email-new-booking.php:22
+#@ woocommerce-bookings
+msgid "New booking emails are sent to the admin when a new booking is created."
+msgstr "Ny bokning e-postmeddelande skickas till admin när en ny bokning skapas."
+
+#: includes/emails/class-wc-email-new-booking.php:24
+#@ woocommerce-bookings
+msgid "New booking"
+msgstr "Ny bokning"
+
+#: includes/emails/class-wc-email-new-booking.php:25
+#@ woocommerce-bookings
+msgid "[{blogname}] New booking for {product_title} (Order {order_number}) - {order_date}"
+msgstr "[{blogname}] Ny bokning for {product_title} (Order {order_number}) - {order_date}"
+
+#: includes/emails/class-wc-email-new-booking.php:114
+#@ woocommerce-bookings
+msgid "Recipient(s)"
+msgstr "Mottagare"
+
+#: includes/emails/class-wc-email-new-booking.php:116
+#, php-format
+#@ woocommerce-bookings
+msgid "Enter recipients (comma separated) for this email. Defaults to <code>%s</code>."
+msgstr "Ange mottagare (kommaseparerade) för detta mail. Standard är <code>%s</code>."
+
+#: includes/wc-bookings-functions.php:20
+#: templates/emails/admin-new-booking.php:26
+#: templates/emails/customer-booking-confirmed.php:30
+#: templates/emails/customer-booking-notification.php:23
+#: templates/emails/customer-booking-reminder.php:25
+#@ woocommerce-bookings
+msgid "Booking Type"
+msgstr "Bokningstyp"
+
+#: includes/wc-bookings-functions.php:22
+#@ woocommerce-bookings
+msgid "Booking Date"
+msgstr "Bokningsdatum"
+
+#: includes/wc-bookings-functions.php:24
+#@ woocommerce-bookings
+msgid "Booking Time"
+msgstr "Bokningstid"
+
+#: templates/booking-form/date-picker.php:6
+#: templates/booking-form/datetime-picker.php:7
+#@ woocommerce-bookings
+msgid "Choose..."
+msgstr "Välj..."
+
+#: templates/booking-form/date-picker.php:9
+#: templates/booking-form/datetime-picker.php:10
+#@ woocommerce-bookings
+msgid "YYYY"
+msgstr "ÅÅÅÅ"
+
+#: templates/booking-form/date-picker.php:10
+#: templates/booking-form/datetime-picker.php:11
+#@ woocommerce-bookings
+msgid "Year"
+msgstr "År"
+
+#: templates/booking-form/date-picker.php:12
+#: templates/booking-form/datetime-picker.php:13
+#@ woocommerce-bookings
+msgid "mm"
+msgstr "mm"
+
+#: templates/booking-form/date-picker.php:15
+#: templates/booking-form/datetime-picker.php:16
+#@ woocommerce-bookings
+msgid "dd"
+msgstr "dd"
+
+#: templates/booking-form/date-picker.php:16
+#: templates/booking-form/datetime-picker.php:17
+#@ woocommerce-bookings
+msgid "Day"
+msgstr "Dag"
+
+#: templates/booking-form/datetime-picker.php:21
+#@ woocommerce-bookings
+msgid "Time"
+msgstr "Tid"
+
+#: templates/emails/admin-new-booking.php:12
+#: templates/emails/plain/admin-new-booking.php:11
+#, php-format
+#@ woocommerce-bookings
+msgid "A new booking has been made by %s. The details of this booking are as follows:"
+msgstr "En ny bokning har gjorts av %s. Detaljerna i denna bokning är följande:"
+
+#: templates/emails/admin-new-booking.php:21
+#: templates/emails/customer-booking-confirmed.php:25
+#: templates/emails/customer-booking-notification.php:18
+#: templates/emails/customer-booking-reminder.php:20
+#@ woocommerce-bookings
+msgid "Booking ID"
+msgstr "Boknings ID"
+
+#: templates/emails/admin-new-booking.php:31
+#: templates/emails/customer-booking-confirmed.php:35
+#: templates/emails/customer-booking-notification.php:28
+#: templates/emails/customer-booking-reminder.php:30
+#@ woocommerce-bookings
+msgid "Booking Start Date"
+msgstr "Bokningens startdatum"
+
+#: templates/emails/admin-new-booking.php:35
+#: templates/emails/customer-booking-confirmed.php:39
+#: templates/emails/customer-booking-notification.php:32
+#: templates/emails/customer-booking-reminder.php:34
+#@ woocommerce-bookings
+msgid "Booking End Date"
+msgstr "Boknings slutdatum"
+
+#: templates/emails/admin-new-booking.php:50
+#: templates/emails/plain/admin-new-booking.php:32
+#@ woocommerce-bookings
+msgid "This booking has awaiting for your approval. Please check it and inform the customer if the date is available or not."
+msgstr "Denna bokning väntar på ditt godkännande. Vänligen kontrollera det och informera kunden om datumet är tillgänglig eller ej."
+
+#: templates/emails/customer-booking-confirmed.php:14
+#: templates/emails/customer-booking-reminder.php:9
+#: templates/emails/plain/customer-booking-confirmed.php:11
+#: templates/emails/plain/customer-booking-reminder.php:9
+#, php-format
+#@ woocommerce-bookings
+msgid "Hello %s"
+msgstr "Hej %s"
+
+#: templates/emails/customer-booking-confirmed.php:16
+#: templates/emails/plain/customer-booking-confirmed.php:13
+#@ woocommerce-bookings
+msgid "Your booking for has been confirmed. The details of your booking are shown below."
+msgstr "Din bokning för har bekräftats. Detaljerna i din bokning visas nedan."
+
+#: templates/emails/customer-booking-confirmed.php:54
+#: templates/emails/plain/customer-booking-confirmed.php:35
+#, php-format
+#@ woocommerce
+msgid "To pay for this booking please use the following link: %s"
+msgstr "För att betala för denna bokning, vänligen använd följande länk:"
+
+#: templates/emails/customer-booking-confirmed.php:54
+#@ woocommerce
+msgid "Pay for booking"
+msgstr "Betala för bokning"
+
+#: templates/emails/customer-booking-confirmed.php:59
+#@ woocommerce
+msgid "Order:"
+msgstr "Order:"
+
+#: templates/emails/customer-booking-confirmed.php:64
+#@ woocommerce
+msgid "Product"
+msgstr "Produkt"
+
+#: templates/emails/customer-booking-confirmed.php:65
+#@ woocommerce
+msgid "Quantity"
+msgstr "Antal"
+
+#: templates/emails/customer-booking-confirmed.php:66
+#@ woocommerce
+msgid "Price"
+msgstr "Pris"
+
+#: templates/emails/customer-booking-reminder.php:11
+#@ woocommerce-bookings
+msgid "This is a reminder that your booking will take place tomorrow."
+msgstr "Detta är en påminnelse om att din bokning kommer att äga rum i morgon."
+
+#: templates/emails/plain/admin-new-booking.php:15
+#: templates/emails/plain/customer-booking-confirmed.php:17
+#: templates/emails/plain/customer-booking-notification.php:15
+#: templates/emails/plain/customer-booking-reminder.php:15
+#, php-format
+#@ woocommerce-bookings
+msgid "Booked: %s"
+msgstr "Bokade: %s"
+
+#: templates/emails/plain/admin-new-booking.php:16
+#: templates/emails/plain/customer-booking-confirmed.php:18
+#: templates/emails/plain/customer-booking-notification.php:16
+#: templates/emails/plain/customer-booking-reminder.php:16
+#, php-format
+#@ woocommerce-bookings
+msgid "Booking ID: %s"
+msgstr "Boknings ID: %s"
+
+#: templates/emails/plain/admin-new-booking.php:19
+#: templates/emails/plain/customer-booking-confirmed.php:21
+#: templates/emails/plain/customer-booking-notification.php:19
+#: templates/emails/plain/customer-booking-reminder.php:19
+#, php-format
+#@ woocommerce-bookings
+msgid "Booking Type: %s"
+msgstr "Bokningstyp: %s"
+
+#: templates/emails/plain/admin-new-booking.php:22
+#: templates/emails/plain/customer-booking-confirmed.php:23
+#: templates/emails/plain/customer-booking-notification.php:21
+#: templates/emails/plain/customer-booking-reminder.php:21
+#, php-format
+#@ woocommerce-bookings
+msgid "Booking Start Date: %s"
+msgstr "Bokning startdatum: %s"
+
+#: templates/emails/plain/admin-new-booking.php:23
+#: templates/emails/plain/customer-booking-confirmed.php:24
+#: templates/emails/plain/customer-booking-notification.php:22
+#: templates/emails/plain/customer-booking-reminder.php:22
+#, php-format
+#@ woocommerce-bookings
+msgid "Booking End Date: %s"
+msgstr "Bokningens slutdatum: %s"
+
+#: templates/emails/plain/admin-new-booking.php:26
+#: templates/emails/plain/customer-booking-notification.php:25
+#: templates/emails/plain/customer-booking-reminder.php:25
+#, php-format
+#@ woocommerce-bookings
+msgid "Person(s): %s"
+msgstr "Person(er): %s"
+
+#: templates/emails/plain/customer-booking-confirmed.php:28
+#, php-format
+#@ woocommerce-bookings
+msgid "%s: %d"
+msgstr "%s: %d"
+
+#: templates/emails/plain/customer-booking-confirmed.php:40
+#, php-format
+#@ woocommerce
+msgid "Order number: %s"
+msgstr "Ordernummer: %s"
+
+#: templates/emails/plain/customer-booking-confirmed.php:41
+#, php-format
+#@ woocommerce
+msgid "Order date: %s"
+msgstr "Orderdatum: %s"
+
+#: templates/emails/plain/customer-booking-notification.php:11
+#@ woocommerce-bookings
+msgid "The details of your booking are shown below."
+msgstr "Detaljerna i din bokning visas nedan."
+
+#: templates/emails/plain/customer-booking-reminder.php:11
+#@ woocommerce-bookings
+msgid "This is a reminder that your booking will take place tomorrow. The details of your booking are shown below."
+msgstr "Detta är en påminnelse om att din bokning kommer att äga rum i morgon. Detaljerna i din bokning visas nedan."
+
+#: templates/myaccount/my-bookings.php:10
+#@ woocommerce-bookings
+msgid "My bookings"
+msgstr "Mina bokningar"
+
+#: templates/myaccount/my-bookings.php:16
+#@ woocommerce-bookings
+msgid "Booked"
+msgstr "Bokad"
+
+#: templates/single-product/add-to-cart/booking.php:17
+#@ woocommerce-bookings
+msgid "Your browser must support JavaScript in order to make a booking."
+msgstr "Din webbläsare måste stödja JavaScript för att kunna göra en bokning."
+
+#: woocommmerce-bookings.php:131
+#@ woocommerce-bookings
+msgid "Person Type"
+msgstr "Persontyp"
+
+#: woocommmerce-bookings.php:142
+#@ woocommerce-bookings
+msgid "Resource"
+msgstr "Resurs"
+
+#: woocommmerce-bookings.php:153
+#: woocommmerce-bookings.php:156
+#@ woocommerce-bookings
+msgid "Booking"
+msgstr "Bokning"
+
+#: woocommmerce-bookings.php:155
+#@ woocommerce-bookings
+msgid "Bookings"
+msgstr "Bokningar"
+
+#: woocommmerce-bookings.php:157
+#@ woocommerce-bookings
+msgid "Add Booking"
+msgstr "Lägg till bokning"
+
+#: woocommmerce-bookings.php:158
+#@ woocommerce-bookings
+msgid "Add New Booking"
+msgstr "Lägg till ny bokning"
+
+#: woocommmerce-bookings.php:159
+#@ woocommerce-bookings
+msgid "Edit"
+msgstr "Redigera"
+
+#: woocommmerce-bookings.php:160
+#@ woocommerce-bookings
+msgid "Edit Booking"
+msgstr "Redigera bokning"
+
+#: woocommmerce-bookings.php:162
+#: woocommmerce-bookings.php:163
+#@ woocommerce-bookings
+msgid "View Booking"
+msgstr "Se bokning"
+
+#: woocommmerce-bookings.php:164
+#@ woocommerce-bookings
+msgid "Search Bookings"
+msgstr "Sök bokningar"
+
+#: woocommmerce-bookings.php:165
+#@ woocommerce-bookings
+msgid "No Bookings found"
+msgstr "Inga bokningar funna"
+
+#: woocommmerce-bookings.php:166
+#@ woocommerce-bookings
+msgid "No Bookings found in trash"
+msgstr "Inga bokningar funna i papperskorgen"
+
+#: woocommmerce-bookings.php:167
+#@ woocommerce-bookings
+msgid "Parent Bookings"
+msgstr "Förälder bokningar"
+
+#: woocommmerce-bookings.php:168
+#@ woocommerce-bookings
+msgctxt "Admin menu name"
+msgid "Bookings"
+msgstr "Bokningar"
+
+#: woocommmerce-bookings.php:169
+#@ woocommerce-bookings
+msgid "All Bookings"
+msgstr "Alla bokningar"
+
+#: woocommmerce-bookings.php:171
+#@ woocommerce-bookings
+msgid "This is where bookings are stored."
+msgstr "Det är här bokningar lagras."
+
+#: woocommmerce-bookings.php:193
+#@ woocommerce-bookings
+msgctxt "woocommerce-bookings"
+msgid "Un-paid"
+msgstr "Obetald"
+
+#: woocommmerce-bookings.php:198
+#, php-format
+#@ woocommerce-bookings
+msgid "Un-paid <span class=\"count\">(%s)</span>"
+msgid_plural "Un-paid <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommmerce-bookings.php:201
+#@ woocommerce-bookings
+msgctxt "woocommerce-bookings"
+msgid "Pending Confirmation"
+msgstr "Väntar på bekräftelse"
+
+#: woocommmerce-bookings.php:206
+#, php-format
+#@ woocommerce-bookings
+msgid "Pending Confirmation <span class=\"count\">(%s)</span>"
+msgid_plural "Pending Confirmation <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommmerce-bookings.php:209
+#@ woocommerce-bookings
+msgctxt "woocommerce-bookings"
+msgid "Confirmed"
+msgstr "Bekräftad"
+
+#: woocommmerce-bookings.php:214
+#, php-format
+#@ woocommerce-bookings
+msgid "Confirmed <span class=\"count\">(%s)</span>"
+msgid_plural "Confirmed <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommmerce-bookings.php:217
+#@ woocommerce-bookings
+msgctxt "woocommerce-bookings"
+msgid "Paid"
+msgstr "Betald"
+
+#: woocommmerce-bookings.php:222
+#, php-format
+#@ woocommerce-bookings
+msgid "Paid <span class=\"count\">(%s)</span>"
+msgid_plural "Paid <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommmerce-bookings.php:225
+#@ woocommerce-bookings
+msgctxt "woocommerce-bookings"
+msgid "Cancelled"
+msgstr "Avbruten"
+
+#: woocommmerce-bookings.php:230
+#, php-format
+#@ woocommerce-bookings
+msgid "Cancelled <span class=\"count\">(%s)</span>"
+msgid_plural "Cancelled <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommmerce-bookings.php:233
+#@ woocommerce-bookings
+msgctxt "woocommerce-bookings"
+msgid "Complete"
+msgstr "Klar"
+
+#: woocommmerce-bookings.php:238
+#, php-format
+#@ woocommerce-bookings
+msgid "Complete <span class=\"count\">(%s)</span>"
+msgid_plural "Complete <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
