@@ -24,7 +24,7 @@
  *
  * @package		WooCommerce Course Products
  * @author		Allyson Souza
- * @since			1.0
+ * @since		1.0
  */
 
 /**

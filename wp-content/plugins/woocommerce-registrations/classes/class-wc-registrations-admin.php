@@ -37,8 +37,9 @@ class WC_Registrations_Admin {
 		// Saves registrations meta fields
 	    add_action( 'woocommerce_process_product_meta_course', __CLASS__ . '::save_registrations_meta', 11 );
 
-		// Add date inputs to attributes tab
-        add_action( 'woocommerce_product_options_attributes', __CLASS__. '::registrations_date_fields' );
+		add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registration_dates_tab' );
+
+        add_action( 'woocommerce_product_data_panels', __CLASS__. '::show_dates_tab_content' );
 	}
 
     /**
@@ -285,81 +286,20 @@ class WC_Registrations_Admin {
 		*/
 	}
 
-    public static function registrations_date_fields() {
-        global $thepostid, $post, $woocommerce;
+	public static function registration_dates_tab( $tabs ) {
+		// Adds the new tab
 
-        if( empty( $thepostid ) ) {
-            $thepostid = $post->ID;
-        }
+		$tabs['dates'] = array(
+			'label' 	=> __( 'Dates', 'woocommerce-registrations' ),
+			'target' 	=> 'registration_dates',
+			'class' 	=> array('show_if_registration')
+		);
 
-		$select_date = get_post_meta( $thepostid, '_selec_date_type', true );
+		return $tabs;
+	}
 
-		if( empty( $select_date ) ) {
-			$select_date = '';
-		}
-
-        $event_start_date = get_post_meta( $thepostid, '_event_start_date', true );
-
-        if( empty( $event_start_date ) ) {
-            $event_start_date = '';
-        }
-
-        $event_end_date = get_post_meta( $thepostid, '_event_end_date', true );
-
-        if( empty( $event_end_date ) ) {
-            $event_end_date = '';
-        }
-
-            echo '<div class="options_group dates show_if_registration">';
-
-			echo '<input type="hidden" class="attribute_name" name="attribute_names[0]" value="Dates">';
-			echo '<input type="hidden" name="attribute_position[0]" class="attribute_position" value="0">';
-			echo '<input type="hidden" name="attribute_is_taxonomy[0]" value="0">';
-			echo '<input type="hidden" class="checkbox" checked="checked" name="attribute_visibility[0]" value="1">';
-			echo '<input type="hidden" class="checkbox" name="attribute_variation[0]" value="1">';
-			echo '<input type="hidden" id="hidden_date" name="attribute_values[0]" value="">';
-
-			woocommerce_wp_select(
-				array(
-					'id'          => '_selec_date_type',
-					'label'       => __( 'Date Type', 'woocommerce-registrations' ),
-					'description' => __( 'Choose a date type to define.', 'woocommerce-registrations' ),
-					'value'       => $select_date,
-					'options' => array(
-						'one'   => __( 'Single Day', 'woocommerce-registrations' ),
-						'two'   => __( 'Range', 'woocommerce-registrations' ),
-						'three' => __( 'Multiple Days', 'woocommerce-registrations' )
-						)
-					)
-			);
-
-            woocommerce_wp_text_input(
-            	array(
-        			'id'          => 'event_start_date',
-        			'class'       => 'wc_input_event_start_date event_date',
-        			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
-        			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
-        			'type'        => 'date',
-                    'value'       => $event_start_date
-    			)
-    		);
-
-    		woocommerce_wp_text_input(
-                array(
-        			'id'          => 'event_end_date',
-        			'class'       => 'wc_input_event_end_date event_date',
-        			'label'       => __( 'Event End Date', 'woocommerce-registrations' ),
-        			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
-        			'type'        => 'date',
-                    'value'       => $event_end_date
-    			)
-    		);
-
-			echo '<p class="toolbar">';
-			echo '<button type="button" class="button save_date_attributes">Salvar Datas</button>';
-			echo '</p>';
-
-            echo '</div>';
+    public static function show_dates_tab_content() {
+		include_once( 'views/html-dates-view.php' );
     }
 }
 

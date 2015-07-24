@@ -86,7 +86,7 @@ jQuery( function( $ ){
 	});
 
 	// PRODUCT TYPE SPECIFIC OPTIONS
-	$( 'select#product-type' ).change( function () {		
+	$( 'select#product-type' ).change( function () {
 		// Get value
 		var select_val = $( this ).val();
 
