@@ -57,11 +57,34 @@ jQuery(document).ready(function($){
 		$.showHideRegistrationMeta();
 	});
 
+	// Add new date field
+	$('button.add_date_field').on( 'click' , function (e) {
+		// Get the date type defined on select
+		var value = $('select[name="date_select"]').val();
+
+		elem = $('.date_models').children( '.' + value ).clone();
+		$('.dates').append( elem );
+
+		e.preventDefault();
+	});
+
+	// Remove date button
+	$( document ).on( 'click', '.remove_date', function (e) {
+		$( this ).parent().parent( 'div' ).remove();
+		e.preventDefault();
+	});
+
+	// Add Day button
+	$( document ).on( 'click', 'button.add_day', function (e) {
+		
+	});
+
 	// Add date values to hidden field
-	$('.event_date').on( 'change', function() {
+	$('.event_date').on( 'change', function(e) {
 		var value = $('#hidden_date').val() + $(this).val() + '|';
 		$('#hidden_date').val( value );
 		console.log( $('.dates').children('input').serialize() );
+		e.preventDefault();
 	});
 
 	/*
@@ -142,7 +165,7 @@ jQuery(document).ready(function($){
 			$pickerDiv.slideUp('fast');
 		}
 
-		e.preventDefault();
+
 	});
 
 	$('.cancel-timestamp', '.date-picker-div').click(function(e) {
