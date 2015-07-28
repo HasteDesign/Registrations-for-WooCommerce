@@ -13,10 +13,10 @@ jQuery(document).ready(function($){
             security: 		woocommerce_admin_meta_boxes.save_attributes_nonce
         };
 
-        //data.data += '&' + $('.product_attributes').find('input, select, textarea').serialize();
-
-        console.log( data );
-
+        if( $('.product_attributes').find('input, select, textarea').serialize() ) {
+            data.data += '&' + $('.product_attributes').find('input, select, textarea').serialize();
+        }
+        
         $.post( woocommerce_admin_meta_boxes.ajax_url, data, function( response ) {
 
             var this_page = window.location.toString();
