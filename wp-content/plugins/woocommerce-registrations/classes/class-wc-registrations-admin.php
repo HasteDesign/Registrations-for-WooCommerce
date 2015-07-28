@@ -39,6 +39,8 @@ class WC_Registrations_Admin {
 
 		add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registration_dates_tab' );
 
+		add_filter( 'woocommerce_variation_option_name', __CLASS__ . '::registration_variation_option_name' );
+
         add_action( 'woocommerce_product_data_panels', __CLASS__. '::show_dates_tab_content' );
 	}
 
@@ -301,6 +303,25 @@ class WC_Registrations_Admin {
     public static function show_dates_tab_content() {
 		include_once( 'views/html-dates-view.php' );
     }
+
+	public static function registration_variation_option_name( $option ) {
+			$opt = json_decode( $option );
+
+			if ( $opt ) {
+				switch ( $opt->type ) {
+					case 'single' : return date_i18n( get_option( 'date_format' ), strtotime( $opt->date ) );
+					break;
+					case 'multiple' : return date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[0] ) ) . ', ' . date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[1] ) ) . '[...]';
+					break;
+					case 'range' : return date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[0] ) ) . __(' to ', 'woocommerce-registrations') . date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[1] ) );
+					break;
+					default : ;
+					break;
+				}
+			}
+
+			return $option;
+	}
 }
 
 WC_Registrations_Admin::init();
