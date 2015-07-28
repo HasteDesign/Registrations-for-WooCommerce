@@ -55,40 +55,60 @@
         <input type="hidden" class="checkbox" name="attribute_variation[0]" value="1">
         <input type="hidden" id="hidden_date" name="attribute_values[0]" value="">
 
-        <div class="date_models" style="display:none;">
-            <!-- Simple Date -->
+        <!-- BEGIN: Templates -->
+
+        <!-- Single Date -->
+        <script type="text/template" class="template-single_date">
             <div class="single_date options_group">
-                <p class="form-field event_single_date">
+                <h3><?php _e( 'Single Day', 'woocommerce-registrations'); ?></h3>
+                <p class="form-field">
                     <label for="event_start_date"><?php _e( 'Event Day', 'woocommerce-registrations'); ?></label>
                     <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="2011-09-29">
                     <button style="float:right;" type="button" class="remove_date button"><?php _e( 'Remove', 'woocommerce-registrations' ); ?></button>
                 </p>
             </div>
+        </script>
 
-            <!-- Multiple Date -->
+        <!-- Multiple Date -->
+        <script type="text/template" class="template-multiple_date">
             <div class="multiple_date options_group">
-                <p class="form-field event_multiple_date">
-                    <label for="event_start_date"><?php _e( 'Event Days', 'woocommerce-registrations'); ?></label>
-                    <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="" placeholder="10/07/2015">
+                <h3><?php _e( 'Multiple Days', 'woocommerce-registrations'); ?></h3>
+                <p class="form-field multiple_date_inputs">
+                    <label for="event_start_date"><?php _e( 'Day', 'woocommerce-registrations'); ?></label>
+                    <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="2011-09-29">
+                    <button type="button" class="remove_day button"><?php _e( 'Remove Day', 'woocommerce-registrations' ); ?></button>
                 </p>
                 <p class="form-field" >
-                    <button style="float:right;" type="button" class="remove_date button"><?php _e( 'Remove', 'woocommerce-registrations' ); ?></button>
+                    <button style="float:right;" type="button" class="remove_date button"><?php _e( 'Remove All', 'woocommerce-registrations' ); ?></button>
                     <button style="float:right;" type="button" class="add_day button"><?php _e( 'Add Day', 'woocommerce-registrations' ); ?></button>
                 </p>
             </div>
+        </script>
 
-            <!-- Range Date -->
+        <!-- Range Date -->
+        <script type="text/template" class="template-range_date">
             <div class="range_date options_group">
-                <p class="form-field event_range_date">
-                    <label for="event_start_date"><?php _e( 'Event start and end date', 'woocommerce-registrations'); ?></label>
+                <h3><?php _e( 'Range Date', 'woocommerce-registrations'); ?></h3>
+                <p class="form-field">
+                    <label for="event_range_date"><?php _e( 'Event start and end date', 'woocommerce-registrations'); ?></label>
                     <span class="conjuncao"><?php _e( 'From', 'woocommerce-registrations' ); ?></span>
-                    <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="" placeholder="10/07/2015">
+                    <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="2011-09-29" >
                     <span class="conjuncao"><?php _e( 'to', 'woocommerce-registrations' ); ?></span>
-                    <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="" placeholder="10/07/2015">
+                    <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="2011-09-29" >
                     <button style="float:right;" type="button" class="remove_date button"><?php _e( 'Remove', 'woocommerce-registrations' ); ?></button>
                 </p>
             </div>
-        </div>
+        </script>
+
+        <!-- Multiple Date - Day -->
+        <script type="text/template" class="template-multiple_date_inputs">
+            <p class="form-field multiple_date_inputs">
+                <label for="event_start_date"><?php _e( 'Day', 'woocommerce-registrations'); ?></label>
+                <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="2011-09-29">
+                <button type="button" class="remove_day button"><?php _e( 'Remove Day', 'woocommerce-registrations' ); ?></button>
+            </p>
+        </script>
+        <!-- END: Templates -->
 
         <!-- Dates -->
         <div class="options_group dates"></div>
