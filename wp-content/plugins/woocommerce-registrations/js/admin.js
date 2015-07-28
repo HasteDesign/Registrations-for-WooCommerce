@@ -26,6 +26,86 @@ jQuery(document).ready(function($){
 			} else {
 				//Nothing
 			}
+		},
+		addDatesToHiddenFields: function () {
+			// Cleanup Hidden Date Value
+			$('#hidden_date').val( "" );
+
+			//Loop trough all date sections and catch values
+			$( '.dates' ).children().each( function() {
+				if( $( this ).hasClass( 'single_date' ) )
+				{
+					$.handleSingleDate( this );
+				}
+				else if ( $( this ).hasClass( 'multiple_date' ) )
+				{
+					$.handleMultipleDate( this );
+				}
+				else if ( $( this ).hasClass( 'range_date' ) )
+				{
+					$.handleRangeDate( this );
+				}
+			});
+		},
+		handleSingleDate: function ( elem ) {
+			var json_base = "{type:single,date:";
+			var value = "";
+
+			if( $('#hidden_date').val() !== '' ) {
+				value = $('#hidden_date').val() + '|';
+			}
+
+			value += json_base + $( elem ).find( 'input' ).val() + "}";
+
+			$('#hidden_date').val( value );
+		},
+		handleMultipleDate: function ( elem ) {
+			var json_base = "{type:multiple,dates:[";
+			var dates = null;
+			var value = "";
+
+			if( $('#hidden_date').val() !== '' ) {
+				value = $('#hidden_date').val() + '|' + json_base;
+			} else {
+				value = json_base;
+			}
+
+			$( elem ).find( 'input' ).each( function () {
+				if( dates != null ) {
+					dates += ',' + $( this ).val();
+				} else {
+					dates = $( this ).val();
+				}
+
+			});
+
+			value += dates + ']}';
+
+			$('#hidden_date').val( value );
+		},
+		handleRangeDate: function () {
+			var json_base = "{type:range,dates:[";
+			var dates = null;
+			var value = "";
+
+			if( $('#hidden_date').val() !== '' ) {
+				value = $('#hidden_date').val() + '|' + json_base;
+			} else {
+				value = json_base;
+			}
+
+			$( elem ).find( 'input' ).each( function () {
+				if( dates != null ) {
+					dates += ',' + $( this ).val();
+				} else {
+					dates = $( this ).val();
+				}
+
+			});
+
+			value += dates + ']}';
+
+			$('#hidden_date').val( value );
 		}
 	});
 
@@ -62,7 +142,8 @@ jQuery(document).ready(function($){
 		// Get the date type defined on select
 		var value = $('select[name="date_select"]').val();
 
-		elem = $('.date_models').children( '.' + value ).clone();
+		elem = $('script.template-' + value ).html();
+		//elem = $('.date_models').children( '.' + value ).clone();
 		$('.dates').append( elem );
 
 		e.preventDefault();
@@ -76,17 +157,32 @@ jQuery(document).ready(function($){
 
 	// Add Day button
 	$( document ).on( 'click', 'button.add_day', function (e) {
-		
-	});
-
-	// Add date values to hidden field
-	$('.event_date').on( 'change', function(e) {
-		var value = $('#hidden_date').val() + $(this).val() + '|';
-		$('#hidden_date').val( value );
-		console.log( $('.dates').children('input').serialize() );
+		elem = $('script.template-multiple_date_inputs').html();
+		$( this ).parent().before( elem );
 		e.preventDefault();
 	});
 
+	// Remove Day button
+	$( document ).on( 'click', 'button.remove_day', function (e) {
+		$( this ).parent().remove();
+		e.preventDefault();
+	});
+
+	// Add values to hidden field
+	$( document ).on( 'change', '.event_date', function(e) {
+		$.addDatesToHiddenFields();
+	});
+
+	// Multiple Date - Add values to hidden field
+	$( document ).on( 'change', '.event_multiple _date', function(e) {
+		if( $('#hidden_date').val() !== '' ) {
+			var value = $('#hidden_date').val() + '|' + $(this).val();
+		} else {
+			var value = $(this).val();
+		}
+		$('#hidden_date').val( value );
+		e.preventDefault();
+	});
 	/*
 	if($('.options_group.pricing').length > 0) {
 		$.setSalePeriod();
