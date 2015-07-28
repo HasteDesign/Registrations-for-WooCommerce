@@ -48,19 +48,19 @@ jQuery(document).ready(function($){
 			});
 		},
 		handleSingleDate: function ( elem ) {
-			var json_base = "{type:single,date:";
+			var json_base = '{"type":"single","date":';
 			var value = "";
 
 			if( $('#hidden_date').val() !== '' ) {
 				value = $('#hidden_date').val() + '|';
 			}
 
-			value += json_base + $( elem ).find( 'input' ).val() + "}";
+			value += json_base + '"' + $( elem ).find( 'input' ).val() + '"}';
 
 			$('#hidden_date').val( value );
 		},
 		handleMultipleDate: function ( elem ) {
-			var json_base = "{type:multiple,dates:[";
+			var json_base = '{"type":"multiple","dates":[';
 			var dates = null;
 			var value = "";
 
@@ -72,11 +72,10 @@ jQuery(document).ready(function($){
 
 			$( elem ).find( 'input' ).each( function () {
 				if( dates != null ) {
-					dates += ',' + $( this ).val();
+					dates += ',"' + $( this ).val() + '"';
 				} else {
-					dates = $( this ).val();
+					dates = '"' + $( this ).val() + '"';
 				}
-
 			});
 
 			value += dates + ']}';
@@ -84,7 +83,7 @@ jQuery(document).ready(function($){
 			$('#hidden_date').val( value );
 		},
 		handleRangeDate: function () {
-			var json_base = "{type:range,dates:[";
+			var json_base = '{"type":"range","dates":[';
 			var dates = null;
 			var value = "";
 
@@ -96,11 +95,10 @@ jQuery(document).ready(function($){
 
 			$( elem ).find( 'input' ).each( function () {
 				if( dates != null ) {
-					dates += ',' + $( this ).val();
+					dates += ',"' + $( this ).val() + '"';
 				} else {
-					dates = $( this ).val();
+					dates = '"' + $( this ).val() + '"';
 				}
-
 			});
 
 			value += dates + ']}';
