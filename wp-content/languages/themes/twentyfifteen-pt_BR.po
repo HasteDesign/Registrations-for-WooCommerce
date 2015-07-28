@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Twenty Fifteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-28 14:02:22+0000\n"
+"PO-Revision-Date: 2015-07-27 22:21:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Twenty Fifteen\n"
 
 #. Author of the plugin/theme
@@ -15,8 +15,8 @@ msgid "the WordPress team"
 msgstr "a equipe do WordPress"
 
 #. Theme URI of the plugin/theme
-msgid "https://wordpress.org/themes/twentyfifteen"
-msgstr "https://wordpress.org/themes/twentyfifteen"
+msgid "https://wordpress.org/themes/twentyfifteen/"
+msgstr "https://wordpress.org/themes/twentyfifteen/"
 
 #. Description of the plugin/theme
 msgid "Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty Fifteen's simple, straightforward typography is readable on a wide variety of screen sizes, and suitable for multiple languages. We designed it using a mobile-first approach, meaning your content takes center-stage, regardless of whether your visitors arrive by smartphone, tablet, laptop, or desktop computer."
@@ -162,7 +162,7 @@ msgstr "<span class=\"meta-nav\">Publicado em</span><span class=\"post-title\">%
 msgid "Next Image"
 msgstr "Próxima imagem"
 
-#: header.php:44
+#: header.php:43
 msgid "Menu and widgets"
 msgstr "Menu e widgets"
 
@@ -170,46 +170,46 @@ msgstr "Menu e widgets"
 msgid "Previous Image"
 msgstr "Imagem anterior"
 
-#: header.php:27
+#: header.php:26
 msgid "Skip to content"
 msgstr "Pular para o conteúdo"
 
-#: functions.php:232
+#: functions.php:256
 msgid "collapse child menu"
 msgstr "colapsar submenu"
 
-#: functions.php:231
+#: functions.php:255
 msgid "expand child menu"
 msgstr "expandir submenu"
 
-#. translators: To add an additional character subset specific to your
+#. Translators: To add an additional character subset specific to your
 #. language, translate this to 'greek', 'cyrillic', 'devanagari' or
 #. 'vietnamese'. Do not translate into your own language.
-#: functions.php:173
+#: functions.php:185
 msgctxt "Add new subset (greek, cyrillic, devanagari, vietnamese)"
 msgid "no-subset"
 msgstr "sem subconjunto"
 
-#. translators: If there are characters in your language that are not supported
+#. Translators: If there are characters in your language that are not supported
 #. by Inconsolata, translate this to 'off'. Do not translate into your own
 #. language.
-#: functions.php:168
+#: functions.php:177
 msgctxt "Inconsolata font: on or off"
 msgid "on"
 msgstr "ativa"
 
-#. translators: If there are characters in your language that are not supported
+#. Translators: If there are characters in your language that are not supported
 #. by Noto Serif, translate this to 'off'. Do not translate into your own
 #. language.
-#: functions.php:163
+#: functions.php:169
 msgctxt "Noto Serif font: on or off"
 msgid "on"
 msgstr "ativa"
 
-#. translators: If there are characters in your language that are not supported
+#. Translators: If there are characters in your language that are not supported
 #. by Noto Sans, translate this to 'off'. Do not translate into your own
 #. language.
-#: functions.php:158
+#: functions.php:161
 msgctxt "Noto Sans font: on or off"
 msgid "on"
 msgstr "ativa"
@@ -234,7 +234,7 @@ msgstr "Menu principal"
 msgid "Proudly powered by %s"
 msgstr "Orgulhosamente desenvolvido com %s"
 
-#. #-#-#-#-#  twentyfifteen.pot (Twenty Fifteen 1.0)  #-#-#-#-#
+#. #-#-#-#-#  twentyfifteen.pot (Twenty Fifteen 1.2)  #-#-#-#-#
 #. Author URI of the plugin/theme
 #: footer.php:25
 msgid "https://wordpress.org/"
