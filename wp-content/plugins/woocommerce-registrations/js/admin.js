@@ -28,6 +28,7 @@ jQuery(document).ready(function($){
 			}
 		},
 		addDatesToHiddenFields: function () {
+			console.log( 'Add Dates to Hidden Fields.');
 			// Cleanup Hidden Date Value
 			$('#hidden_date').val( "" );
 
@@ -58,6 +59,7 @@ jQuery(document).ready(function($){
 			value += json_base + '"' + $( elem ).find( 'input' ).val() + '"}';
 
 			$('#hidden_date').val( value );
+			console.log( $('#hidden_date').val() );
 		},
 		handleMultipleDate: function ( elem ) {
 			var json_base = '{"type":"multiple","dates":[';
@@ -81,6 +83,7 @@ jQuery(document).ready(function($){
 			value += dates + ']}';
 
 			$('#hidden_date').val( value );
+			console.log( $('#hidden_date').val() );
 		},
 		handleRangeDate: function () {
 			var json_base = '{"type":"range","dates":[';
@@ -104,11 +107,68 @@ jQuery(document).ready(function($){
 			value += dates + ']}';
 
 			$('#hidden_date').val( value );
+			console.log( $('#hidden_date').val() );
+		},
+		removeDateAttribute: function () {
+			var $button = $('.woocommerce_attribute').children('h3').children("strong:contains('Dates')").siblings('button');
+
+			if( $button ) {
+				var $parent = $( $button ).parent().parent();
+
+				$parent.find('select, input[type=text]').val('');
+				$parent.hide();
+				$.attribute_row_indexes();
+			}
+
+			// $('.product_attributes').on('click', 'button.remove_row', function() {
+			// 	var answer = confirm(woocommerce_admin_meta_boxes.remove_attribute);
+			// 	if (answer){
+			// 		var $parent = $(this).parent().parent();
+			//
+			// 		if ($parent.is('.taxonomy')) {
+			// 			$parent.find('select, input[type=text]').val('');
+			// 			$parent.hide();
+			// 			$('select.attribute_taxonomy').find('option[value="' + $parent.data( 'taxonomy' ) + '"]').removeAttr('disabled');
+			// 		} else {
+			// 			$parent.find('select, input[type=text]').val('');
+			// 			$parent.hide();
+			// 			attribute_row_indexes();
+			// 		}
+			// 	}
+			// 	return false;
+			// });
+		},
+		adjustAttributesIndex: function () {
+			var length = 0;
+
+			$( '.product_attributes' ).children('.woocommerce_attribute').each( function () {
+				if( $( this ).css( 'display' ) != 'none' ) {
+					length += 1;
+				}
+			});
+
+			console.log( 'Attributes length: ' + length );
+
+			$('#hidden_name').attr('name','attribute_names[' + length + ']');
+			$('#hidden_position').attr('name','attribute_position[' + length + ']');
+			$('#hidden_taxonomy').attr('name','attribute_is_taxonomy[' + length + ']');
+			$('#hidden_visibility').attr('name','attribute_visibility[' + length + ']');
+			$('#hidden_variation').attr('name','attribute_variation[' + length + ']');
+			$('#hidden_date').attr('name','attribute_values[' + length + ']');
+
+			$('#hidden_position').val( length );
+		},
+		attribute_row_indexes: function () {
+			$('.product_attributes .woocommerce_attribute').each(function(index, el){
+				$('.attribute_position', el).val( parseInt( $(el).index('.product_attributes .woocommerce_attribute') ) );
+			});
 		}
 	});
 
 	// Grants correct fields display when product already saved as registration product
 	$.showHideRegistrationMeta();
+	$.removeDateAttribute();
+	$.adjustAttributesIndex();
 
 	// Show/Hide fields when product type changes
 	$('body').bind('woocommerce-product-type-change',function(){
@@ -135,6 +195,22 @@ jQuery(document).ready(function($){
 		$.showHideRegistrationMeta();
 	});
 
+	// Re-count the hidden inputs index when new attribute added
+	if ('true' == WCRegistrations.isWCPre23){
+		$('button.add_attribute').on('click', function(){
+			$.adjustAttributesIndex();
+		});
+	} else {
+		// WC 2.3 - run after the Ajax request has inserted variation HTML
+		$('body').on('woocommerce_added_attribute', function(){
+			$.adjustAttributesIndex();
+		});
+	}
+
+	// $( '.product_attributes' ).on( 'click', 'button.remove_row', function(e){
+	// 	$.adjustAttributesIndex();
+	// });
+
 	// Add new date field
 	$('button.add_date_field').on( 'click' , function (e) {
 		// Get the date type defined on select
@@ -148,31 +224,32 @@ jQuery(document).ready(function($){
 	});
 
 	// Remove date button
-	$( document ).on( 'click', '.remove_date', function (e) {
+	$( 'body' ).on( 'click', '.remove_date', function (e) {
 		$( this ).parent().parent( 'div' ).remove();
 		e.preventDefault();
 	});
 
 	// Add Day button
-	$( document ).on( 'click', 'button.add_day', function (e) {
+	$( 'body' ).on( 'click', 'button.add_day', function (e) {
 		elem = $('script.template-multiple_date_inputs').html();
 		$( this ).parent().before( elem );
 		e.preventDefault();
 	});
 
 	// Remove Day button
-	$( document ).on( 'click', 'button.remove_day', function (e) {
+	$( 'body' ).on( 'click', 'button.remove_day', function (e) {
 		$( this ).parent().remove();
 		e.preventDefault();
 	});
 
 	// Add values to hidden field
-	$( document ).on( 'change', '.event_date', function(e) {
+	$( 'body' ).on( 'change', '.event_date', function(e) {
 		$.addDatesToHiddenFields();
+		e.preventDefault();
 	});
 
 	// Multiple Date - Add values to hidden field
-	$( document ).on( 'change', '.event_multiple _date', function(e) {
+	$( 'body' ).on( 'change', '.event_multiple _date', function(e) {
 		if( $('#hidden_date').val() !== '' ) {
 			var value = $('#hidden_date').val() + '|' + $(this).val();
 		} else {
