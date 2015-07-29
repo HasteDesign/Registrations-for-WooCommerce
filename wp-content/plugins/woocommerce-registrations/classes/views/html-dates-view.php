@@ -10,39 +10,24 @@
 
     // Product attributes - taxonomies and custom, ordered, with visibility and variation attributes set
     $attributes           = maybe_unserialize( get_post_meta( $thepostid, '_product_attributes', true ) );
-
-    // echo '<pre>';
-    // var_dump( $attributes['pa_dates'] );
-    // echo '</pre>';
+    $value = "";
+    $dates = "";
 
     // Output All Set Attributes
-    // if ( ! empty( $attributes ) ) {
-    //     $attribute_keys  = array_keys( $attributes );
-    //     $attribute_total = sizeof( $attribute_keys );
-    //
-    //     for ( $i = 0; $i < $attribute_total; $i ++ ) {
-    //         $attribute     = $attributes[ $attribute_keys[ $i ] ];
-    //         $position      = empty( $attribute['position'] ) ? 0 : absint( $attribute['position'] );
-    //         $taxonomy      = '';
-    //         $metabox_class = array();
-    //
-    //         if ( $attribute['is_taxonomy'] ) {
-    //             $taxonomy = $attribute['name'];
-    //
-    //             if ( ! taxonomy_exists( $taxonomy ) ) {
-    //                 continue;
-    //             }
-    //
-    //             $attribute_taxonomy = $wc_product_attributes[ $taxonomy ];
-    //             $metabox_class[]    = 'taxonomy';
-    //             $metabox_class[]    = $taxonomy;
-    //             $attribute_label    = wc_attribute_label( $taxonomy );
-    //         } else {
-    //             $attribute_label    = apply_filters( 'woocommerce_attribute_label', $attribute['name'], $attribute['name'] );
-    //         }
-    //
-    //     }
-    // }
+    if ( ! empty( $attributes ) ) {
+        $attribute_keys  = array_keys( $attributes );
+        $attribute_total = sizeof( $attribute_keys );
+
+        for ( $i = 0; $i < $attribute_total; $i ++ ) {
+            $attribute     = $attributes[ $attribute_keys[ $i ] ];
+
+            if( $attribute['name'] == 'Dates') {
+                $value = trim( $attribute['value'], '"');
+                $value = htmlspecialchars( $value, ENT_COMPAT, false);
+                $dates = explode( WC_DELIMITER, $attribute['value'] );
+            }
+        }
+    }
 ?>
     <div id="registration_dates" class="panel woocommerce_options_panel">
         <div class="general_dates">
@@ -111,7 +96,56 @@
         <!-- END: Templates -->
 
         <!-- Dates -->
-        <div class="options_group dates"></div>
+        <div class="options_group dates">
+        <?php
+        //Display existent dates
+        if( ! empty( $dates ) ) {
+            foreach ( $dates as $date ) {
+                $date = json_decode( $date );
+
+                if( $date->type == 'single' ) :
+        ?>
+            <div class="single_date options_group">
+                <h3><?php _e( 'Single Day', 'woocommerce-registrations'); ?></h3>
+                <p class="form-field">
+                    <label for="event_start_date"><?php _e( 'Event Day', 'woocommerce-registrations'); ?></label>
+                    <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="<?php echo $date->date; ?>">
+                    <button style="float:right;" type="button" class="remove_date button"><?php _e( 'Remove', 'woocommerce-registrations' ); ?></button>
+                </p>
+            </div>
+        <?php
+                elseif ( $date->type == 'multiple' ) :
+        ?>
+        <div class="multiple_date options_group">
+            <h3><?php _e( 'Multiple Days', 'woocommerce-registrations'); ?></h3>
+            <?php
+                //$days = explode( ',', $date->dates );
+
+                foreach( $date->dates as $day ) :
+            ?>
+                <p class="form-field multiple_date_inputs">
+                    <label for="event_start_date"><?php _e( 'Day', 'woocommerce-registrations'); ?></label>
+                    <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="<?php echo $day; ?>">
+                    <button type="button" class="remove_day button"><?php _e( 'Remove Day', 'woocommerce-registrations' ); ?></button>
+                </p>
+            <?php
+                endforeach;
+            ?>
+            <p class="form-field" >
+                <button style="float:right;" type="button" class="remove_date button"><?php _e( 'Remove All', 'woocommerce-registrations' ); ?></button>
+                <button style="float:right;" type="button" class="add_day button"><?php _e( 'Add Day', 'woocommerce-registrations' ); ?></button>
+            </p>
+        </div>
+        <?php
+                elseif ( $date->type == 'range' ) :
+        ?>
+
+        <?php
+                endif;
+            }
+        }
+        ?>
+        </div>
 
         <!-- Toolbar -->
         <p class="toolbar">

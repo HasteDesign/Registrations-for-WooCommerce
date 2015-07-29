@@ -30,7 +30,7 @@ jQuery(document).ready(function($){
 		addDatesToHiddenFields: function () {
 			console.log( 'Add Dates to Hidden Fields.');
 			// Cleanup Hidden Date Value
-			$('#hidden_date').val( "" );
+			$('#hidden_date').attr( 'value', '' );
 
 			//Loop trough all date sections and catch values
 			$( '.dates' ).children().each( function() {
@@ -142,9 +142,9 @@ jQuery(document).ready(function($){
 			var length = 0;
 
 			$( '.product_attributes' ).children('.woocommerce_attribute').each( function () {
-				if( $( this ).css( 'display' ) != 'none' ) {
+				//if( $( this ).css( 'display' ) != 'none' ) {
 					length += 1;
-				}
+				//}
 			});
 
 			console.log( 'Attributes length: ' + length );
@@ -167,8 +167,12 @@ jQuery(document).ready(function($){
 
 	// Grants correct fields display when product already saved as registration product
 	$.showHideRegistrationMeta();
+
 	$.removeDateAttribute();
+
 	$.adjustAttributesIndex();
+
+	$.addDatesToHiddenFields();
 
 	// Show/Hide fields when product type changes
 	$('body').bind('woocommerce-product-type-change',function(){
