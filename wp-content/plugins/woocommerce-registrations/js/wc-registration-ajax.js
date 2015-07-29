@@ -4,8 +4,6 @@ jQuery(document).ready(function($){
 
         $('#registration_dates').block({ message: null, overlayCSS: { background: '#fff', opacity: 0.6 } });
 
-        console.log( $('.general_dates').children('input').serialize() );
-
         var data = {
             post_id: 		woocommerce_admin_meta_boxes.post_id,
             data:			$('.general_dates').children('input').serialize(),
@@ -15,8 +13,9 @@ jQuery(document).ready(function($){
 
         if( $('.product_attributes').find('input, select, textarea').serialize() ) {
             data.data += '&' + $('.product_attributes').find('input, select, textarea').serialize();
+            console.log( data.data );
         }
-        
+
         $.post( woocommerce_admin_meta_boxes.ajax_url, data, function( response ) {
 
             var this_page = window.location.toString();
