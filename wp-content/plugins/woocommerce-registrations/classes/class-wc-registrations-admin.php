@@ -336,12 +336,13 @@ class WC_Registrations_Admin {
 			} elseif ( $opt->type == 'multiple' ) {
 
 				$date_option = '';
+				$size = count( $opt->dates );
 
-				foreach( $opt->dates as $date ) {
+				for( $i = 0; $i < $size ; $i ++ ) {
 					if( $date_option == '' ) {
-						$date_option .= date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[0] ) );
+						$date_option .= date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[ $i ] ) );
 					} else {
-						$date_option .= ', ' . date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[0] ) );
+						$date_option .= ', ' . date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[ $i ] ) );
 					}
 				}
 
