@@ -71,7 +71,7 @@ class WC_Registrations {
 
 		// Overide the WC default "Add to Cart" text to "Sign Up Now" (in various places/templates)
 		//add_filter( 'woocommerce_order_button_text', __CLASS__ . '::order_button_text' );
-		//add_action( 'woocommerce_subscription_add_to_cart', __CLASS__ . '::subscription_add_to_cart', 30 );
+		add_action( 'woocommerce_registrations_add_to_cart', __CLASS__ . '::registrations_add_to_cart' );
 		//add_action( 'wcopc_subscription_add_to_cart', __CLASS__ . '::wcopc_subscription_add_to_cart' ); // One Page Checkout compatibility
 
 		// Enqueue front-end styles
@@ -88,6 +88,32 @@ class WC_Registrations {
 
 		// WooCommerce 2.0 Notice
 		//add_action( 'admin_notices', __CLASS__ . '::woocommerce_dependancy_notice' );
+	}
+
+	public static function registrations_add_to_cart() {
+		global $product;
+
+		error_log( 'registrations_add_to_cart' );
+		woocommerce_get_template(
+			'single-product/add-to-cart/registration.php',
+			array(
+				'available_variations'  => $product->get_available_variations(),
+				'attributes'   			=> $product->get_variation_attributes(),
+				'selected_attributes' 	=> $product->get_variation_default_attributes()
+			),
+			'',
+			plugin_dir_path( __FILE__ ) . 'templates/'
+		);
+
+		// Enqueue variation scripts
+		//wp_enqueue_script( 'wc-add-to-cart-variation' );
+		//
+		// // Load the template
+		// wc_get_template( 'single-product/add-to-cart/registration.php', array(
+		// 		'available_variations'  => $product->get_available_variations(),
+		// 		'attributes'   			=> $product->get_variation_attributes(),
+		// 		'selected_attributes' 	=> $product->get_variation_default_attributes()
+		// ) );
 	}
 
   // **

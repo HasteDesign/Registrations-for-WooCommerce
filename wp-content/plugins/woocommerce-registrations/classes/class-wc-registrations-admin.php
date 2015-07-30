@@ -43,23 +43,6 @@ class WC_Registrations_Admin {
 
         add_action( 'woocommerce_product_data_panels', __CLASS__. '::show_dates_tab_content' );
 
-		//add_action( 'woocommerce_registrations_add_to_cart', __CLASS__. '::woocommerce_registrations_add_to_cart', 30 );
-	}
-
-	public static function woocommerce_registrations_add_to_cart() {
-		global $product;
-
-		error_log( 'Registration Product! ');
-
-		// Enqueue variation scripts
-		wp_enqueue_script( 'wc-add-to-cart-variation' );
-
-		// Load the template
-		wc_get_template( 'single-product/add-to-cart/variable.php', array(
-				'available_variations'  => $product->get_available_variations(),
-				'attributes'   			=> $product->get_variation_attributes(),
-				'selected_attributes' 	=> $product->get_variation_default_attributes()
-		) );
 	}
 
     /**
