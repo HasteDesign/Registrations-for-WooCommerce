@@ -884,7 +884,7 @@ class WC_Meta_Box_Product_Data {
 		wp_set_object_terms( $post_id, $product_type, 'product_type' );
 		update_post_meta( $post_id, '_downloadable', $is_downloadable );
 		update_post_meta( $post_id, '_virtual', $is_virtual );
-
+		
 		// Update post meta
 		if ( isset( $_POST['_regular_price'] ) ) {
 			update_post_meta( $post_id, '_regular_price', ( $_POST['_regular_price'] === '' ) ? '' : wc_format_decimal( $_POST['_regular_price'] ) );

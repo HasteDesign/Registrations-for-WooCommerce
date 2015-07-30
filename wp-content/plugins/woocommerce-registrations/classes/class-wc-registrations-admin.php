@@ -35,13 +35,31 @@ class WC_Registrations_Admin {
 	    add_action( 'woocommerce_product_after_variable_attributes', __CLASS__ . '::variable_registration_pricing_fields', 10, 3 );
 
 		// Saves registrations meta fields
-	    add_action( 'woocommerce_process_product_meta_course', __CLASS__ . '::save_registrations_meta', 11 );
+	    add_action( 'woocommerce_process_product_meta_registrations', __CLASS__ . '::save_variable_fields', 11 );
 
 		add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registration_dates_tab' );
 
 		add_filter( 'woocommerce_variation_option_name', __CLASS__ . '::registration_variation_option_name' );
 
         add_action( 'woocommerce_product_data_panels', __CLASS__. '::show_dates_tab_content' );
+
+		//add_action( 'woocommerce_registrations_add_to_cart', __CLASS__. '::woocommerce_registrations_add_to_cart', 30 );
+	}
+
+	public static function woocommerce_registrations_add_to_cart() {
+		global $product;
+
+		error_log( 'Registration Product! ');
+
+		// Enqueue variation scripts
+		wp_enqueue_script( 'wc-add-to-cart-variation' );
+
+		// Load the template
+		wc_get_template( 'single-product/add-to-cart/variable.php', array(
+				'available_variations'  => $product->get_available_variations(),
+				'attributes'   			=> $product->get_variation_attributes(),
+				'selected_attributes' 	=> $product->get_variation_default_attributes()
+		) );
 	}
 
     /**
@@ -221,16 +239,12 @@ class WC_Registrations_Admin {
 	 * @return array Array of Product types & their labels, including the Course product type.
 	 * @since 0.1
 	 */
-	public static function save_registrations_meta( $post_id ) {
+	public static function save_variable_fields( $post_id ) {
 
-		if ( ! isset( $_POST['product-type'] ) || ! in_array( $_POST['product-type'], apply_filters( 'woocommerce_registrations_types', array( WC_Registrations::$name ) ) ) ) {
-			return;
+		// Call save_variations method, because product_type is registration not variation
+		if ( class_exists( 'WC_Meta_Box_Product_Data' ) ) {
+			WC_Meta_Box_Product_Data::save_variations( $post_id, get_post( $post_id ) );
 		}
-
-		$course_price = wc_format_decimal( $_REQUEST['_course_price'] );
-		//$sale_price         = wc_format_decimal( $_REQUEST['_sale_price'] );
-
-		update_post_meta( $post_id, '_course_price', $course_price );
 
 		/*
 		Set sale details - these are ignored by WC core for the subscription product type

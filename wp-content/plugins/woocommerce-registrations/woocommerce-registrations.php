@@ -81,7 +81,7 @@ class WC_Registrations {
 		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
 
 		// Load dependant files
-		//add_action( 'plugins_loaded', __CLASS__ . '::load_dependant_classes' );
+		add_action( 'plugins_loaded', __CLASS__ . '::load_dependant_classes' );
 
 		// Attach hooks which depend on WooCommerce constants
 		//add_action( 'plugins_loaded', __CLASS__ . '::attach_dependant_hooks' );
@@ -384,7 +384,7 @@ class WC_Registrations {
 
 		if ( $is_active == false ) {
 
-			// Add the "Course" product type
+			// Add the "Registrations" product type
 			if ( ! get_term_by( 'slug', self::$name, 'product_type' ) ) {
 				wp_insert_term( self::$name, 'product_type' );
 			}
@@ -392,7 +392,8 @@ class WC_Registrations {
 			add_option( 'woocommerce_registrations_is_active', true );
 
 			//set_transient( self::$activation_transient, true, 60 * 60 );
-			//do_action( 'woocommerce_registrations_activated' );
+
+			do_action( 'woocommerce_registrations_activated' );
 		}
 
 	}
@@ -437,7 +438,7 @@ class WC_Registrations {
 
 		if ( version_compare( $woocommerce->version, '2.0', '>=' ) ) {
 
-			require_once( 'classes/class-wc-registrations-admin.php' );
+			require_once( 'classes/class-wc-product-registrations.php' );
 
 			//require_once( 'classes/class-wc-product-subscription-variation.php' );
 
