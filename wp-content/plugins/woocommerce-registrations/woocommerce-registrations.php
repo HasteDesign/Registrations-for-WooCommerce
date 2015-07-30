@@ -94,6 +94,10 @@ class WC_Registrations {
 		global $product;
 
 		error_log( 'registrations_add_to_cart' );
+		
+		// Enqueue variation scripts
+		wp_enqueue_script( 'wc-add-to-cart-variation' );
+
 		woocommerce_get_template(
 			'single-product/add-to-cart/registration.php',
 			array(
@@ -105,8 +109,7 @@ class WC_Registrations {
 			plugin_dir_path( __FILE__ ) . 'templates/'
 		);
 
-		// Enqueue variation scripts
-		//wp_enqueue_script( 'wc-add-to-cart-variation' );
+
 		//
 		// // Load the template
 		// wc_get_template( 'single-product/add-to-cart/registration.php', array(
