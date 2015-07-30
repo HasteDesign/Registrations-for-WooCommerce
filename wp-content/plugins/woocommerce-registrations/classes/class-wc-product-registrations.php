@@ -25,11 +25,11 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 */
 	public function __construct( $product, $args = array() ) {
 
-        $this->product_type = 'registrations';
-
 		parent::__construct( $product, $args = array() );
 
-		//$this->parent_product_type = $this->product_type;
+        $this->parent_product_type = $this->product_type;
+
+        $this->product_type = 'registrations';
 
 		// $this->subscription_variation_level_meta_data = array(
 		// 	'subscription_price'             => 0,
@@ -41,5 +41,23 @@ class WC_Product_Registrations extends WC_Product_Variable {
 		// 	'subscription_sign_up_fee'       => 0,
 		// 	'subscription_payment_sync_date' => 0,
 		// );
+	}
+
+    /**
+	 * Checks the product type to see if it is either this product's type or the parent's
+	 * product type.
+	 *
+	 * @access public
+	 * @param mixed $type Array or string of types
+	 * @return bool
+	 */
+	public function is_type( $type ) {
+		if ( $this->product_type == $type || ( is_array( $type ) && in_array( $this->product_type, $type ) ) ) {
+			return true;
+		} elseif ( $this->parent_product_type == $type || ( is_array( $type ) && in_array( $this->parent_product_type, $type ) ) ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
