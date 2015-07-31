@@ -176,41 +176,8 @@ class WC_Registrations_Admin {
 	 * @since 0.1
 	 */
 	public static function variable_registration_pricing_fields( $loop, $variation_data, $variation ) {
-		global $woocommerce, $thepostid;
 
-		// Set month as the default billing period
-		if ( ! $event_start_date = get_post_meta( $variation->ID, '_event_start_date', true ) ) {
-			$event_start_date = '';
-		}
-
-		// When called via Ajax
-		if ( ! function_exists( 'woocommerce_wp_text_input' ) ) {
-			require_once( $woocommerce->plugin_path() . '/admin/post-types/writepanels/writepanels-init.php' );
-		}
-
-		if ( ! isset( $thepostid ) ) {
-			$thepostid = $variation->post_parent;
-		}
-
-		woocommerce_wp_text_input( array(
-			'id'          => '_event_start_date',
-			'class'       => 'wc_input_event_start_date show_if_registration',
-			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
-			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
-			'type'        => 'date',
-			'value'       => get_post_meta( $variation->ID, '_event_start_date', true )
-			)
-		);
-
-		woocommerce_wp_text_input( array(
-			'id'          => '_event_end_date',
-			'class'       => 'wc_input_event_start_date show_if_registration',
-			'label'       => __( 'Event Start Date', 'woocommerce-registrations' ),
-			'placeholder' => __( '10/07/2015', 'woocommerce-registrations' ),
-			'type'        => 'date',
-			'value'       => get_post_meta( $variation->ID, '_event_start_date', true )
-			)
-		);
+		include( 'views/html-dates-variation-fields-view.php' );
 
 		do_action( 'woocommerce_variable_subscription_pricing', $loop, $variation_data, $variation );
 	}
@@ -302,6 +269,7 @@ class WC_Registrations_Admin {
     }
 
 	public static function registration_variation_option_name( $option ) {
+			error_log( $option );
 			$opt = json_decode( $option );
 			if( $opt ) {
 				return self::format_variations_dates( $opt );

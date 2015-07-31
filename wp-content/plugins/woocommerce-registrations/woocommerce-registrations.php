@@ -93,8 +93,6 @@ class WC_Registrations {
 	public static function registrations_add_to_cart() {
 		global $product;
 
-		error_log( 'registrations_add_to_cart' );
-		
 		// Enqueue variation scripts
 		wp_enqueue_script( 'wc-add-to-cart-variation' );
 
