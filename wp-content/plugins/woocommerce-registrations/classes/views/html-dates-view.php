@@ -139,7 +139,17 @@
         <?php
                 elseif ( $date->type == 'range' ) :
         ?>
-
+        <div class="range_date options_group">
+            <h3><?php _e( 'Range Date', 'woocommerce-registrations'); ?></h3>
+            <p class="form-field">
+                <label for="event_range_date"><?php _e( 'Event start and end date', 'woocommerce-registrations'); ?></label>
+                <span class="conjuncao"><?php _e( 'From', 'woocommerce-registrations' ); ?></span>
+                <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="<?php echo $date->dates[0]; ?>" >
+                <span class="conjuncao"><?php _e( 'to', 'woocommerce-registrations' ); ?></span>
+                <input type="date" class="wc_input_event_end_date event_date" name="event_start_date" id="event_end_date" value="<?php echo $date->dates[1]; ?>" >
+                <button style="float:right;" type="button" class="remove_date button"><?php _e( 'Remove', 'woocommerce-registrations' ); ?></button>
+            </p>
+        </div>
         <?php
                 endif;
             }

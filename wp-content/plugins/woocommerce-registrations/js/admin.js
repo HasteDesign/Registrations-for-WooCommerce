@@ -85,7 +85,7 @@ jQuery(document).ready(function($){
 			$('#hidden_date').val( value );
 			console.log( $('#hidden_date').val() );
 		},
-		handleRangeDate: function () {
+		handleRangeDate: function ( elem ) {
 			var json_base = '{"type":"range","dates":[';
 			var dates = null;
 			var value = "";
@@ -162,6 +162,17 @@ jQuery(document).ready(function($){
 			$('.product_attributes .woocommerce_attribute').each(function(index, el){
 				$('.attribute_position', el).val( parseInt( $(el).index('.product_attributes .woocommerce_attribute') ) );
 			});
+		},
+		showHideRangeDateMeta: function () {
+			$( '.woocommerce_variation' ).each( function () {
+				var value = $( this ).find( 'option:selected' ).val();
+
+				if( value.indexOf( 'typerange' ) !== -1 ) {
+					$( this ).find( '.show_if_range_date').show();
+				} else {
+					$( this ).find( '.show_if_range_date').hide();
+				}
+			})
 		}
 	});
 
@@ -173,6 +184,8 @@ jQuery(document).ready(function($){
 	$.adjustAttributesIndex();
 
 	$.addDatesToHiddenFields();
+
+	$.showHideRangeDateMeta();
 
 	// Show/Hide fields when product type changes
 	$('body').bind('woocommerce-product-type-change',function(){
