@@ -163,7 +163,7 @@ class WC_Email extends WC_Settings_API {
 		'/&(pound|#163);/i',                             // Pound sign
 		'/&(euro|#8364);/i',                             // Euro sign
 		'/&#36;/',                                       // Dollar sign
-		'/&[^&;]+;/i',                                   // Unknown/unhandled entities
+		'/&[^&\s;]+;/i',                                 // Unknown/unhandled entities
 		'/[ ]{2,}/'                                      // Runs of spaces, post-handling
 	);
 
@@ -222,7 +222,6 @@ class WC_Email extends WC_Settings_API {
 		// Find/replace
 		$this->find['blogname']      = '{blogname}';
 		$this->find['site-title']    = '{site_title}';
-
 		$this->replace['blogname']   = $this->get_blogname();
 		$this->replace['site-title'] = $this->get_blogname();
 
@@ -241,7 +240,6 @@ class WC_Email extends WC_Settings_API {
 		if ( $this->sending && $this->get_email_type() == 'multipart' ) {
 
 			$mailer->AltBody = wordwrap( preg_replace( $this->plain_search, $this->plain_replace, strip_tags( $this->get_content_plain() ) ) );
-			//$mailer->AltBody = wordwrap( html_entity_decode( strip_tags( $this->get_content_plain() ) ), 70 );
 			$this->sending = false;
 		}
 
@@ -255,7 +253,7 @@ class WC_Email extends WC_Settings_API {
 	 * @return string
 	 */
 	public function format_string( $string ) {
-		return str_replace( $this->find, $this->replace, $string );
+		return str_replace( apply_filters( 'woocommerce_email_format_string_find', $this->find, $this ), apply_filters( 'woocommerce_email_format_string_replace', $this->replace, $this ), $string );
 	}
 
 	/**
@@ -403,7 +401,6 @@ class WC_Email extends WC_Settings_API {
 			} catch ( Exception $e ) {
 
 				$logger = new WC_Logger();
-
 				$logger->add( 'emogrifier', $e->getMessage() );
 			}
 		}
@@ -481,14 +478,14 @@ class WC_Email extends WC_Settings_API {
 				'default'       => 'yes'
 			),
 			'subject' => array(
-				'title'         => __( 'Email subject', 'woocommerce' ),
+				'title'         => __( 'Email Subject', 'woocommerce' ),
 				'type'          => 'text',
 				'description'   => sprintf( __( 'Defaults to <code>%s</code>', 'woocommerce' ), $this->subject ),
 				'placeholder'   => '',
 				'default'       => ''
 			),
 			'heading' => array(
-				'title'         => __( 'Email heading', 'woocommerce' ),
+				'title'         => __( 'Email Heading', 'woocommerce' ),
 				'type'          => 'text',
 				'description'   => sprintf( __( 'Defaults to <code>%s</code>', 'woocommerce' ), $this->heading ),
 				'placeholder'   => '',
@@ -536,51 +533,11 @@ class WC_Email extends WC_Settings_API {
 		parent::process_admin_options();
 
 		// Save templates
-		if ( current_user_can( 'edit_themes' ) && ! empty( $_POST['template_html_code'] ) && ! empty( $this->template_html ) ) {
-
-			$saved  = false;
-			$file   = get_stylesheet_directory() . '/woocommerce/' . $this->template_html;
-			$code   = stripslashes( $_POST['template_html_code'] );
-
-			if ( is_writeable( $file ) ) {
-
-				$f = fopen( $file, 'w+' );
-
-				if ( $f !== false ) {
-					fwrite( $f, $code );
-					fclose( $f );
-					$saved = true;
-				}
-			}
-
-			if ( ! $saved ) {
-				$redirect = add_query_arg( 'wc_error', urlencode( __( 'Could not write to template file.', 'woocommerce' ) ) );
-				wp_redirect( $redirect );
-				exit;
-			}
+		if ( isset( $_POST['template_html_code'] ) ) {
+			$this->save_template( $_POST['template_html_code'], $this->template_html );
 		}
-
-		if ( current_user_can( 'edit_themes' ) && ! empty( $_POST['template_plain_code'] ) && ! empty( $this->template_plain ) ) {
-			$saved  = false;
-			$file   = get_stylesheet_directory() . '/woocommerce/' . $this->template_plain;
-			$code   = stripslashes( $_POST['template_plain_code'] );
-
-			if ( is_writeable( $file ) ) {
-
-				$f = fopen( $file, 'w+' );
-
-				if ( $f !== false ) {
-					fwrite( $f, $code );
-					fclose( $f );
-					$saved = true;
-				}
-			}
-
-			if ( ! $saved ) {
-				$redirect = add_query_arg( 'wc_error', __( 'Could not write to template file.', 'woocommerce' ) );
-				wp_redirect( $redirect );
-				exit;
-			}
+		if ( isset( $_POST['template_plain_code'] ) ) {
+			$this->save_template( $_POST['template_plain_code'], $this->template_plain );
 		}
 	}
 
@@ -601,6 +558,38 @@ class WC_Email extends WC_Settings_API {
 		}
 
 		return '';
+	}
+
+	/**
+	 * Save the email templates
+	 *
+	 * @since 2.4.0
+	 * @param string $template_code
+	 * @param string $template_path
+	 */
+	protected function save_template( $template_code, $template_path ) {
+		if ( current_user_can( 'edit_themes' ) && ! empty( $template_code ) && ! empty( $template_path ) ) {
+			$saved  = false;
+			$file   = get_stylesheet_directory() . '/woocommerce/' . $template_path;
+			$code   = stripslashes( $template_code );
+
+			if ( is_writeable( $file ) ) {
+
+				$f = fopen( $file, 'w+' );
+
+				if ( $f !== false ) {
+					fwrite( $f, $code );
+					fclose( $f );
+					$saved = true;
+				}
+			}
+
+			if ( ! $saved ) {
+				$redirect = add_query_arg( 'wc_error', urlencode( __( 'Could not write to template file.', 'woocommerce' ) ) );
+				wp_redirect( $redirect );
+				exit;
+			}
+		}
 	}
 
 	/**
@@ -643,7 +632,7 @@ class WC_Email extends WC_Settings_API {
 					 */
 					do_action( 'woocommerce_copy_email_template', $template_type, $this );
 
-					echo '<div class="updated fade"><p>' . __( 'Template file copied to theme.', 'woocommerce' ) . '</p></div>';
+					echo '<div class="updated"><p>' . __( 'Template file copied to theme.', 'woocommerce' ) . '</p></div>';
 				}
 			}
 		}
@@ -672,7 +661,7 @@ class WC_Email extends WC_Settings_API {
 					 */
 					do_action( 'woocommerce_delete_email_template', $template_type, $this );
 
-					echo '<div class="updated fade"><p>' . __( 'Template file deleted from theme.', 'woocommerce' ) . '</p></div>';
+					echo '<div class="updated"><p>' . __( 'Template file deleted from theme.', 'woocommerce' ) . '</p></div>';
 				}
 			}
 		}
@@ -709,13 +698,13 @@ class WC_Email extends WC_Settings_API {
 	/**
 	 * Admin Options
 	 *
-	 * Setup the gateway settings screen.
-	 * Override this in your gateway.
+	 * Setup the email settings screen.
+	 * Override this in your email.
 	 *
 	 * @since 1.0.0
 	 */
 	public function admin_options() {
-		// Do admin acations.
+		// Do admin actions.
 		$this->admin_actions();
 
 		?>
@@ -814,45 +803,47 @@ class WC_Email extends WC_Settings_API {
 			</div>
 			<?php
 			wc_enqueue_js( "
-				jQuery('select.email_type').change(function() {
+				jQuery( 'select.email_type' ).change( function() {
 
 					var val = jQuery( this ).val();
 
-					jQuery('.template_plain, .template_html').show();
+					jQuery( '.template_plain, .template_html' ).show();
 
-					if ( val != 'multipart' && val != 'html' )
+					if ( val != 'multipart' && val != 'html' ) {
 						jQuery('.template_html').hide();
+					}
 
-					if ( val != 'multipart' && val != 'plain' )
+					if ( val != 'multipart' && val != 'plain' ) {
 						jQuery('.template_plain').hide();
+					}
 
 				}).change();
 
 				var view = '" . esc_js( __( 'View template', 'woocommerce' ) ) . "';
 				var hide = '" . esc_js( __( 'Hide template', 'woocommerce' ) ) . "';
 
-				jQuery('a.toggle_editor').text( view ).toggle( function() {
-					jQuery( this ).text( hide ).closest('.template').find('.editor').slideToggle();
+				jQuery( 'a.toggle_editor' ).text( view ).toggle( function() {
+					jQuery( this ).text( hide ).closest(' .template' ).find( '.editor' ).slideToggle();
 					return false;
 				}, function() {
-					jQuery( this ).text( view ).closest('.template').find('.editor').slideToggle();
+					jQuery( this ).text( view ).closest( '.template' ).find( '.editor' ).slideToggle();
 					return false;
 				} );
 
-				jQuery('a.delete_template').click(function(){
-					var answer = confirm('" . esc_js( __( 'Are you sure you want to delete this template file?', 'woocommerce' ) ) . "');
-
-					if (answer)
+				jQuery( 'a.delete_template' ).click( function() {
+					if ( window.confirm('" . esc_js( __( 'Are you sure you want to delete this template file?', 'woocommerce' ) ) . "') ) {
 						return true;
+					}
 
 					return false;
 				});
 
-				jQuery('.editor textarea').change(function(){
-					var name = jQuery(this).attr( 'data-name' );
+				jQuery( '.editor textarea' ).change( function() {
+					var name = jQuery( this ).attr( 'data-name' );
 
-					if ( name )
-						jQuery(this).attr( 'name', name );
+					if ( name ) {
+						jQuery( this ).attr( 'name', name );
+					}
 				});
 			" );
 		}

@@ -96,8 +96,6 @@ abstract class WC_Widget extends WP_Widget {
 
 	/**
 	 * Flush the cache
-	 *
-	 * @return void
 	 */
 	public function flush_widget_cache() {
 		wp_cache_delete( apply_filters( 'woocommerce_cached_widget_id', $this->widget_id ), 'widget' );
@@ -139,7 +137,7 @@ abstract class WC_Widget extends WP_Widget {
 
 		$instance = $old_instance;
 
-		if ( ! $this->settings ) {
+		if ( empty( $this->settings ) ) {
 			return $instance;
 		}
 
@@ -165,7 +163,7 @@ abstract class WC_Widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 
-		if ( ! $this->settings ) {
+		if ( empty( $this->settings ) ) {
 			return;
 		}
 

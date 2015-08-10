@@ -141,6 +141,13 @@ function wc_get_order_types( $for = '' ) {
 				}
 			}
 		break;
+		case 'order-webhooks' :
+			foreach ( $wc_order_types as $type => $args ) {
+				if ( ! $args['exclude_from_order_webhooks'] ) {
+					$order_types[] = $type;
+				}
+			}
+		break;
 		default :
 			$order_types = array_keys( $wc_order_types );
 		break;
@@ -208,6 +215,7 @@ function wc_register_order_type( $type, $args = array() ) {
 		'add_order_meta_boxes'             => true,
 		'exclude_from_order_count'         => false,
 		'exclude_from_order_views'         => false,
+		'exclude_from_order_webhooks'      => false,
 		'exclude_from_order_reports'       => false,
 		'exclude_from_order_sales_reports' => false,
 		'class_name'                       => 'WC_Order'
@@ -292,7 +300,6 @@ function wc_downloadable_file_permission( $download_id, $product_id, $order, $qt
  *
  * @access public
  * @param int $order_id
- * @return void
  */
 function wc_downloadable_product_permissions( $order_id ) {
 	if ( get_post_meta( $order_id, '_download_permissions_granted', true ) == 1 ) {
@@ -323,7 +330,6 @@ function wc_downloadable_product_permissions( $order_id ) {
 
 	do_action( 'woocommerce_grant_product_download_permissions', $order_id );
 }
-
 add_action( 'woocommerce_order_status_completed', 'wc_downloadable_product_permissions' );
 add_action( 'woocommerce_order_status_processing', 'wc_downloadable_product_permissions' );
 
@@ -475,7 +481,6 @@ function wc_get_order_item_meta( $item_id, $key, $single = true ) {
  * Cancel all unpaid orders after held duration to prevent stock lock for those products
  *
  * @access public
- * @return void
  */
 function wc_cancel_unpaid_orders() {
 	global $wpdb;
@@ -569,6 +574,9 @@ function wc_delete_shop_order_transients( $post_id = 0 ) {
 		delete_transient( $transient );
 	}
 
+	// Increments the transient version to invalidate cache
+	WC_Cache_Helper::get_transient_version( 'orders', true );
+
 	do_action( 'woocommerce_delete_shop_order_transients', $post_id );
 }
 
@@ -595,11 +603,17 @@ function wc_create_refund( $args = array() ) {
 		'reason'     => null,
 		'order_id'   => 0,
 		'refund_id'  => 0,
-		'line_items' => array()
+		'line_items' => array(),
+		'date'       => current_time( 'mysql', 0 )
 	);
 
 	$args        = wp_parse_args( $args, $default_args );
 	$refund_data = array();
+
+	// prevent negative refunds
+	if ( 0 > $args['amount'] ) {
+		$args['amount'] = 0;
+	}
 
 	if ( $args['refund_id'] > 0 ) {
 		$updating          = true;
@@ -613,6 +627,7 @@ function wc_create_refund( $args = array() ) {
 		$refund_data['post_password'] = uniqid( 'refund_' );
 		$refund_data['post_parent']   = absint( $args['order_id'] );
 		$refund_data['post_title']    = sprintf( __( 'Refund &ndash; %s', 'woocommerce' ), strftime( _x( '%b %d, %Y @ %I:%M %p', 'Order date parsed by strftime', 'woocommerce' ) ) );
+		$refund_data['post_date']     = $args['date'];
 	}
 
 	if ( ! is_null( $args['reason'] ) ) {
@@ -635,10 +650,13 @@ function wc_create_refund( $args = array() ) {
 
 		// Get refund object
 		$refund = wc_get_order( $refund_id );
+		$order  = wc_get_order( $args['order_id'] );
+
+		// Refund currency is the same used for the parent order
+		update_post_meta( $refund_id, '_order_currency', $order->get_order_currency() );
 
 		// Negative line items
 		if ( sizeof( $args['line_items'] ) > 0 ) {
-			$order       = wc_get_order( $args['order_id'] );
 			$order_items = $order->get_items( array( 'line_item', 'fee', 'shipping' ) );
 
 			foreach ( $args['line_items'] as $refund_item_id => $refund_item ) {
@@ -699,7 +717,15 @@ function wc_create_refund( $args = array() ) {
 		// Set total to total refunded which may vary from order items
 		$refund->set_total( wc_format_decimal( $args['amount'] ) * -1, 'total' );
 
-		do_action( 'woocommerce_refund_created', $refund_id );
+		// Figure out if this is just a partial refund
+		$max_remaining_refund = wc_format_decimal( $order->get_total() - $order->get_total_refunded() );
+		$max_remaining_items  = absint( $order->get_item_count() - $order->get_item_count_refunded() );
+
+		if ( $max_remaining_refund > 0 || $max_remaining_items > 0 ) {
+			do_action( 'woocommerce_order_partially_refunded', $args['order_id'], true, $refund_id );
+		}
+
+		do_action( 'woocommerce_refund_created', $refund_id, $args );
 	}
 
 	// Clear transients
@@ -739,8 +765,38 @@ function wc_get_payment_gateway_by_order( $order ) {
 
 	if ( ! is_object( $order ) ) {
 		$order_id = absint( $order );
-		$order    = new WC_Order( $order_id );
+		$order    = wc_get_order( $order_id );
 	}
 
 	return isset( $payment_gateways[ $order->payment_method ] ) ? $payment_gateways[ $order->payment_method ] : false;
 }
+
+/**
+ * When refunding an order, create a refund line item if the partial refunds do not match order total.
+ *
+ * This is manual; no gateway refund will be performed.
+ *
+ * @since 2.4
+ * @param int $order_id
+ */
+function wc_order_fully_refunded( $order_id ) {
+	$order       = wc_get_order( $order_id );
+	$max_refund  = wc_format_decimal( $order->get_total() - $order->get_total_refunded() );
+
+	if ( ! $max_refund ) {
+		return;
+	}
+
+	// Create the refund object
+	$refund = wc_create_refund( array(
+		'amount'     => $max_refund,
+		'reason'     => __( 'Order Fully Refunded', 'woocommerce' ),
+		'order_id'   => $order_id,
+		'line_items' => array()
+	) );
+
+	wc_delete_shop_order_transients( $order_id );
+
+	do_action( 'woocommerce_order_fully_refunded', $order_id, $refund->id );
+}
+add_action( 'woocommerce_order_status_refunded', 'wc_order_fully_refunded' );

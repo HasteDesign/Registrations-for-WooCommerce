@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Product_Variation extends WC_Product {
 
-	/** @public int ID of the variable product. */
+	/** @public int ID of the variation itself. */
 	public $variation_id;
 
 	/** @public object Parent Variable product object. */
@@ -135,19 +135,7 @@ class WC_Product_Variation extends WC_Product {
 			}
 
 		} elseif ( 'variation_data' === $key ) {
-			$all_meta = get_post_meta( $this->variation_id );
-
-			// The variation data array
-			$this->variation_data = array();
-
-			// Get the variation attributes from meta
-			foreach ( $all_meta as $name => $value ) {
-				if ( ! strstr( $name, 'attribute_' ) ) {
-					continue;
-				}
-				$this->variation_data[ $name ] = sanitize_title( $value[0] );
-			}
-			return $this->variation_data;
+			return $this->variation_data = wc_get_product_variation_attributes( $this->variation_id );
 
 		} elseif ( 'variation_has_stock' === $key ) {
 			return $this->managing_stock();
@@ -175,7 +163,7 @@ class WC_Product_Variation extends WC_Product {
 	 * @return string
 	 */
 	public function get_permalink( $cart_item = null ) {
-		return add_query_arg( array_filter( isset( $cart_item['variation'] ) ? $cart_item['variation'] : $this->variation_data ), get_permalink( $this->id ) );
+		return add_query_arg( array_map( 'urlencode', array_filter( isset( $cart_item['variation'] ) ? $cart_item['variation'] : $this->variation_data ) ), get_permalink( $this->id ) );
 	}
 
 	/**
@@ -386,6 +374,15 @@ class WC_Product_Variation extends WC_Product {
 	 */
 	public function get_stock_quantity() {
 		return true === $this->managing_stock() ? wc_stock_amount( $this->stock ) : $this->parent->get_stock_quantity();
+	}
+
+	/**
+	 * Returns the tax status. Always use parent data.
+	 *
+	 * @return string
+	 */
+	public function get_tax_status() {
+		return $this->parent->get_tax_status();
 	}
 
 	/**
@@ -660,5 +657,14 @@ class WC_Product_Variation extends WC_Product {
 		$extra_data = ' &ndash; ' . implode( ', ', $attributes ) . ' &ndash; ' . wc_price( $this->get_price() );
 
 		return sprintf( __( '%s &ndash; %s%s', 'woocommerce' ), $identifier, $this->get_title(), $extra_data );
+	}
+
+	/**
+	 * Get product variation description
+	 *
+	 * @return string
+	 */
+	public function get_variation_description() {
+		return wpautop( wp_kses_post( get_post_meta( $this->variation_id, '_variation_description', true ) ) );
 	}
 }

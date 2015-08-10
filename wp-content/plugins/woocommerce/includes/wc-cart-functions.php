@@ -64,33 +64,26 @@ function wc_load_persistent_cart( $user_login, $user ) {
  * @param int|array $product_id
  */
 function wc_add_to_cart_message( $product_id ) {
+	$titles = array();
 
 	if ( is_array( $product_id ) ) {
-
-		$titles = array();
-
 		foreach ( $product_id as $id ) {
 			$titles[] = get_the_title( $id );
 		}
-
-		$added_text = sprintf( __( 'Added %s to your cart.', 'woocommerce' ), wc_format_list_of_items( $titles ) );
-
 	} else {
-		$added_text = sprintf( __( '&quot;%s&quot; was successfully added to your cart.', 'woocommerce' ), get_the_title( $product_id ) );
+		$titles[] = get_the_title( $product_id );
 	}
 
+	$titles     = array_filter( $titles );
+	$added_text = sprintf( _n( '%s has been added to your cart.', '%s have been added to your cart.', sizeof( $titles ), 'woocommerce' ), wc_format_list_of_items( $titles ) );
+
 	// Output success messages
-	if ( get_option( 'woocommerce_cart_redirect_after_add' ) == 'yes' ) :
-
-		$return_to 	= apply_filters( 'woocommerce_continue_shopping_redirect', wp_get_referer() ? wp_get_referer() : home_url() );
-
-		$message 	= sprintf('<a href="%s" class="button wc-forward">%s</a> %s', $return_to, __( 'Continue Shopping', 'woocommerce' ), $added_text );
-
-	else :
-
-		$message 	= sprintf('<a href="%s" class="button wc-forward">%s</a> %s', wc_get_page_permalink( 'cart' ), __( 'View Cart', 'woocommerce' ), $added_text );
-
-	endif;
+	if ( 'yes' === get_option( 'woocommerce_cart_redirect_after_add' ) ) {
+		$return_to = apply_filters( 'woocommerce_continue_shopping_redirect', wp_get_referer() ? wp_get_referer() : home_url() );
+		$message   = sprintf('<a href="%s" class="button wc-forward">%s</a> %s', $return_to, __( 'Continue Shopping', 'woocommerce' ), $added_text );
+	} else {
+		$message   = sprintf('<a href="%s" class="button wc-forward">%s</a> %s', wc_get_page_permalink( 'cart' ), __( 'View Cart', 'woocommerce' ), $added_text );
+	}
 
 	wc_add_notice( apply_filters( 'wc_add_to_cart_message', $message, $product_id ) );
 }
@@ -101,14 +94,25 @@ function wc_add_to_cart_message( $product_id ) {
  * @return string
  */
 function wc_format_list_of_items( $items ) {
-	return '&quot;' . join( __( '&quot; and &quot;', 'woocommerce' ), array_filter( array_merge( array( implode( '&quot;, &quot;', array_slice( $items, 0, -1 ) ) ), array_slice( $items, -1 ) ) ) ) . '&quot;';
+	$item_string = '';
+
+	foreach ( $items as $key => $item ) {
+		$item_string .= sprintf( _x( '&ldquo;%s&ldquo;', 'Item name in quotes', 'woocommerce' ), $item );
+
+		if ( $key + 2 === sizeof( $items ) ) {
+			$item_string .= ' ' . __( 'and', 'woocommerce' ) . ' ';
+		} elseif ( $key + 1 !== sizeof( $items ) ) {
+			$item_string .= ', ';
+		}
+	}
+
+	return $item_string;
 }
 
 /**
  * Clear cart after payment.
  *
  * @access public
- * @return void
  */
 function wc_clear_cart_after_payment() {
 	global $wp;
@@ -154,7 +158,6 @@ function wc_cart_totals_subtotal_html() {
  * Get shipping methods
  *
  * @access public
- * @return void
  */
 function wc_cart_totals_shipping_html() {
 	$packages = WC()->shipping->get_packages();
@@ -170,7 +173,6 @@ function wc_cart_totals_shipping_html() {
  * Get taxes total
  *
  * @access public
- * @return void
  */
 function wc_cart_totals_taxes_total_html() {
 	echo apply_filters( 'woocommerce_cart_totals_taxes_total_html', wc_price( WC()->cart->get_taxes_total() ) );
@@ -181,7 +183,6 @@ function wc_cart_totals_taxes_total_html() {
  *
  * @access public
  * @param string $coupon
- * @return void
  */
 function wc_cart_totals_coupon_label( $coupon ) {
 	if ( is_string( $coupon ) )
@@ -195,7 +196,6 @@ function wc_cart_totals_coupon_label( $coupon ) {
  *
  * @access public
  * @param string $coupon
- * @return void
  */
 function wc_cart_totals_coupon_html( $coupon ) {
 	if ( is_string( $coupon ) ) {
@@ -227,7 +227,6 @@ function wc_cart_totals_coupon_html( $coupon ) {
  * Get order total html including inc tax if needed
  *
  * @access public
- * @return void
  */
 function wc_cart_totals_order_total_html() {
 	$value = '<strong>' . WC()->cart->get_total() . '</strong> ';
@@ -255,7 +254,6 @@ function wc_cart_totals_order_total_html() {
  * Get the fee value
  *
  * @param object $fee
- * @return void
  */
 function wc_cart_totals_fee_html( $fee ) {
 	$cart_totals_fee_html = ( 'excl' == WC()->cart->tax_display_cart ) ? wc_price( $fee->amount ) : wc_price( $fee->amount + $fee->tax );
@@ -275,12 +273,12 @@ function wc_cart_totals_shipping_method_label( $method ) {
 		if ( WC()->cart->tax_display_cart == 'excl' ) {
 			$label .= ': ' . wc_price( $method->cost );
 			if ( $method->get_shipping_tax() > 0 && WC()->cart->prices_include_tax ) {
-				$label .= ' <small>' . WC()->countries->ex_tax_or_vat() . '</small>';
+				$label .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
 			}
 		} else {
 			$label .= ': ' . wc_price( $method->cost + $method->get_shipping_tax() );
 			if ( $method->get_shipping_tax() > 0 && ! WC()->cart->prices_include_tax ) {
-				$label .= ' <small>' . WC()->countries->inc_tax_or_vat() . '</small>';
+				$label .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
 			}
 		}
 	} elseif ( $method->id !== 'free_shipping' ) {
@@ -289,3 +287,19 @@ function wc_cart_totals_shipping_method_label( $method ) {
 
 	return apply_filters( 'woocommerce_cart_shipping_method_full_label', $label, $method );
 }
+
+/**
+ * Round discount
+ *
+ * @param  float $value
+ * @param  int $precision
+ * @return float
+ */
+function wc_cart_round_discount( $value, $precision ) {
+	if ( version_compare( PHP_VERSION, '5.3.0', '>=' ) ) {
+		return round( $value, $precision, WC_DISCOUNT_ROUNDING_MODE );
+	} else {
+		return round( $value, $precision );
+	}
+}
+

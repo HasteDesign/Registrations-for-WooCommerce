@@ -56,6 +56,11 @@ class WC_API_Products extends WC_API_Resource {
 			array( array( $this, 'get_product_reviews' ), WC_API_Server::READABLE ),
 		);
 
+		# GET /products/<id>/orders
+		$routes[ $this->base . '/(?P<id>\d+)/orders' ] = array(
+			array( array( $this, 'get_product_orders' ), WC_API_Server::READABLE ),
+		);
+
 		# GET /products/categories
 		$routes[ $this->base . '/categories' ] = array(
 			array( array( $this, 'get_product_categories' ), WC_API_Server::READABLE ),
@@ -66,9 +71,22 @@ class WC_API_Products extends WC_API_Resource {
 			array( array( $this, 'get_product_category' ), WC_API_Server::READABLE ),
 		);
 
-		# GET /products/sku/<product sku>
-		$routes[ $this->base . '/sku/(?P<sku>\w+)' ] = array(
-			array( array( $this, 'get_product_by_sku' ), WC_API_Server::READABLE ),
+		# GET/POST /products/attributes
+		$routes[ $this->base . '/attributes' ] = array(
+			array( array( $this, 'get_product_attributes' ), WC_API_Server::READABLE ),
+			array( array( $this, 'create_product_attribute' ), WC_API_SERVER::CREATABLE | WC_API_Server::ACCEPT_DATA ),
+		);
+
+		# GET/PUT/DELETE /attributes/<id>
+		$routes[ $this->base . '/attributes/(?P<id>\d+)' ] = array(
+			array( array( $this, 'get_product_attribute' ), WC_API_Server::READABLE ),
+			array( array( $this, 'edit_product_attribute' ), WC_API_Server::EDITABLE | WC_API_Server::ACCEPT_DATA ),
+			array( array( $this, 'delete_product_attribute' ), WC_API_Server::DELETABLE ),
+		);
+
+		# POST|PUT /products/bulk
+		$routes[ $this->base . '/bulk' ] = array(
+			array( array( $this, 'bulk' ), WC_API_Server::EDITABLE | WC_API_Server::ACCEPT_DATA ),
 		);
 
 		return $routes;
@@ -138,7 +156,7 @@ class WC_API_Products extends WC_API_Resource {
 		}
 
 		// add the parent product data to an individual variation
-		if ( $product->is_type( 'variation' ) ) {
+		if ( $product->is_type( 'variation' ) && $product->parent ) {
 
 			$product_data['parent'] = $this->get_product_data( $product->parent );
 		}
@@ -183,7 +201,11 @@ class WC_API_Products extends WC_API_Resource {
 		$id = 0;
 
 		try {
-			$data = isset( $data['product'] ) ? $data['product'] : array();
+			if ( ! isset( $data['product'] ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_missing_product_data', sprintf( __( 'No %1$s data specified to create %1$s', 'woocommerce' ), 'product' ), 400 );
+			}
+
+			$data = $data['product'];
 
 			// Check permissions
 			if ( ! current_user_can( 'publish_products' ) ) {
@@ -281,7 +303,11 @@ class WC_API_Products extends WC_API_Resource {
 	 */
 	public function edit_product( $id, $data ) {
 		try {
-			$data = isset( $data['product'] ) ? $data['product'] : array();
+			if ( ! isset( $data['product'] ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_missing_product_data', sprintf( __( 'No %1$s data specified to edit %1$s', 'woocommerce' ), 'product' ), 400 );
+			}
+
+			$data = $data['product'];
 
 			$id = $this->validate_request( $id, 'product', 'edit' );
 
@@ -408,6 +434,46 @@ class WC_API_Products extends WC_API_Resource {
 	}
 
 	/**
+	 * Get the orders for a product
+	 *
+	 * @since 2.4.0
+	 * @param int $id the product ID to get orders for
+	 * @param string fields  fields to retrieve
+	 * @param string $filter filters to include in response
+	 * @param string $status the order status to retrieve
+	 * @param $page  $page   page to retrieve
+	 * @return array
+	 */
+	public function get_product_orders( $id, $fields = null, $filter = array(), $status = null, $page = 1 ) {
+		global $wpdb;
+
+		$id = $this->validate_request( $id, 'product', 'read' );
+
+		if ( is_wp_error( $id ) ) {
+			return $id;
+		}
+
+		$order_ids = $wpdb->get_col( $wpdb->prepare( "
+			SELECT order_id
+			FROM {$wpdb->prefix}woocommerce_order_items
+			WHERE order_item_id IN ( SELECT order_item_id FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE meta_key = '_product_id' AND meta_value = %d )
+			AND order_item_type = 'line_item'
+		 ", $id ) );
+
+		if ( empty( $order_ids ) ) {
+			return array( 'orders' => array() );
+		}
+
+		$filter = array_merge( $filter, array(
+			'in' => implode( ',', $order_ids )
+		) );
+
+		$orders = WC()->api->WC_API_Orders->get_orders( $fields, $filter, $status, $page );
+
+		return array( 'orders' => apply_filters( 'woocommerce_api_product_orders_response', $orders['orders'], $id, $filter, $fields, $this->server ) );
+	}
+
+	/**
 	 * Get a listing of product categories
 	 *
 	 * @since 2.2
@@ -463,13 +529,26 @@ class WC_API_Products extends WC_API_Resource {
 				throw new WC_API_Exception( 'woocommerce_api_invalid_product_category_id', __( 'A product category with the provided ID could not be found', 'woocommerce' ), 404 );
 			}
 
+			$term_id = intval( $term->term_id );
+
+			// Get category display type
+			$display_type = get_woocommerce_term_meta( $term_id, 'display_type' );
+
+			// Get category image
+			$image = '';
+			if ( $image_id = get_woocommerce_term_meta( $term_id, 'thumbnail_id' ) ) {
+				$image = wp_get_attachment_url( $image_id );
+			}
+
 			$product_category = array(
-				'id'          => intval( $term->term_id ),
+				'id'          => $term_id,
 				'name'        => $term->name,
 				'slug'        => $term->slug,
 				'parent'      => $term->parent,
 				'description' => $term->description,
-				'count'       => intval( $term->count ),
+				'display'     => $display_type ? $display_type : 'default',
+				'image'       => $image ? esc_url( $image ) : '',
+				'count'       => intval( $term->count )
 			);
 
 			return array( 'product_category' => apply_filters( 'woocommerce_api_product_category_response', $product_category, $id, $fields, $term, $this ) );
@@ -513,6 +592,19 @@ class WC_API_Products extends WC_API_Resource {
 		// Filter products by category
 		if ( ! empty( $args['category'] ) ) {
 			$query_args['product_cat'] = $args['category'];
+		}
+
+		// Filter by specific sku
+		if ( ! empty( $args['sku'] ) ) {
+			if ( ! is_array( $query_args['meta_query'] ) ) {
+				$query_args['meta_query'] = array();
+			}
+
+			$query_args['meta_query'][] = array(
+				'key'     => '_sku',
+				'value'   => $args['sku'],
+				'compare' => '='
+			);
 		}
 
 		$query_args = $this->merge_query_args( $query_args, $args );
@@ -559,6 +651,8 @@ class WC_API_Products extends WC_API_Resource {
 			'visible'            => $product->is_visible(),
 			'catalog_visibility' => $product->visibility,
 			'on_sale'            => $product->is_on_sale(),
+			'product_url'        => $product->is_type( 'external' ) ? $product->get_product_url() : '',
+			'button_text'        => $product->is_type( 'external' ) ? $product->get_button_text() : '',
 			'weight'             => $product->get_weight() ? wc_format_decimal( $product->get_weight(), 2 ) : null,
 			'dimensions'         => array(
 				'length' => $product->length,
@@ -871,7 +965,8 @@ class WC_API_Products extends WC_API_Resource {
 			}
 
 			if ( $date_to && ! $date_from ) {
-				update_post_meta( $product_id, '_sale_price_dates_from', strtotime( 'NOW', current_time( 'timestamp' ) ) );
+				$date_from = strtotime( 'NOW', current_time( 'timestamp' ) );
+				update_post_meta( $product_id, '_sale_price_dates_from', $date_from );
 			}
 
 			// Update price if on sale
@@ -881,7 +976,7 @@ class WC_API_Products extends WC_API_Resource {
 				update_post_meta( $product_id, '_price', $regular_price );
 			}
 
-			if ( '' !== $sale_price && $date_from && $date_from < strtotime( 'NOW', current_time( 'timestamp' ) ) ) {
+			if ( '' !== $sale_price && $date_from && $date_from <= strtotime( 'NOW', current_time( 'timestamp' ) ) ) {
 				update_post_meta( $product_id, '_price', wc_format_decimal( $sale_price ) );
 			}
 
@@ -1050,14 +1145,14 @@ class WC_API_Products extends WC_API_Resource {
 
 		// Product categories
 		if ( isset( $data['categories'] ) && is_array( $data['categories'] ) ) {
-			$terms = array_map( 'wc_clean', $data['categories'] );
-			wp_set_object_terms( $product_id, $terms, 'product_cat' );
+			$term_ids = array_unique( array_map( 'intval', $data['categories'] ) );
+			wp_set_object_terms( $product_id, $term_ids, 'product_cat' );
 		}
 
 		// Product tags
 		if ( isset( $data['tags'] ) && is_array( $data['tags'] ) ) {
-			$terms = array_map( 'wc_clean', $data['tags'] );
-			wp_set_object_terms( $product_id, $terms, 'product_tag' );
+			$term_ids = array_unique( array_map( 'intval', $data['tags'] ) );
+			wp_set_object_terms( $product_id, $term_ids, 'product_tag' );
 		}
 
 		// Downloadable
@@ -1367,11 +1462,17 @@ class WC_API_Products extends WC_API_Resource {
 					}
 
 					if ( isset( $_attribute['is_variation'] ) && $_attribute['is_variation'] ) {
-						$attribute_key   = 'attribute_' . sanitize_title( $_attribute['name'] );
-						$attribute_value = isset( $attribute['option'] ) ? sanitize_title( stripslashes( $attribute['option'] ) ) : '';
-						$updated_attribute_keys[] = $attribute_key;
+						$_attribute_key           = 'attribute_' . sanitize_title( $_attribute['name'] );
+						$updated_attribute_keys[] = $_attribute_key;
 
-						update_post_meta( $variation_id, $attribute_key, $attribute_value );
+						if ( isset( $_attribute['is_taxonomy'] ) && $_attribute['is_taxonomy'] ) {
+							// Don't use wc_clean as it destroys sanitized characters
+							$_attribute_value = isset( $attribute['option'] ) ? sanitize_title( stripslashes( $attribute['option'] ) ) : '';
+						} else {
+							$_attribute_value = isset( $attribute['option'] ) ? wc_clean( stripslashes( $attribute['option'] ) ) : '';
+						}
+
+						update_post_meta( $variation_id, $_attribute_key, $_attribute_value );
 					}
 				}
 
@@ -1412,11 +1513,15 @@ class WC_API_Products extends WC_API_Resource {
 					$_attribute = $attributes[ $taxonomy ];
 
 					if ( $_attribute['is_variation'] ) {
-						// Don't use wc_clean as it destroys sanitized characters
+						$value = '';
+
 						if ( isset( $default_attr['option'] ) ) {
-							$value = sanitize_title( trim( stripslashes( $default_attr['option'] ) ) );
-						} else {
-							$value = '';
+							if ( $_attribute['is_taxonomy'] ) {
+								// Don't use wc_clean as it destroys sanitized characters
+								$value = sanitize_title( trim( stripslashes( $default_attr['option'] ) ) );
+							} else {
+								$value = wc_clean( trim( stripslashes( $default_attr['option'] ) ) );
+							}
 						}
 
 						if ( $value ) {
@@ -1438,7 +1543,6 @@ class WC_API_Products extends WC_API_Resource {
 	 * @since 2.2
 	 * @param int $id
 	 * @param array $data
-	 * @return void
 	 */
 	private function save_product_shipping_data( $id, $data ) {
 		if ( isset( $data['weight'] ) ) {
@@ -1488,7 +1592,6 @@ class WC_API_Products extends WC_API_Resource {
 	 * @param int $product_id
 	 * @param array $downloads
 	 * @param int $variation_id
-	 * @return void
 	 */
 	private function save_downloadable_files( $product_id, $downloads, $variation_id = 0 ) {
 		$files = array();
@@ -1603,7 +1706,7 @@ class WC_API_Products extends WC_API_Resource {
 				'src'        => current( $attachment ),
 				'title'      => get_the_title( $attachment_id ),
 				'alt'        => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
-				'position'   => $position,
+				'position'   => (int) $position,
 			);
 		}
 
@@ -1815,7 +1918,7 @@ class WC_API_Products extends WC_API_Resource {
 				$attributes[] = array(
 					'name'      => wc_attribute_label( $attribute['name'] ),
 					'slug'      => str_replace( 'pa_', '', $attribute['name'] ),
-					'position'  => $attribute['position'],
+					'position'  => (int) $attribute['position'],
 					'visible'   => (bool) $attribute['is_visible'],
 					'variation' => (bool) $attribute['is_variation'],
 					'options'   => array_map( 'trim', $options ),
@@ -1853,22 +1956,340 @@ class WC_API_Products extends WC_API_Resource {
 	}
 
 	/**
-	 * Get product by SKU
+	 * Get a listing of product attributes
 	 *
-	 * @since  2.3.0
-	 * @param  int    $sku the product SKU
-	 * @param  string $fields
+	 * @since 2.4.0
+	 * @param string|null $fields fields to limit response to
 	 * @return array
 	 */
-	public function get_product_by_sku( $sku, $fields = null ) {
+	public function get_product_attributes( $fields = null ) {
 		try {
-			$id = wc_get_product_id_by_sku( $sku );
-
-			if ( empty( $id ) ) {
-				throw new WC_API_Exception( 'woocommerce_api_invalid_product_sku', __( 'Invalid product SKU', 'woocommerce' ), 404 );
+			// Permissions check
+			if ( ! current_user_can( 'manage_product_terms' ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_user_cannot_read_product_attributes', __( 'You do not have permission to read product attributes', 'woocommerce' ), 401 );
 			}
 
-			return $this->get_product( $id, $fields );
+			$product_attributes   = array();
+			$attribute_taxonomies = wc_get_attribute_taxonomies();
+
+			foreach ( $attribute_taxonomies as $attribute ) {
+				$product_attributes[] = array(
+					'id'           => intval( $attribute->attribute_id ),
+					'name'         => $attribute->attribute_label,
+					'slug'         => wc_attribute_taxonomy_name( $attribute->attribute_name ),
+					'type'         => $attribute->attribute_type,
+					'order_by'     => $attribute->attribute_orderby,
+					'has_archives' => (bool) $attribute->attribute_public
+				);
+			}
+
+			return array( 'product_attributes' => apply_filters( 'woocommerce_api_product_attributes_response', $product_attributes, $attribute_taxonomies, $fields, $this ) );
+		} catch ( WC_API_Exception $e ) {
+			return new WP_Error( $e->getErrorCode(), $e->getMessage(), array( 'status' => $e->getCode() ) );
+		}
+	}
+
+	/**
+	 * Get the product attribute for the given ID
+	 *
+	 * @since 2.4.0
+	 * @param string $id product attribute term ID
+	 * @param string|null $fields fields to limit response to
+	 * @return array
+	 */
+	public function get_product_attribute( $id, $fields = null ) {
+		global $wpdb;
+
+		try {
+			$id = absint( $id );
+
+			// Validate ID
+			if ( empty( $id ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_invalid_product_attribute_id', __( 'Invalid product attribute ID', 'woocommerce' ), 400 );
+			}
+
+			// Permissions check
+			if ( ! current_user_can( 'manage_product_terms' ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_user_cannot_read_product_categories', __( 'You do not have permission to read product attributes', 'woocommerce' ), 401 );
+			}
+
+			$attribute = $wpdb->get_row( $wpdb->prepare( "
+				SELECT *
+				FROM {$wpdb->prefix}woocommerce_attribute_taxonomies
+				WHERE attribute_id = %d
+			 ", $id ) );
+
+			if ( is_wp_error( $attribute ) || is_null( $attribute ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_invalid_product_attribute_id', __( 'A product attribute with the provided ID could not be found', 'woocommerce' ), 404 );
+			}
+
+			$product_attribute = array(
+				'id'           => intval( $attribute->attribute_id ),
+				'name'         => $attribute->attribute_label,
+				'slug'         => wc_attribute_taxonomy_name( $attribute->attribute_name ),
+				'type'         => $attribute->attribute_type,
+				'order_by'     => $attribute->attribute_orderby,
+				'has_archives' => (bool) $attribute->attribute_public
+			);
+
+			return array( 'product_attribute' => apply_filters( 'woocommerce_api_product_attribute_response', $product_attribute, $id, $fields, $attribute, $this ) );
+		} catch ( WC_API_Exception $e ) {
+			return new WP_Error( $e->getErrorCode(), $e->getMessage(), array( 'status' => $e->getCode() ) );
+		}
+	}
+
+	/**
+	 * Validate attribute data.
+	 *
+	 * @since  2.4.0
+	 * @param  string $name
+	 * @param  string $slug
+	 * @param  string $type
+	 * @param  string $order_by
+	 * @param  bool   $new_data
+	 * @return bool
+	 */
+	protected function validate_attribute_data( $name, $slug, $type, $order_by, $new_data = true ) {
+		if ( empty( $name ) ) {
+			throw new WC_API_Exception( 'woocommerce_api_missing_product_attribute_name', sprintf( __( 'Missing parameter %s', 'woocommerce' ), 'name' ), 400 );
+		}
+
+		if ( strlen( $slug ) >= 28 ) {
+			throw new WC_API_Exception( 'woocommerce_api_invalid_product_attribute_slug_too_long', sprintf( __( 'Slug "%s" is too long (28 characters max). Shorten it, please.', 'woocommerce' ), $slug ), 400 );
+		} else if ( wc_check_if_attribute_name_is_reserved( $slug ) ) {
+			throw new WC_API_Exception( 'woocommerce_api_invalid_product_attribute_slug_reserved_name', sprintf( __( 'Slug "%s" is not allowed because it is a reserved term. Change it, please.', 'woocommerce' ), $slug ), 400 );
+		} else if ( $new_data && taxonomy_exists( wc_attribute_taxonomy_name( $slug ) ) ) {
+			throw new WC_API_Exception( 'woocommerce_api_invalid_product_attribute_slug_already_exists', sprintf( __( 'Slug "%s" is already in use. Change it, please.', 'woocommerce' ), $slug ), 400 );
+		}
+
+		// Validate the attribute type
+		if ( ! in_array( wc_clean( $type ), array_keys( wc_get_attribute_types() ) ) ) {
+			throw new WC_API_Exception( 'woocommerce_api_invalid_product_attribute_type', sprintf( __( 'Invalid product attribute type - the product attribute type must be any of these: %s', 'woocommerce' ), implode( ', ', array_keys( wc_get_attribute_types() ) ) ), 400 );
+		}
+
+		// Validate the attribute order by
+		if ( ! in_array( wc_clean( $order_by ), array( 'menu_order', 'name', 'name_num', 'id' ) ) ) {
+			throw new WC_API_Exception( 'woocommerce_api_invalid_product_attribute_order_by', sprintf( __( 'Invalid product attribute order_by type - the product attribute order_by type must be any of these: %s', 'woocommerce' ), implode( ', ', array( 'menu_order', 'name', 'name_num', 'id' ) ) ), 400 );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Create a new product attribute
+	 *
+	 * @since 2.4.0
+	 * @param array $data posted data
+	 * @return array
+	 */
+	public function create_product_attribute( $data ) {
+		global $wpdb;
+
+		try {
+			if ( ! isset( $data['product_attribute'] ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_missing_product_attribute_data', sprintf( __( 'No %1$s data specified to create %1$s', 'woocommerce' ), 'product_attribute' ), 400 );
+			}
+
+			$data = $data['product_attribute'];
+
+			// Check permissions
+			if ( ! current_user_can( 'manage_product_terms' ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_user_cannot_create_product_attribute', __( 'You do not have permission to create product attributes', 'woocommerce' ), 401 );
+			}
+
+			$data = apply_filters( 'woocommerce_api_create_product_attribute_data', $data, $this );
+
+			if ( ! isset( $data['name'] ) ) {
+				$data['name'] = '';
+			}
+
+			// Set the attribute slug
+			if ( ! isset( $data['slug'] ) ) {
+				$data['slug'] = wc_sanitize_taxonomy_name( stripslashes( $data['name'] ) );
+			} else {
+				$data['slug'] = preg_replace( '/^pa\_/', '', wc_sanitize_taxonomy_name( stripslashes( $data['slug'] ) ) );
+			}
+
+			// Set attribute type when not sent
+			if ( ! isset( $data['type'] ) ) {
+				$data['type'] = 'select';
+			}
+
+			// Set order by when not sent
+			if ( ! isset( $data['order_by'] ) ) {
+				$data['order_by'] = 'menu_order';
+			}
+
+			// Validate the attribute data
+			$this->validate_attribute_data( $data['name'], $data['slug'], $data['type'], $data['order_by'], true );
+
+			$insert = $wpdb->insert(
+				$wpdb->prefix . 'woocommerce_attribute_taxonomies',
+				array(
+					'attribute_label'   => $data['name'],
+					'attribute_name'    => $data['slug'],
+					'attribute_type'    => $data['type'],
+					'attribute_orderby' => $data['order_by'],
+					'attribute_public'  => isset( $data['has_archives'] ) && true === $data['has_archives'] ? 1 : 0
+				),
+				array( '%s', '%s', '%s', '%s', '%d' )
+			);
+
+			// Checks for an error in the product creation
+			if ( is_wp_error( $insert ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_cannot_create_product_attribute', $insert->get_error_message(), 400 );
+			}
+
+			$id = $wpdb->insert_id;
+
+			do_action( 'woocommerce_api_create_product_attribute', $id, $data );
+
+			// Clear transients
+			delete_transient( 'wc_attribute_taxonomies' );
+
+			$this->server->send_status( 201 );
+
+			return $this->get_product_attribute( $id );
+		} catch ( WC_API_Exception $e ) {
+			return new WP_Error( $e->getErrorCode(), $e->getMessage(), array( 'status' => $e->getCode() ) );
+		}
+	}
+
+	/**
+	 * Edit a product attribute
+	 *
+	 * @since 2.4.0
+	 * @param int $id the attribute ID
+	 * @param array $data
+	 * @return array
+	 */
+	public function edit_product_attribute( $id, $data ) {
+		global $wpdb;
+
+		try {
+			if ( ! isset( $data['product_attribute'] ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_missing_product_attribute_data', sprintf( __( 'No %1$s data specified to edit %1$s', 'woocommerce' ), 'product_attribute' ), 400 );
+			}
+
+			$id   = absint( $id );
+			$data = $data['product_attribute'];
+
+			// Check permissions
+			if ( ! current_user_can( 'manage_product_terms' ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_user_cannot_edit_product_attribute', __( 'You do not have permission to edit product attributes', 'woocommerce' ), 401 );
+			}
+
+			$data      = apply_filters( 'woocommerce_api_edit_product_attribute_data', $data, $this );
+			$attribute = $this->get_product_attribute( $id );
+
+			if ( is_wp_error( $attribute ) ) {
+				return $attribute;
+			}
+
+			$attribute_name     = isset( $data['name'] ) ? $data['name'] : $attribute['product_attribute']['name'];
+			$attribute_type     = isset( $data['type'] ) ? $data['type'] : $attribute['product_attribute']['type'];
+			$attribute_order_by = isset( $data['order_by'] ) ? $data['order_by'] : $attribute['product_attribute']['order_by'];
+
+			if ( isset( $data['slug'] ) ) {
+				$attribute_slug = wc_sanitize_taxonomy_name( stripslashes( $data['slug'] ) );
+			} else {
+				$attribute_slug = $attribute['product_attribute']['slug'];
+			}
+			$attribute_slug = preg_replace( '/^pa\_/', '', $attribute_slug );
+
+			if ( isset( $data['has_archives'] ) ) {
+				$attribute_public = true === $data['has_archives'] ? 1 : 0;
+			} else {
+				$attribute_public = $attribute['product_attribute']['has_archives'];
+			}
+
+			// Validate the attribute data
+			$this->validate_attribute_data( $attribute_name, $attribute_slug, $attribute_type, $attribute_order_by, false );
+
+			$update = $wpdb->update(
+				$wpdb->prefix . 'woocommerce_attribute_taxonomies',
+				array(
+					'attribute_label'   => $attribute_name,
+					'attribute_name'    => $attribute_slug,
+					'attribute_type'    => $attribute_type,
+					'attribute_orderby' => $attribute_order_by,
+					'attribute_public'  => $attribute_public
+				),
+				array( 'attribute_id' => $id ),
+				array( '%s', '%s', '%s', '%s', '%d' ),
+				array( '%d' )
+			);
+
+			// Checks for an error in the product creation
+			if ( false === $update ) {
+				throw new WC_API_Exception( 'woocommerce_api_cannot_edit_product_attribute', __( 'Could not edit the attribute', 'woocommerce' ), 400 );
+			}
+
+			do_action( 'woocommerce_api_edit_product_attribute', $id, $data );
+
+			// Clear transients
+			delete_transient( 'wc_attribute_taxonomies' );
+
+			return $this->get_product_attribute( $id );
+		} catch ( WC_API_Exception $e ) {
+			return new WP_Error( $e->getErrorCode(), $e->getMessage(), array( 'status' => $e->getCode() ) );
+		}
+	}
+
+	/**
+	 * Delete a product attribute
+	 *
+	 * @since  2.4.0
+	 * @param  int $id the product attribute ID
+	 * @return array
+	 */
+	public function delete_product_attribute( $id ) {
+		global $wpdb;
+
+		try {
+			// Check permissions
+			if ( ! current_user_can( 'manage_product_terms' ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_user_cannot_delete_product_attribute', __( 'You do not have permission to delete product attributes', 'woocommerce' ), 401 );
+			}
+
+			$id = absint( $id );
+
+			$attribute_name = $wpdb->get_var( $wpdb->prepare( "
+				SELECT attribute_name
+				FROM {$wpdb->prefix}woocommerce_attribute_taxonomies
+				WHERE attribute_id = %d
+			 ", $id ) );
+
+			if ( is_null( $attribute_name ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_invalid_product_attribute_id', __( 'A product attribute with the provided ID could not be found', 'woocommerce' ), 404 );
+			}
+
+			$deleted = $wpdb->delete(
+				$wpdb->prefix . 'woocommerce_attribute_taxonomies',
+				array( 'attribute_id' => $id ),
+				array( '%d' )
+			);
+
+			if ( false === $deleted ) {
+				throw new WC_API_Exception( 'woocommerce_api_cannot_delete_product_attribute', __( 'Could not delete the attribute', 'woocommerce' ), 401 );
+			}
+
+			$taxonomy = wc_attribute_taxonomy_name( $attribute_name );
+
+			if ( taxonomy_exists( $taxonomy ) ) {
+				$terms = get_terms( $taxonomy, 'orderby=name&hide_empty=0' );
+				foreach ( $terms as $term ) {
+					wp_delete_term( $term->term_id, $taxonomy );
+				}
+			}
+
+			do_action( 'woocommerce_attribute_deleted', $id, $attribute_name, $taxonomy );
+			do_action( 'woocommerce_api_delete_product_attribute', $id, $this );
+
+			// Clear transients
+			delete_transient( 'wc_attribute_taxonomies' );
+
+			return array( 'message' => sprintf( __( 'Deleted %s', 'woocommerce' ), 'product_attribute' ) );
 		} catch ( WC_API_Exception $e ) {
 			return new WP_Error( $e->getErrorCode(), $e->getMessage(), array( 'status' => $e->getCode() ) );
 		}
@@ -1878,7 +2299,7 @@ class WC_API_Products extends WC_API_Resource {
 	 * Clear product
 	 */
 	protected function clear_product( $product_id ) {
-		if ( 0 >= $product_id ) {
+		if ( ! is_numeric( $product_id ) || 0 >= $product_id ) {
 			return;
 		}
 
@@ -1895,5 +2316,82 @@ class WC_API_Products extends WC_API_Resource {
 
 		// Delete product
 		wp_delete_post( $product_id, true );
+	}
+
+	/**
+	 * Bulk update or insert products
+	 * Accepts an array with products in the formats supported by
+	 * WC_API_Products->create_product() and WC_API_Products->edit_product()
+	 *
+	 * @since 2.4.0
+	 * @param array $data
+	 * @return array
+	 */
+	public function bulk( $data ) {
+
+		try {
+			if ( ! isset( $data['products'] ) ) {
+				throw new WC_API_Exception( 'woocommerce_api_missing_products_data', sprintf( __( 'No %1$s data specified to create/edit %1$s', 'woocommerce' ), 'products' ), 400 );
+			}
+
+			$data  = $data['products'];
+			$limit = apply_filters( 'woocommerce_api_bulk_limit', 100, 'products' );
+
+			// Limit bulk operation
+			if ( count( $data ) > $limit ) {
+				throw new WC_API_Exception( 'woocommerce_api_products_request_entity_too_large', sprintf( __( 'Unable to accept more than %s items for this request', 'woocommerce' ), $limit ), 413 );
+			}
+
+			$products = array();
+
+			foreach ( $data as $_product ) {
+				$product_id  = 0;
+				$product_sku = '';
+
+				// Try to get the product ID
+				if ( isset( $_product['id'] ) ) {
+					$product_id = intval( $_product['id'] );
+				}
+
+				if ( ! $product_id && isset( $_product['sku'] ) ) {
+					$product_sku = wc_clean( $_product['sku'] );
+					$product_id  = wc_get_product_id_by_sku( $product_sku );
+				}
+
+				// Product exists / edit product
+				if ( $product_id ) {
+					$edit = $this->edit_product( $product_id, array( 'product' => $_product ) );
+
+					if ( is_wp_error( $edit ) ) {
+						$products[] = array(
+							'id'    => $product_id,
+							'sku'   => $product_sku,
+							'error' => array( 'code' => $edit->get_error_code(), 'message' => $edit->get_error_message() )
+						);
+					} else {
+						$products[] = $edit['product'];
+					}
+				}
+
+				// Product don't exists / create product
+				else {
+					$new = $this->create_product( array( 'product' => $_product ) );
+
+					if ( is_wp_error( $new ) ) {
+						$products[] = array(
+							'id'    => $product_id,
+							'sku'   => $product_sku,
+							'error' => array( 'code' => $new->get_error_code(), 'message' => $new->get_error_message() )
+						);
+					} else {
+						$products[] = $new['product'];
+					}
+				}
+			}
+
+			return array( 'products' => apply_filters( 'woocommerce_api_products_bulk_response', $products, $this ) );
+		} catch ( WC_API_Exception $e ) {
+			return new WP_Error( $e->getErrorCode(), $e->getMessage(), array( 'status' => $e->getCode() ) );
+		}
 	}
 }

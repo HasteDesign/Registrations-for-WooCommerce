@@ -95,7 +95,7 @@ class WC_Webhook {
 
 
 	/**
-	 * Process the webhook for delivery by verifying the it should be delivered
+	 * Process the webhook for delivery by verifying that it should be delivered
 	 * and scheduling the delivery (in the background by default, or immediately)
 	 *
 	 * @since 2.2
@@ -142,12 +142,9 @@ class WC_Webhook {
 
 		// only deliver deleted event for coupons, orders, and products
 		if ( 'delete_post' == $current_action && ! in_array( $GLOBALS['post_type'], array( 'shop_coupon', 'shop_order', 'product' ) ) ) {
-
 			return false;
 
 		} elseif ( 'delete_user' == $current_action ) {
-
-
 			$user = get_userdata( absint( $arg ) );
 
 			// only deliver deleted customer event for users with customer role
@@ -155,8 +152,11 @@ class WC_Webhook {
 				return false;
 			}
 
-		} elseif ( 0 === strpos( $current_action, 'woocommerce_process_shop' ) ) {
+		// check if the custom order type has chosen to exclude order webhooks from triggering along with its own webhooks.
+		} elseif ( 'order' == $this->get_resource() && ! in_array( get_post_type( absint( $arg ) ), wc_get_order_types( 'order-webhooks' ) ) ) {
+			return false;
 
+		} elseif ( 0 === strpos( $current_action, 'woocommerce_process_shop' ) ) {
 			// the `woocommerce_process_shop_*` hook fires for both updates
 			// and creation so check the post creation date to determine the actual event
 			$resource = get_post( absint( $arg ) );
@@ -561,6 +561,8 @@ class WC_Webhook {
 			'order.updated' => array(
 				'woocommerce_process_shop_order_meta',
 				'woocommerce_api_edit_order',
+				'woocommerce_order_edit_status',
+				'woocommerce_order_status_changed'
 			),
 			'order.deleted' => array(
 				'wp_trash_post',
@@ -725,7 +727,7 @@ class WC_Webhook {
 	 * @return string
 	 */
 	public function get_name() {
-		return apply_filters( 'woocommece_webhook_name', $this->get_post_data()->post_title, $this->id );
+		return apply_filters( 'woocommerce_webhook_name', $this->get_post_data()->post_title, $this->id );
 	}
 
 	/**

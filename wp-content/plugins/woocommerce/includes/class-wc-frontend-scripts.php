@@ -118,8 +118,8 @@ class WC_Frontend_Scripts {
 		self::register_script( 'select2', $assets_path . 'js/select2/select2' . $suffix . '.js', array( 'jquery' ), '3.5.2' );
 
 		// Register any scripts for later use, or used as dependencies
-		self::register_script( 'jquery-blockui', $assets_path . 'js/jquery-blockui/jquery.blockUI' . $suffix . '.js', array( 'jquery' ), '2.60' );
-		self::register_script( 'jquery-payment', $assets_path . 'js/jquery-payment/jquery.payment' . $suffix . '.js', array( 'jquery' ), '1.2.1' );
+		self::register_script( 'jquery-blockui', $assets_path . 'js/jquery-blockui/jquery.blockUI' . $suffix . '.js', array( 'jquery' ), '2.70' );
+		self::register_script( 'jquery-payment', $assets_path . 'js/jquery-payment/jquery.payment' . $suffix . '.js', array( 'jquery' ), '1.2.4' );
 		self::register_script( 'jquery-cookie', $assets_path . 'js/jquery-cookie/jquery.cookie' . $suffix . '.js', array( 'jquery' ), '1.4.1' );
 		self::register_script( 'wc-credit-card-form', $frontend_script_path . 'credit-card-form' . $suffix . '.js', array( 'jquery', 'jquery-payment' ) );
 		self::register_script( 'wc-add-to-cart-variation', $frontend_script_path . 'add-to-cart-variation' . $suffix . '.js' );
@@ -154,6 +154,9 @@ class WC_Frontend_Scripts {
 		}
 		if ( is_product() ) {
 			self::enqueue_script( 'wc-single-product' );
+		}
+		if ( 'geolocation_ajax' === get_option( 'woocommerce_default_customer_address' ) ) {
+			self::enqueue_script( 'wc-geolocation', $frontend_script_path . 'geolocation' . $suffix . '.js', array( 'jquery' ) );
 		}
 
 		// Global frontend scripts
@@ -194,7 +197,16 @@ class WC_Frontend_Scripts {
 		switch ( $handle ) {
 			case 'woocommerce' :
 				return array(
-					'ajax_url'        => WC()->ajax_url(),
+					'ajax_url'    => WC()->ajax_url(),
+					'wc_ajax_url' => WC_AJAX::get_endpoint( "%%endpoint%%" )
+				);
+			break;
+			case 'wc-geolocation' :
+				return array(
+					'wc_ajax_url' => WC_AJAX::get_endpoint( "%%endpoint%%" ),
+					'home_url'    => home_url(),
+					'is_checkout' => is_checkout() ? '1' : '0',
+					'hash'        => isset( $_GET['v'] ) ? wc_clean( $_GET['v'] ) : ''
 				);
 			break;
 			case 'wc-single-product' :
@@ -206,13 +218,15 @@ class WC_Frontend_Scripts {
 			case 'wc-checkout' :
 				return array(
 					'ajax_url'                  => WC()->ajax_url(),
+					'wc_ajax_url'               => WC_AJAX::get_endpoint( "%%endpoint%%" ),
 					'update_order_review_nonce' => wp_create_nonce( 'update-order-review' ),
 					'apply_coupon_nonce'        => wp_create_nonce( 'apply-coupon' ),
 					'remove_coupon_nonce'       => wp_create_nonce( 'remove-coupon' ),
 					'option_guest_checkout'     => get_option( 'woocommerce_enable_guest_checkout' ),
 					'checkout_url'              => add_query_arg( 'action', 'woocommerce_checkout', WC()->ajax_url() ),
 					'is_checkout'               => is_page( wc_get_page_id( 'checkout' ) ) && empty( $wp->query_vars['order-pay'] ) && ! isset( $wp->query_vars['order-received'] ) ? 1 : 0,
-					'debug_mode'                => defined('WP_DEBUG') && WP_DEBUG
+					'debug_mode'                => defined('WP_DEBUG') && WP_DEBUG,
+					'i18n_checkout_error'       => esc_attr__( 'Error processing checkout. Please try again.', 'woocommerce' ),
 				);
 			break;
 			case 'wc-address-i18n' :
@@ -225,20 +239,23 @@ class WC_Frontend_Scripts {
 			case 'wc-cart' :
 				return array(
 					'ajax_url'                     => WC()->ajax_url(),
+					'wc_ajax_url'                  => WC_AJAX::get_endpoint( "%%endpoint%%" ),
 					'update_shipping_method_nonce' => wp_create_nonce( "update-shipping-method" ),
 				);
 			break;
 			case 'wc-cart-fragments' :
 				return array(
 					'ajax_url'      => WC()->ajax_url(),
+					'wc_ajax_url'   => WC_AJAX::get_endpoint( "%%endpoint%%" ),
 					'fragment_name' => apply_filters( 'woocommerce_cart_fragment_name', 'wc_fragments' )
 				);
 			break;
 			case 'wc-add-to-cart' :
 				return array(
 					'ajax_url'                => WC()->ajax_url(),
+					'wc_ajax_url'             => WC_AJAX::get_endpoint( "%%endpoint%%" ),
 					'i18n_view_cart'          => esc_attr__( 'View Cart', 'woocommerce' ),
-					'cart_url'                => wc_get_page_permalink( 'cart' ),
+					'cart_url'                => apply_filters( 'woocommerce_add_to_cart_redirect', WC()->cart->get_cart_url() ),
 					'is_cart'                 => is_cart(),
 					'cart_redirect_after_add' => get_option( 'woocommerce_cart_redirect_after_add' )
 				);

@@ -7,14 +7,14 @@ jQuery( function ( $ ) {
 	var wc_users_fields = {
 		states: null,
 		init: function() {
-			if ( ! ( typeof wc_users_params.countries === 'undefined' ) ) {
+			if ( typeof wc_users_params.countries !== 'undefined' ) {
 				/* State/Country select boxes */
 				this.states = $.parseJSON( wc_users_params.countries.replace( /&quot;/g, '"' ) );
 			}
 
 			$( '.js_field-country' ).select2().change( this.change_country );
 			$( '.js_field-country' ).trigger( 'change', [ true ] );
-			$( 'body' ).on( 'change', 'select.js_field-state', this.change_state );
+			$( document.body ).on( 'change', 'select.js_field-state', this.change_state );
 		},
 
 		change_country: function( e, stickValue ) {
@@ -49,7 +49,7 @@ jQuery( function ( $ ) {
 
 				$states_select.append( $( '<option value="">' + wc_users_params.i18n_select_state_text + '</option>' ) );
 
-				$.each( state, function( index, name ) {
+				$.each( state, function( index ) {
 					$states_select.append( $( '<option value="' + index + '">' + state[ index ] + '</option>' ) );
 				} );
 
@@ -62,7 +62,7 @@ jQuery( function ( $ ) {
 				$state.replaceWith( '<input type="text" class="js_field-state" name="' + input_name + '" id="' + input_id + '" value="' + value + '" />' );
 			}
 
-			$( 'body' ).trigger( 'contry-change.woocommerce', [country, $( this ).closest( 'div' )] );
+			$( document.body ).trigger( 'contry-change.woocommerce', [country, $( this ).closest( 'div' )] );
 		},
 
 		change_state: function() {
@@ -73,8 +73,8 @@ jQuery( function ( $ ) {
 				country  = $country.val();
 
 			$country.data( 'woocommerce.stickState-' + country, state );
-		},
-	}
+		}
+	};
 
 	wc_users_fields.init();
 

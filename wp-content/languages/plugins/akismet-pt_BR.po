@@ -1,5 +1,5 @@
-# Translation of Development in Portuguese (Brazil)
-# This file is distributed under the same license as the Development package.
+# Translation of Development (trunk) in Portuguese (Brazil)
+# This file is distributed under the same license as the Development (trunk) package.
 msgid ""
 msgstr ""
 "PO-Revision-Date: 2015-07-23 02:47:41+0000\n"
@@ -7,8 +7,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
-"Project-Id-Version: Development\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: Development (trunk)\n"
 
 #: views/notice.php:94
 msgid "Your API key is no longer valid. Please enter a new key or contact support@akismet.com."
@@ -432,7 +432,7 @@ msgstr "O Akismet liberou este comentário durante uma tentativa automática."
 msgid "View comment history"
 msgstr "Ver histórico de comentários"
 
-#. #-#-#-#-#  akismet.pot (Akismet 3.1.4a1)  #-#-#-#-#
+#. #-#-#-#-#  tmp-akismet.pot (Akismet 3.1.4a1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: class.akismet-admin.php:76 class.akismet-admin.php:78
 #: class.akismet-admin.php:842 views/config.php:3

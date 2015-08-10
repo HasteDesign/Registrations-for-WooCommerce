@@ -22,6 +22,7 @@ class WC_Admin_Taxonomies {
 	 * Constructor
 	 */
 	public function __construct() {
+		global $wc_product_attributes;
 
 		// Category/term ordering
 		add_action( 'create_term', array( $this, 'create_term' ), 5, 3 );
@@ -40,6 +41,10 @@ class WC_Admin_Taxonomies {
 		// Taxonomy page descriptions
 		add_action( 'product_cat_pre_add_form', array( $this, 'product_cat_description' ) );
 		add_action( 'product_shipping_class_pre_add_form', array( $this, 'shipping_class_description' ) );
+
+		foreach ( array_keys( $wc_product_attributes ) as $attribute ) {
+			add_action( $attribute . '_pre_add_form', array( $this, 'product_attribute_description' ) );
+		}
 
 		// Maintain hierarchy of terms
 		add_filter( 'wp_terms_checklist_args', array( $this, 'disable_checked_ontop' ) );
@@ -68,15 +73,13 @@ class WC_Admin_Taxonomies {
 	 * @param mixed $term_id
 	 */
 	public function delete_term( $term_id ) {
-
-		$term_id = (int) $term_id;
-
-		if ( ! $term_id ) {
-			return;
-		}
-
 		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->woocommerce_termmeta} WHERE `woocommerce_term_id` = " . $term_id );
+
+		$term_id = absint( $term_id );
+
+		if ( $term_id ) {
+			$wpdb->delete( $wpdb->woocommerce_termmeta, array( 'woocommerce_term_id' => $term_id ), array( '%d' ) );
+		}
 	}
 
 	/**
@@ -277,6 +280,13 @@ class WC_Admin_Taxonomies {
 	}
 
 	/**
+	 * Description for shipping class page to aid users.
+	 */
+	public function product_attribute_description() {
+		echo wpautop( __( 'Attribute terms can be assigned to products and variations.<br/><br/><b>Note</b>: Deleting a term will remove it from all products and variations to which it has been assigned. Recreating a term will not automatically assign it back to products.', 'woocommerce' ) );
+	}
+
+	/**
 	 * Thumbnail column added to category admin.
 	 *
 	 * @param mixed $columns
@@ -316,7 +326,7 @@ class WC_Admin_Taxonomies {
 			// Ref: http://core.trac.wordpress.org/ticket/23605
 			$image = str_replace( ' ', '%20', $image );
 
-			$columns .= '<img src="' . esc_url( $image ) . '" alt="' . __( 'Thumbnail', 'woocommerce' ) . '" class="wp-post-image" height="48" width="48" />';
+			$columns .= '<img src="' . esc_url( $image ) . '" alt="' . esc_attr__( 'Thumbnail', 'woocommerce' ) . '" class="wp-post-image" height="48" width="48" />';
 
 		}
 
