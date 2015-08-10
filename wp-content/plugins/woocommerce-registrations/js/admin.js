@@ -110,10 +110,10 @@ jQuery(document).ready(function($){
 			console.log( $('#hidden_date').val() );
 		},
 		removeDateAttribute: function () {
-			var $button = $('.woocommerce_attribute').children('h3').children("strong:contains('Dates')").siblings('button');
+			var $strong = $('.woocommerce_attribute').children('h3').children("strong:contains('Dates')");
 
-			if( $button ) {
-				var $parent = $( $button ).parent().parent();
+			if( $strong ) {
+				var $parent = $( $strong ).parent().parent();
 
 				$parent.find('select, input[type=text]').val('');
 				$parent.hide();
