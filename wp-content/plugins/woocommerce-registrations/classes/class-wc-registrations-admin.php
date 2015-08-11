@@ -269,8 +269,7 @@ class WC_Registrations_Admin {
     }
 
 	public static function registration_variation_option_name( $option ) {
-			error_log( $option );
-			$opt = json_decode( $option );
+			$opt = json_decode( stripslashes( $option ) );
 			if( $opt ) {
 				return self::format_variations_dates( $opt );
 			} else {
