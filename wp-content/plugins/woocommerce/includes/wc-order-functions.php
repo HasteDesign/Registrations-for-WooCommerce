@@ -308,7 +308,7 @@ function wc_downloadable_product_permissions( $order_id ) {
 
 	$order = wc_get_order( $order_id );
 
-	if ( $order->has_status( 'processing' ) && get_option( 'woocommerce_downloads_grant_access_after_payment' ) == 'no' ) {
+	if ( $order && $order->has_status( 'processing' ) && get_option( 'woocommerce_downloads_grant_access_after_payment' ) == 'no' ) {
 		return;
 	}
 
@@ -722,7 +722,15 @@ function wc_create_refund( $args = array() ) {
 		$max_remaining_items  = absint( $order->get_item_count() - $order->get_item_count_refunded() );
 
 		if ( $max_remaining_refund > 0 || $max_remaining_items > 0 ) {
-			do_action( 'woocommerce_order_partially_refunded', $args['order_id'], true, $refund_id );
+			/**
+			 * woocommerce_order_partially_refunded
+			 *
+			 * @since 2.4.0
+			 * Note: 3rd arg was added in err. Kept for bw compat. 2.4.3
+			 */
+			do_action( 'woocommerce_order_partially_refunded', $args['order_id'], $refund_id, $refund_id );
+		} else {
+			do_action( 'woocommerce_order_fully_refunded', $args['order_id'], $refund_id );
 		}
 
 		do_action( 'woocommerce_refund_created', $refund_id, $args );
@@ -796,7 +804,5 @@ function wc_order_fully_refunded( $order_id ) {
 	) );
 
 	wc_delete_shop_order_transients( $order_id );
-
-	do_action( 'woocommerce_order_fully_refunded', $order_id, $refund->id );
 }
 add_action( 'woocommerce_order_status_refunded', 'wc_order_fully_refunded' );

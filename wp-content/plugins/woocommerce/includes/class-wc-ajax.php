@@ -32,20 +32,23 @@ class WC_AJAX {
 	 * @return string
 	 */
 	public static function get_endpoint( $request = '' ) {
-		return esc_url_raw( add_query_arg( 'wc-ajax', $request ) );
+		return esc_url_raw( add_query_arg( 'wc-ajax', $request, remove_query_arg( array( 'remove_item', 'add-to-cart', 'added-to-cart' ) ) ) );
 	}
 
 	/**
 	 * Set AJAX defines.
 	 */
 	public static function define_ajax() {
-
 		if ( ! empty( $_GET['wc-ajax'] ) ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
 				define( 'DOING_AJAX', true );
 			}
 			if ( ! defined( 'WC_DOING_AJAX' ) ) {
 				define( 'WC_DOING_AJAX', true );
+			}
+			// Turn off display_errors during AJAX events to prevent malformed JSON
+			if ( ! WP_DEBUG || ( WP_DEBUG && ! WP_DEBUG_DISPLAY ) ) {
+				@ini_set( 'display_errors', 0 );
 			}
 		}
 	}
@@ -439,7 +442,7 @@ class WC_AJAX {
 			die();
 		}
 
-		$variation_id = $variable_product->get_matching_variation( $_POST );
+		$variation_id = $variable_product->get_matching_variation( wp_unslash( $_POST ) );
 
 		if ( $variation_id ) {
 			$variation = $variable_product->get_available_variation( $variation_id );
@@ -686,7 +689,7 @@ class WC_AJAX {
 				} elseif ( isset( $attribute_values[ $i ] ) ) {
 
 					// Text based, separate by pipe
-					$values = implode( ' ' . WC_DELIMITER . ' ', array_map( 'wc_clean', wc_get_text_attributes( $attribute_values[ $i ] ) ) );
+					$values = implode( ' ' . WC_DELIMITER . ' ', array_map( 'wc_clean', explode( WC_DELIMITER, wp_unslash( $attribute_values[ $i ] ) ) ) );
 
 					// Custom attribute - Add attribute to array and set the values
 					$attributes[ sanitize_title( $attribute_names[ $i ] ) ] = array(
@@ -2418,8 +2421,10 @@ class WC_AJAX {
 		$page       = ! empty( $_POST['page'] ) ? absint( $_POST['page'] ) : 1;
 
 		// Get attributes
-		$attributes = array();
-		foreach ( $_POST['attributes'] as $key => $value ) {
+		$attributes        = array();
+		$posted_attributes = wp_unslash( $_POST['attributes'] );
+
+		foreach ( $posted_attributes as $key => $value ) {
 			$attributes[ wc_clean( $key ) ] = array_map( 'wc_clean', $value );
 		}
 
@@ -2483,8 +2488,7 @@ class WC_AJAX {
 			'post_status'    => array( 'private', 'publish' ),
 			'posts_per_page' => $per_page,
 			'paged'          => $page,
-			'orderby'        => 'menu_order',
-			'order'          => 'ASC',
+			'orderby'        => array( 'menu_order' => 'ASC', 'ID' => 'DESC' ),
 			'post_parent'    => $product_id
 		), $product_id );
 
@@ -2670,7 +2674,7 @@ class WC_AJAX {
 	 */
 	private static function variation_bulk_action_variable_regular_price( $variations, $data ) {
 		if ( empty( $data['value'] ) ) {
-			break;
+			return;
 		}
 
 		foreach ( $variations as $variation_id ) {
@@ -2696,7 +2700,7 @@ class WC_AJAX {
 	 */
 	private static function variation_bulk_action_variable_sale_price( $variations, $data ) {
 		if ( empty( $data['value'] ) ) {
-			break;
+			return;
 		}
 
 		foreach ( $variations as $variation_id ) {
@@ -2722,7 +2726,7 @@ class WC_AJAX {
 	 */
 	private static function variation_bulk_action_variable_stock( $variations, $data ) {
 		if ( empty( $data['value'] ) ) {
-			break;
+			return;
 		}
 
 		$value = wc_clean( $data['value'] );
@@ -2820,7 +2824,7 @@ class WC_AJAX {
 	 */
 	private static function variation_bulk_action_variable_sale_schedule( $variations, $data ) {
 		if ( ! isset( $data['date_from'] ) && ! isset( $data['date_to'] ) ) {
-			break;
+			return;
 		}
 
 		foreach ( $variations as $variation_id ) {

@@ -4,7 +4,7 @@ Tags: ecommerce, e-commerce, commerce, woothemes, wordpress ecommerce, affiliate
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=paypal@woothemes.com&item_name=Donation+for+WooCommerce
 Requires at least: 4.0
 Tested up to: 4.3
-Stable tag: 2.4.1
+Stable tag: 2.4.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -158,6 +158,37 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 6. A product archive (grid).
 
 == Changelog ==
+
+= 2.4.4 - 14/08/2015 =
+* Fix - Ajax variation handling when 'any' attribute is set.
+* Fix - Run html_entity_decode over text attributes to fix problems with quote characters.
+* Fix - COD: remove shipping check if the cart is 100% virtual.
+* Tweak - Order variations by menu_order by fallback to ID.
+* Tweak - Include attribute archives support in the breadcrumbs.
+* Tweak - woocommerce_variable_children_args hook.
+
+= 2.4.3 - 12/08/2015 =
+* Fix - Query within wc_customer_bought_product().
+* Fix - Tab hiding with some theme markup.
+* Fix - Ajax variations: stripslashes to fix attributes with quotes.
+* Fix - No longer returns to the first variation list page when deleting one variation.
+* Fix - Refund subjects when order contains downloadable product.
+* Fix - wc_get_product_variation_attributes should only get parent attributes which are for variations.
+* Tweak - Disable display_errors during ajax requests to prevent malformed JSON.
+* Tweak - When merging shipping taxes with a shipping rate taxes, ensure shipping rate taxes is not malformed.
+* Tweak - Improved refund email events and woocommerce_order_fully_refunded hook.
+
+= 2.4.2 - 11/08/2015 =
+* Fix - If all variations are out of stock, maintain pricing display.
+* Fix - Prevent double add to cart due to ajax endpoints.
+* Fix - ordering_args in product_category shortcode.
+* Fix - Tax inclusive prices rounding case.
+* Tweak - If no variation prices are found, show no price label rather than free.
+* Tweak - Made tab panel selector more specific to avoid theme conflicts.
+* Tweak - Made checkout make use of new ajax endpoints.
+* Tweak - woocommerce_force_ssl_checkout no longer needs to check for admin-ajax actions.
+* Tweak - Hide get_formatted_legacy notices when doing ajax.
+* Tweak - use shop_single instead of full image size for variations.
 
 = 2.4.1 - 10/08/2015 =
 * Fix - Tweaked the 2.4 upgrade routine to disable refund emails during update.
