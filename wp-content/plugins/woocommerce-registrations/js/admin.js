@@ -24,6 +24,8 @@ jQuery( function( $ ) {
 
 			$( '#variable_product_options' ).on( 'change', 'select[name^="attribute_dates"]', this.handle_range_date_meta );
 
+			$( 'body' ).on('woocommerce-product-type-change', this.show_hide_registration_meta );
+
 			// Re-count the hidden inputs index when new attribute added
 			if ( 'true' == WCRegistrations.isWCPre23 ){
 				$('button.add_attribute').on('click', this.adjust_attributes_index );
@@ -43,6 +45,7 @@ jQuery( function( $ ) {
 
 			this.show_hide_registration_meta();
 			this.remove_date_attribute();
+			this.adjust_attributes_index();
 		},
 
 		/**
@@ -122,6 +125,7 @@ jQuery( function( $ ) {
 		 */
 		remove_date: function( event ) {
 			$( this ).parent().parent( 'div' ).remove();
+			wc_meta_boxes_product_registrations.update_hidden_field();
 			event.preventDefault();
 		},
 
@@ -148,6 +152,27 @@ jQuery( function( $ ) {
 					wc_meta_boxes_product_registrations.range_date_value( this );
 				}
 			});
+
+			/*
+			* If hidden_value is not empty, set name to WooCommerce save the attribute and enable hidden_variation
+			*/
+			wc_meta_boxes_product_registrations.toggle_hidden_name_and_variation();
+		},
+
+		/**
+		 * Check if name is empty and change variation disabled to false
+		 */
+		toggle_hidden_name_and_variation: function () {
+			if( $('#hidden_date').attr( 'value' ) != '' ) {
+
+				$('#hidden_name').attr( 'value', 'Dates' );
+				$('#hidden_variation').prop( "disabled", false );
+
+			} else {
+
+				$('#hidden_name').removeAttr( 'value' );
+				$('#hidden_variation').prop( "disabled", true );
+			}
 		},
 
 		/**

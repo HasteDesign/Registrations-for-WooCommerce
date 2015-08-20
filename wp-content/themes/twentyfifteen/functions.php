@@ -198,7 +198,7 @@ function twentyfifteen_fonts_url() {
 		$fonts_url = add_query_arg( array(
 			'family' => urlencode( implode( '|', $fonts ) ),
 			'subset' => urlencode( $subsets ),
-		), '//fonts.googleapis.com/css' );
+		), 'https://fonts.googleapis.com/css' );
 	}
 
 	return $fonts_url;
@@ -353,38 +353,3 @@ require get_template_directory() . '/inc/template-tags.php';
  * @since Twenty Fifteen 1.0
  */
 require get_template_directory() . '/inc/customizer.php';
-
-
-
-// add_filter( 'product_type_selector', 'abelman_add_custom_product_type' );
-//
-// function abelman_add_custom_product_type( $types ) {
-//     $types[ 'course' ] = __( 'Course' );
-//     return $types;
-// }
-
-// add_action( 'plugins_loaded', 'abelman_create_custom_product_type' );
-//
-// function abelman_create_custom_product_type(){
-//      // declare the product class
-//      class WC_Product_Course extends WC_Product_Simple{
-//         public function __construct( $product ) {
-//            $this->product_type = 'course';
-//            parent::__construct( $product );
-//            // add additional functions here
-//         }
-//     }
-// }
-
-// add_filter('woocommerce_product_data_tabs', 'abelman_manage_tabs' );
-//
-// function abelman_manage_tabs( $tabs ) {
-// 	unset($tabs['variations']);
-// 	return $tabs;
-// }
-
-// add_action( 'woocommerce_product_option_terms', 'insert_motherfucking_datepicker');
-//
-// function insert_motherfucking_datepicker( $attribute_taxonomy ) {
-// 	echo "<input type='text' value='The motherfucking datepicker' />";
-// }

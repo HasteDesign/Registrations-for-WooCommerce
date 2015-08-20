@@ -35,8 +35,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce\n"
 "Report-Msgid-Bugs-To: https://github.com/woothemes/woocommerce/issues\n"
-"POT-Creation-Date: 2015-08-14 02:36:08+00:00\n"
-"PO-Revision-Date: 2015-08-07 15:14+0000\n"
+"POT-Creation-Date: 2015-08-20 16:47:26+00:00\n"
+"PO-Revision-Date: 2015-08-20 16:52+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/woothemes/woocommerce/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -1021,6 +1021,10 @@ msgstr "Zâmbia"
 #: i18n/countries.php:261
 msgid "Zimbabwe"
 msgstr "Zimbábue"
+
+#: i18n/locale-info.php:351
+msgid "Consumption tax"
+msgstr "Taxa de consumo"
 
 #: i18n/states/AR.php:13
 msgid "Ciudad Aut&oacute;noma de Buenos Aires"
@@ -5151,35 +5155,41 @@ msgid "Fee"
 msgstr "Taxa"
 
 #: includes/abstracts/abstract-wc-order.php:1892
-#: includes/shortcodes/class-wc-shortcode-checkout.php:141
+#: includes/shortcodes/class-wc-shortcode-checkout.php:143
 #: templates/checkout/thankyou.php:53
 msgid "Payment Method:"
 msgstr "Método de Pagamento:"
 
 #: includes/abstracts/abstract-wc-order.php:1898
-#: includes/shortcodes/class-wc-shortcode-checkout.php:136
+#: includes/shortcodes/class-wc-shortcode-checkout.php:138
 #: templates/checkout/thankyou.php:48
 msgid "Total:"
 msgstr "Total:"
 
-#: includes/abstracts/abstract-wc-order.php:2134
-msgid "Download file%s"
-msgstr "Baixar arquivo%s"
+#: includes/abstracts/abstract-wc-order.php:2135
+#: templates/emails/plain/email-order-items.php:49
+msgid "Download %d"
+msgstr "Baixar %d"
+
+#: includes/abstracts/abstract-wc-order.php:2135
+#: templates/emails/plain/email-order-items.php:51
+msgid "Download"
+msgstr "Download"
 
 #. Plugin Name of the plugin/theme
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: includes/abstracts/abstract-wc-order.php:2219
+#: includes/abstracts/abstract-wc-order.php:2222
 msgid "Order status changed from %s to %s."
 msgstr "Status do pedido alterado de %s para %s."
 
-#: includes/abstracts/abstract-wc-order.php:2477
+#: includes/abstracts/abstract-wc-order.php:2480
 msgid "Item #%s variation #%s stock reduced from %s to %s."
 msgstr "O item #%s com a variação #%s teve o estoque reduzido de %s para %s"
 
-#: includes/abstracts/abstract-wc-order.php:2479
-#: includes/class-wc-ajax.php:1374
+#: includes/abstracts/abstract-wc-order.php:2482
+#: includes/class-wc-ajax.php:1409
 msgid "Item #%s stock reduced from %s to %s."
 msgstr "O item #%s teve seu estoque reduzido de %s para %s."
 
@@ -5217,7 +5227,7 @@ msgstr "Leia mais"
 #: includes/abstracts/abstract-wc-product.php:626
 #: includes/abstracts/abstract-wc-product.php:637
 #: includes/abstracts/abstract-wc-product.php:659
-#: includes/class-wc-ajax.php:782 includes/class-wc-ajax.php:2451
+#: includes/class-wc-ajax.php:823 includes/class-wc-ajax.php:2486
 #: includes/class-wc-product-variation.php:527
 #: includes/class-wc-product-variation.php:537
 #: includes/class-wc-product-variation.php:553
@@ -5248,7 +5258,7 @@ msgstr "Disponível por encomenda"
 
 #: includes/abstracts/abstract-wc-product.php:664
 #: includes/abstracts/abstract-wc-product.php:670
-#: includes/class-wc-ajax.php:783 includes/class-wc-ajax.php:2452
+#: includes/class-wc-ajax.php:824 includes/class-wc-ajax.php:2487
 #: includes/class-wc-product-variation.php:556
 #: includes/class-wc-product-variation.php:560
 msgid "Out of stock"
@@ -6096,92 +6106,92 @@ msgstr "Desculpe, sua sessão expirou."
 msgid "Return to homepage"
 msgstr "Retornar para a página inicial"
 
-#: includes/class-wc-ajax.php:767 includes/class-wc-ajax.php:2434
+#: includes/class-wc-ajax.php:806 includes/class-wc-ajax.php:2469
 #: includes/gateways/simplify-commerce/class-wc-gateway-simplify-commerce.php:210
 msgid "Standard"
 msgstr "Padrão"
 
-#: includes/class-wc-ajax.php:776 includes/class-wc-ajax.php:2444
+#: includes/class-wc-ajax.php:816 includes/class-wc-ajax.php:2479
 msgid "Do not allow"
 msgstr "Não permitir"
 
-#: includes/class-wc-ajax.php:777 includes/class-wc-ajax.php:2445
+#: includes/class-wc-ajax.php:817 includes/class-wc-ajax.php:2480
 msgid "Allow, but notify customer"
 msgstr "Permitir, mas informar o cliente"
 
-#: includes/class-wc-ajax.php:778 includes/class-wc-ajax.php:2446
+#: includes/class-wc-ajax.php:818 includes/class-wc-ajax.php:2481
 msgid "Allow"
 msgstr "Permitir"
 
-#: includes/class-wc-ajax.php:1075
+#: includes/class-wc-ajax.php:1110
 msgid "File %d"
 msgstr "Arquivo %d"
 
-#: includes/class-wc-ajax.php:1385
+#: includes/class-wc-ajax.php:1420
 msgid ""
 "No products had their stock reduced - they may not have stock management "
 "enabled."
 msgstr "Nenhum produto teve seu estoque reduzido - eles podem não ter o gerenciamento de estoque habilitado."
 
-#: includes/class-wc-ajax.php:1426 includes/class-wc-ajax.php:2237
+#: includes/class-wc-ajax.php:1461 includes/class-wc-ajax.php:2272
 msgid "Item #%s stock increased from %s to %s."
 msgstr "O estoque do Item #%s foi aumentado de %s para %s."
 
-#: includes/class-wc-ajax.php:1436
+#: includes/class-wc-ajax.php:1471
 msgid ""
 "No products had their stock increased - they may not have stock management "
 "enabled."
 msgstr "Nenhum produto teve seu estoque aumentado - eles podem não ter o gerenciamento de estoque habilitado."
 
-#: includes/class-wc-ajax.php:1455
+#: includes/class-wc-ajax.php:1490
 #: includes/widgets/class-wc-widget-product-categories.php:52
 #: templates/single-product-reviews.php:65
 msgid "Name"
 msgstr "Nome"
 
-#: includes/class-wc-ajax.php:1455
+#: includes/class-wc-ajax.php:1490
 msgid "Value"
 msgstr "Valor"
 
-#: includes/class-wc-ajax.php:1705
+#: includes/class-wc-ajax.php:1740
 msgid "Delete note"
 msgstr "Apagar nota"
 
-#: includes/class-wc-ajax.php:2177
+#: includes/class-wc-ajax.php:2212
 msgid "Invalid refund amount"
 msgstr "Valor do reembolso inválido"
 
-#: includes/class-wc-ajax.php:2222
+#: includes/class-wc-ajax.php:2257
 msgid "Refund failed"
 msgstr "Reembolso falhou"
 
-#: includes/class-wc-ajax.php:2319
+#: includes/class-wc-ajax.php:2354
 msgid "Description is missing."
 msgstr "Esta falando a descrição."
 
-#: includes/class-wc-ajax.php:2322
+#: includes/class-wc-ajax.php:2357
 msgid "User is missing."
 msgstr "Esta falando o usuário."
 
-#: includes/class-wc-ajax.php:2325
+#: includes/class-wc-ajax.php:2360
 msgid "Permissions is missing."
 msgstr "Estão faltando as permissões."
 
-#: includes/class-wc-ajax.php:2354
+#: includes/class-wc-ajax.php:2389
 msgid "API Key updated successfully."
 msgstr "Chave de API atualizada com sucesso."
 
-#: includes/class-wc-ajax.php:2385
+#: includes/class-wc-ajax.php:2420
 msgid ""
 "API Key generated successfully. Make sure to copy your new API keys now. You"
 " won't be able to see it again!"
 msgstr "Chave de API criada com sucesso. Certifique-se de copiar suas novas chaves de API agora. Você não será capaz de vê-las novamente!"
 
-#: includes/class-wc-ajax.php:2386
+#: includes/class-wc-ajax.php:2421
 msgid "Revoke Key"
 msgstr "Revogar chave"
 
-#: includes/class-wc-ajax.php:2602
+#: includes/class-wc-ajax.php:2637
 msgid "Dismiss this notice."
 msgstr "Esconder esta mensagem."
 
@@ -6683,7 +6693,7 @@ msgstr "Link para download inválido."
 
 #: includes/class-wc-download-handler.php:98
 #: includes/class-wc-form-handler.php:558
-#: includes/shortcodes/class-wc-shortcode-checkout.php:163
+#: includes/shortcodes/class-wc-shortcode-checkout.php:165
 #: includes/shortcodes/class-wc-shortcode-my-account.php:108
 msgid "Invalid order."
 msgstr "Pedido inválido."
@@ -6976,6 +6986,30 @@ msgstr "Visite o fórum de suporte ao cliente premium"
 #: includes/class-wc-install.php:706
 msgid "Premium Support"
 msgstr "Suporte Premium"
+
+#: includes/class-wc-language-pack-upgrader.php:254
+#: includes/class-wc-language-pack-upgrader.php:257
+#: includes/class-wc-language-pack-upgrader.php:260
+msgid "Failed to install/update the translation:"
+msgstr "A instalação/atualização da tradução falhou:"
+
+#: includes/class-wc-language-pack-upgrader.php:254
+msgid "Seems you don't have permission to do this!"
+msgstr "Parece que você não tem permissão para fazer isso!"
+
+#: includes/class-wc-language-pack-upgrader.php:257
+msgid ""
+"An authentication error occurred while updating the translation. Please try "
+"again or configure your %sUpgrade Constants%s."
+msgstr "Um erro de autenticação ocorreu enquanto era atualizada a tradução. Por favor, tente novamente e configure as suas %sConstantes de Atualização%s"
+
+#: includes/class-wc-language-pack-upgrader.php:260
+msgid "Sorry but there is no translation available for your language =/"
+msgstr "Desculpe, mas não existe nenhuma tradução disponível para a sua língua =/"
+
+#: includes/class-wc-language-pack-upgrader.php:267
+msgid "Translations installed/updated successfully!"
+msgstr "Tradução instalada/atualizada com sucesso!"
 
 #: includes/class-wc-order.php:40 includes/wc-cart-functions.php:246
 msgid "(Includes %s)"
@@ -7505,7 +7539,7 @@ msgstr "[{site_title}] Pedido cancelado ({order_number})"
 
 #: includes/emails/class-wc-email-cancelled-order.php:110
 #: includes/emails/class-wc-email-customer-completed-order.php:138
-#: includes/emails/class-wc-email-customer-refunded-order.php:171
+#: includes/emails/class-wc-email-customer-refunded-order.php:174
 #: includes/emails/class-wc-email-new-order.php:117
 #: includes/emails/class-wc-email.php:475
 #: includes/gateways/bacs/class-wc-gateway-bacs.php:74
@@ -7519,7 +7553,7 @@ msgstr "Habilitar/Desabilitar"
 
 #: includes/emails/class-wc-email-cancelled-order.php:112
 #: includes/emails/class-wc-email-customer-completed-order.php:140
-#: includes/emails/class-wc-email-customer-refunded-order.php:173
+#: includes/emails/class-wc-email-customer-refunded-order.php:176
 #: includes/emails/class-wc-email-new-order.php:119
 #: includes/emails/class-wc-email.php:477
 msgid "Enable this email notification"
@@ -7567,7 +7601,7 @@ msgstr "Isso controla o cabeçalho do conteúdo dentro do e-mail de notificaçã
 
 #: includes/emails/class-wc-email-cancelled-order.php:137
 #: includes/emails/class-wc-email-customer-completed-order.php:172
-#: includes/emails/class-wc-email-customer-refunded-order.php:205
+#: includes/emails/class-wc-email-customer-refunded-order.php:208
 #: includes/emails/class-wc-email-new-order.php:144
 #: includes/emails/class-wc-email.php:495
 msgid "Email type"
@@ -7576,7 +7610,7 @@ msgstr "Tipo do e-mail"
 #: includes/emails/class-wc-email-cancelled-order.php:139
 #: includes/emails/class-wc-email-customer-completed-order.php:174
 #: includes/emails/class-wc-email-customer-invoice.php:175
-#: includes/emails/class-wc-email-customer-refunded-order.php:207
+#: includes/emails/class-wc-email-customer-refunded-order.php:210
 #: includes/emails/class-wc-email-new-order.php:146
 #: includes/emails/class-wc-email.php:497
 msgid "Choose which format of email to send."
@@ -7617,10 +7651,10 @@ msgstr "Seu pedido em {site_title} feito em {order_date} está concluído - baix
 #: includes/emails/class-wc-email-customer-invoice.php:154
 #: includes/emails/class-wc-email-customer-invoice.php:161
 #: includes/emails/class-wc-email-customer-invoice.php:168
-#: includes/emails/class-wc-email-customer-refunded-order.php:179
-#: includes/emails/class-wc-email-customer-refunded-order.php:186
-#: includes/emails/class-wc-email-customer-refunded-order.php:193
-#: includes/emails/class-wc-email-customer-refunded-order.php:200
+#: includes/emails/class-wc-email-customer-refunded-order.php:182
+#: includes/emails/class-wc-email-customer-refunded-order.php:189
+#: includes/emails/class-wc-email-customer-refunded-order.php:196
+#: includes/emails/class-wc-email-customer-refunded-order.php:203
 #: includes/emails/class-wc-email.php:483
 #: includes/emails/class-wc-email.php:490
 msgid "Defaults to <code>%s</code>"
@@ -7677,21 +7711,21 @@ msgstr "Cabeçalho do e-mail (pago)"
 msgid "Email Type"
 msgstr "Tipo do e-mail"
 
-#: includes/emails/class-wc-email-customer-new-account.php:32
+#: includes/emails/class-wc-email-customer-new-account.php:33
 msgid "New account"
 msgstr "Nova conta"
 
-#: includes/emails/class-wc-email-customer-new-account.php:33
+#: includes/emails/class-wc-email-customer-new-account.php:34
 msgid ""
 "Customer \"new account\" emails are sent to the customer when a customer "
 "signs up via checkout or account pages."
 msgstr "E-mails de \"nova conta\" de clientes são enviado para os clientes quando eles se cadastram na finalização do pedido ou na página de conta."
 
-#: includes/emails/class-wc-email-customer-new-account.php:38
+#: includes/emails/class-wc-email-customer-new-account.php:39
 msgid "Your account on {site_title}"
 msgstr "Sua conta em {site_title}"
 
-#: includes/emails/class-wc-email-customer-new-account.php:39
+#: includes/emails/class-wc-email-customer-new-account.php:40
 msgid "Welcome to {site_title}"
 msgstr "Bem-vindo ao {site_title}"
 
@@ -7729,55 +7763,55 @@ msgstr "Obrigado pelo seu pedido"
 msgid "Your {site_title} order receipt from {order_date}"
 msgstr "{site_title} recebeu seu pedido realizado em {order_date}"
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:37
+#: includes/emails/class-wc-email-customer-refunded-order.php:40
 msgid "Your {site_title} order from {order_date} has been partially refunded"
 msgstr "Sua pedido em {site_title} realizada em {order_date} foi parcialmente reembolsado"
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:38
+#: includes/emails/class-wc-email-customer-refunded-order.php:41
 msgid "Your {site_title} order from {order_date} has been refunded"
 msgstr "Seu pedido em {site_title} realizado em {order_date} foi reembolsado"
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:40
+#: includes/emails/class-wc-email-customer-refunded-order.php:43
 msgid "Your order has been fully refunded"
 msgstr "Seu pedido foi totalmente reembolsado"
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:41
+#: includes/emails/class-wc-email-customer-refunded-order.php:44
 msgid "Your order has been partially refunded"
 msgstr "Seu pedido foi parcialmente reembolsado"
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:45
+#: includes/emails/class-wc-email-customer-refunded-order.php:48
 msgid "Partially Refunded order"
 msgstr "Pedido reembolso parcialmente"
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:46
+#: includes/emails/class-wc-email-customer-refunded-order.php:49
 msgid ""
 "Order partially refunded emails are sent to customers when their orders are "
 "partially refunded."
 msgstr "E-mails de reembolso parcial são enviados ao cliente quando um reembolso parcial é feito."
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:54
+#: includes/emails/class-wc-email-customer-refunded-order.php:57
 msgid "Refunded order"
 msgstr "Pedido reembolsado"
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:55
+#: includes/emails/class-wc-email-customer-refunded-order.php:58
 msgid ""
 "Order refunded emails are sent to customers when their orders are marked "
 "refunded."
 msgstr "E-mails de pedido reembolsado são enviados ao cliente quando os pedidos forem marcados como reembolsados."
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:177
+#: includes/emails/class-wc-email-customer-refunded-order.php:180
 msgid "Full Refund Subject"
 msgstr "Assunto para reembolso total"
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:184
+#: includes/emails/class-wc-email-customer-refunded-order.php:187
 msgid "Partial Refund Subject"
 msgstr "Assunto para reembolso parcial"
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:191
+#: includes/emails/class-wc-email-customer-refunded-order.php:194
 msgid "Full Refund Email Heading"
 msgstr "Cabeçalho do e-mail de reembolso total"
 
-#: includes/emails/class-wc-email-customer-refunded-order.php:198
+#: includes/emails/class-wc-email-customer-refunded-order.php:201
 msgid "Partial Refund Email Heading"
 msgstr "Cabeçalho do e-mail de reembolso parcial"
 
@@ -8923,9 +8957,8 @@ msgid "Allowed Zip/Post Codes"
 msgstr "CEPs permitidos"
 
 #: includes/shipping/local-delivery/class-wc-shipping-local-delivery.php:125
-#: includes/shipping/local-pickup/class-wc-shipping-local-pickup.php:81
-msgid "What zip/post codes are available for local pickup?"
-msgstr "Quais CEPs estão disponíveis para retirada local?"
+msgid "What zip/post codes are available for local delivery?"
+msgstr "Quais CEPs estão disponíveis para a entrega local?"
 
 #: includes/shipping/local-delivery/class-wc-shipping-local-delivery.php:127
 #: includes/shipping/local-pickup/class-wc-shipping-local-pickup.php:83
@@ -8950,43 +8983,47 @@ msgstr "Retirada local é um método bem simples no que permite os clientes busc
 msgid "Enable local pickup"
 msgstr "Habilitar retirada no local"
 
+#: includes/shipping/local-pickup/class-wc-shipping-local-pickup.php:81
+msgid "What zip/post codes are available for local pickup?"
+msgstr "Quais CEPs estão disponíveis para retirada local?"
+
 #: includes/shortcodes/class-wc-shortcode-cart.php:42
 msgid "Shipping costs updated."
 msgstr "O custo de envio foi atualizado."
 
-#: includes/shortcodes/class-wc-shortcode-checkout.php:88
+#: includes/shortcodes/class-wc-shortcode-checkout.php:90
 msgid "Invalid order. If you have an account please log in and try again."
 msgstr "Pedido inválido. Caso você tenha uma conta, por favor, entre e tente novamente."
 
-#: includes/shortcodes/class-wc-shortcode-checkout.php:88
+#: includes/shortcodes/class-wc-shortcode-checkout.php:90
 #: includes/shortcodes/class-wc-shortcode-my-account.php:108
 #: templates/checkout/thankyou.php:30
 msgid "My Account"
 msgstr "Minha Conta"
 
-#: includes/shortcodes/class-wc-shortcode-checkout.php:107
-#: includes/shortcodes/class-wc-shortcode-checkout.php:155
+#: includes/shortcodes/class-wc-shortcode-checkout.php:109
+#: includes/shortcodes/class-wc-shortcode-checkout.php:157
 msgid ""
 "This order&rsquo;s status is &ldquo;%s&rdquo;&mdash;it cannot be paid for. "
 "Please contact us if you need assistance."
 msgstr "Este pedido tem o status como &ldquo;%s&rdquo;&mdash;não pode ser pago. Por favor, entre em contato conosco caso precise de assistência."
 
-#: includes/shortcodes/class-wc-shortcode-checkout.php:111
-#: includes/shortcodes/class-wc-shortcode-checkout.php:159
+#: includes/shortcodes/class-wc-shortcode-checkout.php:113
+#: includes/shortcodes/class-wc-shortcode-checkout.php:161
 msgid "Sorry, this order is invalid and cannot be paid for."
 msgstr "Desculpe-nos, esse pedido é inválido e não pode ser pago."
 
-#: includes/shortcodes/class-wc-shortcode-checkout.php:128
+#: includes/shortcodes/class-wc-shortcode-checkout.php:130
 #: templates/checkout/thankyou.php:40
 msgid "Order Number:"
 msgstr "Número do pedido:"
 
-#: includes/shortcodes/class-wc-shortcode-checkout.php:132
+#: includes/shortcodes/class-wc-shortcode-checkout.php:134
 #: templates/checkout/thankyou.php:44
 msgid "Date:"
 msgstr "Data:"
 
-#: includes/shortcodes/class-wc-shortcode-checkout.php:227
+#: includes/shortcodes/class-wc-shortcode-checkout.php:231
 msgid ""
 "The order totals have been updated. Please confirm your order by pressing "
 "the Place Order button at the bottom of the page."
@@ -9328,19 +9365,19 @@ msgstr "Pedido cancelado por falta de pagamento - tempo limite ultrapassado."
 msgid "Refund &ndash; %s"
 msgstr "Reembolso &ndash; %s"
 
-#: includes/wc-product-functions.php:510
+#: includes/wc-product-functions.php:508
 msgid "Simple product"
 msgstr "Produto simples"
 
-#: includes/wc-product-functions.php:511
+#: includes/wc-product-functions.php:509
 msgid "Grouped product"
 msgstr "Grupo de produtos"
 
-#: includes/wc-product-functions.php:512
+#: includes/wc-product-functions.php:510
 msgid "External/Affiliate product"
 msgstr "Produto externo/afiliado"
 
-#: includes/wc-product-functions.php:513
+#: includes/wc-product-functions.php:511
 msgid "Variable product"
 msgstr "Produto variável"
 
@@ -10178,16 +10215,6 @@ msgstr "Endereço de cobrança"
 msgid "Shipping address"
 msgstr "Endereço de entrega"
 
-#: templates/emails/email-order-items.php:54
-#: templates/emails/plain/email-order-items.php:49
-msgid "Download %d"
-msgstr "Baixar %d"
-
-#: templates/emails/email-order-items.php:56
-#: templates/emails/plain/email-order-items.php:51
-msgid "Download"
-msgstr "Download"
-
 #: templates/emails/plain/admin-cancelled-order.php:21
 #: templates/emails/plain/admin-new-order.php:22
 #: templates/emails/plain/customer-completed-order.php:22
@@ -10927,8 +10954,8 @@ msgstr "Nenhum"
 
 #: includes/wc-cart-functions.php:100
 msgctxt "Item name in quotes"
-msgid "&ldquo;%s&ldquo;"
-msgstr "&ldquo;%s&ldquo;"
+msgid "&ldquo;%s&rdquo;"
+msgstr "&ldquo;%s&rdquo;"
 
 #: includes/wc-core-functions.php:78 includes/wc-order-functions.php:629
 msgctxt "Order date parsed by strftime"

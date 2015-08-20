@@ -11,10 +11,11 @@
     // Product attributes - taxonomies and custom, ordered, with visibility and variation attributes set
     $attributes           = maybe_unserialize( get_post_meta( $thepostid, '_product_attributes', true ) );
     $value = "";
-    $dates = "";
+    $dates = null;
+    $name = "";
 
     // Output All Set Attributes
-    if ( ! empty( $attributes ) ) {
+    if ( !empty( $attributes ) ) {
         $attribute_keys  = array_keys( $attributes );
         $attribute_total = sizeof( $attribute_keys );
 
@@ -28,16 +29,20 @@
             }
         }
     }
+
+    if ( !empty( $dates ) ) {
+        $name = 'Dates';
+    }
 ?>
     <div id="registration_dates" class="panel woocommerce_options_panel">
         <div class="general_dates">
 
         <!-- Hidden Fields -->
-        <input type="hidden" id="hidden_name" class="attribute_name" name="attribute_names[0]" value="Dates">
+        <input type="hidden" id="hidden_name" class="attribute_name" name="attribute_names[0]" value="<?php echo $name; ?>">
         <input type="hidden" id="hidden_position" name="attribute_position[0]" class="attribute_position" value="0">
         <input type="hidden" id="hidden_taxonomy" name="attribute_is_taxonomy[0]" value="0">
         <input type="hidden" id="hidden_visibility" class="checkbox" checked="checked" name="attribute_visibility[0]" value="0">
-        <input type="hidden" id="hidden_variation" class="checkbox" name="attribute_variation[0]" value="1">
+        <input type="hidden" id="hidden_variation" class="checkbox" name="attribute_variation[0]" value="1" disabled="true">
         <input type="hidden" id="hidden_date" name="attribute_values[0]" value="">
 
         <!-- BEGIN: Templates -->
@@ -99,11 +104,14 @@
         <div class="options_group dates">
         <?php
         //Display existent dates
-        if( ! empty( $dates ) ) {
+        if( !empty( $dates ) ) {
+            error_log( print_r( $dates , true ) );
             foreach ( $dates as $date ) {
                 $date = json_decode( $date );
+                error_log( print_r( $date , true ) );
+                if( !empty( $date ) ) {
 
-                if( $date->type == 'single' ) :
+                    if( $date->type == 'single' ) :
         ?>
             <div class="single_date options_group">
                 <h3><?php _e( 'Single Day', 'woocommerce-registrations'); ?></h3>
@@ -114,14 +122,14 @@
                 </p>
             </div>
         <?php
-                elseif ( $date->type == 'multiple' ) :
+                    elseif ( $date->type == 'multiple' ) :
         ?>
         <div class="multiple_date options_group">
             <h3><?php _e( 'Multiple Days', 'woocommerce-registrations'); ?></h3>
             <?php
                 //$days = explode( ',', $date->dates );
 
-                foreach( $date->dates as $day ) :
+                    foreach( $date->dates as $day ) :
             ?>
                 <p class="form-field multiple_date_inputs">
                     <label for="event_start_date"><?php _e( 'Day', 'woocommerce-registrations'); ?></label>
@@ -129,7 +137,7 @@
                     <button type="button" class="remove_day button"><?php _e( 'Remove Day', 'woocommerce-registrations' ); ?></button>
                 </p>
             <?php
-                endforeach;
+                    endforeach;
             ?>
             <p class="form-field" >
                 <button style="float:right;" type="button" class="remove_date button"><?php _e( 'Remove All', 'woocommerce-registrations' ); ?></button>
@@ -137,7 +145,7 @@
             </p>
         </div>
         <?php
-                elseif ( $date->type == 'range' ) :
+                    elseif ( $date->type == 'range' ) :
         ?>
         <div class="range_date options_group">
             <h3><?php _e( 'Range Date', 'woocommerce-registrations'); ?></h3>
@@ -151,7 +159,9 @@
             </p>
         </div>
         <?php
-                endif;
+                    endif;
+
+                }
             }
         }
         ?>

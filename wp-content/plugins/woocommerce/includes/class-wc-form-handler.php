@@ -171,7 +171,7 @@ class WC_Form_Handler {
 		$user->user_email   = $account_email;
 
 		// Prevent emails being displayed, or leave alone.
-		$user->display_name = is_email( $user->display_name ) ? $user->first_name : $user->display_name;
+		$user->display_name = is_email( $current_user->display_name ) ? $user->first_name : $current_user->display_name;
 
 		if ( empty( $account_first_name ) || empty( $account_last_name ) ) {
 			wc_add_notice( __( 'Please enter your name.', 'woocommerce' ), 'error' );
@@ -584,7 +584,7 @@ class WC_Form_Handler {
 		$add_to_cart_handler = apply_filters( 'woocommerce_add_to_cart_handler', $adding_to_cart->product_type, $adding_to_cart );
 
 		// Check if the product is published
-		if ( 'publish' !== $adding_to_cart->post->post_status ) {
+		if ( ! $adding_to_cart->is_purchasable() ) {
 			wc_add_notice( __( 'Sorry, this product is unavailable.', 'woocommerce' ), 'error' );
 			return;
 		}

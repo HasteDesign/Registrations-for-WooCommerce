@@ -58,7 +58,9 @@ if ( ! function_exists( 'storefront_header_cart' ) ) {
 			<li class="<?php echo esc_attr( $class ); ?>">
 				<?php storefront_cart_link(); ?>
 			</li>
-			<?php the_widget( 'WC_Widget_Cart', 'title=' ); ?>
+			<li>
+				<?php the_widget( 'WC_Widget_Cart', 'title=' ); ?>
+			</li>
 		</ul>
 		<?php
 		}
@@ -103,7 +105,7 @@ function storefront_sorting_wrapper_close() {
  */
 function storefront_shop_messages() {
 	if ( ! is_checkout() ) {
-		echo wp_kses_post( do_shortcode_func( 'woocommerce_messages' ) );
+		echo wp_kses_post( storefront_do_shortcode( 'woocommerce_messages' ) );
 	}
 }
 

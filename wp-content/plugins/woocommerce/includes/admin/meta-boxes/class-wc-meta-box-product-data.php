@@ -403,14 +403,31 @@ class WC_Meta_Box_Product_Data {
 			</div>
 
 			<div id="product_attributes" class="panel wc-metaboxes-wrapper">
+				<div class="toolbar toolbar-top">
+					<span class="expand-close">
+						<a href="#" class="expand_all"><?php _e( 'Expand', 'woocommerce' ); ?></a> / <a href="#" class="close_all"><?php _e( 'Close', 'woocommerce' ); ?></a>
+					</span>
+					<select name="attribute_taxonomy" class="attribute_taxonomy">
+						<option value=""><?php _e( 'Custom product attribute', 'woocommerce' ); ?></option>
+						<?php
+							global $wc_product_attributes;
+
+							// Array of defined attribute taxonomies
+							$attribute_taxonomies = wc_get_attribute_taxonomies();
+
+							if ( $attribute_taxonomies ) {
+								foreach ( $attribute_taxonomies as $tax ) {
+									$attribute_taxonomy_name = wc_attribute_taxonomy_name( $tax->attribute_name );
+									$label = $tax->attribute_label ? $tax->attribute_label : $tax->attribute_name;
+									echo '<option value="' . esc_attr( $attribute_taxonomy_name ) . '">' . esc_html( $label ) . '</option>';
+								}
+							}
+						?>
+					</select>
+					<button type="button" class="button add_attribute"><?php _e( 'Add', 'woocommerce' ); ?></button>
+				</div>
 				<div class="product_attributes wc-metaboxes">
-
 					<?php
-						global $wc_product_attributes;
-
-						// Array of defined attribute taxonomies
-						$attribute_taxonomies = wc_get_attribute_taxonomies();
-
 						// Product attributes - taxonomies and custom, ordered, with visibility and variation attributes set
 						$attributes           = maybe_unserialize( get_post_meta( $thepostid, '_product_attributes', true ) );
 
@@ -445,24 +462,12 @@ class WC_Meta_Box_Product_Data {
 						}
 					?>
 				</div>
-
-				<p class="toolbar">
-					<button type="button" class="button button-primary add_attribute"><?php _e( 'Add', 'woocommerce' ); ?></button>
-					<select name="attribute_taxonomy" class="attribute_taxonomy">
-						<option value=""><?php _e( 'Custom product attribute', 'woocommerce' ); ?></option>
-						<?php
-							if ( $attribute_taxonomies ) {
-								foreach ( $attribute_taxonomies as $tax ) {
-									$attribute_taxonomy_name = wc_attribute_taxonomy_name( $tax->attribute_name );
-									$label = $tax->attribute_label ? $tax->attribute_label : $tax->attribute_name;
-									echo '<option value="' . esc_attr( $attribute_taxonomy_name ) . '">' . esc_html( $label ) . '</option>';
-								}
-							}
-						?>
-					</select>
-
-					<button type="button" class="button save_attributes"><?php _e( 'Save attributes', 'woocommerce' ); ?></button>
-				</p>
+				<div class="toolbar">
+					<span class="expand-close">
+						<a href="#" class="expand_all"><?php _e( 'Expand', 'woocommerce' ); ?></a> / <a href="#" class="close_all"><?php _e( 'Close', 'woocommerce' ); ?></a>
+					</span>
+					<button type="button" class="button save_attributes button-primary"><?php _e( 'Save Attributes', 'woocommerce' ); ?></button>
+				</div>
 				<?php do_action( 'woocommerce_product_options_attributes' ); ?>
 			</div>
 			<div id="linked_product_data" class="panel woocommerce_options_panel">
@@ -717,7 +722,7 @@ class WC_Meta_Box_Product_Data {
 					<div class="clear"></div>
 				</div>
 
-				<div class="woocommerce_variations wc-metaboxes" data-attributes="<?php 
+				<div class="woocommerce_variations wc-metaboxes" data-attributes="<?php
 					// esc_attr does not double encode - htmlspecialchars does
 					echo htmlspecialchars( json_encode( $attributes ) );
 				?>" data-total="<?php echo $variations_count; ?>" data-total_pages="<?php echo $variations_total_pages; ?>" data-page="1" data-edited="false">
