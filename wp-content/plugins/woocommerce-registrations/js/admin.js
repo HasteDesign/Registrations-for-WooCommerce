@@ -3,29 +3,33 @@ jQuery( function( $ ) {
 
 	var wc_meta_boxes_product_registrations = {
 		/**
-		 * Initialize show/hide registration fields
+		 * Initialize event binding and call show/hide functions
 		 */
 		init: function() {
 			// Dates Tab Events
 			$( '#registration_dates' )
-				.on( 'change','.event_date', this.update_hidden_field )
-				.on( 'click', '.add_date_field', this.add_date_field )
-				.on( 'click', '.remove_date', this.remove_date )
-				.on( 'click', '.add_day', this.add_day )
-				.on( 'click', '.remove_day', this.remove_day );
+			.on( 'change', '.event_date', this.update_hidden_field )
+			.on( 'click', '.add_date_field', this.add_date )
+			.on( 'click', '.remove_date', this.remove_date )
+			.on( 'click', '.add_day', this.add_day )
+			.on( 'click', '.remove_day', this.remove_day );
 
 			// Variations Tab Events
 			$( '#variable_product_options' ).on( 'woocommerce_variations_added' , function() {
-				this.default_registration_values();
-				this.show_hide_registration_meta();
+				wc_meta_boxes_product_registrations.default_registration_values();
+				wc_meta_boxes_product_registrations.show_hide_registration_meta();
 			});
+
+			$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded', this.handle_range_date_meta );
+
+			$( '#variable_product_options' ).on( 'change', 'select[name^="attribute_dates"]', this.handle_range_date_meta );
 
 			// Re-count the hidden inputs index when new attribute added
 			if ( 'true' == WCRegistrations.isWCPre23 ){
-				$('button.add_attribute').on('click', this.adjustAttributesIndex() );
+				$('button.add_attribute').on('click', this.adjust_attributes_index );
 			} else {
 				// WC 2.3 - run after the Ajax request has inserted variation HTML
-				$( 'body' ).on( 'woocommerce_added_attribute' , this.adjustAttributesIndex() );
+				$( 'body' ).on( 'woocommerce_added_attribute' , this.adjust_attributes_index );
 			}
 
 			// Make sure the "Used for variations" checkbox is visible when adding attributes to a variable subscription
@@ -38,8 +42,12 @@ jQuery( function( $ ) {
 
 
 			this.show_hide_registration_meta();
+			this.remove_date_attribute();
 		},
 
+		/**
+		 * Show/Hide fields for registrations product-type
+		 */
 		show_hide_registration_meta: function() {
 			if ( $( 'select#product-type' ).val() == 'registrations' ) {
 				$( '.hide_if_virtual' ).hide();
@@ -71,6 +79,11 @@ jQuery( function( $ ) {
 			}
 		},
 
+		/**
+		 * Add new date element from specified type in select
+		 *
+		 * @param {Object} event [description]
+		 */
 		add_date: function( event ) {
 			// Get the date type defined on select
 			var value = $( 'select[name="date_select"]' ).val();
@@ -78,21 +91,35 @@ jQuery( function( $ ) {
 			el = $( 'script.template-' + value ).html();
 			//el = $('.date_models').children( '.' + value ).clone();
 			$( '.dates' ).append( el );
-
 			event.preventDefault();
 		},
 
+		/**
+		 * Add new day for multiple date date-type
+		 *
+		 * @param {Object} event [description]
+		 */
 		add_day: function( event ) {
 			el = $( 'script.template-multiple_date_inputs' ).html();
 			$( this ).parent().before( el );
 			event.preventDefault();
 		},
 
+		/**
+		 * Remove day of multiple date date-type
+		 *
+		 * @param {Object} event [description]
+		 */
 		remove_day: function( event ) {
 			$( this ).parent().remove();
 			event.preventDefault();
 		},
 
+		/**
+		 * Remove one date
+		 *
+		 * @param {Object} event [description]
+		 */
 		remove_date: function( event ) {
 			$( this ).parent().parent( 'div' ).remove();
 			event.preventDefault();
@@ -123,6 +150,11 @@ jQuery( function( $ ) {
 			});
 		},
 
+		/**
+		 * Add single date value in JSON format to #hidden_date hidden field
+		 *
+		 * @param {$Object} el [current date element of update_hidden_field loop]
+		 */
 		single_date_value: function( el ) {
 			var json_base = '{"type":"single","date":';
 			var value = "";
@@ -134,9 +166,13 @@ jQuery( function( $ ) {
 			value += json_base + '"' + $( el ).find( 'input' ).val() + '"}';
 
 			$( '#hidden_date' ).val( value );
-			console.log( $( '#hidden_date' ).val() );
 		},
 
+		/**
+		 * Add multiple date value in JSON format to #hidden_date hidden field
+		 *
+		 * @param {$Object} el [current date element of update_hidden_field loop]
+		 */
 		multiple_date_value: function( el ) {
 			var json_base = '{"type":"multiple","dates":[';
 			var dates = null;
@@ -159,9 +195,13 @@ jQuery( function( $ ) {
 			value += dates + ']}';
 
 			$( '#hidden_date' ).val( value );
-			console.log( $( '#hidden_date' ).val() );
 		},
 
+		/**
+		 * Add range date value in JSON format to #hidden_date hidden field
+		 *
+		 * @param {$Object} el [current date element of update_hidden_field loop]
+		 */
 		range_date_value: function( el ) {
 			var json_base = '{"type":"range","dates":[';
 			var dates = null;
@@ -184,10 +224,12 @@ jQuery( function( $ ) {
 			value += dates + ']}';
 
 			$('#hidden_date').val( value );
-			console.log( $('#hidden_date').val() );
 		},
 
-		remove_date_attribute: function () {
+		/**
+		 * Hide date attribute from woocommerce_attribute tab. (Make users only able to edit date attributes trough dates tab)
+		 */
+		remove_date_attribute: function() {
 			var $strong = $('.woocommerce_attribute').children('h3').children("strong:contains('Dates')");
 
 			if( $strong ) {
@@ -195,20 +237,19 @@ jQuery( function( $ ) {
 
 				$parent.find('select, input[type=text]').val('');
 				$parent.hide();
-				$.attribute_row_indexes();
+				this.attribute_row_indexes();
 			}
 		},
 
+		/**
+		 * Adjust attributes index to correct salvation of date attributes when new attributes added
+		 */
 		adjust_attributes_index: function () {
 			var length = 0;
 
 			$( '.product_attributes' ).children('.woocommerce_attribute').each( function () {
-				//if( $( this ).css( 'display' ) != 'none' ) {
 					length += 1;
-				//}
 			});
-
-			console.log( 'Attributes length: ' + length );
 
 			$('#hidden_name').attr('name','attribute_names[' + length + ']');
 			$('#hidden_position').attr('name','attribute_position[' + length + ']');
@@ -220,27 +261,30 @@ jQuery( function( $ ) {
 			$('#hidden_position').val( length );
 		},
 
+		/**
+		 * Copied from woocommerce \assets\js\admin\meta-boxes-product.js
+		 */
 		attribute_row_indexes: function () {
 			$('.product_attributes .woocommerce_attribute').each(function(index, el){
 				$('.attribute_position', el).val( parseInt( $(el).index('.product_attributes .woocommerce_attribute') ) );
 			});
 		},
 
+		/**
+		 * Handle show/hide for range date-type variations meta fields [days of week]
+		 */
 		handle_range_date_meta: function () {
-			$( 'li.variations_tab a' ).on( 'click', function () {
-				$( '.woocommerce_variation' ).each( function () {
-					var value = $( this ).find( 'option:selected' ).val();
+			$( '.woocommerce_variation' ).each( function () {
+				var value = $( this ).find( 'option:selected' ).val();
 
-					if( value.indexOf( 'range' ) !== -1 ) {
-						$( this ).find( '.show_if_range_date').show();
-					} else {
-						$( this ).find( '.show_if_range_date').hide();
-					}
-				});
+				if( value.indexOf( 'range' ) !== -1 ) {
+					$( this ).find( '.show_if_range_date').show();
+				} else {
+					$( this ).find( '.show_if_range_date').hide();
+				}
 			});
 		}
-	});
+	};
 
 	wc_meta_boxes_product_registrations.init();
-
 });
