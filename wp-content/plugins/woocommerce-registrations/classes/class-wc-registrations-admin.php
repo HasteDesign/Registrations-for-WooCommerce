@@ -2,8 +2,7 @@
 /**
  * Registrations Admin Class
  *
- * Adds a Subscription setting tab and saves subscription settings. Adds a Subscriptions Management page. Adds
- * Welcome messages and pointers to streamline learning process for new users.
+ * Adds Registration product type with dates tab and saves dates as attributes used as variations of your product.
  *
  * @package		WooCommerce Registrations
  * @subpackage	WC_Registrations_Admin
@@ -25,24 +24,26 @@ class WC_Registrations_Admin {
 	 	// Enqueue scripts in product edit page
 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::enqueue_styles_scripts' );
 
-	    // Add subscriptions to the product select box
+	    // Add registrations to the product select box
 	    add_filter( 'product_type_selector', __CLASS__ . '::add_registrations_to_select' );
 
-	    // Add registration fields to general tab
+	    // Add registrations fields to general tab
 	    add_action( 'woocommerce_product_options_general_product_data', __CLASS__ . '::registrations_general_fields' );
 
-		// Add registration fields to general tab
+		// Add registrations fields to general tab
 	    add_action( 'woocommerce_product_after_variable_attributes', __CLASS__ . '::variable_registration_pricing_fields', 10, 3 );
 
 		// Saves registrations meta fields
 	    add_action( 'woocommerce_process_product_meta_registrations', __CLASS__ . '::save_variable_fields', 11 );
 
+		// Add registrations dates tab
 		add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registration_dates_tab' );
 
-		add_filter( 'woocommerce_variation_option_name', __CLASS__ . '::registration_variation_option_name' );
-
+		// Load the view to display dates tab content
         add_action( 'woocommerce_product_data_panels', __CLASS__. '::show_dates_tab_content' );
 
+		// Filter dates variations options name and display correctly for each date type (single, multiple, and range)
+		add_filter( 'woocommerce_variation_option_name', __CLASS__ . '::registration_variation_option_name' );
 	}
 
     /**
@@ -97,8 +98,8 @@ class WC_Registrations_Admin {
 			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . '/js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/admin.js' ) );
 			wp_localize_script( 'woocommerce_registrations_admin', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 
-			// WooCommerce Registrations Ajax - wc-registration-ajax.js
-			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( WC_Registrations::$plugin_file ) . '/js/wc-registration-ajax.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/wc-registration-ajax.js' ) );
+			// WooCommerce Registrations Ajax - wc-registrations-ajax.js
+			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( WC_Registrations::$plugin_file ) . '/js/wc-registrations-ajax.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/wc-registrations-ajax.js' ) );
 			wp_localize_script( 'woocommerce_registrations_ajax', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 		}
 
@@ -121,7 +122,6 @@ class WC_Registrations_Admin {
 
 		if ( $is_woocommerce_screen || $is_activation_screen ) {
 			wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css', array(), WC_Registrations::$version );
-			//wp_enqueue_style( 'woocommerce_subscriptions_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . 'css/admin.css', array( 'woocommerce_admin_styles' ), WC_Registrations::$version );
 		}
 
 	}
@@ -131,19 +131,18 @@ class WC_Registrations_Admin {
 	 *
 	 * @param array Array of Product types & their labels, excluding the Course product type.
 	 * @return array Array of Product types & their labels, including the Course product type.
-	 * @since 0.1
+	 * @since 1.0
 	 */
 	public static function add_registrations_to_select( $product_types ){
-
 		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'woocommerce-registrations' );
 
 		return $product_types;
 	}
 
   /**
-	 * Output the subscription specific pricing fields on the "Edit Product" admin page.
+	 * Output the registration specific pricing fields on the "Edit Product" admin page.
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 */
 	public static function registrations_general_fields() {
 		global $post;
@@ -173,21 +172,19 @@ class WC_Registrations_Admin {
 	/**
 	 * Output the registration specific fields on the "Edit Product" admin page.
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 */
 	public static function variable_registration_pricing_fields( $loop, $variation_data, $variation ) {
-
 		include( 'views/html-dates-variation-fields-view.php' );
-
 		do_action( 'woocommerce_variable_subscription_pricing', $loop, $variation_data, $variation );
 	}
 
   /**
-	 * Save meta data for simple course product type when the "Edit Product" form is submitted.
+	 * Save meta data for registration product type when the "Edit Product" form is submitted.
 	 *
 	 * @param array Array of Product types & their labels, excluding the Course product type.
 	 * @return array Array of Product types & their labels, including the Course product type.
-	 * @since 0.1
+	 * @since 1.0
 	 */
 	public static function save_variable_fields( $post_id ) {
 
@@ -253,8 +250,7 @@ class WC_Registrations_Admin {
 	}
 
 	public static function registration_dates_tab( $tabs ) {
-		// Adds the new tab
-
+		// Adds the new dates tab
 		$tabs['dates'] = array(
 			'label' 	=> __( 'Dates', 'woocommerce-registrations' ),
 			'target' 	=> 'registration_dates',
@@ -288,7 +284,7 @@ class WC_Registrations_Admin {
 				$date_option = '';
 				$size = count( $opt->dates );
 
-				for( $i = 0; $i < $size ; $i ++ ) {
+				for( $i = 0; $i < $size ; $i++ ) {
 					if( $date_option == '' ) {
 						$date_option .= date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[ $i ] ) );
 					} else {
