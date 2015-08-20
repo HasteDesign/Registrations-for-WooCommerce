@@ -1,10 +1,10 @@
 <?php
 /**
- * Variable product add to cart
+ * Registration product add to cart
  *
- * @author  WooThemes
+ * @author  Allyson Souza
  * @package WooCommerce/Templates
- * @version 2.3.0
+ * @version 1.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
