@@ -91,9 +91,12 @@ jQuery( function( $ ) {
 			// Get the date type defined on select
 			var value = $( 'select[name="date_select"]' ).val();
 
-			el = $( 'script.template-' + value ).html();
-			//el = $('.date_models').children( '.' + value ).clone();
+			var el = $( 'script.template-' + value ).html();
+			var el = $(el);
+			//console.log( el.find('h3').text().replace('#0', '#' + wc_meta_boxes_product_registrations.count_dates() ) );
+			//$( el + 'h3' ).text().replace('#0', '#' + wc_meta_boxes_product_registrations.count_dates() );
 			$( '.dates' ).append( el );
+
 			event.preventDefault();
 		},
 
@@ -264,6 +267,19 @@ jQuery( function( $ ) {
 				$parent.hide();
 				this.attribute_row_indexes();
 			}
+		},
+
+		/**
+		 * Return the current number of dates created
+		 */
+		count_dates: function() {
+			var length = 0;
+
+			$( 'div.dates' ).children('div').each( function () {
+					length += 1;
+			});
+
+			return length;
 		},
 
 		/**

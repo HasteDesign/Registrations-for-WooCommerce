@@ -32,6 +32,10 @@ jQuery(document).ready(function($){
 
             $('#registration_dates').unblock();
 
+            $( '#saved-dates-dialog' ).dialog({
+                draggable: false,
+                resizable: false
+            });
         });
 
     });

@@ -45,12 +45,17 @@
         <input type="hidden" id="hidden_variation" class="checkbox" name="attribute_variation[0]" value="1" disabled="true">
         <input type="hidden" id="hidden_date" name="attribute_values[0]" value="">
 
+        <!-- Dialog - Saved Dates -->
+        <div id="saved-dates-dialog" style="display: none;" class="wp-dialog wp-core-ui" title="<?php _e( 'Saved Dates', 'woocommerce-registrations' ); ?>">
+          <p><?php _e( 'Your dates have been saved. Go into the Variations Tab and create a variation for each of your dates and continue to configure your registration date specific information.', 'woocommerce-registrations' ); ?></p>
+        </div>
+
         <!-- BEGIN: Templates -->
 
         <!-- Single Date -->
         <script type="text/template" class="template-single_date">
             <div class="single_date options_group">
-                <h3><?php _e( 'Single Day', 'woocommerce-registrations'); ?></h3>
+                <h3><?php echo '#0 ' . __( 'Single Day', 'woocommerce-registrations'); ?></h3>
                 <p class="form-field">
                     <label for="event_start_date"><?php _e( 'Event Day', 'woocommerce-registrations'); ?></label>
                     <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="2011-09-29">
@@ -62,7 +67,7 @@
         <!-- Multiple Date -->
         <script type="text/template" class="template-multiple_date">
             <div class="multiple_date options_group">
-                <h3><?php _e( 'Multiple Days', 'woocommerce-registrations'); ?></h3>
+                <h3><?php  echo '#0 ' . __( 'Multiple Days', 'woocommerce-registrations'); ?></h3>
                 <p class="form-field multiple_date_inputs">
                     <label for="event_start_date"><?php _e( 'Day', 'woocommerce-registrations'); ?></label>
                     <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="2011-09-29">
@@ -78,7 +83,7 @@
         <!-- Range Date -->
         <script type="text/template" class="template-range_date">
             <div class="range_date options_group">
-                <h3><?php _e( 'Range Date', 'woocommerce-registrations'); ?></h3>
+                <h3><?php  echo '#0 ' . __( 'Range Date', 'woocommerce-registrations'); ?></h3>
                 <p class="form-field">
                     <label for="event_range_date"><?php _e( 'Event start and end date', 'woocommerce-registrations'); ?></label>
                     <span class="conjuncao"><?php _e( 'From', 'woocommerce-registrations' ); ?></span>
@@ -98,6 +103,7 @@
                 <button type="button" class="remove_day button"><?php _e( 'Remove Day', 'woocommerce-registrations' ); ?></button>
             </p>
         </script>
+
         <!-- END: Templates -->
 
         <!-- Dates -->
@@ -105,16 +111,19 @@
         <?php
         //Display existent dates
         if( !empty( $dates ) ) {
-            error_log( print_r( $dates , true ) );
+
+            $date_id = 0;
+
             foreach ( $dates as $date ) {
+
                 $date = json_decode( $date );
-                error_log( print_r( $date , true ) );
+
                 if( !empty( $date ) ) {
 
                     if( $date->type == 'single' ) :
         ?>
             <div class="single_date options_group">
-                <h3><?php _e( 'Single Day', 'woocommerce-registrations'); ?></h3>
+                <h3><?php echo '#' . $date_id . ' - ' . __( 'Single Day', 'woocommerce-registrations'); ?></h3>
                 <p class="form-field">
                     <label for="event_start_date"><?php _e( 'Event Day', 'woocommerce-registrations'); ?></label>
                     <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="<?php echo $date->date; ?>">
@@ -125,7 +134,7 @@
                     elseif ( $date->type == 'multiple' ) :
         ?>
         <div class="multiple_date options_group">
-            <h3><?php _e( 'Multiple Days', 'woocommerce-registrations'); ?></h3>
+            <h3><?php echo '#' . $date_id . ' - ' . __( 'Multiple Days', 'woocommerce-registrations'); ?></h3>
             <?php
                 //$days = explode( ',', $date->dates );
 
@@ -148,7 +157,7 @@
                     elseif ( $date->type == 'range' ) :
         ?>
         <div class="range_date options_group">
-            <h3><?php _e( 'Range Date', 'woocommerce-registrations'); ?></h3>
+            <h3><?php echo '#' . $date_id . ' - ' . __( 'Range Date', 'woocommerce-registrations'); ?></h3>
             <p class="form-field">
                 <label for="event_range_date"><?php _e( 'Event start and end date', 'woocommerce-registrations'); ?></label>
                 <span class="conjuncao"><?php _e( 'From', 'woocommerce-registrations' ); ?></span>
@@ -161,6 +170,7 @@
         <?php
                     endif;
 
+                    $date_id++;
                 }
             }
         }
