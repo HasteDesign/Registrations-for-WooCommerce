@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-08-18 17:15:31+0000\n"
+"PO-Revision-Date: 2015-08-20 02:24:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,7 +18,7 @@ msgstr "ltr"
 
 #: wp-includes/class-wp-customize-nav-menus.php:721
 msgid "Clear Results"
-msgstr "Limpar Resultados"
+msgstr "Limpar resultados"
 
 #: wp-includes/class-wp-editor.php:1058
 msgid "The following formatting shortcuts are replaced when pressing Enter. Press Escape or the Undo button to undo."

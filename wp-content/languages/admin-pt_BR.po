@@ -2513,10 +2513,6 @@ msgstr "Adicione itens de menu da coluna à esquerda."
 msgid "Plugins extend and expand the functionality of WordPress. You may automatically install plugins from the <a href=\"%1$s\">WordPress Plugin Directory</a> or upload a plugin in .zip format via <a href=\"%2$s\">this page</a>."
 msgstr "Plugins estendem e expandem a funcionalidade do WordPress. Você pode instalar automaticamente plugins do <a href=\"%1$s\">Diretório WordPress de  Plugin </a> ou fazer upload de um plugin no formato .zip através <a href=\"%2$s\">desta página </a>"
 
-#. Plugin URI of the plugin/theme
-msgid "http://wordpress.org/plugins/hello-dolly/"
-msgstr "http://wordpress.org/plugins/hello-dolly/"
-
 #: wp-admin/includes/class-wp-upgrader.php:131
 msgid "The package contains no files."
 msgstr "O pacote não contém arquivos."
@@ -3648,22 +3644,6 @@ msgstr[1] "<span class=\"count\">(%s)</span> quebrados"
 #: wp-admin/includes/theme.php:211
 msgid "Light"
 msgstr "Claro"
-
-#. Plugin Name of the plugin/theme
-msgid "Hello Dolly"
-msgstr "Hello Dolly"
-
-#. Description of the plugin/theme
-msgid "This is not just a plugin, it symbolizes the hope and enthusiasm of an entire generation summed up in two words sung most famously by Louis Armstrong: Hello, Dolly. When activated you will randomly see a lyric from <cite>Hello, Dolly</cite> in the upper right of your admin screen on every page."
-msgstr "Isto não é só um plugin, é algo que simboliza a esperança e o entusiamo de uma geração inteira resumida em duas palavras cantadas por Louis Armstrong: Hello, Dolly. Quando ativar este plugin, você verá trechos aleatórios da letra da canção <cite>Hello, Dolly</cite> do lado direito de cada tela de adminstração."
-
-#. Author of the plugin/theme
-msgid "Matt Mullenweg"
-msgstr "Matt Mullenweg"
-
-#. Author URI of the plugin/theme
-msgid "http://ma.tt/"
-msgstr "http://ma.tt/"
 
 #: wp-admin/includes/screen.php:1066
 msgid "Show on screen"
