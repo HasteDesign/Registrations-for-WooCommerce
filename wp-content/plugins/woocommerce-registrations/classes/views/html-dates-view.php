@@ -53,7 +53,7 @@
                     <h3><?php echo '#0 - ' . __( 'Single Day', 'woocommerce-registrations'); ?></h3>
                     <p class="form-field">
                         <label for="event_start_date"><?php _e( 'Event Day', 'woocommerce-registrations'); ?></label>
-                        <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="<?php echo date("Y-m-d");?>">
+                        <input type="date" class="wc_input_event_date event_date" name="event_start_date" value="<?php echo date("Y-m-d");?>">
                         <button style="float:right;" type="button" class="remove_date button"><?php _e( 'Remove', 'woocommerce-registrations' ); ?></button>
                     </p>
                 </div>
@@ -65,7 +65,7 @@
                     <h3><?php  echo '#0 - ' . __( 'Multiple Days', 'woocommerce-registrations'); ?></h3>
                     <p class="form-field multiple_date_inputs">
                         <label for="event_start_date"><?php _e( 'Day', 'woocommerce-registrations'); ?></label>
-                        <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="<?php echo date("Y-m-d");?>">
+                        <input type="date" class="wc_input_event_date event_date" name="event_start_date" value="<?php echo date("Y-m-d");?>">
                         <button type="button" class="remove_day button"><?php _e( 'Remove Day', 'woocommerce-registrations' ); ?></button>
                     </p>
                     <p class="form-field" >
@@ -82,14 +82,17 @@
                     <p class="form-field">
                         <label for="event_range_date"><?php _e( 'Event start and end date', 'woocommerce-registrations'); ?></label>
                         <span class="conjuncao"><?php _e( 'From', 'woocommerce-registrations' ); ?></span>
-                        <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="<?php echo date("Y-m-d");?>" >
+                        <input type="date" class="wc_input_event event_start_date event_date" name="event_start_date" value="<?php echo date("Y-m-d");?>" >
                         <span class="conjuncao"><?php _e( 'to', 'woocommerce-registrations' ); ?></span>
                         <?php
                             // Tomorrow's Date
                             $datetime = new DateTime('tomorrow');
                         ?>
-                        <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="<?php echo $datetime->format('Y-m-d'); ?>" >
+                        <input type="date" class="wc_input_event event_end_date event_date" name="event_end_date" value="<?php echo $datetime->format('Y-m-d'); ?>">
                         <button style="float:right;" type="button" class="remove_date button"><?php _e( 'Remove', 'woocommerce-registrations' ); ?></button>
+                    </p>
+                    <p class="validation_message" style="display: none;">
+                    <?php _e('Please set the end date after the start date.', 'woocommerce_registrations' ); ?>
                     </p>
                 </div>
             </script>
@@ -98,7 +101,7 @@
             <script type="text/template" class="template-multiple_date_inputs">
                 <p class="form-field multiple_date_inputs">
                     <label for="event_start_date"><?php _e( 'Day', 'woocommerce-registrations'); ?></label>
-                    <input type="date" class="wc_input_event_start_date event_date" name="event_start_date" id="event_start_date" value="2011-09-29">
+                    <input type="date" class="wc_input_event_date event_date" name="event_date" value="2011-09-29">
                     <button type="button" class="remove_day button"><?php _e( 'Remove Day', 'woocommerce-registrations' ); ?></button>
                 </p>
             </script>

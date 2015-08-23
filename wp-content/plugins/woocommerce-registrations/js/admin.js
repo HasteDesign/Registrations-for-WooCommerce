@@ -12,7 +12,9 @@ jQuery( function( $ ) {
 			.on( 'click', '.add_date_field', this.add_date )
 			.on( 'click', '.remove_date', this.remove_date )
 			.on( 'click', '.add_day', this.add_day )
-			.on( 'click', '.remove_day', this.remove_day );
+			.on( 'click', '.remove_day', this.remove_day )
+			.on( 'change', '.event_start_date', this.validate_range_date )
+			.on( 'change', '.event_end_date', this.validate_range_date );
 
 			// Variations Tab Events
 			$( '#variable_product_options' ).on( 'woocommerce_variations_added' , function() {
@@ -46,6 +48,7 @@ jQuery( function( $ ) {
 			this.show_hide_registration_meta();
 			this.remove_date_attribute();
 			this.adjust_attributes_index();
+			this.update_hidden_field();
 		},
 
 		/**
@@ -323,7 +326,17 @@ jQuery( function( $ ) {
 					$( this ).find( '.show_if_range_date').hide();
 				}
 			});
-		}
+		},
+
+		validate_range_date: function() {
+			var start = new Date( $( this ).parent().find( '.event_start_date' ).val() );
+			var end = new Date( $( this ).parent().find( '.event_end_date' ).val() );
+
+			if( start >= end ) {
+				//message here
+				$( this ).parent().siblings('.validation_message').fadeIn().delay(5000).fadeOut();
+			}
+		},
 	};
 
 	wc_meta_boxes_product_registrations.init();
