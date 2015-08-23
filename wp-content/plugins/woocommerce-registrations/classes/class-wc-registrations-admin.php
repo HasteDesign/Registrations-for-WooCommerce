@@ -77,7 +77,6 @@ class WC_Registrations_Admin {
 
 			if( $screen->id == 'product' ) {
 				$dependencies[] = $woocommerce_admin_script_handle;
-				$dependencies[] = 'jquery-ui-dialog';
 
 				if ( ! WC_Registrations::is_woocommerce_pre_2_2() ) {
 					$dependencies[] = 'wc-admin-product-meta-boxes';

@@ -92,11 +92,11 @@ jQuery( function( $ ) {
 			var value = $( 'select[name="date_select"]' ).val();
 
 			var el = $( 'script.template-' + value ).html();
-			var el = $(el);
+			//var el = $(el);
 			//console.log( el.find('h3').text().replace('#0', '#' + wc_meta_boxes_product_registrations.count_dates() ) );
-			//$( el + 'h3' ).text().replace('#0', '#' + wc_meta_boxes_product_registrations.count_dates() );
+			//el.filter('h3').text().replace('#0', '#' + wc_meta_boxes_product_registrations.count_dates() );
 			$( '.dates' ).append( el );
-
+			wc_meta_boxes_product_registrations.dates_ids();
 			event.preventDefault();
 		},
 
@@ -270,16 +270,15 @@ jQuery( function( $ ) {
 		},
 
 		/**
-		 * Return the current number of dates created
+		 * Count the current number of dates created and display a simple #id
 		 */
-		count_dates: function() {
+		dates_ids: function() {
 			var length = 0;
 
 			$( 'div.dates' ).children('div').each( function () {
-					length += 1;
+				$( this ).find('h3').text( $( this ).find('h3').text().replace('#0', '#' + length ) );
+				length += 1;
 			});
-
-			return length;
 		},
 
 		/**
