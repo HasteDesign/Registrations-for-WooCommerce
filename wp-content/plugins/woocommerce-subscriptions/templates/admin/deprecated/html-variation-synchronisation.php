@@ -15,7 +15,7 @@ global $wp_locale;
 ?>
 <tr class="variable_subscription_sync show_if_variable-subscription">
 	<td colspan="1" class="subscription_sync_week_month"<?php echo $display_week_month_select; ?>>
-		<?php if ( WC_Subscriptions::is_woocommerce_pre_2_3() ) : ?>
+		<?php if ( WC_Subscriptions::is_woocommerce_pre( '2.3' ) ) : ?>
 		<label><?php _e( 'Synchronise Renewals', 'woocommerce-subscriptions' ); ?></label>
 		<?php endif; ?>
 <?php	woocommerce_wp_select( array(

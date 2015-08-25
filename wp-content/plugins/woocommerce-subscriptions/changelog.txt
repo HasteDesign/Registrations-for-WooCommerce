@@ -1,5 +1,14 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2015.07.28 - version 1.5.29
+ * Tweak: WooCommerce v2.4 compatibility
+ * Tweak: improve Javascript show/hide field logic on Edit Product to make it easier for 3rd party extensions to work with Subscriptions
+ * Fix: first renewal of synchronised subscriptions that are purchased within 23 hours of the first renewal payment being due
+ * Fix: fix cart calculations thrown off by a simple product that used to be a subscription
+ * Fix: copy multiple meta data values for the same key to renewal orders
+ * Fix: restrict switching if force http setting is enabled in WooCommerce as moving from https to http will log the user out. Switching relies on an ownership check, which will always fail, and will strip the query arguments from switching making people sign up for new subscriptions instead of switching the one they already have.
+ * Fix: manual payment flag being incorrect set on an order initial paid for via a manual payment method, then changed to "Pending" and paid for via a payment method that can process automatic renewals
+
 2015.06.10 - version 1.5.28
  * Fix: add compatibility for JSON encoded data in the 'custom' field passed to PayPal being changed in WC 2.3.11 to fix an exploit with serialized data
  * Fix: enforce an array with only two values and no objects in the 'custom' field passed to PayPal to fix an exploit with serialized data

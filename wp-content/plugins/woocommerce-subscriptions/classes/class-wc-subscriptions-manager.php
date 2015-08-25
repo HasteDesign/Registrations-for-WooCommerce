@@ -48,7 +48,7 @@ class WC_Subscriptions_Manager {
 		add_action( 'woocommerce_checkout_order_processed', __CLASS__ . '::process_subscriptions_on_checkout', 10, 2 );
 
 		// Check if a user is requesting to cancel their subscription
-		add_action( 'init', __CLASS__ . '::maybe_change_users_subscription', 100 );
+		add_action( 'wp_loaded', __CLASS__ . '::maybe_change_users_subscription', 100 );
 
 		// Expire a user's subscription
 		add_action( 'scheduled_subscription_expiration', __CLASS__ . '::expire_subscription', 10, 2 );
@@ -557,10 +557,10 @@ class WC_Subscriptions_Manager {
 
 		do_action( 'processed_subscription_payment_failure', $user_id, $subscription_key );
 
-		// Reset failed payment count & suspension count
-		$subscription = array(); // we only want to reset the failed payments and susp count
-		$subscription['failed_payments'] = $subscription['failed_payments'] + 1;
-		self::update_users_subscriptions( $user_id, array( $subscription_key => $subscription ) );
+		// Increment failed payment count
+		$new_subscription = array();
+		$new_subscription['failed_payments'] = $subscription['failed_payments'] + 1;
+		self::update_users_subscriptions( $user_id, array( $subscription_key => $new_subscription ) );
 	}
 
 	/**

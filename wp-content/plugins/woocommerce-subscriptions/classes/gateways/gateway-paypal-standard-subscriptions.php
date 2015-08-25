@@ -786,7 +786,7 @@ class WC_PayPal_Standard_Subscriptions {
 			$woocommerce->payment_gateways->payment_gateways[ $key ]->form_fields['receiver_email']['description'] .= ' </p><p class="description">' . __( 'It is <strong>strongly recommended you do not change the Receiver Email address</strong> if you have active subscriptions with PayPal. Doing so can break existing subscriptions.', 'woocommerce-subscriptions' );
 
 			// WC 2.2 added its own API fields so this is no longer necessary
-			if ( WC_Subscriptions::is_woocommerce_pre_2_2() ) {
+			if ( WC_Subscriptions::is_woocommerce_pre( '2.2' ) ) {
 				$woocommerce->payment_gateways->payment_gateways[ $key ]->form_fields += array(
 
 					'api_credentials' => array(
@@ -831,7 +831,7 @@ class WC_PayPal_Standard_Subscriptions {
 	public static function save_subscription_form_fields() {
 
 		// WC 2.2 added its own API fields so this is no longer necessary
-		if ( WC_Subscriptions::is_woocommerce_pre_2_2() ) {
+		if ( WC_Subscriptions::is_woocommerce_pre( '2.2' ) ) {
 			$paypal_gateway = WC_Subscriptions_Payment_Gateways::get_payment_gateway( 'paypal' );
 			$paypal_gateway->process_admin_options();
 		}
@@ -1124,7 +1124,7 @@ class WC_PayPal_Standard_Subscriptions {
 			$valid_for_use = true;
 		}
 
-		if ( WC_Subscriptions::is_woocommerce_pre_2_1() ) {
+		if ( WC_Subscriptions::is_woocommerce_pre( '2.1' ) ) {
 			$payment_gateway_tab_url = admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Gateway_Paypal' );
 		} else {
 			$payment_gateway_tab_url = admin_url( 'admin.php?page=wc-settings&tab=checkout&section=wc_gateway_paypal' );

@@ -138,7 +138,7 @@ class WC_Subscriptions_Email {
 		global $woocommerce;
 
 		if ( WC_Subscriptions_Renewal_Order::is_renewal( $order_id, array( 'order_role' => 'child' ) ) || WC_Subscriptions_Switcher::order_contains_subscription_switch( $order_id ) ) {
-			if ( WC_Subscriptions::is_woocommerce_pre_2_3() ) {
+			if ( WC_Subscriptions::is_woocommerce_pre( '2.3' ) ) {
 				remove_action( current_filter(), array( $woocommerce, 'send_transactional_email' ) );
 			} else {
 				remove_action( current_filter(), array( 'WC_Emails', 'send_transactional_email' ) );
@@ -157,7 +157,7 @@ class WC_Subscriptions_Email {
 		global $woocommerce;
 
 		if ( WC_Subscriptions_Renewal_Order::is_renewal( $order_id, array( 'order_role' => 'child' ) ) || WC_Subscriptions_Switcher::order_contains_subscription_switch( $order_id ) ) {
-			if ( WC_Subscriptions::is_woocommerce_pre_2_3() ) {
+			if ( WC_Subscriptions::is_woocommerce_pre( '2.3' ) ) {
 				add_action( current_filter(), array( $woocommerce, 'send_transactional_email' ) );
 			} else {
 				add_action( current_filter(), array( 'WC_Emails', 'send_transactional_email' ) );

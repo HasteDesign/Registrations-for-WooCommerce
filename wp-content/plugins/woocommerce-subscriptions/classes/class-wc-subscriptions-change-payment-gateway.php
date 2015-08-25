@@ -38,12 +38,13 @@ class WC_Subscriptions_Change_Payment_Gateway {
 		add_filter( 'woocommerce_my_account_my_subscriptions_actions', __CLASS__ . '::change_payment_method_button', 10, 2 );
 
 		// Maybe allow for a recurring payment method to be changed
-		add_action( 'init', __CLASS__ . '::change_payment_method_via_pay_shortcode', 20 );
+		add_action( 'wp_loaded', __CLASS__ . '::change_payment_method_via_pay_shortcode', 20 );
 
 		// Filter the available payment gateways to only show those which support acting as the new payment method
 		add_filter( 'woocommerce_available_payment_gateways', __CLASS__ . '::get_available_payment_gateways' );
 
 		// If we're changing the payment method, we want to make sure a number of totals return $0 (to prevent payments being processed now)
+		add_filter( 'woocommerce_order_amount_total', __CLASS__ . '::maybe_zero_total', 10, 2 );
 		add_filter( 'woocommerce_subscriptions_total_initial_payment', __CLASS__ . '::maybe_zero_total', 11, 2 );
 		add_filter( 'woocommerce_subscriptions_sign_up_fee', __CLASS__ . '::maybe_zero_total', 11, 2 );
 
@@ -222,7 +223,7 @@ class WC_Subscriptions_Change_Payment_Gateway {
 
 			if ( WC_Subscriptions_Manager::can_subscription_be_changed_to( 'new-payment-method', $subscription_key, get_current_user_id() ) ) {
 
-				if ( ! WC_Subscriptions::is_woocommerce_pre_2_1() ) { // WC 2.1+
+				if ( ! WC_Subscriptions::is_woocommerce_pre( '2.1' ) ) { // WC 2.1+
 					$url = add_query_arg( array( 'change_payment_method' => $subscription_key, 'order_id' => $order->id ), $order->get_checkout_payment_url() );
 					$url = wp_nonce_url( $url, __FILE__ );
 				} else {

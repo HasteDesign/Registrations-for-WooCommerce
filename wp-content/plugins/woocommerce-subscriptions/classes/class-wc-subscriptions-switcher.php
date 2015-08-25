@@ -468,7 +468,7 @@ class WC_Subscriptions_Switcher {
 
 			$product = get_product( $args->subscription['product_id'] );
 
-			if ( empty ( $product ) ) {
+			if ( empty ( $product ) || 'yes' == get_option( 'woocommerce_unforce_ssl_checkout' ) ) {
 
 				$is_product_switchable = false;
 

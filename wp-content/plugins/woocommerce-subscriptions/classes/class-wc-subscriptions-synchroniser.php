@@ -51,7 +51,8 @@ class WC_Subscriptions_Synchroniser {
 		add_action( 'woocommerce_process_product_meta_subscription', __CLASS__ . '::save_subscription_meta', 10 );
 
 		// Save sync options when a variable subscription product is saved
-		add_action( 'woocommerce_process_product_meta_variable-subscription', __CLASS__ . '::process_product_meta_variable_subscription' );
+		add_action( 'woocommerce_process_product_meta_variable-subscription', __CLASS__ . '::process_product_meta_variable_subscription' ); // WC < 2.4
+		add_action( 'woocommerce_ajax_save_product_variations', __CLASS__ . '::process_product_meta_variable_subscription' );
 
 		// Make sure the expiration date is calculated from the synced start date
 		add_filter( 'woocommerce_subscriptions_product_expiration_date', __CLASS__ . '::recalculate_product_expiration_date', 10, 3 );
@@ -324,7 +325,7 @@ class WC_Subscriptions_Synchroniser {
 				$payment_month = date( 'm' );
 			}
 
-			if ( WC_Subscriptions::is_woocommerce_pre_2_3() ) {
+			if ( WC_Subscriptions::is_woocommerce_pre( '2.3' ) ) {
 				include( plugin_dir_path( WC_Subscriptions::$plugin_file ) . 'templates/admin/deprecated/html-variation-synchronisation.php' );
 			} else {
 				include( plugin_dir_path( WC_Subscriptions::$plugin_file ) . 'templates/admin/html-variation-synchronisation.php' );
@@ -520,7 +521,7 @@ class WC_Subscriptions_Synchroniser {
 			$subscription = WC_Subscriptions_Manager::get_subscription( $subscription_key );
 
 			// Don't prematurely set the first payment date when manually adding a subscription from the admin
-			if ( ! is_admin() || 'active' == $subscription['status'] ) {
+			if ( ( defined( 'WOOCOMMERCE_CHECKOUT' ) && true === WOOCOMMERCE_CHECKOUT ) || ! is_admin() || 'active' == $subscription['status'] ) {
 
 				$id_for_calculation = ! empty( $subscription['variation_id'] ) ? $subscription['variation_id'] : $subscription['product_id'];
 

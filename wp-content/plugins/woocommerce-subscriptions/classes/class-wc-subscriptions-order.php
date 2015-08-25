@@ -1484,7 +1484,7 @@ class WC_Subscriptions_Order {
 		update_post_meta( $post_id, '_order_recurring_total', WC_Subscriptions::format_total( $_POST['_order_recurring_total'] ) );
 
 		// Update fields for WC < 2.1
-		if ( WC_Subscriptions::is_woocommerce_pre_2_1() ) {
+		if ( WC_Subscriptions::is_woocommerce_pre( '2.1' ) ) {
 
 			// Also allow updates to the recurring payment method's title
 			if ( isset( $_POST['_recurring_payment_method_title'] ) ) {
@@ -1963,7 +1963,7 @@ class WC_Subscriptions_Order {
 	 */
 	public static function get_recurring_discount_total( $order, $product_id = '' ) {
 
-		if ( WC_Subscriptions::is_woocommerce_pre_2_3() ) {
+		if ( WC_Subscriptions::is_woocommerce_pre( '2.3' ) ) {
 			$recurring_discount_total = self::get_meta( $order, '_order_recurring_discount_total', 0 );
 		} else {
 
@@ -2460,7 +2460,7 @@ class WC_Subscriptions_Order {
 
 		$data = get_post_meta( $post_id );
 
-		if ( WC_Subscriptions::is_woocommerce_pre_2_2() ) : ?>
+		if ( WC_Subscriptions::is_woocommerce_pre( '2.2' ) ) : ?>
 	<div class="clear"></div>
 </div>
 		<?php endif; ?>
@@ -2475,7 +2475,7 @@ class WC_Subscriptions_Order {
 	</div>
 </div>
 <div id="recurring_order_totals"<?php if ( ! $contains_subscription ) { echo $display_none; } ?>>
-	<?php if ( WC_Subscriptions::is_woocommerce_pre_2_2() ) : ?>
+	<?php if ( WC_Subscriptions::is_woocommerce_pre( '2.2' ) ) : ?>
 	<h3><?php _e( 'Recurring Totals', 'woocommerce-subscriptions'); ?></h3>
 	<?php endif; ?>
 
@@ -2484,7 +2484,7 @@ class WC_Subscriptions_Order {
 		<h4><span class="tax_total_display inline_total"></span><?php _e( 'Shipping for Renewal Orders', 'woocommerce-subscriptions' ); ?></h4>
 		<div id="recurring_shipping_rows">
 		<?php
-		if ( ! WC_Subscriptions::is_woocommerce_pre_2_1() ) {
+		if ( ! WC_Subscriptions::is_woocommerce_pre( '2.1' ) ) {
 
 			if ( $woocommerce->shipping() ) {
 				$shipping_methods = $woocommerce->shipping->load_shipping_methods();
@@ -2554,7 +2554,7 @@ class WC_Subscriptions_Order {
 					</select>
 				</li>
 			</ul>
-		<?php } // ! WC_Subscriptions::is_woocommerce_pre_2_1() ?>
+		<?php } // ! WC_Subscriptions::is_woocommerce_pre( '2.1' ) ?>
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -2600,7 +2600,7 @@ class WC_Subscriptions_Order {
 		<div class="clear"></div>
 	</div>
 
-	<?php if ( WC_Subscriptions::is_woocommerce_pre_2_1() ) : ?>
+	<?php if ( WC_Subscriptions::is_woocommerce_pre( '2.1' ) ) : ?>
 	<div class="totals_group">
 		<h4><span class="tax_total_display inline_total"></span><?php _e( 'Tax Totals', 'woocommerce-subscriptions' ); ?></h4>
 		<ul class="totals">
@@ -2618,7 +2618,7 @@ class WC_Subscriptions_Order {
 		</ul>
 		<div class="clear"></div>
 	</div>
-	<?php endif; // WC_Subscriptions::is_woocommerce_pre_2_1() ?>
+	<?php endif; // WC_Subscriptions::is_woocommerce_pre( '2.1' ) ?>
 
 	<?php endif; // woocommerce_calc_taxes ?>
 
@@ -2636,7 +2636,7 @@ class WC_Subscriptions_Order {
 		<h4><?php _e( 'Recurring Payment Method:', 'woocommerce-subscriptions' ); ?></h4>
 		<div class="<?php echo $order->recurring_payment_method; ?>" style="padding-top: 4px; font-style: italic; margin: 2px 0 10px;"><?php echo ( $manual_renewal || empty( $order->recurring_payment_method ) ) ? __( 'Manual', 'woocommerce-subscriptions' ) : $order->recurring_payment_method_title; ?></div>
 	</div>
-		<?php if ( ! WC_Subscriptions::is_woocommerce_pre_2_2() ) : ?>
+		<?php if ( ! WC_Subscriptions::is_woocommerce_pre( '2.2' ) ) : ?>
 </div>
 		<?php endif; ?>
 <?php
@@ -2843,10 +2843,16 @@ class WC_Subscriptions_Order {
 	public static function set_recurring_payment_method( $order_id ) {
 
 		if ( self::order_contains_subscription( $order_id ) ) {
+			$payment_gateways = WC()->payment_gateways->payment_gateways();
+			$payment_method = isset( $_POST['payment_method'] ) ? stripslashes( $_POST['payment_method'] ) : '';
+
 			update_post_meta( $order_id, '_recurring_payment_method', get_post_meta( $order_id, '_payment_method', true ) );
 			update_post_meta( $order_id, '_recurring_payment_method_title', get_post_meta( $order_id, '_payment_method_title', true ) );
-		}
 
+			if ( 'true' === get_post_meta( $order_id, '_wcs_requires_manual_renewal', true ) && 'yes' != get_option( WC_Subscriptions_Admin::$option_prefix . '_turn_off_automatic_payments', 'no' ) && '' !== $payment_method && $payment_gateways[ $payment_method ]->supports( 'subscriptions' ) ) {
+				delete_post_meta( $order_id, '_wcs_requires_manual_renewal' );
+			}
+		}
 	}
 
 	/**

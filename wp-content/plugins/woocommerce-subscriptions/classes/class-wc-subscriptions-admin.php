@@ -72,7 +72,8 @@ class WC_Subscriptions_Admin {
 		add_action( 'save_post', __CLASS__ . '::save_subscription_meta', 11 );
 
 		// Save variable subscription meta
-		add_action( 'woocommerce_process_product_meta_variable-subscription', __CLASS__ . '::process_product_meta_variable_subscription' );
+		add_action( 'woocommerce_process_product_meta_variable-subscription', __CLASS__ . '::process_product_meta_variable_subscription' ); // WC < 2.4
+		add_action( 'woocommerce_ajax_save_product_variations', __CLASS__ . '::process_product_meta_variable_subscription' );
 
 		add_filter( 'woocommerce_settings_tabs_array', __CLASS__ . '::add_subscription_settings_tab', 50 );
 
@@ -262,7 +263,7 @@ class WC_Subscriptions_Admin {
 		global $post;
 
 		echo '</div>';
-		echo '<div class="options_group limit_subscription">';
+		echo '<div class="options_group limit_subscription show_if_subscription show_if_variable-subscription">';
 
 		// Only one Subscription per customer
 		woocommerce_wp_select( array(
@@ -302,7 +303,7 @@ class WC_Subscriptions_Admin {
 			$thepostid = $variation->post_parent;
 		}
 
-		if ( WC_Subscriptions::is_woocommerce_pre_2_3() ) {
+		if ( WC_Subscriptions::is_woocommerce_pre( '2.3' ) ) {
 			include( plugin_dir_path( WC_Subscriptions::$plugin_file ) . 'templates/admin/deprecated/html-variation-price.php' );
 		} else {
 			include( plugin_dir_path( WC_Subscriptions::$plugin_file ) . 'templates/admin/html-variation-price.php' );
@@ -534,17 +535,19 @@ class WC_Subscriptions_Admin {
 		$_POST['variable_regular_price'] = isset( $_POST['variable_subscription_price'] ) ? $_POST['variable_subscription_price'] : 0;
 
 		// Run WooCommerce core saving routine
-		if ( class_exists( 'WC_Meta_Box_Product_Data' ) ) {
-
-			WC_Meta_Box_Product_Data::save_variations( $post_id, get_post( $post_id ) );
-
-		} else { // WC < 2.1
+		if ( ! class_exists( 'WC_Meta_Box_Product_Data' ) ) { // WC < 2.1
 
 			process_product_meta_variable( $post_id );
 
+		} elseif ( ! is_ajax() ) { // WC < 2.4
+
+			WC_Meta_Box_Product_Data::save_variations( $post_id, get_post( $post_id ) );
+
 		}
 
-		update_post_meta( $post_id, '_subscription_limit', stripslashes( $_REQUEST['_subscription_limit'] ) );
+		if ( isset( $_REQUEST['_subscription_limit'] ) ) {
+			update_post_meta( $post_id, '_subscription_limit', stripslashes( $_REQUEST['_subscription_limit'] ) );
+		}
 
 		if ( ! isset( $_REQUEST['variable_post_id'] ) ) {
 			return;
@@ -628,9 +631,9 @@ class WC_Subscriptions_Admin {
 			$dependencies = array( 'jquery' );
 
 			// Version juggling
-			if ( WC_Subscriptions::is_woocommerce_pre_2_1() ) { // WC 2.0
+			if ( WC_Subscriptions::is_woocommerce_pre( '2.1' ) ) { // WC 2.0
 				$woocommerce_admin_script_handle = 'woocommerce_writepanel';
-			} elseif ( WC_Subscriptions::is_woocommerce_pre_2_2() ) { // WC 2.1
+			} elseif ( WC_Subscriptions::is_woocommerce_pre( '2.2' ) ) { // WC 2.1
 				$woocommerce_admin_script_handle = 'woocommerce_admin_meta_boxes';
 			} else {
 				$woocommerce_admin_script_handle = 'wc-admin-meta-boxes';
@@ -639,7 +642,7 @@ class WC_Subscriptions_Admin {
 			if( $screen->id == 'product' ) {
 				$dependencies[] = $woocommerce_admin_script_handle;
 
-				if ( ! WC_Subscriptions::is_woocommerce_pre_2_2() ) {
+				if ( ! WC_Subscriptions::is_woocommerce_pre( '2.2' ) ) {
 					$dependencies[] = 'wc-admin-product-meta-boxes';
 					$dependencies[] = 'wc-admin-variation-meta-boxes';
 				}
@@ -661,7 +664,7 @@ class WC_Subscriptions_Admin {
 			} else if ( 'shop_order' == $screen->id ) {
 				$dependencies[] = $woocommerce_admin_script_handle;
 
-				if ( ! WC_Subscriptions::is_woocommerce_pre_2_2() ) {
+				if ( ! WC_Subscriptions::is_woocommerce_pre( '2.2' ) ) {
 					$dependencies[] = 'wc-admin-order-meta-boxes';
 					$dependencies[] = 'wc-admin-order-meta-boxes-modal';
 				}
@@ -691,9 +694,10 @@ class WC_Subscriptions_Admin {
 
 			$script_params['ajaxLoaderImage'] = $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif';
 			$script_params['ajaxUrl']         = admin_url('admin-ajax.php');
-			$script_params['isWCPre21']       = var_export( WC_Subscriptions::is_woocommerce_pre_2_1(), true );
-			$script_params['isWCPre22']       = var_export( WC_Subscriptions::is_woocommerce_pre_2_2(), true );
-			$script_params['isWCPre23']       = var_export( WC_Subscriptions::is_woocommerce_pre_2_3(), true );
+			$script_params['isWCPre21']       = var_export( WC_Subscriptions::is_woocommerce_pre( '2.1' ), true );
+			$script_params['isWCPre22']       = var_export( WC_Subscriptions::is_woocommerce_pre( '2.2' ), true );
+			$script_params['isWCPre23']       = var_export( WC_Subscriptions::is_woocommerce_pre( '2.3' ), true );
+			$script_params['isWCPre24']       = var_export( WC_Subscriptions::is_woocommerce_pre( '2.4' ), true );
 
 			wp_enqueue_script( 'woocommerce_subscriptions_admin', plugin_dir_url( WC_Subscriptions::$plugin_file ) . 'js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Subscriptions::$plugin_file ) . 'js/admin.js' ) );
 			wp_localize_script( 'woocommerce_subscriptions_admin', 'WCSubscriptions', apply_filters( 'woocommerce_subscriptions_admin_script_parameters', $script_params ) );
@@ -773,7 +777,7 @@ class WC_Subscriptions_Admin {
 
 			if ( WC_Subscriptions_Manager::user_has_subscription( $user_id, '', 'active' ) ) {
 
-				if ( WC_Subscriptions::is_woocommerce_pre_2_1() ) {
+				if ( WC_Subscriptions::is_woocommerce_pre( '2.1' ) ) {
 					$value = '<img src="' . $woocommerce->plugin_url() . '/assets/images/success.png" alt="yes" width="16px" />';
 				} else {
 					$value = '<div class="active-subscriber"></div>';
@@ -781,7 +785,7 @@ class WC_Subscriptions_Admin {
 
 			} else {
 
-				if ( WC_Subscriptions::is_woocommerce_pre_2_1() ) {
+				if ( WC_Subscriptions::is_woocommerce_pre( '2.1' ) ) {
 					$value = '<img src="' . $woocommerce->plugin_url() . '/assets/images/success-off.png" alt="no" width="16px" />';
 				} else {
 					$value = '<div class="inactive-subscriber">-</div>';
@@ -1274,7 +1278,7 @@ class WC_Subscriptions_Admin {
 			}
 
 			if ( $order_contains_subscription || 'add' == $current_screen->action ) {
-				if ( ! WC_Subscriptions::is_woocommerce_pre_2_2() ) {
+				if ( ! WC_Subscriptions::is_woocommerce_pre( '2.2' ) ) {
 					add_meta_box( 'woocommerce-order-totals', __( 'Recurring Totals', 'woocommerce-subscriptions' ), __CLASS__ . '::recurring_totals_meta_box', 'shop_order', 'side', 'high' );
 				} else {
 					// WC 2.1 compatibility
@@ -1480,7 +1484,7 @@ class WC_Subscriptions_Admin {
 	 */
 	public static function settings_tab_url() {
 
-		if ( WC_Subscriptions::is_woocommerce_pre_2_1() ) {
+		if ( WC_Subscriptions::is_woocommerce_pre( '2.1' ) ) {
 			$settings_tab_url = admin_url( 'admin.php?page=woocommerce_settings&tab=subscriptions' );
 		} else {
 			$settings_tab_url = admin_url( 'admin.php?page=wc-settings&tab=subscriptions' );

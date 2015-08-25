@@ -42,7 +42,7 @@ class WC_Product_Subscription_Variation extends WC_Product_Variation {
 			'subscription_payment_sync_date' => 0,
 		);
 
-		if ( WC_Subscriptions::is_woocommerce_pre_2_2() ) { // WC 2.1
+		if ( WC_Subscriptions::is_woocommerce_pre( '2.2' ) ) { // WC 2.1
 
 			// Convert selected subscription meta fields for easy access
 			foreach( $this->subscription_variation_level_meta_data as $meta_key => $default_value ) {

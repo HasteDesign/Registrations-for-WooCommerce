@@ -265,7 +265,7 @@ class WC_Subscriptions_Checkout {
 			update_post_meta( $renewal_order_id, '_order_total', 		WC_Subscriptions::format_total( $woocommerce->cart->total ) );
 
 			// WC < 2.3, set deprecated after tax discount total
-			if ( WC_Subscriptions::is_woocommerce_pre_2_3() ) {
+			if ( WC_Subscriptions::is_woocommerce_pre( '2.3' ) ) {
 				update_post_meta( $renewal_order_id, '_order_discount', 	WC_Subscriptions::format_total( $woocommerce->cart->get_total_discount() ) );
 			}
 
@@ -360,7 +360,7 @@ class WC_Subscriptions_Checkout {
 			}
 
 			// WC 2.1+
-			if ( ! WC_Subscriptions::is_woocommerce_pre_2_1() ) {
+			if ( ! WC_Subscriptions::is_woocommerce_pre( '2.1' ) ) {
 
 				// Recurring coupons
 				if ( $applied_coupons = $woocommerce->cart->get_coupons() ) {

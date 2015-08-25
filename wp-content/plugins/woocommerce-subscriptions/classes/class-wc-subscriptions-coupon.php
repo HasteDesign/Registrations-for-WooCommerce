@@ -355,12 +355,12 @@ class WC_Subscriptions_Coupon {
 		if ( ! in_array( $coupon->type, array( 'recurring_fee', 'sign_up_fee', 'recurring_percent', 'sign_up_fee_percent' ) ) ) {
 
 			// make sure there are no other products in the cart which the coupon could be applied to - WC()->cart->get_cart_contents_count() returns the quantity of items in the cart, not the total number of unique items, we need to use WC()->cart->cart_contents for that.
-			if ( 1 == count( WC()->cart->cart_contents ) ) {
+			if ( 1 == count( WC()->cart->cart_contents ) && 0 == WC_Subscriptions_Cart::get_cart_subscription_sign_up_fee() ) {
 
 				$error_message = __( 'Sorry, this coupon is only valid for an initial payment and the subscription does not have an initial payment.', 'woocommerce-subscriptions' );
 
 				// now make sure there is actually something for the coupon to be applied to (i.e. not a free trial or sync'd subscription without any prorated initial amount)
-				if ( WC_Subscriptions_Cart::cart_contains_free_trial() && 0 == WC_Subscriptions_Cart::get_cart_subscription_sign_up_fee() ) {
+				if ( WC_Subscriptions_Cart::cart_contains_free_trial() ) {
 
 					self::$coupon_error = $error_message;
 

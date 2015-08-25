@@ -26,12 +26,12 @@ jQuery(document).ready(function($){
 		showHideVariableSubscriptionMeta: function(){
 			if ($('select#product-type').val()=='variable-subscription') {
 
-				$('input#_downloadable').prop('checked', false);
-				$('input#_virtual').removeAttr('checked');
-
-				$('.hide_if_virtual').show();
+				$( 'input#_manage_stock' ).change();
+				$( 'input#_downloadable' ).prop( 'checked', false );
+				$( 'input#_virtual' ).removeAttr( 'checked' );
 
 				$('.show_if_variable').show();
+				$('.hide_if_variable').hide();
 				$('.show_if_variable-subscription').show();
 				$('.hide_if_variable-subscription').hide();
 
@@ -41,18 +41,17 @@ jQuery(document).ready(function($){
 				}
 
 			} else {
-				$('.show_if_variable-subscription').hide();
-				$('.hide_if_variable-subscription').show();
 
-				// Restore the sale price row full width to half
+				if ($('select#product-type').val()=='variable') {
+					$('.show_if_variable-subscription').hide();
+					$('.show_if_variable').show();
+					$('.hide_if_variable').hide();
+				}
+
+				// Restore the sale price row width to half
 				if ('true' !== WCSubscriptions.isWCPre23) {
 					$('.sale_price_dates_fields').prev('.form-row').removeClass('form-row-full').addClass('form-row-last');
 				}
-			}
-			if ($('select#product-type').val()==WCSubscriptions.productType || $('select#product-type').val()=='variable-subscription') {
-				$('.limit_subscription').show();
-			} else {
-				$('.limit_subscription').hide();
 			}
 		},
 		setSubscriptionLengths: function(){
@@ -131,61 +130,93 @@ jQuery(document).ready(function($){
 				$('#sale-price-period').fadeIn(180);
 			});
 		},
-		setSyncOptions: function(){
+		setSyncOptions: function(periodField) {
+
+			if ( typeof periodField != 'undefined' ) {
+
+				if ($('select#product-type').val()=='variable-subscription') {
+					var $container = periodField.closest('.woocommerce_variable_attributes').find('.variable_subscription_sync');
+				} else {
+					$container = periodField.closest('#general_product_data').find('.subscription_sync')
+				}
+
+				var $syncWeekMonthContainer = $container.find('.subscription_sync_week_month'),
+					$syncWeekMonthSelect = $syncWeekMonthContainer.find('select'),
+					$syncAnnualContainer = $container.find('.subscription_sync_annual'),
+					$varSubField = $container.find('[name^="variable_subscription_payment_sync_date"]'),
+					billingPeriod;
+
+				if ($varSubField.length > 0) { // Variation
+					var matches = $varSubField.attr('name').match(/\[(.*?)\]/);
+					$subscriptionPeriodElement = $('[name="variable_subscription_period['+matches[1]+']"]');
+				} else {
+					$subscriptionPeriodElement = $('#_subscription_period');
+				}
+
+				billingPeriod = $subscriptionPeriodElement.val();
+
+				if('day'==billingPeriod) {
+					$syncWeekMonthSelect.val(0);
+					$syncAnnualContainer.find('input[type="number"]').val(0);
+				} else {
+					if('year'==billingPeriod) {
+						// Make sure the year sync fields are reset
+						$syncAnnualContainer.find('input[type="number"]').val(0);
+						// And the week/month field has no option selected
+						$syncWeekMonthSelect.val(0);
+					} else {
+						// Make sure the year sync value is 0
+						$syncAnnualContainer.find('input[type="number"]').val(0);
+						// And the week/month field has the appropriate options
+						$syncWeekMonthSelect.empty();
+						$.each(WCSubscriptions.syncOptions[billingPeriod], function(key,description) {
+							$syncWeekMonthSelect.append($('<option></option>').attr('value',key).text(description));
+						});
+					}
+				}
+			}
+		},
+		showHideSyncOptions: function(){
 			if($('#_subscription_payment_sync_date').length > 0 || $('.wc_input_subscription_payment_sync').length > 0){
-				$('.subscription_sync, .variable_subscription_sync').each(function(){
+				$('.subscription_sync, .variable_subscription_sync').each(function(){ // loop through all sync field groups
 					var $syncWeekMonthContainer = $(this).find('.subscription_sync_week_month'),
 						$syncWeekMonthSelect = $syncWeekMonthContainer.find('select'),
 						$syncAnnualContainer = $(this).find('.subscription_sync_annual'),
 						$varSubField = $(this).find('[name^="variable_subscription_payment_sync_date"]'),
+						$slideSwitch = false, // stop the general sync field group sliding down if editing a variable subscription
 						billingPeriod;
 
 					if ($varSubField.length > 0) { // Variation
 						var matches = $varSubField.attr('name').match(/\[(.*?)\]/);
 						$subscriptionPeriodElement = $('[name="variable_subscription_period['+matches[1]+']"]');
+						if ($('select#product-type').val()=='variable-subscription') {
+							$slideSwitch = true;
+						}
 					} else {
 						$subscriptionPeriodElement = $('#_subscription_period');
+						if ($('select#product-type').val()==WCSubscriptions.productType) {
+							$slideSwitch = true;
+						}
 					}
 
 					billingPeriod = $subscriptionPeriodElement.val();
 
 					if('day'==billingPeriod) {
-
-						$(this).slideUp(400,function(){
-							$syncWeekMonthSelect.val(0);
-							$syncAnnualContainer.find('input[type="number"]').val(0);
-						});
-
+						$(this).slideUp(400);
 					} else {
-
-						$(this).slideDown(400);
-
-						if('year'==billingPeriod) {
-
-							// Make sure the year sync fields are visible
-							$syncAnnualContainer.slideDown(400,function(){
-								$syncAnnualContainer.find('input[type="number"]').val(0);
-							});
-
-							// And the week/month field is hidden and no option is selected
-							$syncWeekMonthContainer.slideUp(400,function(){
-								$syncWeekMonthSelect.val(0);
-							});
-
-						} else {
-
-							// Make sure the year sync fields are hidden and its value is 0
-							$syncAnnualContainer.slideUp(400,function(){
-								$syncAnnualContainer.find('input[type="number"]').val(0);
-							});
-
-							// And the week/month field is visible with the appropriate value
-							$syncWeekMonthContainer.slideDown(400);
-							$syncWeekMonthSelect.empty();
-
-							$.each(WCSubscriptions.syncOptions[billingPeriod], function(key,description) {
-								$syncWeekMonthSelect.append($('<option></option>').attr('value',key).text(description));
-							});
+						if ( $slideSwitch ) {
+							$(this).slideDown(400);
+							if('year'==billingPeriod) {
+								// Make sure the year sync fields are visible
+								$syncAnnualContainer.slideDown(400);
+								// And the week/month field is hidden
+								$syncWeekMonthContainer.slideUp(400);
+							} else {
+								// Make sure the year sync fields are hidden
+								$syncAnnualContainer.slideUp(400);
+								// And the week/month field is visible
+								$syncWeekMonthContainer.slideDown(400);
+							}
 						}
 					}
 				});
@@ -489,6 +520,29 @@ jQuery(document).ready(function($){
 
 			$('#woocommerce-order-totals').unblock();
 		},
+		getVariationBulkEditValue: function(variation_action){
+			var value;
+
+			switch( variation_action ) {
+				case 'variable_subscription_period':
+				case 'variable_subscription_trial_period':
+					value = prompt( WCSubscriptions.bulkEditPeriodMessage );
+					break;
+				case 'variable_subscription_period_interval':
+					value = prompt( WCSubscriptions.bulkEditIntervalhMessage );
+					break;
+				case 'variable_subscription_trial_length':
+				case 'variable_subscription_length':
+					value = prompt( WCSubscriptions.bulkEditLengthMessage );
+					break;
+				case 'variable_subscription_sign_up_fee':
+					value = prompt( woocommerce_admin_meta_boxes_variations.i18n_enter_a_value );
+					value = accounting.unformat( value, woocommerce_admin.mon_decimal_point );
+					break;
+			}
+
+			return value;
+		},
 	});
 
 	$('.options_group.pricing ._sale_price_field .description').prepend('<span id="sale-price-period" style="display: none;"></span>');
@@ -502,9 +556,10 @@ jQuery(document).ready(function($){
 		$.moveSubscriptionVariationFields();
 	}
 	// When a variation is added
-	$('#variable_product_options').on('woocommerce_variations_added',function(){
+	$('#woocommerce-product-data').on('woocommerce_variations_added woocommerce_variations_loaded',function(){
 		$.moveSubscriptionVariationFields();
 		$.showHideVariableSubscriptionMeta();
+		$.showHideSyncOptions();
 	});
 
 	if($('.options_group.pricing').length > 0) {
@@ -513,13 +568,15 @@ jQuery(document).ready(function($){
 		$.showHideVariableSubscriptionMeta();
 		$.setSubscriptionLengths();
 		$.setTrialPeriods();
+		$.showHideSyncOptions();
 	}
 
 	// Update subscription ranges when subscription period or interval is changed
 	$('#woocommerce-product-data').on('change','[name^="_subscription_period"], [name^="_subscription_period_interval"], [name^="variable_subscription_period"], [name^="variable_subscription_period_interval"]',function(){
 		$.setSubscriptionLengths();
-		$.setSyncOptions();
 		$.setSalePeriod();
+		$.showHideSyncOptions();
+		$.setSyncOptions( $(this) );
 	});
 
 	$('#woocommerce-product-data').on('propertychange keyup input paste change','[name^="_subscription_trial_length"], [name^="variable_subscription_trial_length"]',function(){
@@ -529,6 +586,7 @@ jQuery(document).ready(function($){
 	$('body').bind('woocommerce-product-type-change',function(){
 		$.showHideSubscriptionMeta();
 		$.showHideVariableSubscriptionMeta();
+		$.showHideSyncOptions();
 	});
 
 	$('input#_downloadable, input#_virtual').change(function(){
@@ -902,6 +960,11 @@ jQuery(document).ready(function($){
 		}
 	});
 
+	// Update hidden regular price when subscription price is update on simple products
+	$('#general_product_data').on('change', '[name^="_subscription_price"]', function() {
+		$('[name="_regular_price"]').val($(this).val());
+	});
+
 	// Notify store manager that deleting an user via the Users screen also removed them from any subscriptions.
 	$('.users-php .submitdelete').on('click',function(){
 		return confirm(WCSubscriptions.deleteUserWarning);
@@ -954,29 +1017,22 @@ jQuery(document).ready(function($){
 		});
 	}
 
-	// WC >= 2.1 variation bulk edit handling
-	$(document).on('variable_subscription_sign_up_fee variable_subscription_period_interval variable_subscription_period variable_subscription_trial_period variable_subscription_trial_length variable_subscription_length', 'select#field_to_edit', function(event) {
-		var value;
-
-		switch( event.type ) {
-			case 'variable_subscription_period':
-			case 'variable_subscription_trial_period':
-				value = prompt( WCSubscriptions.bulkEditPeriodMessage );
-				break;
-			case 'variable_subscription_period_interval':
-				value = prompt( WCSubscriptions.bulkEditIntervalhMessage );
-				break;
-			case 'variable_subscription_trial_length':
-			case 'variable_subscription_length':
-				value = prompt( WCSubscriptions.bulkEditLengthMessage );
-				break;
-			default:
-				value = prompt( woocommerce_admin_meta_boxes_variations.i18n_enter_a_value );
-				break;
+	// WC 2.4 variation bulk edit handling
+	$('select.variation_actions').on('variable_subscription_sign_up_fee_ajax_data variable_subscription_period_interval_ajax_data variable_subscription_period_ajax_data variable_subscription_trial_period_ajax_data variable_subscription_trial_length_ajax_data variable_subscription_length_ajax_data', function(event, data) {
+		value = $.getVariationBulkEditValue(event.type.replace(/_ajax_data/g,''));
+		if ( value != null ) {
+			data.value = value;
 		}
+		return data;
+	});
 
-		if (value) {
-			$( ':input[name^="' + event.type + '["]').val( value ).change();
+	// WC 2.1 - 2.3 variation bulk edit handling
+	$(document).on('variable_subscription_sign_up_fee variable_subscription_period_interval variable_subscription_period variable_subscription_trial_period variable_subscription_trial_length variable_subscription_length', 'select#field_to_edit', function(event) {
+		if ('true' == WCSubscriptions.isWCPre24) {
+			value = $.getVariationBulkEditValue(event.type);
+			if (value) {
+				$( ':input[name^="' + event.type + '["]').val( value ).change();
+			}
 		}
 	});
 

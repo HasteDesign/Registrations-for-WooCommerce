@@ -42,7 +42,11 @@
 					</a>
 					<?php endif; ?>
 					<?php $order_item = WC_Subscriptions_Order::get_item_by_product_id( $order, $subscription_details['product_id'] ); ?>
-					<?php $item_meta = new WC_Order_Item_Meta( $order_item['item_meta'], $product ); ?>
+					<?php if ( WC_Subscriptions::is_woocommerce_pre( '2.4' ) ) : ?>
+						<?php $item_meta = new WC_Order_Item_Meta( $order_item['item_meta'], $product ); ?>
+					<?php else : ?>
+						<?php $item_meta = new WC_Order_Item_Meta( $order_item, $product ); ?>
+					<?php endif; ?>
 					<?php $meta_to_display = $item_meta->display( true, true ); ?>
 					<?php if ( ! empty( $meta_to_display ) ) : ?>
 					<p>

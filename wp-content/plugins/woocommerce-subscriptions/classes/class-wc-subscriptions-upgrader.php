@@ -465,7 +465,12 @@ class WC_Subscriptions_Upgrader {
 			foreach ( $order_items as $index => $order_item ) {
 
 				$product_id = WC_Subscriptions_Order::get_items_product_id( $order_item );
-				$item_meta  = new WC_Order_Item_Meta( $order_item['item_meta'] );
+
+				if ( WC_Subscriptions::is_woocommerce_pre( '2.4' ) ) {
+					$item_meta = new WC_Order_Item_Meta( $order_item['item_meta'] );
+				} else {
+					$item_meta = new WC_Order_Item_Meta( $order_item );
+				}
 
 				$subscription_interval     = ( isset( $order_subscription_intervals[ $product_id ] ) ) ? $order_subscription_intervals[ $product_id ] : 1;
 				$subscription_length       = ( isset( $order_subscription_lengths[ $product_id ] ) ) ? $order_subscription_lengths[ $product_id ] : 0;
