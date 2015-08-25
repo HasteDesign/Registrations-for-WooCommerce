@@ -31,16 +31,7 @@ class WC_Product_Registrations extends WC_Product_Variable {
 
         $this->product_type = 'registrations';
 
-		// $this->subscription_variation_level_meta_data = array(
-		// 	'subscription_price'             => 0,
-		// 	'subscription_period'            => '',
-		// 	'subscription_period_interval'   => 'day',
-		// 	'subscription_length'            => 0,
-		// 	'subscription_trial_length'      => 0,
-		// 	'subscription_trial_period'      => 'day',
-		// 	'subscription_sign_up_fee'       => 0,
-		// 	'subscription_payment_sync_date' => 0,
-		// );
+		add_filter( 'woocommerce_add_to_cart_handler', array( &$this, 'add_to_cart_handler' ), 10, 2 );
 	}
 
     /**
@@ -59,5 +50,18 @@ class WC_Product_Registrations extends WC_Product_Variable {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 *
+	 * @param string $product_type A string representation of a product type
+	 */
+	public function add_to_cart_handler( $handler, $product ) {
+
+		if ( 'registrations' === $handler ) {
+			$handler = 'variable';
+		}
+
+		return $handler;
 	}
 }
