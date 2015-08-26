@@ -23,9 +23,9 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 * @access public
 	 * @param mixed $product
 	 */
-	public function __construct( $product, $args = array() ) {
+	public function __construct( $product ) {
 
-		parent::__construct( $product, $args = array() );
+		parent::__construct( $product );
 
         $this->parent_product_type = $this->product_type;
 
@@ -42,7 +42,8 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 * @param mixed $type Array or string of types
 	 * @return bool
 	 */
-	public function is_type( $type ) {
+	public function registrations_is_type( $type ) {
+		return true;
 		if ( $this->product_type == $type || ( is_array( $type ) && in_array( $this->product_type, $type ) ) ) {
 			return true;
 		} elseif ( $this->parent_product_type == $type || ( is_array( $type ) && in_array( $this->parent_product_type, $type ) ) ) {

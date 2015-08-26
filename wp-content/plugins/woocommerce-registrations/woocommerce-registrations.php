@@ -178,6 +178,7 @@ class WC_Registrations {
 
 		if ( version_compare( $woocommerce->version, '2.0', '>=' ) ) {
 			require_once( 'classes/class-wc-product-registrations.php' );
+			require_once( 'classes/class-wc-registrations-checkout.php' );
 		}
 	}
 
