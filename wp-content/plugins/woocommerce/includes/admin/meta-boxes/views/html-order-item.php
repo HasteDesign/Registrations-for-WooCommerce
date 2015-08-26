@@ -90,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							$meta['meta_key']   = apply_filters( 'woocommerce_attribute_label', wc_attribute_label( $meta['meta_key'], $_product ), $meta['meta_key'] );
 						}
 
-						echo '<tr><th>' . wp_kses_post( rawurldecode( $meta['meta_key'] ) ) . ':</th><td>' . wp_kses_post( wpautop( make_clickable( rawurldecode( $meta['meta_value'] ) ) ) ) . '</td></tr>';
+						echo '<tr><th>' . wp_kses_post( rawurldecode( $meta['meta_key'] ) ) . ':</th><td>' . wp_kses_post( wpautop( make_clickable( rawurldecode( apply_filters( 'woocommerce_variation_option_name', $meta['meta_value'] ) ) ) ) ) . '</td></tr>';
 					}
 					echo '</table>';
 				}
