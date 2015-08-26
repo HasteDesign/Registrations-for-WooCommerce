@@ -52,8 +52,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce\n"
 "Report-Msgid-Bugs-To: https://github.com/woothemes/woocommerce/issues\n"
-"POT-Creation-Date: 2015-08-20 16:47:26+00:00\n"
-"PO-Revision-Date: 2015-08-20 16:51+0000\n"
+"POT-Creation-Date: 2015-08-24 16:25:51+00:00\n"
+"PO-Revision-Date: 2015-08-24 16:38+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/woothemes/woocommerce/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -1371,7 +1371,7 @@ msgstr "REF"
 
 #: includes/admin/class-wc-admin-post-types.php:219
 #: includes/admin/class-wc-admin-reports.php:91
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:685
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:696
 #: includes/admin/reports/class-wc-report-stock.php:29
 #: includes/admin/reports/class-wc-report-stock.php:30
 msgid "Stock"
@@ -1432,7 +1432,7 @@ msgstr "Data de validade"
 
 #: includes/admin/class-wc-admin-post-types.php:260
 #: includes/admin/class-wc-admin-webhooks-table-list.php:41
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:669
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:680
 #: includes/admin/settings/views/html-webhook-log.php:25
 #: includes/admin/settings/views/html-webhooks-edit.php:24
 msgid "Status"
@@ -1528,7 +1528,7 @@ msgid "No"
 msgstr "Não"
 
 #: includes/admin/class-wc-admin-post-types.php:392
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:327
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:338
 #: includes/admin/reports/class-wc-report-stock.php:108
 #: includes/admin/views/html-bulk-edit-product.php:221
 #: includes/admin/views/html-quick-edit-product.php:164
@@ -1537,7 +1537,7 @@ msgstr "Em estoque"
 
 #: includes/admin/class-wc-admin-post-types.php:394
 #: includes/admin/class-wc-admin-reports.php:100
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:328
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:339
 #: includes/admin/reports/class-wc-report-stock.php:110
 #: includes/admin/views/html-bulk-edit-product.php:222
 #: includes/admin/views/html-quick-edit-product.php:165
@@ -1808,7 +1808,7 @@ msgstr "OK"
 
 #: includes/admin/class-wc-admin-post-types.php:2138
 #: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:175
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:733
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:744
 #: includes/admin/meta-boxes/views/html-order-items.php:257
 #: includes/admin/meta-boxes/views/html-order-items.php:303
 msgid "Cancel"
@@ -2003,33 +2003,33 @@ msgstr "Selecionar todos"
 msgid "Select none"
 msgstr "Selecione nenhum"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:61
+#: includes/admin/class-wc-admin-setup-wizard.php:59
 msgid "Introduction"
 msgstr "Introdução"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:66
+#: includes/admin/class-wc-admin-setup-wizard.php:64
 #: includes/admin/class-wc-admin-setup-wizard.php:234
 msgid "Page Setup"
 msgstr "Página de instalação"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:71
+#: includes/admin/class-wc-admin-setup-wizard.php:69
 msgid "Store Locale"
 msgstr "Localização da loja"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:76
+#: includes/admin/class-wc-admin-setup-wizard.php:74
 msgid "Shipping &amp; Tax"
 msgstr "Entrega &amp; taxas"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:81
+#: includes/admin/class-wc-admin-setup-wizard.php:79
 #: includes/admin/class-wc-admin-setup-wizard.php:648
 msgid "Payments"
 msgstr "Pagamentos"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:86
+#: includes/admin/class-wc-admin-setup-wizard.php:84
 msgid "Ready!"
 msgstr "Pronto!"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:148
+#: includes/admin/class-wc-admin-setup-wizard.php:147
 msgid "WooCommerce &rsaquo; Setup Wizard"
 msgstr "WooCommerce &rsaquo; Assistente de configuração"
 
@@ -2332,10 +2332,10 @@ msgstr "Você pode editar as taxas de impostos posteriormente a partir da tela d
 
 #: includes/admin/class-wc-admin-setup-wizard.php:650
 msgid ""
-"WooCommerce comes with some payment gateways pre-installed. %2$sAdditonal "
-"gateways%3$s can be installed later. Payment Gateways can be setup, enabled "
-"and disabled from the %1$scheckout settings%3$s screen."
-msgstr "WooCommerce vem com alguns métodos de pagamento pré-instalados. %2$sMétodos adicionais%3$s podem ser instalados posteriormente. Os métodos de pagamento podem ser instalados, habilitados e desabilitados na tela %1$sconfigurações de finalização de compra%3$s."
+"WooCommerce can accept both online and offline payments. %2$sAdditional "
+"payment methods%3$s can be installed later and managed from the %1$scheckout"
+" settings%3$s screen."
+msgstr "WooCommerce aceita pagamentos online e offline. %2$sMétodos de pagamentos adicionais%3$s podem ser instalados posteriormente e gerenciados a partir da página de %1$sconfigurações de finalização%3$s."
 
 #: includes/admin/class-wc-admin-setup-wizard.php:655
 msgid ""
@@ -2394,7 +2394,7 @@ msgid ""
 msgstr "Gostaria de ajudar a tornar o WooCommerce ainda mais incrível? Permita o WooThemes coletar dados não sensíveis para diagnostico e informações de utilização, você ainda pode ganhar %s de desconto em sua próxima compra no WooThemes. %sVeja mais detalhes%s"
 
 #: includes/admin/class-wc-admin-setup-wizard.php:758
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:316
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:327
 #: includes/admin/views/html-bulk-edit-product.php:282
 #: includes/admin/views/html-notice-tracking.php:13
 #: includes/admin/views/html-quick-edit-product.php:201
@@ -3120,9 +3120,9 @@ msgstr "Marque esta caixa se o cupom não se aplica aos itens em oferta. Cupons 
 
 #: includes/admin/meta-boxes/class-wc-meta-box-coupon-data.php:100
 #: includes/admin/meta-boxes/class-wc-meta-box-coupon-data.php:118
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:479
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:496
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:516
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:490
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:507
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:527
 #: includes/admin/meta-boxes/views/html-order-items.php:321
 #: includes/admin/reports/class-wc-report-sales-by-product.php:181
 msgid "Search for a product&hellip;"
@@ -3403,7 +3403,7 @@ msgid "Note to customer"
 msgstr "Nota para o cliente"
 
 #: includes/admin/meta-boxes/class-wc-meta-box-order-notes.php:78
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:427
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:438
 #: includes/admin/meta-boxes/views/html-order-items.php:326
 #: includes/admin/meta-boxes/views/html-order-items.php:383
 msgid "Add"
@@ -3422,14 +3422,14 @@ msgid "Downloadable products give access to a file upon purchase."
 msgstr "Produtos baixáveis dão acesso a um arquivo mediate pagamento"
 
 #: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:94
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:683
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:694
 #: includes/admin/settings/class-wc-settings-products.php:46
 #: includes/admin/settings/class-wc-settings-products.php:244
 msgid "Inventory"
 msgstr "Inventário"
 
 #: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:99
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:687
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:698
 #: includes/admin/meta-boxes/views/html-order-items.php:150
 #: includes/admin/meta-boxes/views/html-order-shipping.php:20
 #: includes/admin/settings/class-wc-settings-shipping.php:27
@@ -3578,25 +3578,31 @@ msgstr "Aplicativo/Programa"
 msgid "Music"
 msgstr "Música"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:255
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:257
 #: includes/admin/views/html-bulk-edit-product.php:69
 #: includes/admin/views/html-quick-edit-product.php:49
 msgid "Tax Status"
 msgstr "Situação fiscal"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:256
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:259
 #: includes/admin/views/html-bulk-edit-product.php:75
 #: includes/admin/views/html-quick-edit-product.php:54
 msgid "Taxable"
 msgstr "Tributável"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:257
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:260
 #: includes/admin/views/html-bulk-edit-product.php:76
 #: includes/admin/views/html-quick-edit-product.php:55
 msgid "Shipping only"
 msgstr "Somente transporte"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:263
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:264
+msgid ""
+"Define whether or not the entire product is taxable, or just the cost of "
+"shipping it."
+msgstr "Define ou não se um produto será inteiro taxado ou se apenas o custo de entrega."
+
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:269
 #: includes/admin/meta-boxes/views/html-order-items.php:21
 #: includes/admin/settings/views/html-settings-tax.php:6
 #: includes/admin/settings/views/settings-tax.php:53
@@ -3605,382 +3611,388 @@ msgstr "Somente transporte"
 msgid "Standard"
 msgstr "Padrão"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:272
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:279
 #: includes/admin/settings/views/html-settings-tax.php:158
 #: includes/admin/views/html-bulk-edit-product.php:88
 #: includes/admin/views/html-quick-edit-product.php:67
 msgid "Tax Class"
 msgstr "Classe de imposto"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:293
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:282
+msgid ""
+"Choose a tax class for this product. Tax classes are used to apply different"
+" tax rates specific to certain types of product."
+msgstr "Escolha uma classe de imposto para este produto. Classes de impostos são usadas para aplicar diferentes taxas de imposto para certos tipos de produtos."
+
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:304
 #: includes/admin/meta-boxes/views/html-variation-admin.php:84
 #: includes/admin/views/html-bulk-edit-product.php:234
 #: includes/admin/views/html-quick-edit-product.php:180
 msgid "Manage stock?"
 msgstr "Gerenciar estoque?"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:293
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:304
 msgid "Enable stock management at product level"
 msgstr "Habilitar gerenciamento de estoque a nível de produto"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:302
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:313
 #: includes/admin/views/html-bulk-edit-product.php:253
 #: includes/admin/views/html-bulk-edit-product.php:269
 #: includes/admin/views/html-quick-edit-product.php:184
 msgid "Stock Qty"
 msgstr "Qtd. no Estoque"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:304
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:315
 msgid ""
 "Stock quantity. If this is a variable product this value will be used to "
 "control stock for all variations, unless you define stock at variation "
 "level."
 msgstr "Estoque disponível. Se este produto contiver variações, o valor será usado para controlar o estoque de todas as variações, a menos que você defina o estoque no nível da variação."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:313
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:324
 #: includes/admin/meta-boxes/views/html-variation-admin.php:120
 msgid "Allow Backorders?"
 msgstr "Permitir encomendas?"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:314
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:325
 #: includes/admin/views/html-bulk-edit-product.php:280
 #: includes/admin/views/html-quick-edit-product.php:199
 msgid "Do not allow"
 msgstr "Não permitir"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:315
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:326
 #: includes/admin/views/html-bulk-edit-product.php:281
 #: includes/admin/views/html-quick-edit-product.php:200
 msgid "Allow, but notify customer"
 msgstr "Permitir, mas informar o cliente"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:317
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:328
 msgid ""
 "If managing stock, this controls whether or not backorders are allowed. If "
 "enabled, stock quantity can go below 0."
 msgstr "Se estiver gerenciando estoque esta opção irá controlar se é possível fazer encomendas. Se ativada a quantidade de estoque pode ser menor do que 0."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:326
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:337
 #: includes/admin/meta-boxes/views/html-variation-admin.php:134
 #: includes/admin/reports/class-wc-report-stock.php:158
 msgid "Stock status"
 msgstr "Status do estoque"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:329
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:340
 #: includes/admin/meta-boxes/views/html-variation-admin.php:134
 msgid ""
 "Controls whether or not the product is listed as \"in stock\" or \"out of "
 "stock\" on the frontend."
 msgstr "Controla se o produto é listado na loja como \"em estoque\" ou \"não disponível\"."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:338
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:349
 msgid "Sold Individually"
 msgstr "Vender individualmente"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:338
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:349
 msgid ""
 "Enable this to only allow one of this item to be bought in a single order"
 msgstr "Habilite para permitir que somente um item deste produto seja comprado por pedido."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:357
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:691
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:368
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:702
 #: includes/admin/meta-boxes/views/html-variation-admin.php:149
 #: includes/admin/views/html-bulk-edit-product.php:115
 #: includes/admin/views/html-quick-edit-product.php:96
 msgid "Weight"
 msgstr "Peso"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:357
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:368
 msgid "Weight in decimal form"
 msgstr "Peso na forma decimal"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:363
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:374
 msgid "Dimensions"
 msgstr "Dimensões"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:365
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:688
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:376
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:699
 #: includes/admin/views/html-quick-edit-product.php:109
 msgid "Length"
 msgstr "Comprimento"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:366
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:689
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:377
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:700
 #: includes/admin/views/html-quick-edit-product.php:110
 msgid "Width"
 msgstr "Largura"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:367
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:690
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:378
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:701
 #: includes/admin/views/html-quick-edit-product.php:111
 msgid "Height"
 msgstr "Altura"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:369
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:380
 msgid "LxWxH in decimal form"
 msgstr "(CxLxA) Comprimento, Largura e Altura na forma decimal"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:390
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:401
 #: includes/admin/views/html-bulk-edit-product.php:167
 #: includes/admin/views/html-quick-edit-product.php:124
 msgid "No shipping class"
 msgstr "Nenhum classe de entrega"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:396
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:407
 #: includes/admin/views/html-bulk-edit-product.php:163
 #: includes/admin/views/html-quick-edit-product.php:121
 msgid "Shipping class"
 msgstr "Classe de envio"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:396
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:407
 msgid ""
 "Shipping classes are used by certain shipping methods to group similar "
 "products."
 msgstr "Classes de envio são utilizados por certos métodos de envio para agrupar produtos semelhantes."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:408
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:467
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:704
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:738
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:419
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:478
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:715
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:749
 msgid "Expand"
 msgstr "Expandir"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:408
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:467
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:704
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:738
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:419
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:478
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:715
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:749
 msgid "Close"
 msgstr "Fechar"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:411
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:422
 msgid "Custom product attribute"
 msgstr "Atributos personalizados do produto"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:469
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:480
 msgid "Save Attributes"
 msgstr "Salvar atributos"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:478
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:489
 msgid "Up-Sells"
 msgstr "Aumenta vendas"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:491
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:502
 msgid ""
 "Up-sells are products which you recommend instead of the currently viewed "
 "product, for example, products that are more profitable or better quality or"
 " more expensive."
 msgstr "Aumenta vendas, são produtos que você deseja recomendar durante a visualização de um produto. Por exemplo: Produtos mais rentáveis, com maior qualidade ou mais recomendados."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:495
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:506
 msgid "Cross-Sells"
 msgstr "Venda cruzada"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:508
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:519
 msgid ""
 "Cross-sells are products which you promote in the cart, based on the current"
 " product."
 msgstr "Venda cruzada, são produtos que você promove no carrinho com base nos produtos atuais."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:515
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:526
 msgid "Grouping"
 msgstr "Grupo"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:527
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:538
 msgid "Set this option to make this product part of a grouped product."
 msgstr "Selecione essa opção para fazer com que esse produto faça parte de um grupo."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:545
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:556
 msgid "Purchase Note"
 msgstr "Nota da Compra"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:545
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:556
 msgid "Enter an optional note to send the customer after purchase."
 msgstr "Digite uma nota opcional para enviar ao cliente após a compra."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:552
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:563
 msgid "Menu order"
 msgstr "Ordem do menu"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:552
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:563
 msgid "Custom ordering position."
 msgstr "Posição de ordenação personalizada."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:560
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:571
 msgid "Enable reviews"
 msgstr "Habilitar avaliações"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:613
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:624
 msgid ""
 "Before adding variations, add and save some attributes on the "
 "<strong>Attributes</strong> tab."
 msgstr "Antes de adicionar variações, adicione e salve alguns atributos na aba <strong>Atributos</strong>."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:615
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:626
 msgid "Learn more"
 msgstr "Aprenda mais"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:622
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:633
 msgid "Default Form Values"
 msgstr "Valores padrão do formulário"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:622
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:633
 msgid "These are the attributes that will be pre-selected on the frontend."
 msgstr "Estes são os atributos que serão pré-selecionados na página do produto."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:637
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:648
 msgid "No default"
 msgstr "Nenhum padrão"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:666
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:677
 msgid "Add variation"
 msgstr "Adicionar variação"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:667
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:678
 msgid "Create variations from all attributes"
 msgstr "Criar variações para todos os atributos"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:668
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:679
 msgid "Delete all variations"
 msgstr "Apagar todas as variações"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:670
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:681
 msgid "Toggle &quot;Enabled&quot;"
 msgstr "Alternar &quot;Ativado&quot;"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:671
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:682
 msgid "Toggle &quot;Downloadable&quot;"
 msgstr "Alternar &quot;Baixável&quot;"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:672
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:683
 msgid "Toggle &quot;Virtual&quot;"
 msgstr "Alternar &quot;Virtual&quot;"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:674
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:685
 msgid "Pricing"
 msgstr "Preços"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:675
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:686
 msgid "Set regular prices"
 msgstr "Configurar preços"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:676
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:687
 msgid "Increase regular prices (fixed amount or percentage)"
 msgstr "Aumentar preços (valor fixo ou porcentagem)"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:677
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:688
 msgid "Decrease regular prices (fixed amount or percentage)"
 msgstr "Diminuir preços (valor fixo ou porcentagem)"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:678
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:689
 msgid "Set sale prices"
 msgstr "Configurar preço de promoção"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:679
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:690
 msgid "Increase sale prices (fixed amount or percentage)"
 msgstr "Aumentar preços de oferta (valor fixo ou porcentagem)"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:680
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:691
 msgid "Decrease sale prices (fixed amount or percentage)"
 msgstr "Diminuir preços de oferta (valor fixo ou porcentagem)"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:681
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:692
 msgid "Set scheduled sale dates"
 msgstr "Configurar datas de oferta"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:684
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:695
 msgid "Toggle &quot;Manage stock&quot;"
 msgstr "Alternar &quot;Gerenciar estoque&quot;"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:693
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:704
 msgid "Downloadable products"
 msgstr "Produtos baixáveis"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:694
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:705
 msgid "Download limit"
 msgstr "Limite de download"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:695
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:706
 msgid "Download expiry"
 msgstr "Validade do download"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:699
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:710
 #: includes/admin/views/html-report-by-date.php:41
 msgid "Go"
 msgstr "Ir"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:702
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:736
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:713
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:747
 msgid "%s item"
 msgid_plural "%s items"
 msgstr[0] "%s item"
 msgstr[1] "%s itens"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:707
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:741
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:718
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:752
 msgid "Go to the first page"
 msgstr "Ir para a primeira página"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:708
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:742
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:719
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:753
 msgid "Go to the previous page"
 msgstr "Ir para a página anterior"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:710
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:744
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:721
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:755
 msgid "Select Page"
 msgstr "Selecionar página"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:711
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:745
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:722
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:756
 msgid "Current page"
 msgstr "Página atual"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:718
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:752
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:729
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:763
 msgid "Go to the next page"
 msgstr "Ir para a próxima página"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:719
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:753
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:730
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:764
 msgid "Go to the last page"
 msgstr "Ir para a última página"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:732
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:743
 #: includes/admin/settings/views/html-keys-edit.php:96
 #: includes/admin/views/html-admin-page-status-tools.php:69
 msgid "Save Changes"
 msgstr "Salvar alterações"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:853
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:864
 msgid "Product SKU must be unique."
 msgstr "REF do produto precisa ser única."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1172
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1183
 msgid ""
 "The downloadable file %s cannot be used as it does not have an allowed file "
 "type. Allowed types include: %s"
 msgstr "O arquivo para download %s não pode ser utilizado, uma vez que não é tipo de arquivo permitido. Tipos de arquivos permitidos: %s"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1185
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1196
 msgid ""
 "The downloadable file %s cannot be used as it does not exist on the server."
 msgstr "O arquivo para download %s não pode ser utilizado, pois não foi encontrado no servidor."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1293
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1304
 msgid "Variation #%s of %s"
 msgstr "Variação %s de %s"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1337
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1348
 msgid "#%s &ndash; Variation SKU must be unique."
 msgstr "#%s &ndash; REF da variação deve ser único."
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1457
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1468
 msgid ""
 "#%s &ndash; The downloadable file %s cannot be used as it does not have an "
 "allowed file type. Allowed types include: %s"
 msgstr "#%s &ndash; O Arquivo para download %s não pode ser utilizado, pois não é um tipo de arquivo permitido. Tipos de arquivos permitidos: %s"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1464
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:1475
 msgid ""
 "#%s &ndash; The downloadable file %s cannot be used as it does not exist on "
 "the server."
@@ -7045,73 +7057,73 @@ msgid "%1$s at %2$s"
 msgstr "%1$s às %2$s"
 
 #: includes/admin/class-wc-admin-assets.php:103
-#: includes/admin/class-wc-admin-setup-wizard.php:97
+#: includes/admin/class-wc-admin-setup-wizard.php:96
 msgctxt "enhanced select"
 msgid "One result is available, press enter to select it."
 msgstr "Um resultado está disponível, pressione enter para selecioná-lo."
 
 #: includes/admin/class-wc-admin-assets.php:104
-#: includes/admin/class-wc-admin-setup-wizard.php:98
+#: includes/admin/class-wc-admin-setup-wizard.php:97
 msgctxt "enhanced select"
 msgid "%qty% results are available, use up and down arrow keys to navigate."
 msgstr "%qty% resultados estão disponíveis, use as teclas das setas para cima e para baixo para navegar."
 
 #: includes/admin/class-wc-admin-assets.php:105
-#: includes/admin/class-wc-admin-setup-wizard.php:99
+#: includes/admin/class-wc-admin-setup-wizard.php:98
 msgctxt "enhanced select"
 msgid "No matches found"
 msgstr "Nenhuma combinação foi encontrada"
 
 #: includes/admin/class-wc-admin-assets.php:106
-#: includes/admin/class-wc-admin-setup-wizard.php:100
+#: includes/admin/class-wc-admin-setup-wizard.php:99
 msgctxt "enhanced select"
 msgid "Loading failed"
 msgstr "O carregando falhou"
 
 #: includes/admin/class-wc-admin-assets.php:107
-#: includes/admin/class-wc-admin-setup-wizard.php:101
+#: includes/admin/class-wc-admin-setup-wizard.php:100
 msgctxt "enhanced select"
 msgid "Please enter 1 or more characters"
 msgstr "Por favor, digite 1 ou mais caracteres"
 
 #: includes/admin/class-wc-admin-assets.php:108
-#: includes/admin/class-wc-admin-setup-wizard.php:102
+#: includes/admin/class-wc-admin-setup-wizard.php:101
 msgctxt "enhanced select"
 msgid "Please enter %qty% or more characters"
 msgstr "Por favor, digite %qty% ou mais caracteres"
 
 #: includes/admin/class-wc-admin-assets.php:109
-#: includes/admin/class-wc-admin-setup-wizard.php:103
+#: includes/admin/class-wc-admin-setup-wizard.php:102
 msgctxt "enhanced select"
 msgid "Please delete 1 character"
 msgstr "Por favor, apague 1 caracter"
 
 #: includes/admin/class-wc-admin-assets.php:110
-#: includes/admin/class-wc-admin-setup-wizard.php:104
+#: includes/admin/class-wc-admin-setup-wizard.php:103
 msgctxt "enhanced select"
 msgid "Please delete %qty% characters"
 msgstr "Por favor, apague %qty% caracteres"
 
 #: includes/admin/class-wc-admin-assets.php:111
-#: includes/admin/class-wc-admin-setup-wizard.php:105
+#: includes/admin/class-wc-admin-setup-wizard.php:104
 msgctxt "enhanced select"
 msgid "You can only select 1 item"
 msgstr "Você pode apenas selecionar 1 item"
 
 #: includes/admin/class-wc-admin-assets.php:112
-#: includes/admin/class-wc-admin-setup-wizard.php:106
+#: includes/admin/class-wc-admin-setup-wizard.php:105
 msgctxt "enhanced select"
 msgid "You can only select %qty% items"
 msgstr "Você pode apenas selecionar %qty% itens"
 
 #: includes/admin/class-wc-admin-assets.php:113
-#: includes/admin/class-wc-admin-setup-wizard.php:107
+#: includes/admin/class-wc-admin-setup-wizard.php:106
 msgctxt "enhanced select"
 msgid "Loading more results&hellip;"
 msgstr "Carregando mais resultados&hellip;"
 
 #: includes/admin/class-wc-admin-assets.php:114
-#: includes/admin/class-wc-admin-setup-wizard.php:108
+#: includes/admin/class-wc-admin-setup-wizard.php:107
 msgctxt "enhanced select"
 msgid "Searching&hellip;"
 msgstr "Procurando&hellip;"
@@ -7219,15 +7231,15 @@ msgctxt "placeholder"
 msgid "To&hellip;"
 msgstr "Para&hellip;"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:258
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:261
 #: includes/admin/views/html-bulk-edit-product.php:77
 #: includes/admin/views/html-quick-edit-product.php:56
 msgctxt "Tax status"
 msgid "None"
 msgstr "Nenhum"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:716
-#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:750
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:727
+#: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:761
 msgctxt "number of pages"
 msgid "of"
 msgstr "de"
