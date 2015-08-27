@@ -51,19 +51,25 @@ class WC_Registrations_Checkout {
 	public static function registrations_checkout_fields( $checkout ) {
 		global $woocommerce;
 		$cart = $woocommerce->cart->get_cart();
-		$registrations = 0;
-		//error_log( print_r( $cart, true ) );
+		$registrations = 1;
 
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
+			error_log( print_r( $_product , true ) );
 
 			if( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
 				$qty = $values['quantity'];
 
-				for( $registrations = 1; $registrations <= $qty; $registrations++ ) {
+				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 
-					if( $registrations == 1 ) {
-						echo '<div id="registrations_fields"><h2>' . sprintf( __( 'Participants in %s', 'woocommerce-registrations' ), $_product->parent->post->post_title ) . '</h2>';
+					if( $i == 1 ) {
+						$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
+
+						if( $date ) {
+							echo '<div id="registrations_fields"><h2>' . sprintf( __( 'Participants in %s - %s', 'woocommerce-registrations' ),  $_product->parent->post->post_title, esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) ) ) . '</h2>';
+						} else {
+							echo '<div id="registrations_fields"><h2>' . sprintf( __( 'Participants in %s', 'woocommerce-registrations' ), $_product->parent->post->post_title ) . '</h2>';
+						}
 					}
 
 					woocommerce_form_field( 'participant_name_' . $registrations , array(
@@ -82,7 +88,7 @@ class WC_Registrations_Checkout {
 						), $checkout->get_value( 'participant_email_' . $registrations )
 					);
 
-					if( $registrations == $qty ) {
+					if( $i == $qty ) {
 						echo '</div>';
 					}
 				}
@@ -92,7 +98,7 @@ class WC_Registrations_Checkout {
 
 	public static function registrations_checkout_process() {
 		global $woocommerce;
-		$registrations = 0;
+		$registrations = 1;
 
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
@@ -100,7 +106,7 @@ class WC_Registrations_Checkout {
 			if( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
 				$qty = $values['quantity'];
 
-				for( $registrations = 1; $registrations <= $qty; $registrations++ ) {
+				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 					// Check if set, if its not set add an error.
 					if ( ! $_POST['participant_name_' . $registrations ] ) {
 						/*
@@ -122,7 +128,7 @@ class WC_Registrations_Checkout {
 
 	public static function registrations_checkout_field_update_order_meta( $order_id ) {
 		global $woocommerce;
-		$registrations = 0;
+		$registrations = 1;
 
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
@@ -130,18 +136,24 @@ class WC_Registrations_Checkout {
 			if( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
 				$qty = $values['quantity'];
 
-				for( $registrations = 1; $registrations <= $qty; $registrations++ ) {
-						//Participant Name
-						if ( ! empty( $_POST['participant_name_' . $registrations ] ) ) {
-							update_post_meta( $order_id, '#' . $registrations . ' Participant Name' , sanitize_text_field( $_POST['participant_name_' . $registrations ] ) );
-						}
+				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
+					$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
 
-						//Participant Email
-						if ( ! empty( $_POST['participant_email_' . $registrations ] ) ) {
-							update_post_meta( $order_id, '#' . $registrations . ' Participant Email', sanitize_text_field( $_POST['participant_email_' . $registrations ] ) );
-						}
+					if( $date ) {
+						$date = $_product->parent->post->post_title . ' - ' . esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) );
+					}
+
+					//Participant Name
+					if ( ! empty( $_POST['participant_name_' . $registrations ] ) ) {
+						update_post_meta( $order_id, '#' . $registrations . ' Participant Name - ' . $date , sanitize_text_field( $_POST['participant_name_' . $registrations ] ) );
+					}
+
+					//Participant Email
+					if ( ! empty( $_POST['participant_email_' . $registrations ] ) ) {
+						update_post_meta( $order_id, '#' . $registrations . ' Participant Email  - ' . $date , sanitize_text_field( $_POST['participant_email_' . $registrations ] ) );
 					}
 				}
+			}
 		}
 	}
 
@@ -167,7 +179,7 @@ class WC_Registrations_Checkout {
 			} else {
 				$emails = 0;
 			}
-			
+
 		} while( $names && $emails );
 	}
 
