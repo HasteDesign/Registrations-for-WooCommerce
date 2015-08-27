@@ -40,6 +40,8 @@
             <!-- Hidden Fields -->
             <input type="hidden" id="hidden_name" class="attribute_name" name="attribute_names[0]" value="<?php echo $name; ?>">
             <input type="hidden" id="hidden_position" name="attribute_position[0]" class="attribute_position" value="0">
+            <input type="hidden" id="hidden_taxonomy" name="attribute_is_taxonomy[0]" value="0">
+            <input type="hidden" id="hidden_visibility" class="checkbox" checked="checked" name="attribute_visibility[0]" value="0">
             <input type="hidden" id="hidden_variation" class="checkbox" name="attribute_variation[0]" value="1" disabled="true">
             <input type="hidden" id="hidden_date" name="attribute_values[0]" value="">
 
