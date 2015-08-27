@@ -135,52 +135,77 @@ class WC_Registrations_Checkout {
 
 			if( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
 				$qty = $values['quantity'];
+				$meta_value = '';
 
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 					$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
 
 					if( $date ) {
-						$date = $_product->parent->post->post_title . ' - ' . esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) );
+						$meta_name = $_product->parent->post->post_title . ' - ' . $date;
+					} else {
+						$meta_name = $_product->parent->post->post_title;
 					}
 
-					//Participant Name
-					if ( ! empty( $_POST['participant_name_' . $registrations ] ) ) {
-						update_post_meta( $order_id, '#' . $registrations . ' Participant Name - ' . $date , sanitize_text_field( $_POST['participant_name_' . $registrations ] ) );
-					}
-
-					//Participant Email
-					if ( ! empty( $_POST['participant_email_' . $registrations ] ) ) {
-						update_post_meta( $order_id, '#' . $registrations . ' Participant Email  - ' . $date , sanitize_text_field( $_POST['participant_email_' . $registrations ] ) );
+					//Participant Name and Participant Email
+					if ( ! empty( $_POST['participant_name_' . $registrations ] ) && ! empty( $_POST['participant_email_' . $registrations ] ) ) {
+						if( $i !== 1 ) {
+							$meta_value .= ','. sanitize_text_field( $_POST['participant_name_' . $registrations ] );
+							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
+						} else {
+							$meta_value = sanitize_text_field( $_POST['participant_name_' . $registrations ] );
+							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
+						}
 					}
 				}
+
+				//Update post meta
+				update_post_meta( $order_id, $meta_name, $meta_value );
 			}
 		}
 	}
 
 	public static function registrations_field_display_admin_order_meta( $order ){
-		$names = 1;
-		$emails = 1;
+		foreach( $order->get_items() as $item ) {
+			$date = get_post_meta( $item['variation_id'], 'attribute_dates', true );
 
-		do {
-			$name = get_post_meta( $order->id, '#' . $names . ' Participant Name', true );
-
-			if( !empty( $name ) ) {
-				echo '<p><strong>'. sprintf( __( '#%u Participant Name' ), $names ) .':</strong> ' . $name . '</p>';
-				$names++;
+			if( $date ) {
+				$meta_name = $item['name'] . ' - ' . $date;
 			} else {
-				$names = 0;
+				$meta_name = $item['name'];
 			}
+			error_log( print_r( $item['variation_id'], true) );
+			error_log( print_r( $meta_name, true) );
 
-			$email = get_post_meta( $order->id, '#' . $emails . ' Participant Email', true );
+			$meta_value = get_post_meta( $order->id, $meta_name, true );
 
-			if( !empty( $email ) ) {
-				echo '<p><strong>'. sprintf( __( '#%u Participant Email' ), $emails ) .':</strong> ' . $email . '</p>';
-				$emails++;
-			} else {
-				$emails = 0;
+			error_log( print_r( $meta_value, true) );
+
+			if( $meta_value ) {
+				$meta_names = explode( ' - ', $meta_name );
+				echo '<p><strong>'. $meta_names[0] . ' - '. esc_html( apply_filters( 'woocommerce_variation_option_name', $meta_names[1] ) ) .':</strong> ' . $meta_value . '</p>';
 			}
+		}
 
-		} while( $names && $emails );
+		// do {
+		// 	$name = get_post_meta( $order->id, '#' . $names . ' Participant Name', true );
+		//
+		// 	if( !empty( $name ) ) {
+		// 		echo '<p><strong>'. sprintf( __( '#%u Participant Name' ), $names ) .':</strong> ' . $name . '</p>';
+		// 		$names++;
+		// 	} else {
+		// 		$names = 0;
+		// 	}
+		//
+		// 	$email = get_post_meta( $order->id, '#' . $emails . ' Participant Email', true );
+		//
+		// 	if( !empty( $email ) ) {
+		// 		echo '<p><strong>'. sprintf( __( '#%u Participant Email' ), $emails ) .':</strong> ' . $email . '</p>';
+		// 		$emails++;
+		// 	} else {
+		// 		$emails = 0;
+		// 	}
+		//
+		// } while( $names && $emails );
 	}
 
 }
