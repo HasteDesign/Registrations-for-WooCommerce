@@ -107,18 +107,12 @@ class WC_Registrations_Checkout {
 				$qty = $values['quantity'];
 
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
-					// Check if set, if its not set add an error.
+					// Check if field is set, if it's not set add an error.
 					if ( ! $_POST['participant_name_' . $registrations ] ) {
-						/*
-						 * TO-DO: Funções de localização com variável
-						 */
 						wc_add_notice( sprintf( __( 'Please enter a correct name to participant #%u ', 'woocommerce-registrations' ), $registrations ) );
 					}
 
 					if ( ! $_POST['participant_email_' . $registrations ] ) {
-						/*
-						 * TO-DO: Funções de localização com variável
-						 */
 						wc_add_notice( sprintf( __( 'Please enter a correct email to participant #%u ', 'woocommerce-registrations' ), $registrations ) );
 					}
 				}
@@ -173,39 +167,27 @@ class WC_Registrations_Checkout {
 			} else {
 				$meta_name = $item['name'];
 			}
-			error_log( print_r( $item['variation_id'], true) );
-			error_log( print_r( $meta_name, true) );
 
 			$meta_value = get_post_meta( $order->id, $meta_name, true );
 
-			error_log( print_r( $meta_value, true) );
-
 			if( $meta_value ) {
 				$meta_names = explode( ' - ', $meta_name );
-				echo '<p><strong>'. $meta_names[0] . ' - '. esc_html( apply_filters( 'woocommerce_variation_option_name', $meta_names[1] ) ) .':</strong> ' . $meta_value . '</p>';
+				echo '<p><strong>'. $meta_names[0] . ' - '. esc_html( apply_filters( 'woocommerce_variation_option_name', $meta_names[1] ) ) .':</strong></p>';
+				$meta_values = explode( ',', $meta_value );
+
+				$i = 1;
+				foreach( $meta_values as $value ) {
+					if( $i % 2 == 0 ) {
+						//Display email
+						echo $value . '<br>';
+					} else {
+						//Display Name
+						echo $value . ' - ';
+					}
+					$i++;
+				}
 			}
 		}
-
-		// do {
-		// 	$name = get_post_meta( $order->id, '#' . $names . ' Participant Name', true );
-		//
-		// 	if( !empty( $name ) ) {
-		// 		echo '<p><strong>'. sprintf( __( '#%u Participant Name' ), $names ) .':</strong> ' . $name . '</p>';
-		// 		$names++;
-		// 	} else {
-		// 		$names = 0;
-		// 	}
-		//
-		// 	$email = get_post_meta( $order->id, '#' . $emails . ' Participant Email', true );
-		//
-		// 	if( !empty( $email ) ) {
-		// 		echo '<p><strong>'. sprintf( __( '#%u Participant Email' ), $emails ) .':</strong> ' . $email . '</p>';
-		// 		$emails++;
-		// 	} else {
-		// 		$emails = 0;
-		// 	}
-		//
-		// } while( $names && $emails );
 	}
 
 }
