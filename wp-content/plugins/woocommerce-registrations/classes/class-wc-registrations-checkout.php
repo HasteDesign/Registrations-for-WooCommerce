@@ -152,17 +152,35 @@ class WC_Registrations_Checkout {
 							$meta_value = sanitize_text_field( $_POST['participant_name_' . $registrations ] );
 							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
 						}
+
+						WC_Registrations_Checkout::create_registration_user( sanitize_text_field( $_POST['participant_name_' . $registrations ] ), sanitize_text_field( $_POST['participant_email_' . $registrations ] ));
 					}
 
-					// check for plugin using plugin name
-					if ( is_plugin_active( 'groups/groups.php' ) ) {
-						Groups_Group::create( array( 'name' => $_product->parent->post->post_title ) );
-					}
 				}
+
+				WC_Registrations_Checkout::create_registration_group( $_product->parent->post->post_title );
 
 				//Update post meta
 				update_post_meta( $order_id, $meta_name, $meta_value );
 			}
+		}
+	}
+
+	public static function create_registration_group( $group_name ) {
+		// Check if Groups plugin is active
+		if ( is_plugin_active( 'groups/groups.php' ) ) {
+			Groups_Group::create( array( 'name' => $group_name ) );
+		}
+
+
+	}
+
+	public static function create_registration_user( $name, $email ) {
+		$user_id = username_exists( $email );
+
+		if ( !$user_id && email_exists( $email ) == false ) {
+			$random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
+			$user_id = wp_create_user( $email, $random_password, $email );
 		}
 	}
 
