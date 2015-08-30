@@ -10,6 +10,9 @@
  * @author		Allyson Souza
  * @since		1.0
  */
+
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
 class WC_Registrations_Checkout {
 
 	/**
@@ -149,6 +152,11 @@ class WC_Registrations_Checkout {
 							$meta_value = sanitize_text_field( $_POST['participant_name_' . $registrations ] );
 							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
 						}
+					}
+
+					// check for plugin using plugin name
+					if ( is_plugin_active( 'groups/groups.php' ) ) {
+						Groups_Group::create( array( 'name' => $_product->parent->post->post_title ) );
 					}
 				}
 

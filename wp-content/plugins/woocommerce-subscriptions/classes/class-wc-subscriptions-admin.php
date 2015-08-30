@@ -1192,19 +1192,20 @@ class WC_Subscriptions_Admin {
 	 *
 	 * @since 1.0
 	 */
-	public static function admin_installed_notice() { ?>
-<div id="message" class="updated woocommerce-message wc-connect woocommerce-subscriptions-activated">
-	<div class="squeezer">
-		<h4><?php printf( __( '%sWooCommerce Subscriptions Installed%s &#8211; %sYou\'re ready to start selling subscriptions!%s', 'woocommerce-subscriptions' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></h4>
+	public static function admin_installed_notice() {
+		?>
+		<div id="message" class="updated woocommerce-message wc-connect woocommerce-subscriptions-activated">
+			<div class="squeezer">
+				<h4><?php printf( __( '%sWooCommerce Subscriptions Installed%s &#8211; %sYou\'re ready to start selling subscriptions!%s', 'woocommerce-subscriptions' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></h4>
 
-		<p class="submit">
-			<a href="<?php echo esc_url( self::add_subscription_url() ); ?>" class="button button-primary"><?php _e( 'Add a Subscription Product', 'woocommerce-subscriptions' ); ?></a>
-			<a href="<?php echo esc_url( self::settings_tab_url() ); ?>" class="docs button button-primary"><?php _e( 'Settings', 'woocommerce-subscriptions' ); ?></a>
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.woothemes.com/products/woocommerce-subscriptions/" data-text="Woot! I can sell subscriptions with #WooCommerce" data-via="WooThemes" data-size="large">Tweet</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-		</p>
-	</div>
-</div>
+				<p class="submit">
+					<a href="<?php echo esc_url( self::add_subscription_url() ); ?>" class="button button-primary"><?php _e( 'Add a Subscription Product', 'woocommerce-subscriptions' ); ?></a>
+					<a href="<?php echo esc_url( self::settings_tab_url() ); ?>" class="docs button button-primary"><?php _e( 'Settings', 'woocommerce-subscriptions' ); ?></a>
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.woothemes.com/products/woocommerce-subscriptions/" data-text="Woot! I can sell subscriptions with #WooCommerce" data-via="WooThemes" data-size="large">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				</p>
+			</div>
+		</div>
 		<?php
 	}
 
