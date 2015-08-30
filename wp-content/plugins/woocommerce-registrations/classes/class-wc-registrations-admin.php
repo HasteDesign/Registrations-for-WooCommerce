@@ -110,7 +110,7 @@ class WC_Registrations_Admin {
 
 			if ( ! empty( $woocommerce_plugin_dir_file ) ) {
 
-				wp_enqueue_style( 'woocommerce-activation', plugins_url(  '/assets/css/activation.css', self::get_woocommerce_plugin_dir_file() ), array(), WC_Subscriptions::$version );
+				wp_enqueue_style( 'woocommerce-activation', plugins_url(  '/assets/css/activation.css', self::get_woocommerce_plugin_dir_file() ), array(), WC_Registrations::$version );
 
 				if ( ! isset( $_GET['page'] ) || 'wcs-about' != $_GET['page'] ) {
 					add_action( 'admin_notices', __CLASS__ . '::admin_installed_notice' );
@@ -123,7 +123,6 @@ class WC_Registrations_Admin {
 		if ( $is_woocommerce_screen || $is_activation_screen ) {
 			wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css', array(), WC_Registrations::$version );
 		}
-
 	}
 
   /**
@@ -300,6 +299,46 @@ class WC_Registrations_Admin {
 				return $opt;
 			}
 		}
+	}
+
+	/**
+	 * Searches through the list of active plugins to find WooCommerce. Just in case
+	 * WooCommerce resides in a folder other than /woocommerce/
+	 *
+	 * @since 1.0
+	 */
+	public static function get_woocommerce_plugin_dir_file() {
+
+		$woocommerce_plugin_file = '';
+
+		foreach ( get_option( 'active_plugins', array() ) as $plugin ) {
+			if ( substr( $plugin, strlen( '/woocommerce.php' ) * -1 ) === '/woocommerce.php' ) {
+				$woocommerce_plugin_file = $plugin;
+				break;
+			}
+		}
+
+		return $woocommerce_plugin_file;
+	}
+
+	/**
+	 * Display a welcome message. Called when the Registrations extension is activated.
+	 *
+	 * @since 1.0
+	 */
+	public static function admin_installed_notice() {
+		?>
+		<div id="message" class="updated woocommerce-message wc-connect woocommerce-registrations-activated">
+			<div class="squeezer">
+				<h4><?php printf( __( '%sWooCommerce Registrations Installed%s &#8211; %sYou\'re ready to start selling registrations!%s', 'woocommerce-registrations' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></h4>
+
+				<p class="submit">
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.hastedesign.com.br/" data-text="Sell course and events registrations with #WooCommerce" data-via="HasteDesign" data-size="large">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				</p>
+			</div>
+		</div>
+		<?php
 	}
 }
 
