@@ -44,7 +44,6 @@ jQuery( function( $ ) {
 				$( 'body' ).on( 'woocommerce_added_attribute' , this.show_hide_registration_meta );
 			}
 
-
 			this.show_hide_registration_meta();
 			this.remove_date_attribute();
 			this.adjust_attributes_index();
@@ -95,9 +94,6 @@ jQuery( function( $ ) {
 			var value = $( 'select[name="date_select"]' ).val();
 
 			var el = $( 'script.template-' + value ).html();
-			//var el = $(el);
-			//console.log( el.find('h3').text().replace('#0', '#' + wc_meta_boxes_product_registrations.count_dates() ) );
-			//el.filter('h3').text().replace('#0', '#' + wc_meta_boxes_product_registrations.count_dates() );
 			$( '.dates' ).append( el );
 			wc_meta_boxes_product_registrations.dates_ids();
 			event.preventDefault();
