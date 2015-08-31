@@ -21,8 +21,6 @@ class WC_Registrations_Checkout {
 	 * @since 1.0
 	 */
 	public static function init() {
-		/*
-		 * TO-DO: Syntax Error: Unexpected < - gerado na validação de compra quando estes filtros estão ativos
 		/**
 		 * Add the field to the checkout
 		 */
@@ -58,7 +56,6 @@ class WC_Registrations_Checkout {
 
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
-			error_log( print_r( $_product , true ) );
 
 			if( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
 				$qty = $values['quantity'];
@@ -75,18 +72,28 @@ class WC_Registrations_Checkout {
 						}
 					}
 
+					echo "<h3>" . sprintf( __( 'Participant #%u', $registrations ), $registrations ) . '</h3>';
+
 					woocommerce_form_field( 'participant_name_' . $registrations , array(
 						'type'          => 'text',
 						'class'         => array('participant-name form-row-wide'),
-						'label'         => sprintf( __( '#%u Participant Name', 'woocommerce-registrations' ), $registrations),
+						'label'         => __( 'Name', 'woocommerce-registrations' ),
 						'placeholder'   => __( 'Mary Anna', 'woocommerce-registrations'),
 						), $checkout->get_value( 'participant_name_' . $registrations )
+					);
+
+					woocommerce_form_field( 'participant_surname_' . $registrations , array(
+						'type'          => 'text',
+						'class'         => array('participant-surname form-row-wide'),
+						'label'         => __( 'Surname', 'woocommerce-registrations' ),
+						'placeholder'   => __( 'Smith', 'woocommerce-registrations'),
+					), $checkout->get_value( 'participant_surname_' . $registrations )
 					);
 
 					woocommerce_form_field( 'participant_email_' . $registrations , array(
 						'type'          => 'email',
 						'class'         => array('participant-email form-row-wide'),
-						'label'         => sprintf( __( '#%u Participant Email', 'woocommerce-registrations' ), $registrations ),
+						'label'         => __( 'Email', 'woocommerce-registrations' ),
 						'placeholder'   => __( 'mary@anna.com.br', 'woocommerce-registrations'),
 						), $checkout->get_value( 'participant_email_' . $registrations )
 					);
@@ -127,24 +134,29 @@ class WC_Registrations_Checkout {
 		global $woocommerce;
 		$registrations = 1;
 
+		// Loop trough cart items
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
+			$users = [];
 
+			// Check if is registration product type
 			if( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
 				$qty = $values['quantity'];
 				$meta_value = '';
+				$title = $_product->parent->post->post_title;
 
+				// Run loop for each quantity of the product
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
+					//Get the variation meta date (JSON)
 					$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
-
-					if( $date ) {
-						$meta_name = $_product->parent->post->post_title . ' - ' . $date;
-					} else {
-						$meta_name = $_product->parent->post->post_title;
-					}
+					$date ? $meta_name = $title . ' - ' . $date : $meta_name = $title;
 
 					//Participant Name and Participant Email
-					if ( ! empty( $_POST['participant_name_' . $registrations ] ) && ! empty( $_POST['participant_email_' . $registrations ] ) ) {
+					if (! empty( $_POST['participant_name_' . $registrations ] ) &&
+					 	! empty( $_POST['participant_surname_' . $registrations ] ) &&
+						! empty( $_POST['participant_email_' . $registrations ] ) ) {
+
+						//Ckeck if it's not the first data to be added
 						if( $i !== 1 ) {
 							$meta_value .= ','. sanitize_text_field( $_POST['participant_name_' . $registrations ] );
 							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
@@ -153,34 +165,60 @@ class WC_Registrations_Checkout {
 							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
 						}
 
-						WC_Registrations_Checkout::create_registration_user( sanitize_text_field( $_POST['participant_name_' . $registrations ] ), sanitize_text_field( $_POST['participant_email_' . $registrations ] ));
+						$user = WC_Registrations_Checkout::create_registration_user( sanitize_text_field( $_POST['participant_name_' . $registrations ] ), sanitize_text_field( $_POST['participant_surname_' . $registrations ] ), sanitize_text_field( $_POST['participant_email_' . $registrations ] ));
+
+						if( !empty( $user ) ) {
+							$users[] = $user;
+						}
 					}
 
 				}
 
-				WC_Registrations_Checkout::create_registration_group( $_product->parent->post->post_title );
-
 				//Update post meta
 				update_post_meta( $order_id, $meta_name, $meta_value );
+
+				/*
+				 * Create a registration group and add users to this group
+				 */
+				WC_Registrations_Checkout::create_registration_group( $title, $users );
+
 			}
 		}
 	}
 
-	public static function create_registration_group( $group_name ) {
+	public static function create_registration_group( $group_name, $users ) {
 		// Check if Groups plugin is active
 		if ( is_plugin_active( 'groups/groups.php' ) ) {
 			Groups_Group::create( array( 'name' => $group_name ) );
+
+			//error_log( print_r( $group, true ) );
+
+			// foreach( $users as $user_id ) {
+			// 	Groups_User_Group::create( array( 'user_id' => $user_id, 'group_id' => $group_id ) );
+			// }
 		}
-
-
 	}
 
-	public static function create_registration_user( $name, $email ) {
+	public static function create_registration_user( $name, $surname, $email ) {
 		$user_id = username_exists( $email );
 
 		if ( !$user_id && email_exists( $email ) == false ) {
 			$random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
 			$user_id = wp_create_user( $email, $random_password, $email );
+
+			if ( is_wp_error( $user_id ) ) {
+			    if (WP_DEBUG === true) {
+					$message = $user_id->get_error_message();
+			        error_log( print_r( $message, true ) );
+			    }
+				return false;
+			} else {
+				$user_id = wp_update_user( array( 'ID' => $user_id, 'first_name' => $name, 'last_name' => $surname ) );
+				wp_new_user_notification( $user_id, 'both' );
+				return $user_id;
+			}
+		} else {
+			return $user_id;
 		}
 	}
 
@@ -215,7 +253,6 @@ class WC_Registrations_Checkout {
 			}
 		}
 	}
-
 }
 
 WC_Registrations_Checkout::init();
