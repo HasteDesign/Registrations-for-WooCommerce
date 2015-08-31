@@ -191,11 +191,15 @@ class WC_Registrations_Checkout {
 		if ( is_plugin_active( 'groups/groups.php' ) ) {
 			Groups_Group::create( array( 'name' => $group_name ) );
 
-			//error_log( print_r( $group, true ) );
-
-			// foreach( $users as $user_id ) {
-			// 	Groups_User_Group::create( array( 'user_id' => $user_id, 'group_id' => $group_id ) );
-			// }
+			if ( $group = Groups_Group::read_by_name( $group_name ) ) {
+			    $group_id = $group->group_id;
+			}
+			
+			if( !empty( $group_id ) ) {
+				foreach( $users as $user_id ) {
+					Groups_User_Group::create( array( 'user_id' => $user_id, 'group_id' => $group_id ) );
+				}
+			}
 		}
 	}
 
