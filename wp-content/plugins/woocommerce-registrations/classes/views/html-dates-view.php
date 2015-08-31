@@ -101,7 +101,7 @@
             <script type="text/template" class="template-multiple_date_inputs">
                 <p class="form-field multiple_date_inputs">
                     <label for="event_start_date"><?php _e( 'Day', 'woocommerce-registrations'); ?></label>
-                    <input type="date" class="wc_input_event_date event_date" name="event_date" value="2011-09-29">
+                    <input type="date" class="wc_input_event_date event_date" name="event_date" value="<?php <?php echo date("Y-m-d"); ?>">
                     <button type="button" class="remove_day button"><?php _e( 'Remove Day', 'woocommerce-registrations' ); ?></button>
                 </p>
             </script>
