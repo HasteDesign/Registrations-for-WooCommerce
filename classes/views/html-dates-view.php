@@ -41,7 +41,7 @@
             <input type="hidden" id="hidden_name" class="attribute_name" name="attribute_names[0]" value="<?php echo $name; ?>">
             <input type="hidden" id="hidden_position" name="attribute_position[0]" class="attribute_position" value="0">
             <input type="hidden" id="hidden_taxonomy" name="attribute_is_taxonomy[0]" value="0">
-            <input type="hidden" id="hidden_visibility" class="checkbox" checked="checked" name="attribute_visibility[0]" value="0">
+            <input type="hidden" id="hidden_visibility" name="attribute_visibility[0]" value="0">
             <input type="hidden" id="hidden_variation" class="checkbox" name="attribute_variation[0]" value="1" disabled="true">
             <input type="hidden" id="hidden_date" name="attribute_values[0]" value="">
 
@@ -101,7 +101,7 @@
             <script type="text/template" class="template-multiple_date_inputs">
                 <p class="form-field multiple_date_inputs">
                     <label for="event_start_date"><?php _e( 'Day', 'woocommerce-registrations'); ?></label>
-                    <input type="date" class="wc_input_event_date event_date" name="event_date" value="<?php <?php echo date("Y-m-d"); ?>">
+                    <input type="date" class="wc_input_event_date event_date" name="event_date" value="<?php echo date("Y-m-d"); ?>">
                     <button type="button" class="remove_day button"><?php _e( 'Remove Day', 'woocommerce-registrations' ); ?></button>
                 </p>
             </script>

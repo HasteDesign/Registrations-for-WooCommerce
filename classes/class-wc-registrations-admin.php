@@ -167,33 +167,31 @@ class WC_Registrations_Admin {
 
 		$variable_post_ids = $_POST['variable_post_id'];
 
-		$fields = array(
-			'_event_start_time',
-			'_event_end_time',
-			'week_days'
-		);
+		isset( $_POST['_event_start_time'] ) ? $_event_start_time = $_POST['_event_start_time'] : $_event_start_time = null;
+		isset( $_POST['_event_end_time']   ) ? $_event_end_time =   $_POST['_event_end_time'] : $_event_end_time = null;
+		isset( $_POST['_week_days']        ) ? $_week_days =        $_POST['_week_days'] : $_week_days = null ;
 
 		$max_loop = max( array_keys( $variable_post_ids ) );
 
 		// Save each variations details
-		for ( $i = 0; $i <= $max_loop; $i ++ ) {
+		for ( $i = 0; $i <= $max_loop; $i++ ) {
 
 			if ( ! isset( $variable_post_ids[ $i ] ) ) {
 				continue;
 			}
 
-			$variation_id = absint( $variable_post_ids[ $i ] );
+			$variation_id = (int) $variable_post_ids[$i];
 
-			if( isset( $_POST[ '_event_start_time' . $i ] ) ) {
-				update_post_meta( $variation_id, '_event_start_time', sanitize_text_field( $_POST[ '_event_start_time' . $i ] ) );
+			if ( isset( $_event_start_time[$i] ) ) {
+				update_post_meta( $variation_id, '_event_start_time', stripslashes( $_event_start_time[$i] ) );
 			}
 
-			if( isset( $_POST[ '_event_end_time' . $i ] ) ) {
-				update_post_meta( $variation_id, '_event_end_time', sanitize_text_field( $_POST[ '_event_end_time' . $i ] ) );
+			if( isset( $_event_end_time[$i] ) ) {
+				update_post_meta( $variation_id, '_event_end_time', stripslashes( $_event_end_time[$i] ) );
 			}
 
-			if( isset( $_POST[ '_week_days' . $i ] ) ) {
-				update_post_meta( $variation_id, '_week_days', $_POST[ '_week_days' . $i ] );
+			if( isset( $_week_days[$i] ) ) {
+				update_post_meta( $variation_id, '_week_days', $_week_days[$i] );
 			}
 		}
 	}
