@@ -85,7 +85,7 @@ class WC_Registrations {
 		// Enqueue variation scripts
 		wp_enqueue_script( 'wc-add-to-cart-variation' );
 
-		woocommerce_get_template(
+		wc_get_template(
 			'single-product/add-to-cart/registration.php',
 			array(
 				'available_variations'  => $product->get_available_variations(),
