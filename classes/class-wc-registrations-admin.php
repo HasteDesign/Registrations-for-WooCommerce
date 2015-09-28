@@ -211,20 +211,24 @@ class WC_Registrations_Admin {
 		include_once( 'views/html-dates-view.php' );
     }
 
-	public static function registration_variation_option_name( $option ) {
+	public static function registration_variation_option_name( $option, $date_format = null ) {
+			if( $date_format == null ) {
+				$date_format = get_option( 'date_format' );
+			}
+			
 			$opt = json_decode( stripslashes( $option ) );
 			if( $opt ) {
-				return self::format_variations_dates( $opt );
+				return self::format_variations_dates( $opt, $date_format );
 			} else {
 				return $option;
 			}
 	}
 
-	public static function format_variations_dates( $opt ) {
+	public static function format_variations_dates( $opt, $date_format ) {
 		if ( $opt ) {
 			if ( $opt->type == 'single' ) {
 
-				return date_i18n( get_option( 'date_format' ), strtotime( $opt->date ) );
+				return date_i18n( $date_format, strtotime( $opt->date ) );
 
 			} elseif ( $opt->type == 'multiple' ) {
 
@@ -233,16 +237,16 @@ class WC_Registrations_Admin {
 
 				for( $i = 0; $i < $size ; $i++ ) {
 					if( $date_option == '' ) {
-						$date_option .= date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[ $i ] ) );
+						$date_option .= date_i18n( $date_format, strtotime( $opt->dates[ $i ] ) );
 					} else {
-						$date_option .= ', ' . date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[ $i ] ) );
+						$date_option .= ', ' . date_i18n( $date_format, strtotime( $opt->dates[ $i ] ) );
 					}
 				}
 
 				return $date_option;
 
 			} elseif ( $opt->type == 'range' ) {
-				return date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[0] ) ) . __(' to ', 'woocommerce-registrations') . date_i18n( get_option( 'date_format' ), strtotime( $opt->dates[1] ) );
+				return date_i18n( $date_format, strtotime( $opt->dates[0] ) ) . __(' to ', 'woocommerce-registrations') . date_i18n( $date_format, strtotime( $opt->dates[1] ) );
 			} else {
 				return $opt;
 			}
