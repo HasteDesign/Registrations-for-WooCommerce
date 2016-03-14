@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Registrations
  * Plugin URI: http://www.hastedesign.com.br
  * Description: Add registration product type to your WooCommerce.
- * Author: Haste Design, Allyson Souza, Anyssa Ferreira
+ * Author: Haste, Allyson Souza, Anyssa Ferreira
  * Author URI: http://www.hastedesign.com.br
  * Version: 1.0.0
  *
