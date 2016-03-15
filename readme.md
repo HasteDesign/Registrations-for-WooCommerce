@@ -35,6 +35,7 @@ O WooCommerce Registrations possibilita a criação do tipo de produto **inscri�
 Utilizando o tipo de produto inscrição, é possível criar um único produto com variações correspondentes à datas.
 
 São 3 tipos de datas:
+
 1. Dia único;
 2. Múltiplos dias;
 3. Intervalo de datas.
@@ -77,18 +78,3 @@ Português (pt_BR)
 **Minhas variações sumiram, o que faço?**
 
 Algumas vezes é possível que suas variações sumam ao apagar ou salvar novas datas. Caso isso aconteça, você pode tentar atualizar a sua página e acessar a aba 'Variações' novamente e verificar se elas são carregadas.
-
-Screenshots
-===========
-
-![alt tag](/assets/screenshot-1.png?raw=true "Custom Post Type 'Passos do Impress")
-
-![alt tag](/assets/screenshot-2.png?raw=true "Configurações do step")
-
-![alt tag](/assets/screenshot-3.png?raw=true "Configurações do step ")
-
-![alt tag](/assets/screenshot-4.png?raw=true "Visualização de step com formato \'title\'")
-
-![alt tag](/assets/screenshot-5.png?raw=true "Step com featured image configurada para ser background")
-
-![alt tag](/assets/screenshot-6.png?raw=true "Apresentação tridimensional")
