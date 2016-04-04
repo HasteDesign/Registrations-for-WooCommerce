@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Registrations 1.0.0\n"
+"Project-Id-Version: Registrations for WooCommerce 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-03 22:10-0300\n"
 "PO-Revision-Date: 2016-04-03 22:10-0300\n"
@@ -67,10 +67,10 @@ msgstr "até"
 #: ../classes/class-wc-registrations-admin.php:285
 #, php-format
 msgid ""
-"%sWooCommerce Registrations Installed%s &#8211; %sYou're ready to start "
+"%sRegistrations for WooCommerce Installed%s &#8211; %sYou're ready to start "
 "selling registrations!%s"
 msgstr ""
-"%sWooCommerce Registrations instalados%s &#8211; %sVocê está pronto para "
+"%sRegistrations for WooCommerce instalados%s &#8211; %sVocê está pronto para "
 "vendar inscrições!%s"
 
 #: ../classes/class-wc-registrations-checkout.php:69
@@ -274,22 +274,22 @@ msgstr "Limpar seleção"
 #: ../woocommerce-registrations.php:109
 #, php-format
 msgid ""
-"%sWooCommerce Registrations is inactive.%s The %sWooCommerce plugin%s must "
-"be active for WooCommerce Registrations to work. Please %sinstall & activate "
+"%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s must "
+"be active for Registrations for WooCommerce to work. Please %sinstall & activate "
 "WooCommerce%s"
 msgstr ""
-"%sWooCommerce Registrations está inativo.%s The %sO plugin WooCommerce %s "
-"deve estar ativo para que o WooCommerce Registrations funcione. Por favor "
+"%sRegistrations for WooCommerce está inativo.%s The %sO plugin WooCommerce %s "
+"deve estar ativo para que o Registrations for WooCommerce funcione. Por favor "
 "%sinstale e ative o WooCommerce%s"
 
 #: ../woocommerce-registrations.php:113
 #, php-format
 msgid ""
-"%sWooCommerce Registrations is inactive.%s This version of Registrations "
+"%sRegistrations for WooCommerce is inactive.%s This version of Registrations "
 "requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version "
 "2.1 or newer%s"
 msgstr ""
-"%sWooCommerce Registrations está inativo.%s Está versão do Registrations "
+"%sRegistrations for WooCommerce está inativo.%s Está versão do Registrations "
 "requer o WooCommerce 2.1 ou superior. Por favor %satualize o WooCommerce "
 "para a versão 2.1 ou superior%s"
 
@@ -301,7 +301,7 @@ msgid ""
 "Please %supgrade WooCommerce to version 2.0 or newer%s to avoid issues."
 msgstr ""
 "%sVocê possui uma versão desatualizada do WooCommerce instalada%s. "
-"WooCommerce Registrations não suporta mais versões do WooCommerce anteriores "
+"Registrations for WooCommerce não suporta mais versões do WooCommerce anteriores "
 "a 2.0. Por favor %satualize o WooCommerce para a versão 2.0 ou mais recente"
 "%s para evitar problemas."
 
@@ -313,7 +313,7 @@ msgid ""
 "WooCommerce to the latest version%s."
 msgstr ""
 "%sVocê possui uma versão desatualizada do WooCommerce instalada%s. "
-"WooCommerce Registrations não suporta mais versões do WooCommerce anteriores "
+"Registrations for WooCommerce não suporta mais versões do WooCommerce anteriores "
 "a 2.0.16 Por favor %satualize o WooCommerce para a versão 2.0 ou mais recente"
 "%s para evitar problemas."
 

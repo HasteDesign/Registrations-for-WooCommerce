@@ -6,7 +6,7 @@
  * to create subscription product variations.
  *
  * @class 		WC_Product_Registrations
- * @package		WooCommerce Registrations
+ * @package		Registrations for WooCommerce
  * @category	Class
  * @since		1.3
  *

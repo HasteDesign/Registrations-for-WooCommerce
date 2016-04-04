@@ -4,7 +4,7 @@
  *
  * Adds Registration product type with dates tab and saves dates as attributes used as variations of your product.
  *
- * @package		WooCommerce Registrations
+ * @package		Registrations for WooCommerce
  * @subpackage	WC_Registrations_Admin
  * @category	Class
  * @author		Allyson Souza
@@ -92,11 +92,11 @@ class WC_Registrations_Admin {
 			$script_params['isWCPre22']       = var_export( WC_Registrations::is_woocommerce_pre_2_2(), true );
 			$script_params['isWCPre23']       = var_export( WC_Registrations::is_woocommerce_pre_2_3(), true );
 
-			// WooCommerce Registrations Admin - admin.js
+			// Registrations for WooCommerce Admin - admin.js
 			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . '/js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/admin.js' ) );
 			wp_localize_script( 'woocommerce_registrations_admin', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 
-			// WooCommerce Registrations Ajax - wc-registrations-ajax.js
+			// Registrations for WooCommerce Ajax - wc-registrations-ajax.js
 			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( WC_Registrations::$plugin_file ) . '/js/wc-registrations-ajax.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/wc-registrations-ajax.js' ) );
 			wp_localize_script( 'woocommerce_registrations_ajax', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 		}
@@ -282,7 +282,7 @@ class WC_Registrations_Admin {
 		?>
 		<div id="message" class="updated woocommerce-message wc-connect woocommerce-registrations-activated">
 			<div class="squeezer">
-				<h4><?php printf( __( '%sWooCommerce Registrations Installed%s &#8211; %sYou\'re ready to start selling registrations!%s', 'woocommerce-registrations' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></h4>
+				<h4><?php printf( __( '%sRegistrations for WooCommerce Installed%s &#8211; %sYou\'re ready to start selling registrations!%s', 'woocommerce-registrations' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></h4>
 
 				<p class="submit">
 					<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.hastedesign.com.br/" data-text="Sell course and events registrations with #WooCommerce" data-via="HasteDesign" data-size="large">Tweet</a>

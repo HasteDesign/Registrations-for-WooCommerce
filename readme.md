@@ -1,5 +1,5 @@
-WooCommerce Registrations
-=========================
+Registrations for WooCommerce
+============================
 
 ### [en]
 This plugin allows you to sell registrations for courses, lectures, events or any product based on dates.
@@ -17,7 +17,7 @@ Created by: @hastedesign, @allysonsouza, @anyssa
 
 ### Description [en]
 
-WooCommerce Registrations allows the creation of the **registration** product type. Registration products can have dates as variations.
+Registrations for WooCommerce allows the creation of the **registration** product type. Registration products can have dates as variations.
 
 There are 3 types of dates:
 
@@ -25,14 +25,14 @@ There are 3 types of dates:
 2. Multiple days
 3. Date range
 
-For each date variation you can set the price, schedule, and places available (stock). That makes WooCommerce Registrations great for stores selling courses, classes or any kind of scheduled services.
+For each date variation you can set the price, schedule, and places available (stock). That makes Registrations for WooCommerce great for stores selling courses, classes or any kind of scheduled services.
 
 **Please notice that WooCommerce must be installed and active.**
 
 
 ### Descrição [pt_BR]
 
-O WooCommerce Registrations possibilita a criação do tipo de produto **inscrição** no WooCommerce.
+O Registrations for WooCommerce possibilita a criação do tipo de produto **inscrição** no WooCommerce.
 Utilizando o tipo de produto inscrição, é possível criar um único produto com variações correspondentes à datas.
 
 São 3 tipos de datas:
@@ -41,13 +41,13 @@ São 3 tipos de datas:
 2. Múltiplos dias;
 3. Intervalo de datas.
 
-Para cada variação de data, você pode definir o valor, horário e vagas (estoque). Por isso, o WooCommerce Registrations é um excelente plugin para ser utilizado em sites que vendem inscrições em cursos ou serviços com horário agendado.
+Para cada variação de data, você pode definir o valor, horário e vagas (estoque). Por isso, o Registrations for WooCommerce é um excelente plugin para ser utilizado em sites que vendem inscrições em cursos ou serviços com horário agendado.
 
 **Lembre-se: este plugin requer o WooCommerce instalado e ativado.**
 
 ### How to create registration products [en]
 
-1. Install and activate the WooCommerce Registrations plugin;
+1. Install and activate the Registrations for WooCommerce plugin;
 2. Create a new product.
 3. In the product edition screen, select `Registration` from the **Product Data** dropdown.
 4. Go to the Dates section, choose the date type and add as many dates you want. Make sure to save your dates.
@@ -59,7 +59,7 @@ For more information about Variable Products see: [WooThemes Variable Product](h
 
 ### Como criar produtos de inscrição [pt_BR]
 
-1. Instale e ative o plugin WooCommerce Registrations
+1. Instale e ative o plugin Registrations for WooCommerce
 2. Crie um novo produto.
 3. Na página de edição do produto, selecione `Inscrição` no campo **Dados do produto**.
 4. Vá até a seção Datas, e escolha o tipo de data. Adicione quantas datas forem necessárias. Salve as datas.
