@@ -6,6 +6,8 @@
  * Author: Haste, Allyson Souza, Anyssa Ferreira
  * Author URI: http://www.hastedesign.com.br
  * Version: 1.0.0
+ * Text-Domain: woocommerce-registrations
+ * Domain Path: /languages
  *
  * Copyright 2015 Haste Design.  (email : contato@hastedesign.com.br)
  *
@@ -106,11 +108,11 @@ class WC_Registrations {
 		if ( current_user_can( 'activate_plugins' ) ) :
 			if ( ! is_woocommerce_active() ) : ?>
 				<div id="message" class="error">
-					<p><?php printf( __( '%sWooCommerce Registrations is inactive.%s The %sWooCommerce plugin%s must be active for WooCommerce Subscriptions to work. Please %sinstall & activate WooCommerce%s', 'woocommerce-subscriptions' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
+					<p><?php printf( __( '%sWooCommerce Registrations is inactive.%s The %sWooCommerce plugin%s must be active for WooCommerce Registrations to work. Please %sinstall & activate WooCommerce%s', 'woocommerce-registrations' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
 				</div>
 						<?php elseif ( version_compare( get_option( 'woocommerce_db_version' ), '2.1', '<' ) ) : ?>
 				<div id="message" class="error">
-					<p><?php printf( __( '%sWooCommerce Registrations is inactive.%s This version of Subscriptions requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version 2.1 or newer%s', 'woocommerce-subscriptions' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
+					<p><?php printf( __( '%sWooCommerce Registrations is inactive.%s This version of Registrations requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version 2.1 or newer%s', 'woocommerce-registrations' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
 				</div>
 			<?php endif; ?>
 		<?php endif;

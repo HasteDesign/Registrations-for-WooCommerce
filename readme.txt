@@ -1,21 +1,18 @@
-WooCommerce Registrations
-=========================
+=== WooCommerce Registrations by Haste ===
+Contributors: hastedesign, allysonsouza, anyssa
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=allyson_as%40hotmail%2ecom&lc=US&item_name=WooCommerce%20Registrations%20by%20Haste&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
+Tags: woocommerce, registrations, attendees, subscriptions
+Requires at least: 3.0.1
+Tested up to: 4.4
+Stable tag: 4.4
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-### [en]
-This plugin allows you to sell registrations for courses, lectures, events or any product based on dates.
+Sell registrations for courses, lectures, events or any product based on dates.
 
-### [pt_BR]
- Este plugin permite a venda de inscrições para cursos, palestras, eventos, ou qualquer tipo de produto baseado em datas.
+== Description ==
 
-Created by: @hastedesign, @allysonsouza, @anyssa
-
-- Requires at least: 3.0.1
-- Tested up to: 4.3
-- Stable tag: 4.3
-- License: GPLv2 or later
-- License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-### Description [en]
+= English (en)=
 
 WooCommerce Registrations allows the creation of the **registration** product type. Registration products can have dates as variations.
 
@@ -29,8 +26,7 @@ For each date variation you can set the price, schedule, and places available (s
 
 **Please notice that WooCommerce must be installed and active.**
 
-
-### Descrição [pt_BR]
+= Português (Brasil) =
 
 O WooCommerce Registrations possibilita a criação do tipo de produto **inscrição** no WooCommerce.
 Utilizando o tipo de produto inscrição, é possível criar um único produto com variações correspondentes à datas.
@@ -45,7 +41,9 @@ Para cada variação de data, você pode definir o valor, horário e vagas (esto
 
 **Lembre-se: este plugin requer o WooCommerce instalado e ativado.**
 
-### How to create registration products [en]
+== Installation ==
+
+= How to create registration products [en] =
 
 1. Install and activate the WooCommerce Registrations plugin;
 2. Create a new product.
@@ -57,7 +55,7 @@ Para cada variação de data, você pode definir o valor, horário e vagas (esto
 
 For more information about Variable Products see: [WooThemes Variable Product](https://docs.woothemes.com/document/variable-product/)
 
-### Como criar produtos de inscrição [pt_BR]
+= Como criar produtos de inscrição [pt_BR] =
 
 1. Instale e ative o plugin WooCommerce Registrations
 2. Crie um novo produto.
@@ -69,26 +67,24 @@ For more information about Variable Products see: [WooThemes Variable Product](h
 
 Para entender mais sobre produtos variáveis, dê uma olhada em: [WooThemes Variable Product](https://docs.woothemes.com/document/variable-product/)
 
-## FAQ [pt_BR]
+== Frequently Asked Questions ==
+
+= FAQ [pt_BR] =
 
 **Minhas variações sumiram, o que faço?**
 
 Algumas vezes é possível que suas variações sumam ao apagar ou salvar novas datas. Caso isso aconteça, você pode tentar atualizar a sua página e acessar a aba 'Variações' novamente e verificar se elas são carregadas.
 
-## FAQ [en]
+= FAQ [en] =
 
 **My Variations are gone, what do I do ?**
 
 Sometimes it's possible that variations go away when you delete or save new dates. If this happens, you can try to refresh your page and access the 'Variations' tab again and check if they are loaded.
 
-## Screenshots
+== Screenshots ==
 
-![alt tag](/assets/screenshot-1.png?raw=true "Product Type - Registration")
-
-![alt tag](/assets/screenshot-2.png?raw=true "Single Day")
-
-![alt tag](/assets/screenshot-3.png?raw=true "Multiple Days")
-
-![alt tag](/assets/screenshot-4.png?raw=true "Range Date")
-
-![alt tag](/assets/screenshot-5.png?raw=true "Variation based on date")
+1. Product Type - Registrations ( Tipo de Produto - Inscrições )
+2. Single Day ( Dia Único )
+3. Multiple Days ( Múltiplos Dias )
+4. Range Date ( Intervalo de Datas )
+5. Variation based on date ( Variação baseada em data )
