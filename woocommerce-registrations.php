@@ -162,7 +162,7 @@ class WC_Registrations {
 		$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-registrations' );
 
 		// Allow upgrade safe, site specific language files in /wp-content/languages/woocommerce-registrations/
-		load_textdomain( 'woocommerce-registrations', WP_LANG_DIR.'/woocommerce/woocommerce-registrations-'.$locale.'.mo' );
+		load_textdomain( 'woocommerce-registrations', WP_LANG_DIR.'/woocommerce-registrations-'.$locale.'.mo' );
 
 		$plugin_rel_path = apply_filters( 'woocommerce_registrations_translation_file_rel_path', dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
