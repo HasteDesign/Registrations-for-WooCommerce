@@ -12,7 +12,7 @@ Sell registrations for courses, lectures, events or any product based on dates.
 
 == Description ==
 
-= English (en)=
+= English (en) =
 
 Registrations for WooCommerce allows the creation of the **registration** product type. Registration products can have dates as variations.
 
