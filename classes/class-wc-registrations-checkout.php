@@ -4,7 +4,7 @@
  *
  * Adds custom fields for Registrations info to be sent.
  *
- * @package		WooCommerce Registrations
+ * @package		Registrations for WooCommerce
  * @subpackage	WC_Registrations_Checkout
  * @category	Class
  * @author		Allyson Souza
