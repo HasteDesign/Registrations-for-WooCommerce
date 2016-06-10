@@ -95,4 +95,5 @@ Sometimes it's possible that variations go away when you delete or save new date
 
 = Unreleased =
 
+* Fixed variations reload on modify dates
 * Fixed translation files

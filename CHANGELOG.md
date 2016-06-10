@@ -3,6 +3,7 @@ All the project notable changes will be documented here.
 
 ## [Unreleased]
 ### Added
+- Fixed variations reload on modify dates
 - Fixed translation files
 
 ## (1.0.0)
