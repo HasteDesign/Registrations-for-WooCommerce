@@ -2,7 +2,10 @@
 All the project notable changes will be documented here.
 
 ## [Unreleased]
+
+## (1.0.1) - 2016-06-10
 ### Added
+- Filtering dates display on additional information tab
 - Fixed variations reload on modify dates
 - Fixed translation files
 

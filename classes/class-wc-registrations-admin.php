@@ -42,6 +42,7 @@ class WC_Registrations_Admin {
 
 		// Filter dates variations options name and display correctly for each date type (single, multiple, and range)
 		add_filter( 'woocommerce_variation_option_name', __CLASS__ . '::registration_variation_option_name' );
+		add_filter( 'woocommerce_attribute', __CLASS__ . '::registration_variation_option_name_additional_information', 10, 3 );
 	}
 
     /**
@@ -215,12 +216,40 @@ class WC_Registrations_Admin {
 			if( $date_format == null ) {
 				$date_format = get_option( 'date_format' );
 			}
-			
+
 			$opt = json_decode( stripslashes( $option ) );
 			if( $opt ) {
 				return self::format_variations_dates( $opt, $date_format );
 			} else {
 				return $option;
+			}
+	}
+
+	/**
+	 * Filter dates exhibition on additional in
+	 * @param  string $values_sanitized attribute sanitized string
+	 * @param  array  $attribute        current attribute to be displayed
+	 * @param  array  $values           attribute values array
+	 * @return string                   filtered date attribute according to the site date_format
+	 */
+	public static function registration_variation_filter_additional_information( $values_sanitized, $attribute, $values ) {
+			if( $attribute['name'] == 'Dates' ) {
+				$dates = array();
+				$date_format = get_option( 'date_format' );
+
+				$attribute['name'] == 'Dates';
+
+				foreach( $values as $date ) {
+					$opt = json_decode( stripslashes( $date ) );
+
+					if( $opt ) {
+						 $dates[] = self::format_variations_dates( $opt, $date_format );
+					}
+				}
+
+				return wpautop( wptexturize( implode( ', ', $dates ) ) );
+			} else {
+				return $values_sanitized;
 			}
 	}
 

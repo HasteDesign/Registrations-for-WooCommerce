@@ -93,7 +93,7 @@ Sometimes it's possible that variations go away when you delete or save new date
 
 == Changelog ==
 
-= Unreleased =
-
+= 1.0.1 - 2016-06-10 =
+* Filtering dates display on additional information tab
 * Fixed variations reload on modify dates
 * Fixed translation files
