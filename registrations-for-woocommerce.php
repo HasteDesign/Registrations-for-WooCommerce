@@ -6,7 +6,7 @@
  * Author: Haste - design and technology, Allyson Souza, Anyssa Ferreira
  * Author URI: http://www.hastedesign.com.br
  * Version: 1.0.1
- * Text-Domain: woocommerce-registrations
+ * Text-Domain: registrations-for-woocommerce
  * Domain Path: /languages
  *
  * Copyright 2015 Haste Design.  (email : contato@hastedesign.com.br)
@@ -58,7 +58,7 @@ class WC_Registrations {
 	public static $name = 'registrations';
 	public static $activation_transient = 'woocommerce_registrations_activated';
 	public static $plugin_file = __FILE__;
-	public static $text_domain = 'deprecated-use-woocommerce-registrations-string';
+	public static $text_domain = 'deprecated-use-registrations-for-woocommerce-string';
 	public static $version = '1.0.0';
 
 	/**
@@ -108,11 +108,11 @@ class WC_Registrations {
 		if ( current_user_can( 'activate_plugins' ) ) :
 			if ( ! is_woocommerce_active() ) : ?>
 				<div id="message" class="error">
-					<p><?php printf( __( '%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s must be active for Registrations for WooCommerce to work. Please %sinstall & activate WooCommerce%s', 'woocommerce-registrations' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
+					<p><?php printf( __( '%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s must be active for Registrations for WooCommerce to work. Please %sinstall & activate WooCommerce%s', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
 				</div>
 						<?php elseif ( version_compare( get_option( 'woocommerce_db_version' ), '2.1', '<' ) ) : ?>
 				<div id="message" class="error">
-					<p><?php printf( __( '%sRegistrations for WooCommerce is inactive.%s This version of Registrations requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version 2.1 or newer%s', 'woocommerce-registrations' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
+					<p><?php printf( __( '%sRegistrations for WooCommerce is inactive.%s This version of Registrations requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version 2.1 or newer%s', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugins.php' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
 				</div>
 			<?php endif; ?>
 		<?php endif;
@@ -158,7 +158,7 @@ class WC_Registrations {
 	 * @since 1.0
 	 */
 	public static function load_plugin_textdomain(){
-		load_plugin_textdomain( 'woocommerce-registrations', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'registrations-for-woocommerce', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**
@@ -185,12 +185,12 @@ class WC_Registrations {
 
 		if ( version_compare( $woocommerce->version, '2.0', '<' ) && current_user_can( 'install_plugins' ) ) { ?>
 			<div id="message" class="error">
-				<p><?php printf( __( '%sYou have an out-of-date version of WooCommerce installed%s. Registrations for WooCommerce no longer supports versions of WooCommerce prior to 2.0. Please %supgrade WooCommerce to version 2.0 or newer%s to avoid issues.', 'woocommerce-registrations' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugins.php' ) . '">', '</a>' ); ?></p>
+				<p><?php printf( __( '%sYou have an out-of-date version of WooCommerce installed%s. Registrations for WooCommerce no longer supports versions of WooCommerce prior to 2.0. Please %supgrade WooCommerce to version 2.0 or newer%s to avoid issues.', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugins.php' ) . '">', '</a>' ); ?></p>
 			</div>
 			<?php
 		} elseif ( version_compare( $woocommerce->version, '2.0.16', '<' ) && current_user_can( 'install_plugins' ) ) { ?>
 			<div id="message" class="error">
-				<p><?php printf( __( '%sYou have an out-of-date version of WooCommerce installed%s. Registrations for WooCommerce requires WooCommerce 2.0.16 or newer. Please %supdate WooCommerce to the latest version%s.', 'woocommerce-registrations' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugins.php' ) . '">', '</a>' ); ?></p>
+				<p><?php printf( __( '%sYou have an out-of-date version of WooCommerce installed%s. Registrations for WooCommerce requires WooCommerce 2.0.16 or newer. Please %supdate WooCommerce to the latest version%s.', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugins.php' ) . '">', '</a>' ); ?></p>
 			</div>
 			<?php
 		}

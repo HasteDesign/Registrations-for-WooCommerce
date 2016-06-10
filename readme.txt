@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=allys
 Tags: woocommerce, registrations, attendees, subscriptions
 Requires at least: 3.0.1
 Tested up to: 4.5.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,9 +12,9 @@ Sell registrations for courses, lectures, events or any product based on dates.
 
 == Description ==
 
-= English (en) =
-
 **GitHub**: [https://github.com/HasteDesign/Registrations-for-WooCommerce](https://github.com/HasteDesign/Registrations-for-WooCommerce)
+
+= English (en) =
 
 Registrations for WooCommerce allows the creation of the **registration** product type. Registration products can have dates as variations.
 
@@ -92,6 +92,9 @@ Sometimes it's possible that variations go away when you delete or save new date
 5. Variation based on date ( Variação baseada em data )
 
 == Changelog ==
+
+= 1.0.2 - 2016-06-10 =
+* Changed text-domain to match plugin slug (registrations-for-woocommerce)
 
 = 1.0.1 - 2016-06-10 =
 * Filtering dates display on additional information tab

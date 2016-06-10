@@ -81,7 +81,7 @@ class WC_Product_Registrations extends WC_Product_Variable {
 		$end = get_post_meta( $variation_id , '_event_end_time', true );
 
 		if( !empty( $start ) && !empty( $end ) ) {
-			$schedule = sprintf( __( 'From %s to %s' , 'woocommerce-registrations' ), $start, $end );
+			$schedule = sprintf( __( 'From %s to %s' , 'registrations-for-woocommerce' ), $start, $end );
 			echo $schedule;
 		}
 	}
@@ -141,19 +141,19 @@ class WC_Product_Registrations extends WC_Product_Variable {
 							}
 
 							switch( $day ) {
-								case 'saturday': $content .= __( 'saturday', 'woocommerce-registrations' );
+								case 'saturday': $content .= __( 'saturday', 'registrations-for-woocommerce' );
 								break;
-								case 'monday': $content .= __( 'monday', 'woocommerce-registrations' );
+								case 'monday': $content .= __( 'monday', 'registrations-for-woocommerce' );
 								break;
-								case 'sunday': $content .= __( 'sunday', 'woocommerce-registrations' );
+								case 'sunday': $content .= __( 'sunday', 'registrations-for-woocommerce' );
 								break;
-								case 'tuesday': $content .= __( 'tuesday', 'woocommerce-registrations' );
+								case 'tuesday': $content .= __( 'tuesday', 'registrations-for-woocommerce' );
 								break;
-								case 'wednesday': $content .= __( 'wednesday', 'woocommerce-registrations' );
+								case 'wednesday': $content .= __( 'wednesday', 'registrations-for-woocommerce' );
 								break;
-								case 'thursday': $content .= __( 'thursday', 'woocommerce-registrations' );
+								case 'thursday': $content .= __( 'thursday', 'registrations-for-woocommerce' );
 								break;
-								case 'friday': $content .= __( 'friday', 'woocommerce-registrations' );
+								case 'friday': $content .= __( 'friday', 'registrations-for-woocommerce' );
 								break;
 								default:
 							}

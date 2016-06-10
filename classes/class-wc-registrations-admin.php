@@ -132,7 +132,7 @@ class WC_Registrations_Admin {
 	 * @since 1.0
 	 */
 	public static function add_registrations_to_select( $product_types ){
-		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'woocommerce-registrations' );
+		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'registrations-for-woocommerce' );
 
 		return $product_types;
 	}
@@ -200,7 +200,7 @@ class WC_Registrations_Admin {
 	public static function registration_dates_tab( $tabs ) {
 		// Adds the new dates tab
 		$tabs['dates'] = array(
-			'label' 	=> __( 'Dates', 'woocommerce-registrations' ),
+			'label' 	=> __( 'Dates', 'registrations-for-woocommerce' ),
 			'target' 	=> 'registration_dates',
 			'class' 	=> array('show_if_registration')
 		);
@@ -275,7 +275,7 @@ class WC_Registrations_Admin {
 				return $date_option;
 
 			} elseif ( $opt->type == 'range' ) {
-				return date_i18n( $date_format, strtotime( $opt->dates[0] ) ) . __(' to ', 'woocommerce-registrations') . date_i18n( $date_format, strtotime( $opt->dates[1] ) );
+				return date_i18n( $date_format, strtotime( $opt->dates[0] ) ) . __(' to ', 'registrations-for-woocommerce') . date_i18n( $date_format, strtotime( $opt->dates[1] ) );
 			} else {
 				return $opt;
 			}
@@ -309,9 +309,9 @@ class WC_Registrations_Admin {
 	 */
 	public static function admin_installed_notice() {
 		?>
-		<div id="message" class="updated woocommerce-message wc-connect woocommerce-registrations-activated">
+		<div id="message" class="updated woocommerce-message wc-connect registrations-for-woocommerce-activated">
 			<div class="squeezer">
-				<h4><?php printf( __( '%sRegistrations for WooCommerce Installed%s &#8211; %sYou\'re ready to start selling registrations!%s', 'woocommerce-registrations' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></h4>
+				<h4><?php printf( __( '%sRegistrations for WooCommerce Installed%s &#8211; %sYou\'re ready to start selling registrations!%s', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></h4>
 
 				<p class="submit">
 					<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.hastedesign.com.br/" data-text="Sell course and events registrations with #WooCommerce" data-via="HasteDesign" data-size="large">Tweet</a>

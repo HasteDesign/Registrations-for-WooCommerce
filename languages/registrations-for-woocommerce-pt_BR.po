@@ -23,7 +23,7 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: woocommerce-registrations.php:111
+#: registrations-for-woocommerce.php:111
 #, php-format
 msgid ""
 "%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s "
@@ -34,7 +34,7 @@ msgstr ""
 "estar ativo para que o WooCommerce Registrations funcione. Por favor, "
 "%sinstale e ative o WooCommerce%s"
 
-#: woocommerce-registrations.php:115
+#: registrations-for-woocommerce.php:115
 #, php-format
 msgid ""
 "%sRegistrations for WooCommerce is inactive.%s This version of Registrations "
@@ -45,7 +45,7 @@ msgstr ""
 "reque o WooCommerce 2.1 or mais superior. Por favor %satualize o WooCommerce "
 "para a versão 2.1 ou superior%s"
 
-#: woocommerce-registrations.php:188
+#: registrations-for-woocommerce.php:188
 #, php-format
 msgid ""
 "%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
@@ -57,7 +57,7 @@ msgstr ""
 "2.0. Por favor %satualize o WooCommerce para a versão 2.0 ou superior%s para "
 "evitar problemas."
 
-#: woocommerce-registrations.php:193
+#: registrations-for-woocommerce.php:193
 #, php-format
 msgid ""
 "%sYou have an out-of-date version of WooCommerce installed%s. Registrations "

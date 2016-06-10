@@ -66,9 +66,9 @@ class WC_Registrations_Checkout {
 						$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
 
 						if( $date ) {
-							echo '<div id="registrations_fields"><h2>' . sprintf( __( 'Participants in %s - %s', 'woocommerce-registrations' ),  $_product->parent->post->post_title, esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) ) ) . '</h2>';
+							echo '<div id="registrations_fields"><h2>' . sprintf( __( 'Participants in %s - %s', 'registrations-for-woocommerce' ),  $_product->parent->post->post_title, esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) ) ) . '</h2>';
 						} else {
-							echo '<div id="registrations_fields"><h2>' . sprintf( __( 'Participants in %s', 'woocommerce-registrations' ), $_product->parent->post->post_title ) . '</h2>';
+							echo '<div id="registrations_fields"><h2>' . sprintf( __( 'Participants in %s', 'registrations-for-woocommerce' ), $_product->parent->post->post_title ) . '</h2>';
 						}
 					}
 
@@ -77,24 +77,24 @@ class WC_Registrations_Checkout {
 					woocommerce_form_field( 'participant_name_' . $registrations , array(
 						'type'          => 'text',
 						'class'         => array('participant-name form-row-wide'),
-						'label'         => __( 'Name', 'woocommerce-registrations' ),
-						'placeholder'   => __( 'Mary Anna', 'woocommerce-registrations'),
+						'label'         => __( 'Name', 'registrations-for-woocommerce' ),
+						'placeholder'   => __( 'Mary Anna', 'registrations-for-woocommerce'),
 						), $checkout->get_value( 'participant_name_' . $registrations )
 					);
 
 					woocommerce_form_field( 'participant_surname_' . $registrations , array(
 						'type'          => 'text',
 						'class'         => array('participant-surname form-row-wide'),
-						'label'         => __( 'Surname', 'woocommerce-registrations' ),
-						'placeholder'   => __( 'Smith', 'woocommerce-registrations'),
+						'label'         => __( 'Surname', 'registrations-for-woocommerce' ),
+						'placeholder'   => __( 'Smith', 'registrations-for-woocommerce'),
 					), $checkout->get_value( 'participant_surname_' . $registrations )
 					);
 
 					woocommerce_form_field( 'participant_email_' . $registrations , array(
 						'type'          => 'email',
 						'class'         => array('participant-email form-row-wide'),
-						'label'         => __( 'Email', 'woocommerce-registrations' ),
-						'placeholder'   => __( 'mary@anna.com.br', 'woocommerce-registrations'),
+						'label'         => __( 'Email', 'registrations-for-woocommerce' ),
+						'placeholder'   => __( 'mary@anna.com.br', 'registrations-for-woocommerce'),
 						), $checkout->get_value( 'participant_email_' . $registrations )
 					);
 
@@ -119,11 +119,11 @@ class WC_Registrations_Checkout {
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 					// Check if field is set, if it's not set add an error.
 					if ( ! $_POST['participant_name_' . $registrations ] ) {
-						wc_add_notice( sprintf( __( 'Please enter a correct name to participant #%u ', 'woocommerce-registrations' ), $registrations ) );
+						wc_add_notice( sprintf( __( 'Please enter a correct name to participant #%u ', 'registrations-for-woocommerce' ), $registrations ) );
 					}
 
 					if ( ! $_POST['participant_email_' . $registrations ] ) {
-						wc_add_notice( sprintf( __( 'Please enter a correct email to participant #%u ', 'woocommerce-registrations' ), $registrations ) );
+						wc_add_notice( sprintf( __( 'Please enter a correct email to participant #%u ', 'registrations-for-woocommerce' ), $registrations ) );
 					}
 				}
 			}

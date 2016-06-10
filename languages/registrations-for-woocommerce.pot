@@ -1,0 +1,287 @@
+# Copyright (C) 2016 Registrations for WooCommerce
+# This file is distributed under the same license as the Registrations for WooCommerce package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Registrations for WooCommerce 1.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/registrations-for-"
+"woocommerce\n"
+"POT-Creation-Date: 2016-06-10 13:30:33+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-06-10 10:42-0300\n"
+"Last-Translator: Allyson Souza <allyson@hastedesign.com.br>\n"
+"Language-Team: Registrations for WooCommerce  <contato@hastedesign.com.br>\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: classes/class-wc-product-registrations.php:84
+msgid "From %s to %s"
+msgstr ""
+
+#: classes/class-wc-product-registrations.php:144
+msgid "saturday"
+msgstr ""
+
+#: classes/class-wc-product-registrations.php:146
+msgid "monday"
+msgstr ""
+
+#: classes/class-wc-product-registrations.php:148
+msgid "sunday"
+msgstr ""
+
+#: classes/class-wc-product-registrations.php:150
+msgid "tuesday"
+msgstr ""
+
+#: classes/class-wc-product-registrations.php:152
+msgid "wednesday"
+msgstr ""
+
+#: classes/class-wc-product-registrations.php:154
+msgid "thursday"
+msgstr ""
+
+#: classes/class-wc-product-registrations.php:156
+msgid "friday"
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:134
+msgid "Registration"
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:202
+msgid "Dates"
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:249
+msgid " to "
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:285
+msgid ""
+"%sRegistrations for WooCommerce Installed%s &#8211; %sYou're ready to start "
+"selling registrations!%s"
+msgstr ""
+
+#: classes/class-wc-registrations-checkout.php:69
+msgid "Participants in %s - %s"
+msgstr ""
+
+#: classes/class-wc-registrations-checkout.php:71
+msgid "Participants in %s"
+msgstr ""
+
+#: classes/class-wc-registrations-checkout.php:75
+msgid "Participant #%u"
+msgstr ""
+
+#: classes/class-wc-registrations-checkout.php:80
+msgid "Name"
+msgstr ""
+
+#: classes/class-wc-registrations-checkout.php:81
+msgid "Mary Anna"
+msgstr ""
+
+#: classes/class-wc-registrations-checkout.php:88
+msgid "Surname"
+msgstr ""
+
+#: classes/class-wc-registrations-checkout.php:89
+msgid "Smith"
+msgstr ""
+
+#: classes/class-wc-registrations-checkout.php:96
+msgid "Email"
+msgstr ""
+
+#: classes/class-wc-registrations-checkout.php:97
+msgid "mary@anna.com.br"
+msgstr ""
+
+#: classes/class-wc-registrations-checkout.php:122
+msgid "Please enter a correct name to participant #%u "
+msgstr ""
+
+#: classes/class-wc-registrations-checkout.php:126
+msgid "Please enter a correct email to participant #%u "
+msgstr ""
+
+#: classes/views/html-dates-variation-fields-view.php:27
+msgid "Start Time"
+msgstr ""
+
+#: classes/views/html-dates-variation-fields-view.php:29
+msgid "End Time"
+msgstr ""
+
+#: classes/views/html-dates-variation-fields-view.php:33
+msgid "Days of Week when this event occurs."
+msgstr ""
+
+#: classes/views/html-dates-variation-fields-view.php:34
+msgid "Monday"
+msgstr ""
+
+#: classes/views/html-dates-variation-fields-view.php:35
+msgid "Sunday"
+msgstr ""
+
+#: classes/views/html-dates-variation-fields-view.php:36
+msgid "Tuesday"
+msgstr ""
+
+#: classes/views/html-dates-variation-fields-view.php:37
+msgid "Wednesday"
+msgstr ""
+
+#: classes/views/html-dates-variation-fields-view.php:38
+msgid "Thursday"
+msgstr ""
+
+#: classes/views/html-dates-variation-fields-view.php:39
+msgid "Friday"
+msgstr ""
+
+#: classes/views/html-dates-variation-fields-view.php:40
+msgid "Saturday"
+msgstr ""
+
+#: classes/views/html-dates-view.php:53 classes/views/html-dates-view.php:128
+msgid "Single Day"
+msgstr ""
+
+#: classes/views/html-dates-view.php:55 classes/views/html-dates-view.php:130
+msgid "Event Day"
+msgstr ""
+
+#: classes/views/html-dates-view.php:57 classes/views/html-dates-view.php:92
+#: classes/views/html-dates-view.php:132 classes/views/html-dates-view.php:169
+msgid "Remove"
+msgstr ""
+
+#: classes/views/html-dates-view.php:65 classes/views/html-dates-view.php:139
+msgid "Multiple Days"
+msgstr ""
+
+#: classes/views/html-dates-view.php:67 classes/views/html-dates-view.php:103
+#: classes/views/html-dates-view.php:146
+msgid "Day"
+msgstr ""
+
+#: classes/views/html-dates-view.php:69 classes/views/html-dates-view.php:105
+#: classes/views/html-dates-view.php:148
+msgid "Remove Day"
+msgstr ""
+
+#: classes/views/html-dates-view.php:72 classes/views/html-dates-view.php:154
+msgid "Remove All"
+msgstr ""
+
+#: classes/views/html-dates-view.php:73 classes/views/html-dates-view.php:155
+msgid "Add Day"
+msgstr ""
+
+#: classes/views/html-dates-view.php:81 classes/views/html-dates-view.php:162
+#: classes/views/html-dates-view.php:189
+msgid "Range Date"
+msgstr ""
+
+#: classes/views/html-dates-view.php:83 classes/views/html-dates-view.php:164
+msgid "Event start and end date"
+msgstr ""
+
+#: classes/views/html-dates-view.php:84 classes/views/html-dates-view.php:165
+msgid "From"
+msgstr ""
+
+#: classes/views/html-dates-view.php:86 classes/views/html-dates-view.php:167
+msgid "to"
+msgstr ""
+
+#: classes/views/html-dates-view.php:95
+msgid "Please set the end date after the start date."
+msgstr ""
+
+#: classes/views/html-dates-view.php:184
+msgid "Save Dates"
+msgstr ""
+
+#: classes/views/html-dates-view.php:185
+msgid "Add New Date"
+msgstr ""
+
+#: classes/views/html-dates-view.php:187
+msgid "Single Date"
+msgstr ""
+
+#: classes/views/html-dates-view.php:188
+msgid "Multiple Date"
+msgstr ""
+
+#: classes/views/html-dates-view.php:197
+msgid "Saved Dates"
+msgstr ""
+
+#: classes/views/html-dates-view.php:198
+msgid ""
+"Your dates have been saved. Go into the Variations Tab and create a "
+"variation for each of your dates and continue to configure your registration "
+"date specific information."
+msgstr ""
+
+#: templates/single-product/add-to-cart/registration.php:24
+msgid "This product is currently out of stock and unavailable."
+msgstr ""
+
+#: templates/single-product/add-to-cart/registration.php:35
+msgid "Clear selection"
+msgstr ""
+
+#: registrations-for-woocommerce.php:111
+msgid ""
+"%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s "
+"must be active for Registrations for WooCommerce to work. Please %sinstall & "
+"activate WooCommerce%s"
+msgstr ""
+
+#: registrations-for-woocommerce.php:115
+msgid ""
+"%sRegistrations for WooCommerce is inactive.%s This version of Registrations "
+"requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version "
+"2.1 or newer%s"
+msgstr ""
+
+#: registrations-for-woocommerce.php:197
+msgid ""
+"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
+"for WooCommerce no longer supports versions of WooCommerce prior to 2.0. "
+"Please %supgrade WooCommerce to version 2.0 or newer%s to avoid issues."
+msgstr ""
+
+#: registrations-for-woocommerce.php:202
+msgid ""
+"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
+"for WooCommerce requires WooCommerce 2.0.16 or newer. Please %supdate "
+"WooCommerce to the latest version%s."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Registrations for WooCommerce"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (Registrations for WooCommerce 1.0.1)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (Registrations for WooCommerce 1.0.1)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://www.hastedesign.com.br"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Add registration product type to your WooCommerce."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Haste, Allyson Souza, Anyssa Ferreira"
+msgstr ""
