@@ -1,77 +1,98 @@
-=== Haste Impress ===
-Contributors: allysonsouza, anyssa
-Tags: presentations, presentment, impress
+=== Registrations for WooCommerce ===
+Contributors: hastedesign, allysonsouza, anyssa
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=allyson_as%40hotmail%2ecom&lc=US&item_name=WooCommerce%20Registrations%20by%20Haste&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
+Tags: woocommerce, registrations, attendees, subscriptions
 Requires at least: 3.0.1
-Tested up to: 4.3
-Stable tag: 4.3
+Tested up to: 4.5
+Stable tag: 4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Make Impress.js presentations easily with WordPress as content manager.
+Sell registrations for courses, lectures, events or any product based on dates.
 
 == Description ==
 
-= English (en)=
+= English (en) =
 
-Use this plugins to create presentations inside your WordPress installation, using the Impress.js.
-With this plugin it's possible to create multiple presentations into your WordPress installation without affect the content of your site.
+**GitHub**: [https://github.com/HasteDesign/Registrations-for-WooCommerce](https://github.com/HasteDesign/Registrations-for-WooCommerce)
+
+Registrations for WooCommerce allows the creation of the **registration** product type. Registration products can have dates as variations.
+
+There are 3 types of dates:
+
+1. Single day
+2. Multiple days
+3. Date range
+
+For each date variation you can set the price, schedule, and places available (stock). That makes Registrations for WooCommerce great for stores selling courses, classes or any kind of scheduled services.
+
+**Please notice that WooCommerce must be installed and active.**
 
 = Português (Brasil) =
 
-Utilize este plugin para criar apresentações dentro de sua instalação WordPress, utilizando o Impress.js. 
-Com ele é possível criar múltiplas apresentações em sua instalação WordPress sem interferir em nada no seu site.
+O Registrations for WooCommerce possibilita a criação do tipo de produto **inscrição** no WooCommerce.
+Utilizando o tipo de produto inscrição, é possível criar um único produto com variações correspondentes à datas.
 
-**Alguns plugins podem aumentar o potencial deste plugin e tornar sua usabilidade mais fácil:**
-* [Duplicate Posts](https://wordpress.org/plugins/duplicate-post/)
-* [Simple Custom Post Order](https://wordpress.org/support/view/plugin-reviews/simple-custom-post-order)
+São 3 tipos de datas:
+
+1. Dia único;
+2. Múltiplos dias;
+3. Intervalo de datas.
+
+Para cada variação de data, você pode definir o valor, horário e vagas (estoque). Por isso, o Registrations for WooCommerce é um excelente plugin para ser utilizado em sites que vendem inscrições em cursos ou serviços com horário agendado.
+
+**Lembre-se: este plugin requer o WooCommerce instalado e ativado.**
 
 == Installation ==
 
-= English (en)=
-How to install Haste Impress:
+= How to create registration products [en] =
 
-1. Install trough the WordPress panel or make the download and upload to `/wp-content/plugins/` directory
-2. Activate the plugin in 'Plugins' WordPress menu
-3. A custom post type called 'Impress Steps' will be created
-4. Create your 'steps' and define their content and position attributes
-5. Set the presentations that each step will belongs in the 'Presentations' taxonomy
-6. Access the link of your presentation (term) and see your Haste Impress presentation in action!
+1. Install and activate the Registrations for WooCommerce plugin;
+2. Create a new product.
+3. In the product edition screen, select `Registration` from the **Product Data** dropdown.
+4. Go to the Dates section, choose the date type and add as many dates you want. Make sure to save your dates.
+5. Go to the Variation section and create variations for all the dates you created earlier.
+6. Setup each date variation. Mark as *virtual*, set the price, stock (available places), start and end time. If your date is a range date, you will need to choose the week days too.
+7. Save your variations and publish your product. You will see the available dates as a select field at the product page.
 
-= Português (pt_BR) =
+For more information about Variable Products see: [WooThemes Variable Product](https://docs.woothemes.com/document/variable-product/)
 
-Como instalar o Haste Impress:
+= Como criar produtos de inscrição [pt_BR] =
 
-1. Instale via o painel do WordPress ou faça o upload dos arquivos no diretório `/wp-content/plugins/`
-2. Ative o plugin no menu 'Plugins' do WordPress
-3. Um custom post type chamado 'Passos do Impress' será criado
-4. Crie os seus 'steps', definindo seu conteúdo e posicionamento através das metaboxes
-5. Defina a qual apresentação cada step pertence na taxonomia 'Apresentações'
-6. Acesse o link da sua apresentação (termo) e veja sua apresentação!
+1. Instale e ative o plugin Registrations for WooCommerce
+2. Crie um novo produto.
+3. Na página de edição do produto, selecione `Inscrição` no campo **Dados do produto**.
+4. Vá até a seção Datas, e escolha o tipo de data. Adicione quantas datas forem necessárias. Salve as datas.
+5. Vá até a seção de Variações, e crie variações para todas as datas que você criou anteriormente.
+6. Configure cada uma das variações de datas. Marque como *virtual*, defina o preço, o estoque (vagas disponíveis), hora de início e fim. Se a sua data for do tipo intervalo de datas, você terá que definir os dias da semana também.
+7. Salve as variações e publique seu produto. Você poderá ver as datas disponíveis como um campo select na página do produto.
+
+Para entender mais sobre produtos variáveis, dê uma olhada em: [WooThemes Variable Product](https://docs.woothemes.com/document/variable-product/)
 
 == Frequently Asked Questions ==
 
-= Português (pt_BR) =
+= FAQ [pt_BR] =
 
-= Como eu visualizo minhas apresentações? =
+**Minhas variações sumiram, o que faço?**
 
-As apresentações são exibidas na página do termo da taxonomia Apresentações ao qual os steps foram atribuídos.
-Para visualizar, vá em 'Passos do Impress' > 'Apresentações', pare o mouse sobre o nome da apresentação que deseja visualizar e clique em 'ver'.
+Algumas vezes é possível que suas variações sumam ao apagar ou salvar novas datas. Caso isso aconteça, você pode tentar atualizar a sua página e acessar a aba 'Variações' novamente e verificar se elas são carregadas.
 
-= Eu posso ordenar os meus steps? =
+= FAQ [en] =
 
-Infelizmente não há nenhum recurso no plugin para isso, ele exibe do mais antigo (seu primeiro step), para o mais novo, pressupondo que você os crie em ordem cronológica.
-Porém com a ajuda de alguns plugins, é possível tornar a reordenação um processo mais fácil: [Simple Custom Post Order](https://wordpress.org/support/view/plugin-reviews/simple-custom-post-order)
+**My Variations are gone, what do I do ?**
 
-= Ao criar meus steps, é muito difícil lembrar a posição do step anterior. =
-
-Realmente, é difícil armazenar todos os data-x, data-y, rotate-x, etc. Felizmente com a ajuda de alguns plugins, é possível duplicar um post, tornando mais fácil a edição de suas apresentações.
-Um que utilizamos com sucesso foi o [Duplicate Posts](https://wordpress.org/plugins/duplicate-post/)
+Sometimes it's possible that variations go away when you delete or save new dates. If this happens, you can try to refresh your page and access the 'Variations' tab again and check if they are loaded.
 
 == Screenshots ==
 
-1. Custom Post Type 'Passos do Impress'
-2. Configurações do step
-3. Configurações do step (com opção para utilizar featured image como background)
-4. Visualização de step com formato 'title'
-5. Step com featured image configurada para ser background
-6. Apresentação tridimensional
+1. Product Type - Registrations ( Tipo de Produto - Inscrições )
+2. Single Day ( Dia Único )
+3. Multiple Days ( Múltiplos Dias )
+4. Range Date ( Intervalo de Datas )
+5. Variation based on date ( Variação baseada em data )
+
+== Changelog ==
+
+= Unreleased =
+
+* Fixed translation files

@@ -3,9 +3,9 @@
  * Plugin Name: Registrations for WooCommerce
  * Plugin URI: http://www.hastedesign.com.br
  * Description: Add registration product type to your WooCommerce.
- * Author: Haste, Allyson Souza, Anyssa Ferreira
+ * Author: Haste - design and technology, Allyson Souza, Anyssa Ferreira
  * Author URI: http://www.hastedesign.com.br
- * Version: 1.0.0
+ * Version: 1.0.1
  * Text-Domain: woocommerce-registrations
  * Domain Path: /languages
  *
@@ -158,16 +158,7 @@ class WC_Registrations {
 	 * @since 1.0
 	 */
 	public static function load_plugin_textdomain(){
-
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-registrations' );
-
-		// Allow upgrade safe, site specific language files in /wp-content/languages/woocommerce-registrations/
-		load_textdomain( 'woocommerce-registrations', WP_LANG_DIR.'/woocommerce-registrations-'.$locale.'.mo' );
-
-		$plugin_rel_path = apply_filters( 'woocommerce_registrations_translation_file_rel_path', dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-
-		// Then check for a language file in /wp-content/plugins/woocommerce-registrations/languages/ (this will be overriden by any file already loaded)
-		load_plugin_textdomain( 'woocommerce-registrations', false, $plugin_rel_path );
+		load_plugin_textdomain( 'woocommerce-registrations', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**

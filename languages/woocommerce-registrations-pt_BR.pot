@@ -1,227 +1,291 @@
-# Copyright (C) 2016 Registrations for WooCommerce
-# This file is distributed under the same license as the Registrations for WooCommerce package.
+# WordPress Blank Pot
+# Copyright (C) 2014 ...
+# This file is distrubuted under the GPL-2.0+
 msgid ""
 msgstr ""
-"Project-Id-Version: Registrations for WooCommerce 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/registrations-for-"
-"woocommerce\n"
-"POT-Creation-Date: 2016-04-06 03:52:38+00:00\n"
+"Project-Id-Version: WooCommerce Registrations\n"
+"Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
+"POT-Creation-Date: 2016-06-09 23:57-0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Allyson Souza <allyson@hastedesign.com.br>\n"
+"Language-Team: Haste <contato@hastedesign.com.br>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_x;esc_html_e;esc_html__;esc_attr_e;esc_attr__;"
+"_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;"
+"__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: woocommerce-registrations.php:111
+#, php-format
+msgid ""
+"%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s "
+"must be active for Registrations for WooCommerce to work. Please %sinstall & "
+"activate WooCommerce%s"
+msgstr ""
+"%sWooCommerce Registrations está inativo.%s O %splugin  WooCommerce%s deve "
+"estar ativo para que o WooCommerce Registrations funcione. Por favor, "
+"%sinstale e ative o WooCommerce%s"
+
+#: woocommerce-registrations.php:115
+#, php-format
+msgid ""
+"%sRegistrations for WooCommerce is inactive.%s This version of Registrations "
+"requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version "
+"2.1 or newer%s"
+msgstr ""
+"%sWooCommerce Registrations está inativo.%s Esta versão do Registrations "
+"reque o WooCommerce 2.1 or mais superior. Por favor %satualize o WooCommerce "
+"para a versão 2.1 ou superior%s"
+
+#: woocommerce-registrations.php:188
+#, php-format
+msgid ""
+"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
+"for WooCommerce no longer supports versions of WooCommerce prior to 2.0. "
+"Please %supgrade WooCommerce to version 2.0 or newer%s to avoid issues."
+msgstr ""
+"%sVocê tem uma versão desatualizada do WooCommerce instalada%s. O "
+"WooCommerce Registrations não suporta versões do WooCommerce anteriores à "
+"2.0. Por favor %satualize o WooCommerce para a versão 2.0 ou superior%s para "
+"evitar problemas."
+
+#: woocommerce-registrations.php:193
+#, php-format
+msgid ""
+"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
+"for WooCommerce requires WooCommerce 2.0.16 or newer. Please %supdate "
+"WooCommerce to the latest version%s."
+msgstr ""
+"%sVocê possui uma versão desatualizada do WooCommerce instalada%s. O "
+"WooCommerce Registrations requer o WooCommerce 2.0.16 ou superior. Por "
+"favor, %satualize o WooCommerce para a versão mais recente%s."
 
 #: classes/class-wc-product-registrations.php:84
+#, php-format
 msgid "From %s to %s"
-msgstr ""
+msgstr "Das %s às %s"
 
 #: classes/class-wc-product-registrations.php:144
 msgid "saturday"
-msgstr ""
+msgstr "sábado"
 
 #: classes/class-wc-product-registrations.php:146
 msgid "monday"
-msgstr ""
+msgstr "segunda-feira"
 
 #: classes/class-wc-product-registrations.php:148
 msgid "sunday"
-msgstr ""
+msgstr "domingo"
 
 #: classes/class-wc-product-registrations.php:150
 msgid "tuesday"
-msgstr ""
+msgstr "terça-feira"
 
 #: classes/class-wc-product-registrations.php:152
 msgid "wednesday"
-msgstr ""
+msgstr "quarta-feira"
 
 #: classes/class-wc-product-registrations.php:154
 msgid "thursday"
-msgstr ""
+msgstr "quinta-feira"
 
 #: classes/class-wc-product-registrations.php:156
 msgid "friday"
-msgstr ""
+msgstr "sexta-feira"
 
 #: classes/class-wc-registrations-admin.php:134
 msgid "Registration"
-msgstr ""
+msgstr "Inscrição"
 
 #: classes/class-wc-registrations-admin.php:202
 msgid "Dates"
-msgstr ""
+msgstr "Datas"
 
 #: classes/class-wc-registrations-admin.php:249
 msgid " to "
-msgstr ""
+msgstr "até"
 
 #: classes/class-wc-registrations-admin.php:285
+#, php-format
 msgid ""
 "%sRegistrations for WooCommerce Installed%s &#8211; %sYou're ready to start "
 "selling registrations!%s"
 msgstr ""
+"%sWooCommerce Registrations Instalado%s &#8211; %sVocê está pronto para "
+"vender suas inscrições!%s"
 
 #: classes/class-wc-registrations-checkout.php:69
+#, php-format
 msgid "Participants in %s - %s"
-msgstr ""
+msgstr "Participantes em %s - %s"
 
 #: classes/class-wc-registrations-checkout.php:71
+#, php-format
 msgid "Participants in %s"
-msgstr ""
+msgstr "Participantes em %s"
 
 #: classes/class-wc-registrations-checkout.php:75
+#, php-format
 msgid "Participant #%u"
-msgstr ""
+msgstr "Participante #%u"
 
 #: classes/class-wc-registrations-checkout.php:80
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: classes/class-wc-registrations-checkout.php:81
 msgid "Mary Anna"
-msgstr ""
+msgstr "Maria Aparecida"
 
 #: classes/class-wc-registrations-checkout.php:88
 msgid "Surname"
-msgstr ""
+msgstr "Sobrenome"
 
 #: classes/class-wc-registrations-checkout.php:89
 msgid "Smith"
-msgstr ""
+msgstr "da Silva"
 
 #: classes/class-wc-registrations-checkout.php:96
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: classes/class-wc-registrations-checkout.php:97
 msgid "mary@anna.com.br"
-msgstr ""
+msgstr "maria@aparecida.com.br"
 
 #: classes/class-wc-registrations-checkout.php:122
+#, php-format
 msgid "Please enter a correct name to participant #%u "
-msgstr ""
+msgstr "Por favor entre com um nome válido para o participante #%u"
 
 #: classes/class-wc-registrations-checkout.php:126
+#, php-format
 msgid "Please enter a correct email to participant #%u "
-msgstr ""
+msgstr "Por favor entre com um email válido para o participante #%u"
 
 #: classes/views/html-dates-variation-fields-view.php:27
 msgid "Start Time"
-msgstr ""
+msgstr "Horário de Início"
 
 #: classes/views/html-dates-variation-fields-view.php:29
 msgid "End Time"
-msgstr ""
+msgstr "Horário de Término"
 
 #: classes/views/html-dates-variation-fields-view.php:33
 msgid "Days of Week when this event occurs."
-msgstr ""
+msgstr "Dias da semana em que o evento ocorrerá."
 
 #: classes/views/html-dates-variation-fields-view.php:34
 msgid "Monday"
-msgstr ""
+msgstr "Segunda-Feira"
 
 #: classes/views/html-dates-variation-fields-view.php:35
 msgid "Sunday"
-msgstr ""
+msgstr "Domingo"
 
 #: classes/views/html-dates-variation-fields-view.php:36
 msgid "Tuesday"
-msgstr ""
+msgstr "Terça-Feira"
 
 #: classes/views/html-dates-variation-fields-view.php:37
 msgid "Wednesday"
-msgstr ""
+msgstr "Quarta-Feira"
 
 #: classes/views/html-dates-variation-fields-view.php:38
 msgid "Thursday"
-msgstr ""
+msgstr "Quinta-Feira"
 
 #: classes/views/html-dates-variation-fields-view.php:39
 msgid "Friday"
-msgstr ""
+msgstr "Sexta-Feira"
 
 #: classes/views/html-dates-variation-fields-view.php:40
 msgid "Saturday"
-msgstr ""
+msgstr "Sábado"
 
 #: classes/views/html-dates-view.php:53 classes/views/html-dates-view.php:128
 msgid "Single Day"
-msgstr ""
+msgstr "Dia Único"
 
 #: classes/views/html-dates-view.php:55 classes/views/html-dates-view.php:130
 msgid "Event Day"
-msgstr ""
+msgstr "Dia do Evento"
 
 #: classes/views/html-dates-view.php:57 classes/views/html-dates-view.php:92
 #: classes/views/html-dates-view.php:132 classes/views/html-dates-view.php:169
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #: classes/views/html-dates-view.php:65 classes/views/html-dates-view.php:139
 msgid "Multiple Days"
-msgstr ""
+msgstr "Múltiplos Dias"
 
 #: classes/views/html-dates-view.php:67 classes/views/html-dates-view.php:103
 #: classes/views/html-dates-view.php:146
 msgid "Day"
-msgstr ""
+msgstr "Dia"
 
 #: classes/views/html-dates-view.php:69 classes/views/html-dates-view.php:105
 #: classes/views/html-dates-view.php:148
 msgid "Remove Day"
-msgstr ""
+msgstr "Remover Dia"
 
 #: classes/views/html-dates-view.php:72 classes/views/html-dates-view.php:154
 msgid "Remove All"
-msgstr ""
+msgstr "Remover Tudo"
 
 #: classes/views/html-dates-view.php:73 classes/views/html-dates-view.php:155
 msgid "Add Day"
-msgstr ""
+msgstr "Adicionar Dia"
 
 #: classes/views/html-dates-view.php:81 classes/views/html-dates-view.php:162
 #: classes/views/html-dates-view.php:189
 msgid "Range Date"
-msgstr ""
+msgstr "Intervalo de Datas"
 
 #: classes/views/html-dates-view.php:83 classes/views/html-dates-view.php:164
 msgid "Event start and end date"
-msgstr ""
+msgstr "Data de ínicio do evento"
 
 #: classes/views/html-dates-view.php:84 classes/views/html-dates-view.php:165
 msgid "From"
-msgstr ""
+msgstr "Das"
 
 #: classes/views/html-dates-view.php:86 classes/views/html-dates-view.php:167
 msgid "to"
-msgstr ""
+msgstr "à"
 
 #: classes/views/html-dates-view.php:95
 msgid "Please set the end date after the start date."
-msgstr ""
+msgstr "Por favor, defina a data de término para após a data de início."
 
 #: classes/views/html-dates-view.php:184
 msgid "Save Dates"
-msgstr ""
+msgstr "Salvar Datas"
 
 #: classes/views/html-dates-view.php:185
 msgid "Add New Date"
-msgstr ""
+msgstr "Adicionar Nova Data"
 
 #: classes/views/html-dates-view.php:187
 msgid "Single Date"
-msgstr ""
+msgstr "Data Única"
 
 #: classes/views/html-dates-view.php:188
 msgid "Multiple Date"
-msgstr ""
+msgstr "Múltiplas Datas"
 
 #: classes/views/html-dates-view.php:197
 msgid "Saved Dates"
-msgstr ""
+msgstr "Datas Salvas"
 
 #: classes/views/html-dates-view.php:198
 msgid ""
@@ -229,58 +293,27 @@ msgid ""
 "variation for each of your dates and continue to configure your registration "
 "date specific information."
 msgstr ""
+"Suas datas foram salvas. Vá até a aba Variações e crie uma variação para "
+"cada uma de suas datas e continue a configuração específica de cada uma das "
+"suas datas de registro."
 
 #: templates/single-product/add-to-cart/registration.php:24
 msgid "This product is currently out of stock and unavailable."
-msgstr ""
+msgstr "Ese produto está atualmente indisponível."
 
 #: templates/single-product/add-to-cart/registration.php:35
 msgid "Clear selection"
-msgstr ""
+msgstr "Limpar seleção"
 
-#: woocommerce-registrations.php:111
-msgid ""
-"%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s "
-"must be active for Registrations for WooCommerce to work. Please %sinstall & "
-"activate WooCommerce%s"
-msgstr ""
+#~ msgctxt "From date to date"
+#~ msgid "to"
+#~ msgstr "até"
 
-#: woocommerce-registrations.php:115
-msgid ""
-"%sRegistrations for WooCommerce is inactive.%s This version of Registrations "
-"requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version "
-"2.1 or newer%s"
-msgstr ""
+#~ msgid "Attendees details"
+#~ msgstr "Detalhes dos participantes"
 
-#: woocommerce-registrations.php:197
-msgid ""
-"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
-"for WooCommerce no longer supports versions of WooCommerce prior to 2.0. "
-"Please %supgrade WooCommerce to version 2.0 or newer%s to avoid issues."
-msgstr ""
+#~ msgid "Provide the details of each participant"
+#~ msgstr "Forneça os detalhes de cada participante"
 
-#: woocommerce-registrations.php:202
-msgid ""
-"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
-"for WooCommerce requires WooCommerce 2.0.16 or newer. Please %supdate "
-"WooCommerce to the latest version%s."
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Registrations for WooCommerce"
-msgstr ""
-
-#. #-#-#-#-#  plugin.pot (Registrations for WooCommerce 1.0.0)  #-#-#-#-#
-#. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (Registrations for WooCommerce 1.0.0)  #-#-#-#-#
-#. Author URI of the plugin/theme
-msgid "http://www.hastedesign.com.br"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Add registration product type to your WooCommerce."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Haste, Allyson Souza, Anyssa Ferreira"
-msgstr ""
+#~ msgid "Attendee #%u"
+#~ msgstr "Participante #%u"
