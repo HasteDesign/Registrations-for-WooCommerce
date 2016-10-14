@@ -63,7 +63,7 @@ class WC_Registrations_Admin {
 
 		if ( $is_woocommerce_screen ) {
 
-			$dependencies = array( 'jquery' );
+			$dependencies = array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' );
 
 			// Version juggling
 			if ( WC_Registrations::is_woocommerce_pre_2_1() ) { // WC 2.0
@@ -100,6 +100,9 @@ class WC_Registrations_Admin {
 			// Registrations for WooCommerce Ajax - wc-registrations-ajax.js
 			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( WC_Registrations::$plugin_file ) . '/js/wc-registrations-ajax.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/wc-registrations-ajax.js' ) );
 			wp_localize_script( 'woocommerce_registrations_ajax', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
+
+			// JQuery UI Datepicker
+			wp_enqueue_style( 'jquery-ui-datepicker' );
 		}
 
 		// Maybe add the admin notice

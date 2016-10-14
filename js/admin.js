@@ -48,6 +48,7 @@ jQuery( function( $ ) {
 			this.remove_date_attribute();
 			this.adjust_attributes_index();
 			this.update_hidden_field();
+			this.datepicker_init();
 		},
 
 		/**
@@ -96,6 +97,7 @@ jQuery( function( $ ) {
 			var el = $( 'script.template-' + value ).html();
 			$( '.dates' ).append( el );
 			wc_meta_boxes_product_registrations.dates_ids();
+			wc_meta_boxes_product_registrations.datepicker_init();
 			event.preventDefault();
 		},
 
@@ -165,7 +167,7 @@ jQuery( function( $ ) {
 		 * Check if name is empty and change variation disabled to false
 		 */
 		toggle_hidden_name_and_variation: function () {
-			if( $('#hidden_date').attr( 'value' ) != '' ) {
+			if( $('#hidden_date').attr( 'value' ) !== '' ) {
 
 				$('#hidden_name').attr( 'value', 'Dates' );
 				$('#hidden_variation').prop( "disabled", false );
@@ -212,7 +214,7 @@ jQuery( function( $ ) {
 			}
 
 			$( el ).find( 'input' ).each( function() {
-				if( dates != null ) {
+				if( dates !== null ) {
 					dates += ',"' + $( this ).val() + '"';
 				} else {
 					dates = '"' + $( this ).val() + '"';
@@ -241,7 +243,7 @@ jQuery( function( $ ) {
 			}
 
 			$( el ).find( 'input' ).each( function() {
-				if( dates != null ) {
+				if( dates !== null ) {
 					dates += ',"' + $( this ).val() + '"';
 				} else {
 					dates = '"' + $( this ).val() + '"';
@@ -331,6 +333,16 @@ jQuery( function( $ ) {
 			if( start >= end ) {
 				//message here
 				$( this ).parent().siblings('.validation_message').fadeIn().delay(5000).fadeOut();
+			}
+		},
+
+		/**
+		 * Call jQuery UI Datepicker for browser compatibility
+		 */
+		datepicker_init: function() {
+			//Check if browser change the type property
+			if ( $('[type="date"]').prop('type') !== 'date' ) {
+			    $('[type="date"]').datepicker();
 			}
 		},
 	};

@@ -7,6 +7,7 @@ All the project notable changes will be documented here.
 - Fixed .po from pt_BR translation changed language from "en_US" to "pt_BR"
 - Add gettext function to tweet text
 - Fixed instalation tweet url, pointing to wordprees.org plugin page
+- Added support of jQuery UI Datepicker for browsers that don't support default HTML5 input date
 
 ## (1.0.2) - 2016-06-10
 - Changed text-domain to match plugin slug (registrations-for-woocommerce)
