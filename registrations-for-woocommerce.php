@@ -6,7 +6,7 @@
  * Author: Haste - design and technology, Allyson Souza, Anyssa Ferreira
  * Author URI: http://www.hastedesign.com.br
  * Version: 1.0.3
- * Text-Domain: registrations-for-woocommerce
+ * Text Domain: registrations-for-woocommerce
  * Domain Path: /languages
  *
  * Copyright 2015 Haste Design.  (email : contato@hastedesign.com.br)

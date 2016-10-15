@@ -3,6 +3,7 @@ All the project notable changes will be documented here.
 
 ## [Unreleased]
 ### Added
+- Fixed Text Domain in plugin header (removed hyphen)
 
 ## (1.0.3) - 2016-10-14
 ### Added
