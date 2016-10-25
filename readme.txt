@@ -1,7 +1,7 @@
 === Registrations for WooCommerce ===
 Contributors: hastedesign, allysonsouza, anyssa
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=allyson_as%40hotmail%2ecom&lc=US&item_name=WooCommerce%20Registrations%20by%20Haste&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
-Tags: woocommerce, registrations, attendees, subscriptions
+Tags: woocommerce, registrations, attendees, subscriptions, tickets, events
 Requires at least: 3.0.1
 Tested up to: 4.6.1
 Stable tag: 1.0.3
@@ -12,8 +12,7 @@ Sell registrations for courses, lectures, events or any product based on dates.
 
 == Description ==
 
-Contribute with this project here:
-**GitHub**: [https://github.com/HasteDesign/Registrations-for-WooCommerce](https://github.com/HasteDesign/Registrations-for-WooCommerce)
+Contribute with this project in **GitHub**: [https://github.com/HasteDesign/Registrations-for-WooCommerce](https://github.com/HasteDesign/Registrations-for-WooCommerce)
 
 Registrations for WooCommerce allows the creation of the **registration** product type. Registration products can have dates as variations.
 
@@ -50,11 +49,13 @@ Sometimes it's possible that variations go away when you delete or save new date
 
 == Screenshots ==
 
-1. Product Type - Registrations ( Tipo de Produto - Inscrições )
-2. Single Day ( Dia Único )
-3. Multiple Days ( Múltiplos Dias )
-4. Range Date ( Intervalo de Datas )
-5. Variation based on date ( Variação baseada em data )
+1. Product Type - Registration
+2. Single Day
+3. Multiple Days
+4. Range Date
+5. Variation based on date
+6. Front-end date select - theme: Storefront
+7. Additional checkout fields - theme: Storefront
 
 == Changelog ==
 

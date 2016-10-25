@@ -10,8 +10,8 @@ This plugin allows you to sell registrations for courses, lectures, events or an
 Created by: @hastedesign, @allysonsouza, @anyssa
 
 - Requires at least: 3.0.1
-- Tested up to: 4.3
-- Stable tag: 4.3
+- Tested up to: 4.6.1
+- Stable tag: 1.0.3
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,3 +92,7 @@ Sometimes it's possible that variations go away when you delete or save new date
 ![alt tag](/assets/screenshot-4.png?raw=true "Range Date")
 
 ![alt tag](/assets/screenshot-5.png?raw=true "Variation based on date")
+
+![alt tag](/assets/screenshot-6.png?raw=true "Front-end date select - theme: Storefront")
+
+![alt tag](/assets/screenshot-7.png?raw=true "Additional checkout fields - theme: Storefront")

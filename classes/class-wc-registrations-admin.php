@@ -42,7 +42,7 @@ class WC_Registrations_Admin {
 
 		// Filter dates variations options name and display correctly for each date type (single, multiple, and range)
 		add_filter( 'woocommerce_variation_option_name', __CLASS__ . '::registration_variation_option_name' );
-		add_filter( 'woocommerce_attribute', __CLASS__ . '::registration_variation_option_name_additional_information', 10, 3 );
+		add_filter( 'woocommerce_attribute', __CLASS__ . '::registration_variation_filter_additional_information', 10, 3 );
 	}
 
     /**
