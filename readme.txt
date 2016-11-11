@@ -59,6 +59,11 @@ Sometimes it's possible that variations go away when you delete or save new date
 
 == Changelog ==
 
+= 1.0.4 - 2016-11-11 =
+- Fixed Text Domain in plugin header (removed hyphen)
+- Fixed call to undefined callback registration_variation_option_name_additional_information in WC_Registrations_Admin
+- Fixed verification if participant POST field is defined
+
 = 1.0.3 - 2016-10-14 =
 - Fixed .pot file, adding correct path and gettext config
 - Fixed .po from pt_BR translation changed language from "en_US" to "pt_BR"
