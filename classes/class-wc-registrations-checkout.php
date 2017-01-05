@@ -72,7 +72,7 @@ class WC_Registrations_Checkout {
 						}
 					}
 
-					echo "<h3>" . sprintf( __( 'Participant #%u', $registrations ), $registrations ) . '</h3>';
+					echo "<h3>" . sprintf( __( 'Participant #%u', 'registrations-for-woocommerce' ), $registrations ) . '</h3>';
 
 					woocommerce_form_field( 'participant_name_' . $registrations , array(
 						'type'          => 'text',

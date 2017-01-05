@@ -4,6 +4,11 @@ All the project notable changes will be documented here.
 ## [Unreleased]
 ### Added
 
+## (1.0.5) - 2016-01-04
+### Added
+- Fixed url in WooCommece install notifications
+- Fixed text-domians for some strings ('Clear Selection', 'Participant %u')
+
 ## (1.0.4) - 2016-11-11
 ### Added
 - Fixed Text Domain in plugin header (removed hyphen)
@@ -32,6 +37,8 @@ All the project notable changes will be documented here.
 ### Added
 - Initial Release
 
+[1.0.4]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.4
+[1.0.3]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.3
 [1.0.2]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.2
 [1.0.1]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.1
 [1.0.0]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.0

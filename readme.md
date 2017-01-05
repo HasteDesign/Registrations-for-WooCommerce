@@ -10,8 +10,8 @@ This plugin allows you to sell registrations for courses, lectures, events or an
 Created by: @hastedesign, @allysonsouza, @anyssa
 
 - Requires at least: 3.0.1
-- Tested up to: 4.6.1
-- Stable tag: 1.0.3
+- Tested up to: 4.7
+- Stable tag: 1.0.5
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
