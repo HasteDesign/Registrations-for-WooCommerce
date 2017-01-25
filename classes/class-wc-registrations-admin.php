@@ -43,6 +43,9 @@ class WC_Registrations_Admin {
 		// Filter dates variations options name and display correctly for each date type (single, multiple, and range)
 		add_filter( 'woocommerce_variation_option_name', __CLASS__ . '::registration_variation_option_name' );
 		add_filter( 'woocommerce_attribute', __CLASS__ . '::registration_variation_filter_additional_information', 10, 3 );
+
+		// Filter dates attribute name
+		add_filter( 'woocommerce_attribute_label', __CLASS__ . '::registration_attribute_label', 10, 3 );
 	}
 
     /**
@@ -254,6 +257,21 @@ class WC_Registrations_Admin {
 			} else {
 				return $values_sanitized;
 			}
+	}
+
+	/**
+	 * Filter dates attribute name/label in multiple places
+	 * @param  string $label
+	 * @param  array  $name
+	 * @param  array  $product
+	 * @return string $label		filtered date attribute name
+	 */
+	public function registration_attribute_label( $label, $name, $product ) {
+		if( $name === 'Dates' || $name === 'dates' ) {
+			return __( 'Dates', 'registrations-for-woocommerce' );
+		}
+
+		return $label;
 	}
 
 	public static function format_variations_dates( $opt, $date_format ) {
