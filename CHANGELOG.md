@@ -3,6 +3,7 @@ All the project notable changes will be documented here.
 
 ## [Unreleased]
 ### Added
+- Fixed checkout that won't validate participant fields
 
 ## (1.0.5) - 2016-01-04
 ### Added

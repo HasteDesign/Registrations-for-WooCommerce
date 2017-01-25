@@ -118,12 +118,12 @@ class WC_Registrations_Checkout {
 
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 					// Check if field is set, if it's not set add an error.
-					if ( ! empty( $_POST['participant_name_' . $registrations] ) ) {
-						wc_add_notice( sprintf( __( 'Please enter a correct name to participant #%u ', 'registrations-for-woocommerce' ), $registrations ) );
+					if ( ! $_POST['participant_name_' . $registrations] ) {
+						wc_add_notice( sprintf( __( 'Please enter a correct name to participant #%u ', 'registrations-for-woocommerce' ), $registrations ), 'error' );
 					}
 
-					if ( ! empty( $_POST['participant_email_' . $registrations ] ) ) {
-						wc_add_notice( sprintf( __( 'Please enter a correct email to participant #%u ', 'registrations-for-woocommerce' ), $registrations ) );
+					if ( ! $_POST['participant_email_' . $registrations ] ) {
+						wc_add_notice( sprintf( __( 'Please enter a correct email to participant #%u ', 'registrations-for-woocommerce' ), $registrations ), 'error' );
 					}
 				}
 			}
