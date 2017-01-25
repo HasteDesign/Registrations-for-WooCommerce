@@ -59,6 +59,10 @@ Sometimes it's possible that variations go away when you delete or save new date
 
 == Changelog ==
 
+= 1.0.6 - 2017-01-25 =
+- Fixed checkout that won't validate participant fields
+- Fixed dates attribute name translation trough filtering
+
 = 1.0.5 - 2016-01-04 =
 - Fixed url in WooCommece install notifications
 - Fixed text-domians for some strings ('Clear Selection', 'Participant %u')

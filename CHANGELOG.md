@@ -3,12 +3,15 @@ All the project notable changes will be documented here.
 
 ## [Unreleased]
 ### Added
+
+## (1.0.6) - 2017-01-25
+### Added
 - Fixed checkout that won't validate participant fields
 - Fixed dates attribute name translation trough filtering
 
 ## (1.0.5) - 2016-01-04
 ### Added
-- Fixed url in WooCommece install notifications
+- Fixed url in WooCommerce install notifications
 - Fixed text-domians for some strings ('Clear Selection', 'Participant %u')
 
 ## (1.0.4) - 2016-11-11
