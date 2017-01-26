@@ -3,8 +3,8 @@ Contributors: hastedesign, allysonsouza, anyssa
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=allyson_as%40hotmail%2ecom&lc=US&item_name=WooCommerce%20Registrations%20by%20Haste&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: woocommerce, registrations, attendees, subscriptions, tickets, events
 Requires at least: 3.0.1
-Tested up to: 4.7
-Stable tag: 1.0.5
+Tested up to: 4.7.1
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
