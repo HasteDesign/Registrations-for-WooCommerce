@@ -1,11 +1,12 @@
 # WordPress Blank Pot
 # Copyright (C) 2014 ...
 # This file is distrubuted under the GPL-2.0+
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Registrations for WooCommerce 1.0.2\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-10-14 18:31-0300\n"
+"POT-Creation-Date: 2017-02-08 17:41-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Allyson Souza <allyson@hastedesign.com.br>\n"
 "Language-Team: Haste <contato@hastedesign.com.br>\n"
@@ -19,92 +20,87 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_x;esc_html_e;esc_html__;esc_attr_e;esc_attr__;"
 "_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;"
 "__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
-"X-Poedit-Basepath: ../\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 1.8.8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: registrations-for-woocommerce.php:111
-#, php-format
-msgid ""
-"%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s "
-"must be active for Registrations for WooCommerce to work. Please %sinstall & "
-"activate WooCommerce%s"
+#: classes/class-wc-product-registrations.php:88
+msgid "The selected date is no longer available."
 msgstr ""
 
-#: registrations-for-woocommerce.php:115
-#, php-format
-msgid ""
-"%sRegistrations for WooCommerce is inactive.%s This version of Registrations "
-"requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version "
-"2.1 or newer%s"
-msgstr ""
-
-#: registrations-for-woocommerce.php:188
-#, php-format
-msgid ""
-"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
-"for WooCommerce no longer supports versions of WooCommerce prior to 2.0. "
-"Please %supgrade WooCommerce to version 2.0 or newer%s to avoid issues."
-msgstr ""
-
-#: registrations-for-woocommerce.php:193
-#, php-format
-msgid ""
-"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
-"for WooCommerce requires WooCommerce 2.0.16 or newer. Please %supdate "
-"WooCommerce to the latest version%s."
-msgstr ""
-
-#: classes/class-wc-product-registrations.php:84
+#: classes/class-wc-product-registrations.php:106
 #, php-format
 msgid "From %s to %s"
 msgstr ""
 
-#: classes/class-wc-product-registrations.php:144
+#: classes/class-wc-product-registrations.php:166
 msgid "saturday"
 msgstr ""
 
-#: classes/class-wc-product-registrations.php:146
+#: classes/class-wc-product-registrations.php:168
 msgid "monday"
 msgstr ""
 
-#: classes/class-wc-product-registrations.php:148
+#: classes/class-wc-product-registrations.php:170
 msgid "sunday"
 msgstr ""
 
-#: classes/class-wc-product-registrations.php:150
+#: classes/class-wc-product-registrations.php:172
 msgid "tuesday"
 msgstr ""
 
-#: classes/class-wc-product-registrations.php:152
+#: classes/class-wc-product-registrations.php:174
 msgid "wednesday"
 msgstr ""
 
-#: classes/class-wc-product-registrations.php:154
+#: classes/class-wc-product-registrations.php:176
 msgid "thursday"
 msgstr ""
 
-#: classes/class-wc-product-registrations.php:156
+#: classes/class-wc-product-registrations.php:178
 msgid "friday"
 msgstr ""
 
-#: classes/class-wc-registrations-admin.php:135
+#: classes/class-wc-registrations-admin.php:65
+msgid "Prevent Past Events"
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:66
+msgid "If you want to prevent past events from being registred in."
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:73
+msgid "Days before"
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:76
+msgid ""
+"Select the number of days to before the vent happens to prevent purchase. "
+"Empty or 0 means the same day."
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:189
 msgid "Registration"
 msgstr ""
 
-#: classes/class-wc-registrations-admin.php:203
+#: classes/class-wc-registrations-admin.php:259
+#: classes/class-wc-registrations-admin.php:321
 msgid "Dates"
 msgstr ""
 
-#: classes/class-wc-registrations-admin.php:278
+#: classes/class-wc-registrations-admin.php:349
 msgid " to "
 msgstr ""
 
-#: classes/class-wc-registrations-admin.php:314
+#: classes/class-wc-registrations-admin.php:385
 #, php-format
 msgid ""
 "%sRegistrations for WooCommerce Installed%s &#8211; %sYou're ready to start "
 "selling registrations!%s"
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:388
+msgid "Sell course and events registrations with #WooCommerce"
 msgstr ""
 
 #: classes/class-wc-registrations-checkout.php:69
@@ -277,6 +273,38 @@ msgid ""
 "Your dates have been saved. Go into the Variations Tab and create a "
 "variation for each of your dates and continue to configure your registration "
 "date specific information."
+msgstr ""
+
+#: registrations-for-woocommerce.php:110
+#, php-format
+msgid ""
+"%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s "
+"must be active for Registrations for WooCommerce to work. Please %sinstall & "
+"activate WooCommerce%s"
+msgstr ""
+
+#: registrations-for-woocommerce.php:114
+#, php-format
+msgid ""
+"%sRegistrations for WooCommerce is inactive.%s This version of Registrations "
+"requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version "
+"2.1 or newer%s"
+msgstr ""
+
+#: registrations-for-woocommerce.php:187
+#, php-format
+msgid ""
+"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
+"for WooCommerce no longer supports versions of WooCommerce prior to 2.0. "
+"Please %supgrade WooCommerce to version 2.0 or newer%s to avoid issues."
+msgstr ""
+
+#: registrations-for-woocommerce.php:192
+#, php-format
+msgid ""
+"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
+"for WooCommerce requires WooCommerce 2.0.16 or newer. Please %supdate "
+"WooCommerce to the latest version%s."
 msgstr ""
 
 #: templates/single-product/add-to-cart/registration.php:24

@@ -32,6 +32,11 @@ class WC_Product_Registrations extends WC_Product_Variable {
         $this->product_type = 'registrations';
 
 		add_filter( 'woocommerce_add_to_cart_handler', array( &$this, 'add_to_cart_handler' ), 10, 2 );
+
+		/**
+		 * Optional filter to prevent past events
+		 */
+		add_filter( 'woocommerce_add_to_cart_validation', array( &$this, 'validate_registration' ), 10, 5 ); 
 	}
 
     /**
@@ -67,6 +72,39 @@ class WC_Product_Registrations extends WC_Product_Variable {
 		}
 
 		return $handler;
+	}
+
+	/**
+	 * Optionally validates an attemp to put an item on the cart to validate if the event 
+	 * is not on the past or after the maximum registration date.
+	 *
+	 * @access public
+	 * @param bool $passed if the validation has passed up to this point
+	 * @param int $product_id the woocommerce's product id
+	 * @param int $quantity the amount that was put into the cart
+	 * @param int $variation_id the current woocommerce's variation id
+	 *
+	 * @return bool $passed the new validation status
+	 */
+	public function validate_registration( $passed, $product_id, $quantity, $variation_id, $variations ) {
+
+		$prevent_past_events = get_post_meta( $product_id, '_prevent_past_events', true );
+
+		if ($prevent_past_events == 'yes') {
+			$days_to_prevent = get_post_meta( $product_id, '_days_to_prevent', true );
+			if ($days_to_prevent == null) $days_to_prevent = 0;
+
+			$date = get_post_meta( $variation_id , 'attribute_dates', true );
+			$event_date = WC_Registrations_Admin::registration_variation_option_name( $date, 'd-m-Y' );
+			$current_time = date('d-m-Y', time());
+			$target_date = date('d-m-Y', strtotime('+' . $days_to_prevent . ' days' . $current_time));
+
+			if ( (strtotime($event_date) <= strtotime($target_date)) ) {
+				$passed = false;
+				wc_add_notice( __( 'The selected date is no longer available.', 'registrations-for-woocommerce' ), 'error' );
+			}
+		}
+		return $passed;
 	}
 
 	/**

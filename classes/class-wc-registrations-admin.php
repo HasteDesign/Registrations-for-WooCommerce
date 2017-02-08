@@ -46,6 +46,64 @@ class WC_Registrations_Admin {
 
 		// Filter dates attribute name
 		add_filter( 'woocommerce_attribute_label', __CLASS__ . '::registration_attribute_label', 10, 3 );
+
+		// Filter past events
+		add_action( 'woocommerce_product_options_inventory_product_data', __CLASS__.'::add_custom_general_fields' );
+		add_action( 'woocommerce_process_product_meta', __CLASS__.'::add_custom_general_fields_save' );
+	}
+
+	/**
+	 * Create the interface in the "Edit Product" admin page for the past event filter.
+	 *
+	 * @since 1.0.7
+	 */
+	public function add_custom_general_fields() {
+
+		global $woocommerce, $post;
+
+		echo '<div class="options_group">';
+
+		woocommerce_wp_checkbox( 
+			array( 
+				'id'            => '_prevent_past_events', 
+				'wrapper_class' => 'show_if_registration', 
+				'label'         => __('Prevent Past Events', 'registrations-for-woocommerce' ), 
+				'description'   => __( 'If you want to prevent past events from being registred in.', 'registrations-for-woocommerce' ) 
+			)
+		);
+
+		woocommerce_wp_text_input( 
+			array( 
+				'id'                => '_days_to_prevent', 
+				'label'             => __( 'Days before', 'registrations-for-woocommerce' ),
+				'wrapper_class'     => 'show_if_registration', 
+				'placeholder'       => '',
+				'description'       => __( 'Select the number of days to before the vent happens to prevent purchase. Empty or 0 means the same day.', 'registrations-for-woocommerce' ),
+				'type'              => 'number',
+				'custom_attributes' => array(
+						'step' 	=> 'any',
+						'min'	=> '0'
+					) 
+			)
+		);
+
+		echo '</div>';
+
+	}
+
+	/**
+	 * Adds the option to block event purchases from past or aftera certain date.
+	 *
+	 * @since 1.0.7
+	 */
+	public function add_custom_general_fields_save( $post_id ) {
+		$woocommerce_checkbox = isset( $_POST['_prevent_past_events'] ) ? 'yes' : 'no';
+		update_post_meta( $post_id, '_prevent_past_events', $woocommerce_checkbox );
+
+		$woocommerce_number_field = $_POST['_days_to_prevent'];
+		if( !empty( $woocommerce_number_field ) )
+			update_post_meta( $post_id, '_days_to_prevent', esc_attr( $woocommerce_number_field ) );
+
 	}
 
     /**

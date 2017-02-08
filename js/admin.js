@@ -16,6 +16,8 @@ jQuery( function( $ ) {
 			.on( 'change', '.event_start_date', this.validate_range_date )
 			.on( 'change', '.event_end_date', this.validate_range_date );
 
+			$( '#_prevent_past_events').on( 'change', this.display_past_event_days );
+
 			// Variations Tab Events
 			$( '#variable_product_options' ).on( 'woocommerce_variations_added' , function() {
 				wc_meta_boxes_product_registrations.default_registration_values();
@@ -65,6 +67,17 @@ jQuery( function( $ ) {
 				$( 'input#_downloadable' ).prop( 'checked', false );
 			} else {
 				$('.show_if_registration').hide();
+			}
+			if (! $('#_prevent_past_events').is(':checked')) {
+				$('p._days_to_prevent_field ').hide();
+			}
+		},
+
+		display_past_event_days: function() {
+			if($(this).is(':checked')) {
+				$('p._days_to_prevent_field ').show();
+			} else {
+				$('p._days_to_prevent_field ').hide();
 			}
 		},
 
