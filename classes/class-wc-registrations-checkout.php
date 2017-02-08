@@ -40,6 +40,37 @@ class WC_Registrations_Checkout {
 		 * Display field value on the order edit page
 		 */
 		add_action( 'woocommerce_admin_order_data_after_billing_address', __CLASS__ . '::registrations_field_display_admin_order_meta', 10, 1 );
+
+		/**
+		 * Prettifies the name of the variable on order details
+		 */
+		add_filter( 'woocommerce_order_items_meta_get_formatted', __CLASS__.'::prettify_variable_date_name', 10, 2 );
+	}
+
+	/**
+	 * Prettifies the name of the variable item in the order details back to the default Wordpress date format to present it to the user.
+	 * @param array  $formatted an array containing what's set to display
+	 * @param object $order     the woocommerce order object
+	 * @return array            the array now containing the name prettified
+	 * @since 1.0.7
+	 */
+	public function prettify_variable_date_name($formatted, $order) {
+
+		if ($order->product->parent->product_type == 'registrations') {
+			foreach ( $formatted as $key => $value ) {
+				$decoded = json_decode($value['value']);
+				$str = '';
+				if (isset($decoded->date))
+					$str = WC_Registrations_Admin::format_variations_dates($decoded, get_option( 'date_format' ));
+				elseif (isset($decoded->dates))
+					$str = WC_Registrations_Admin::format_variations_dates($decoded, get_option( 'date_format' ));
+
+				$value['value'] = $str;
+				$formatted[$key] = $value;
+			}
+		}
+
+		return $formatted;
 	}
 
 	/**
