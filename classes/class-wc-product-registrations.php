@@ -86,22 +86,31 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 *
 	 * @return bool $passed the new validation status
 	 */
-	public function validate_registration( $passed, $product_id, $quantity, $variation_id, $variations ) {
+	public function validate_registration( $passed, $product_id, $quantity = null, $variation_id = null, $variations = null) {
 
-		$prevent_past_events = get_post_meta( $product_id, '_prevent_past_events', true );
+		if ($variation_id != null) {
+			$prevent_past_events = get_post_meta( $product_id, '_prevent_past_events', true );
 
-		if ($prevent_past_events == 'yes') {
-			$days_to_prevent = get_post_meta( $product_id, '_days_to_prevent', true );
-			if ($days_to_prevent == null) $days_to_prevent = 0;
+			if ($prevent_past_events == 'yes') {
+				$days_to_prevent = get_post_meta( $product_id, '_days_to_prevent', true );
+				if ($days_to_prevent == null) $days_to_prevent = 0;
 
-			$date = get_post_meta( $variation_id , 'attribute_dates', true );
-			$event_date = WC_Registrations_Admin::registration_variation_option_name( $date, 'd-m-Y' );
-			$current_time = date('d-m-Y', time());
-			$target_date = date('d-m-Y', strtotime('+' . $days_to_prevent . ' days' . $current_time));
+				$date = get_post_meta( $variation_id , 'attribute_dates', true );
+				$decoded_date = json_decode($date);
+				$event_date = '';
 
-			if ( (strtotime($event_date) <= strtotime($target_date)) ) {
-				$passed = false;
-				wc_add_notice( __( 'The selected date is no longer available.', 'registrations-for-woocommerce' ), 'error' );
+				if ($decoded_date->type == 'single')
+					$event_date = $decoded_date->date;
+				else
+					$event_date = $decoded_date->dates[0];
+
+				$current_time = date('d-m-Y', time());
+				$target_date = date('d-m-Y', strtotime('+' . $days_to_prevent . ' days' . $current_time));
+
+				if ( (strtotime($event_date) <= strtotime($target_date)) ) {
+					$passed = false;
+					wc_add_notice( __( 'The selected date is no longer available.', 'registrations-for-woocommerce' ), 'error' );
+				}
 			}
 		}
 		return $passed;
