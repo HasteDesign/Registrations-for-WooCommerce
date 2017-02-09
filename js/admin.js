@@ -259,12 +259,14 @@ jQuery( function( $ ) {
 		 * Hide date attribute from woocommerce_attribute tab. (Make users only able to edit date attributes trough dates tab)
 		 */
 		remove_date_attribute: function() {
-			var $strong = $('.woocommerce_attribute').children('h3').children("strong:contains('Dates')");
+			//get the attribute with "Dates" name
+			var $strong = $('.woocommerce_attribute').find('input[value="Dates"]');
 
 			if( $strong ) {
-				var $parent = $( $strong ).parent().parent();
+				//var $parent = $( $strong ).parent().parent().parent().parent().parent().parent();
+				var $parent = $( $strong ).parent().closest( '.woocommerce_attribute' );
 
-				$parent.find('select, input[type=text]').val('');
+				$strong.val('');
 				$parent.hide();
 				this.attribute_row_indexes();
 			}

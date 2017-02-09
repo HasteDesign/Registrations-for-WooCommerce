@@ -3,6 +3,12 @@ All the project notable changes will be documented here.
 
 ## [Unreleased]
 ### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- Hidden date attributes in WooCommerce attributes default panel
+### Security
 
 ## (1.0.6) - 2017-01-25
 ### Added
