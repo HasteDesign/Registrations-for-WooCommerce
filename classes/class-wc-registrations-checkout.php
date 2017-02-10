@@ -54,7 +54,7 @@ class WC_Registrations_Checkout {
 	 * @return array            the array now containing the name prettified
 	 * @since 1.0.7
 	 */
-	public function prettify_variable_date_name($formatted, $order) {
+	public static function prettify_variable_date_name($formatted, $order) {
 
 		if ($order->product->parent->product_type == 'registrations') {
 			foreach ( $formatted as $key => $value ) {

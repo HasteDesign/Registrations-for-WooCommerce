@@ -36,7 +36,7 @@ class WC_Product_Registrations extends WC_Product_Variable {
 		/**
 		 * Optional filter to prevent past events
 		 */
-		add_filter( 'woocommerce_add_to_cart_validation', array( &$this, 'validate_registration' ), 10, 5 ); 
+		add_filter( 'woocommerce_add_to_cart_validation', __CLASS__ . '::validate_registration' ), 10, 5 ); 
 	}
 
     /**
@@ -86,7 +86,7 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 *
 	 * @return bool $passed the new validation status
 	 */
-	public function validate_registration( $passed, $product_id, $quantity = null, $variation_id = null, $variations = null) {
+	public static function validate_registration( $passed, $product_id, $quantity = null, $variation_id = null, $variations = null) {
 
 		if ($variation_id != null) {
 			$prevent_past_events = get_post_meta( $product_id, '_prevent_past_events', true );

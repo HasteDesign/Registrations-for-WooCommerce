@@ -57,7 +57,7 @@ class WC_Registrations_Admin {
 	 *
 	 * @since 1.0.7
 	 */
-	public function add_custom_general_fields() {
+	public static function add_custom_general_fields() {
 
 		global $woocommerce, $post;
 
@@ -96,7 +96,7 @@ class WC_Registrations_Admin {
 	 *
 	 * @since 1.0.7
 	 */
-	public function add_custom_general_fields_save( $post_id ) {
+	public static function add_custom_general_fields_save( $post_id ) {
 		$woocommerce_checkbox = isset( $_POST['_prevent_past_events'] ) ? 'yes' : 'no';
 		update_post_meta( $post_id, '_prevent_past_events', $woocommerce_checkbox );
 
