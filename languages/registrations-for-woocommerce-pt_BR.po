@@ -69,24 +69,28 @@ msgid ""
 "If you want to prevent this event from being registred if a requirement is "
 "met."
 msgstr ""
+"Se você quer prevenir que este evento seja comprado se uma certa condição se "
+"tornar verdadeira."
 
 #: classes/class-wc-registrations-admin.php:86
 msgid "- All: Maximum Registration"
-msgstr ""
+msgstr "- Todos: Data Limite"
 
 #: classes/class-wc-registrations-admin.php:86
 msgid "Last date which any of the variations are allowed to be registred in."
-msgstr ""
+msgstr "Última data na qual qualquer uma das variações pode ser comprada."
 
 #: classes/class-wc-registrations-admin.php:91
 msgid "- Per Vartion: Days before"
-msgstr ""
+msgstr "- Por Variação: Dias antes"
 
 #: classes/class-wc-registrations-admin.php:94
 msgid ""
 "Number of days to before a variation happens to prevent purchase that "
 "variation. -1 means disabled, 0 means allowed up to the same day."
 msgstr ""
+"Número de dias antes pare prevenir que uma variação seja comprada. -1 "
+"significa desabilitado, 0 significa disponível até o mesmo dia."
 
 #: classes/class-wc-registrations-admin.php:215
 msgid "Registration"
