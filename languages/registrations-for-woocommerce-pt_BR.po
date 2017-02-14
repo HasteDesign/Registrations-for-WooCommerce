@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Registrations for WooCommerce 1.0.2\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2017-02-14 13:50-0300\n"
+"POT-Creation-Date: 2017-02-14 15:50-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Allyson Souza <allyson@hastedesign.com.br>\n"
 "Language-Team: Haste <contato@hastedesign.com.br>\n"
@@ -98,7 +98,6 @@ msgstr "Inscrição"
 
 #: classes/class-wc-registrations-admin.php:283
 #: classes/class-wc-registrations-admin.php:345
-#: reports/class-wc-report-custom-sale.php:119
 msgid "Dates"
 msgstr "Datas"
 
@@ -135,7 +134,7 @@ msgid "Participant #%u"
 msgstr "Participante #%u"
 
 #: classes/class-wc-registrations-checkout.php:111
-#: reports/class-wc-report-custom-sale_2.php:86
+#: reports/class-wc-report-detailed-registration-event.php:80
 msgid "Name"
 msgstr "Nome"
 
@@ -144,7 +143,6 @@ msgid "Mary Anna"
 msgstr "Maria Aparecida"
 
 #: classes/class-wc-registrations-checkout.php:119
-#: reports/class-wc-report-custom-sale_2.php:87
 msgid "Surname"
 msgstr "Sobrenome"
 
@@ -153,7 +151,7 @@ msgid "Smith"
 msgstr "da Silva"
 
 #: classes/class-wc-registrations-checkout.php:127
-#: reports/class-wc-report-custom-sale_2.php:88
+#: reports/class-wc-report-detailed-registration-event.php:81
 msgid "Email"
 msgstr "Email"
 
@@ -342,50 +340,47 @@ msgstr ""
 "WooCommerce Registrations requer o WooCommerce 2.0.16 ou superior. Por "
 "favor, %satualize o WooCommerce para a versão mais recente%s."
 
-#: reports/class-wc-report-custom-sale.php:27
-#: reports/class-wc-report-custom-sale_2.php:27
+#: reports/class-wc-report-detailed-registration-event.php:27
+#: reports/class-wc-report-list-registration-events.php:19
 msgid "Customer"
 msgstr ""
 
-#: reports/class-wc-report-custom-sale.php:28
-#: reports/class-wc-report-custom-sale_2.php:28
+#: reports/class-wc-report-detailed-registration-event.php:28
+#: reports/class-wc-report-list-registration-events.php:20
+#: reports/class-wc-report-list-registration-events.php:84
 msgid "Customers"
 msgstr ""
 
-#: reports/class-wc-report-custom-sale.php:37
-#: reports/class-wc-report-custom-sale_2.php:37
+#: reports/class-wc-report-detailed-registration-event.php:37
+#: reports/class-wc-report-list-registration-events.php:29
 msgid "No customers found."
 msgstr ""
 
-#: reports/class-wc-report-custom-sale.php:92
-msgid "View orders"
-msgstr ""
-
-#: reports/class-wc-report-custom-sale.php:118
+#: reports/class-wc-report-list-registration-events.php:110
 msgid "Variation ID"
 msgstr ""
 
-#: reports/class-wc-report-custom-sale.php:120
+#: reports/class-wc-report-list-registration-events.php:111
+msgid "Date"
+msgstr ""
+
+#: reports/class-wc-report-list-registration-events.php:112
 msgid "Product Name"
 msgstr ""
 
-#: reports/class-wc-report-custom-sale.php:121
+#: reports/class-wc-report-list-registration-events.php:113
 msgid "Actions"
 msgstr ""
 
 #: reports/class-wc-reports-manager.php:12
 msgid "Events"
-msgstr ""
-
-#: reports/class-wc-reports-manager.php:15
-msgid "List"
-msgstr ""
+msgstr "Eventos"
 
 #: templates/single-product/add-to-cart/registration.php:24
 msgid "This product is currently out of stock and unavailable."
 msgstr "Ese produto está atualmente indisponível."
 
-#: templates/single-product/add-to-cart/registration.php:37
+#: templates/single-product/add-to-cart/registration.php:35
 msgid "Clear selection"
 msgstr "Limpar seleção"
 
