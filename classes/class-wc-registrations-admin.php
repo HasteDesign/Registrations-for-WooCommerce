@@ -52,6 +52,17 @@ class WC_Registrations_Admin {
 		add_action( 'woocommerce_process_product_meta', __CLASS__.'::add_custom_general_fields_save' );
 	}
 
+	public static function my_custom_date_field( $post_id, $field_id, $label, $description) {
+
+		?>
+		<p class="form-field _<?php echo $field_id;?>_field show_if_registration">
+			<label for="event_start_date"><?php _e( $label, 'registrations-for-woocommerce'); ?></label>
+			<input type="text" date_format="dd-mm-yy" <?php echo "value=\"" . get_post_meta($post_id, $field_id, true) . "\"" ?>  class="fixed_datepicker wc_input_event_date event_date" name="<?php echo $field_id;?>">
+			<span class="description"><?php _e($description, 'registrations-for-woocommerce');?></span>
+		</p>
+        <?php
+	}
+
 	/**
 	 * Create the interface in the "Edit Product" admin page for the past event filter.
 	 *
@@ -61,33 +72,36 @@ class WC_Registrations_Admin {
 
 		global $woocommerce, $post;
 
-		echo '<div class="options_group">';
+		echo '<div class="options_group registration_inventory">';
 
 		woocommerce_wp_checkbox( 
 			array( 
 				'id'            => '_prevent_past_events', 
-				'wrapper_class' => 'show_if_registration', 
-				'label'         => __('Prevent Past Events', 'registrations-for-woocommerce' ), 
-				'description'   => __( 'If you want to prevent past events from being registred in.', 'registrations-for-woocommerce' ) 
+				'wrapper_class' => 'show_if_registration',
+				'label'         => __('Prevent Late Registrations', 'registrations-for-woocommerce' ), 
+				'description'   => __( 'If you want to prevent this event from being registred if a requirement is met.', 'registrations-for-woocommerce' ) 
 			)
 		);
+
+		WC_Registrations_Admin::my_custom_date_field($post->ID, '_max_registration_date', __('- All: Maximum Registration', 'registrations-for-woocommerce'), __('Last date which any of the variations are allowed to be registred in.', 'registrations-for-woocommerce'));
 
 		woocommerce_wp_text_input( 
 			array( 
 				'id'                => '_days_to_prevent', 
-				'label'             => __( 'Days before', 'registrations-for-woocommerce' ),
+				'label'             => __( '- Per Vartion: Days before', 'registrations-for-woocommerce' ),
 				'wrapper_class'     => 'show_if_registration', 
 				'placeholder'       => '',
-				'description'       => __( 'Select the number of days to before the vent happens to prevent purchase. Empty or 0 means the same day.', 'registrations-for-woocommerce' ),
+				'description'       => __( 'Number of days to before a variation happens to prevent purchase that variation. -1 means disabled, 0 means allowed up to the same day.', 'registrations-for-woocommerce' ),
 				'type'              => 'number',
 				'custom_attributes' => array(
 						'step' 	=> 'any',
-						'min'	=> '0'
+						'min'	=> '-1'
 					) 
 			)
 		);
 
 		echo '</div>';
+
 
 	}
 
@@ -97,13 +111,15 @@ class WC_Registrations_Admin {
 	 * @since 1.0.7
 	 */
 	public static function add_custom_general_fields_save( $post_id ) {
-		$woocommerce_checkbox = isset( $_POST['_prevent_past_events'] ) ? 'yes' : 'no';
-		update_post_meta( $post_id, '_prevent_past_events', $woocommerce_checkbox );
+		$_prevent_past_events = isset( $_POST['_prevent_past_events'] ) ? 'yes' : 'no';
+		update_post_meta( $post_id, '_prevent_past_events', $_prevent_past_events );
 
-		$woocommerce_number_field = $_POST['_days_to_prevent'];
-		if( !empty( $woocommerce_number_field ) )
-			update_post_meta( $post_id, '_days_to_prevent', esc_attr( $woocommerce_number_field ) );
+		$_days_to_prevent = $_POST['_days_to_prevent'];
+		update_post_meta( $post_id, '_days_to_prevent', esc_attr( $_days_to_prevent ) );
 
+		$_max_registration_date = $_POST['_max_registration_date'];
+		if ( !empty( $_max_registration_date ) )
+			update_post_meta( $post_id, '_max_registration_date', esc_attr($_max_registration_date));
 	}
 
     /**
@@ -324,7 +340,7 @@ class WC_Registrations_Admin {
 	 * @param  array  $product
 	 * @return string $label		filtered date attribute name
 	 */
-	public function registration_attribute_label( $label, $name, $product ) {
+	public static function registration_attribute_label( $label, $name, $product ) {
 		if( $name === 'Dates' || $name === 'dates' ) {
 			return __( 'Dates', 'registrations-for-woocommerce' );
 		}

@@ -75,10 +75,10 @@ jQuery( function( $ ) {
 
 		display_past_event_days: function() {
 			if($(this).is(':checked')) {
-				$('p._days_to_prevent_field ').show();
+				$('.registration_inventory p.show_if_registration').show();
 			} else {
-				$('p._days_to_prevent_field ').hide();
-			}
+				$('.registration_inventory p.show_if_registration').not($(this).parent()).hide();
+			}			
 		},
 
 		/**
@@ -357,6 +357,11 @@ jQuery( function( $ ) {
 			if ( $('[type="date"]').prop('type') !== 'date' ) {
 			    $('[type="date"]').datepicker();
 			}
+			$('input.event_date.fixed_datepicker').each(function() {
+				$(this).datepicker({
+					dateFormat: $(this).attr('date_format')
+				});
+			});
 		},
 	};
 

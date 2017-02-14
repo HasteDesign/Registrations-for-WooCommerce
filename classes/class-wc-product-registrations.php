@@ -36,7 +36,7 @@ class WC_Product_Registrations extends WC_Product_Variable {
 		/**
 		 * Optional filter to prevent past events
 		 */
-		add_filter( 'woocommerce_add_to_cart_validation', __CLASS__ . '::validate_registration' ), 10, 5 ); 
+		add_filter( 'woocommerce_add_to_cart_validation', __CLASS__ . '::validate_registration', 10, 5 ); 
 	}
 
     /**
@@ -92,8 +92,11 @@ class WC_Product_Registrations extends WC_Product_Variable {
 			$prevent_past_events = get_post_meta( $product_id, '_prevent_past_events', true );
 
 			if ($prevent_past_events == 'yes') {
+
 				$days_to_prevent = get_post_meta( $product_id, '_days_to_prevent', true );
-				if ($days_to_prevent == null) $days_to_prevent = 0;
+				if (empty($days_to_prevent) && $days_to_prevent != '0') $days_to_prevent = -1;
+
+				$max_registration_date = get_post_meta( $product_id, '_max_registration_date', true );
 
 				$date = get_post_meta( $variation_id , 'attribute_dates', true );
 				$decoded_date = json_decode($date);
@@ -105,9 +108,17 @@ class WC_Product_Registrations extends WC_Product_Variable {
 					$event_date = $decoded_date->dates[0];
 
 				$current_time = date('d-m-Y', time());
-				$target_date = date('d-m-Y', strtotime('+' . $days_to_prevent . ' days' . $current_time));
+				$target_date = $current_time;
+				$max_date = $current_time;
 
-				if ( (strtotime($event_date) <= strtotime($target_date)) ) {
+				if ($days_to_prevent != -1) {
+					$target_date = date('d-m-Y', strtotime('-' . $days_to_prevent . ' days' . $event_date));
+				}
+				if (!empty($max_registration_date)) {
+					$max_date = date('d-m-Y', strtotime($max_registration_date));
+				}
+
+				if ( strtotime($current_time) > strtotime($target_date) || strtotime($current_time) > strtotime($max_date) ) {
 					$passed = false;
 					wc_add_notice( __( 'The selected date is no longer available.', 'registrations-for-woocommerce' ), 'error' );
 				}
