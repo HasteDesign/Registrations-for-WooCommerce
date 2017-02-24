@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Registrations for WooCommerce 1.0.2\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-10-14 18:56-0300\n"
+"POT-Creation-Date: 2017-02-14 13:50-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Allyson Souza <allyson@hastedesign.com.br>\n"
 "Language-Team: Haste <contato@hastedesign.com.br>\n"
@@ -23,97 +23,86 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: registrations-for-woocommerce.php:111
-#, php-format
-msgid ""
-"%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s "
-"must be active for Registrations for WooCommerce to work. Please %sinstall & "
-"activate WooCommerce%s"
-msgstr ""
-"%sWooCommerce Registrations está inativo.%s O %splugin  WooCommerce%s deve "
-"estar ativo para que o WooCommerce Registrations funcione. Por favor, "
-"%sinstale e ative o WooCommerce%s"
+#: classes/class-wc-product-registrations.php:123
+msgid "The selected date is no longer available."
+msgstr "A data selecionada não está mais disponível."
 
-#: registrations-for-woocommerce.php:115
-#, php-format
-msgid ""
-"%sRegistrations for WooCommerce is inactive.%s This version of Registrations "
-"requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version "
-"2.1 or newer%s"
-msgstr ""
-"%sWooCommerce Registrations está inativo.%s Esta versão do Registrations "
-"reque o WooCommerce 2.1 or mais superior. Por favor %satualize o WooCommerce "
-"para a versão 2.1 ou superior%s"
-
-#: registrations-for-woocommerce.php:188
-#, php-format
-msgid ""
-"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
-"for WooCommerce no longer supports versions of WooCommerce prior to 2.0. "
-"Please %supgrade WooCommerce to version 2.0 or newer%s to avoid issues."
-msgstr ""
-"%sVocê tem uma versão desatualizada do WooCommerce instalada%s. O "
-"WooCommerce Registrations não suporta versões do WooCommerce anteriores à "
-"2.0. Por favor %satualize o WooCommerce para a versão 2.0 ou superior%s para "
-"evitar problemas."
-
-#: registrations-for-woocommerce.php:193
-#, php-format
-msgid ""
-"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
-"for WooCommerce requires WooCommerce 2.0.16 or newer. Please %supdate "
-"WooCommerce to the latest version%s."
-msgstr ""
-"%sVocê possui uma versão desatualizada do WooCommerce instalada%s. O "
-"WooCommerce Registrations requer o WooCommerce 2.0.16 ou superior. Por "
-"favor, %satualize o WooCommerce para a versão mais recente%s."
-
-#: classes/class-wc-product-registrations.php:84
+#: classes/class-wc-product-registrations.php:142
 #, php-format
 msgid "From %s to %s"
 msgstr "Das %s às %s"
 
-#: classes/class-wc-product-registrations.php:144
+#: classes/class-wc-product-registrations.php:202
 msgid "saturday"
 msgstr "sábado"
 
-#: classes/class-wc-product-registrations.php:146
+#: classes/class-wc-product-registrations.php:204
 msgid "monday"
 msgstr "segunda-feira"
 
-#: classes/class-wc-product-registrations.php:148
+#: classes/class-wc-product-registrations.php:206
 msgid "sunday"
 msgstr "domingo"
 
-#: classes/class-wc-product-registrations.php:150
+#: classes/class-wc-product-registrations.php:208
 msgid "tuesday"
 msgstr "terça-feira"
 
-#: classes/class-wc-product-registrations.php:152
+#: classes/class-wc-product-registrations.php:210
 msgid "wednesday"
 msgstr "quarta-feira"
 
-#: classes/class-wc-product-registrations.php:154
+#: classes/class-wc-product-registrations.php:212
 msgid "thursday"
 msgstr "quinta-feira"
 
-#: classes/class-wc-product-registrations.php:156
+#: classes/class-wc-product-registrations.php:214
 msgid "friday"
 msgstr "sexta-feira"
 
-#: classes/class-wc-registrations-admin.php:135
+#: classes/class-wc-registrations-admin.php:81
+msgid "Prevent Late Registrations"
+msgstr "Impedir Eventos Passados"
+
+#: classes/class-wc-registrations-admin.php:82
+msgid ""
+"If you want to prevent this event from being registred if a requirement is "
+"met."
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:86
+msgid "- All: Maximum Registration"
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:86
+msgid "Last date which any of the variations are allowed to be registred in."
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:91
+msgid "- Per Vartion: Days before"
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:94
+msgid ""
+"Number of days to before a variation happens to prevent purchase that "
+"variation. -1 means disabled, 0 means allowed up to the same day."
+msgstr ""
+
+#: classes/class-wc-registrations-admin.php:215
 msgid "Registration"
 msgstr "Inscrição"
 
-#: classes/class-wc-registrations-admin.php:203
+#: classes/class-wc-registrations-admin.php:283
+#: classes/class-wc-registrations-admin.php:345
+#: reports/class-wc-report-custom-sale.php:119
 msgid "Dates"
 msgstr "Datas"
 
-#: classes/class-wc-registrations-admin.php:278
+#: classes/class-wc-registrations-admin.php:373
 msgid " to "
 msgstr "até"
 
-#: classes/class-wc-registrations-admin.php:314
+#: classes/class-wc-registrations-admin.php:409
 #, php-format
 msgid ""
 "%sRegistrations for WooCommerce Installed%s &#8211; %sYou're ready to start "
@@ -122,55 +111,58 @@ msgstr ""
 "%sRegistrations for WooCommerce instalado%s &#8211; %sVocê está pronto para "
 "vender suas inscrições!%s"
 
-#: classes/class-wc-registrations-admin.php:317
+#: classes/class-wc-registrations-admin.php:412
 msgid "Sell course and events registrations with #WooCommerce"
 msgstr "Venda cursos e inscrições em eventos no #WooCommerce"
 
-#: classes/class-wc-registrations-checkout.php:69
+#: classes/class-wc-registrations-checkout.php:100
 #, php-format
 msgid "Participants in %s - %s"
 msgstr "Participantes em %s - %s"
 
-#: classes/class-wc-registrations-checkout.php:71
+#: classes/class-wc-registrations-checkout.php:102
 #, php-format
 msgid "Participants in %s"
 msgstr "Participantes em %s"
 
-#: classes/class-wc-registrations-checkout.php:75
+#: classes/class-wc-registrations-checkout.php:106
 #, php-format
 msgid "Participant #%u"
 msgstr "Participante #%u"
 
-#: classes/class-wc-registrations-checkout.php:80
+#: classes/class-wc-registrations-checkout.php:111
+#: reports/class-wc-report-custom-sale_2.php:86
 msgid "Name"
 msgstr "Nome"
 
-#: classes/class-wc-registrations-checkout.php:81
+#: classes/class-wc-registrations-checkout.php:112
 msgid "Mary Anna"
 msgstr "Maria Aparecida"
 
-#: classes/class-wc-registrations-checkout.php:88
+#: classes/class-wc-registrations-checkout.php:119
+#: reports/class-wc-report-custom-sale_2.php:87
 msgid "Surname"
 msgstr "Sobrenome"
 
-#: classes/class-wc-registrations-checkout.php:89
+#: classes/class-wc-registrations-checkout.php:120
 msgid "Smith"
 msgstr "da Silva"
 
-#: classes/class-wc-registrations-checkout.php:96
+#: classes/class-wc-registrations-checkout.php:127
+#: reports/class-wc-report-custom-sale_2.php:88
 msgid "Email"
 msgstr "Email"
 
-#: classes/class-wc-registrations-checkout.php:97
+#: classes/class-wc-registrations-checkout.php:128
 msgid "mary@anna.com.br"
 msgstr "maria@aparecida.com.br"
 
-#: classes/class-wc-registrations-checkout.php:122
+#: classes/class-wc-registrations-checkout.php:153
 #, php-format
 msgid "Please enter a correct name to participant #%u "
 msgstr "Por favor entre com um nome válido para o participante #%u"
 
-#: classes/class-wc-registrations-checkout.php:126
+#: classes/class-wc-registrations-checkout.php:157
 #, php-format
 msgid "Please enter a correct email to participant #%u "
 msgstr "Por favor entre com um email válido para o participante #%u"
@@ -301,13 +293,125 @@ msgstr ""
 "cada uma de suas datas e continue a configuração específica de cada uma das "
 "suas datas de registro."
 
+#: registrations-for-woocommerce.php:111
+#, php-format
+msgid ""
+"%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s "
+"must be active for Registrations for WooCommerce to work. Please %sinstall & "
+"activate WooCommerce%s"
+msgstr ""
+"%sWooCommerce Registrations está inativo.%s O %splugin  WooCommerce%s deve "
+"estar ativo para que o WooCommerce Registrations funcione. Por favor, "
+"%sinstale e ative o WooCommerce%s"
+
+#: registrations-for-woocommerce.php:115
+#, php-format
+msgid ""
+"%sRegistrations for WooCommerce is inactive.%s This version of Registrations "
+"requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version "
+"2.1 or newer%s"
+msgstr ""
+"%sWooCommerce Registrations está inativo.%s Esta versão do Registrations "
+"reque o WooCommerce 2.1 or mais superior. Por favor %satualize o WooCommerce "
+"para a versão 2.1 ou superior%s"
+
+#: registrations-for-woocommerce.php:188
+#, php-format
+msgid ""
+"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
+"for WooCommerce no longer supports versions of WooCommerce prior to 2.0. "
+"Please %supgrade WooCommerce to version 2.0 or newer%s to avoid issues."
+msgstr ""
+"%sVocê tem uma versão desatualizada do WooCommerce instalada%s. O "
+"WooCommerce Registrations não suporta versões do WooCommerce anteriores à "
+"2.0. Por favor %satualize o WooCommerce para a versão 2.0 ou superior%s para "
+"evitar problemas."
+
+#: registrations-for-woocommerce.php:193
+#, php-format
+msgid ""
+"%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
+"for WooCommerce requires WooCommerce 2.0.16 or newer. Please %supdate "
+"WooCommerce to the latest version%s."
+msgstr ""
+"%sVocê possui uma versão desatualizada do WooCommerce instalada%s. O "
+"WooCommerce Registrations requer o WooCommerce 2.0.16 ou superior. Por "
+"favor, %satualize o WooCommerce para a versão mais recente%s."
+
+#: reports/class-wc-report-custom-sale.php:27
+#: reports/class-wc-report-custom-sale_2.php:27
+msgid "Customer"
+msgstr ""
+
+#: reports/class-wc-report-custom-sale.php:28
+#: reports/class-wc-report-custom-sale_2.php:28
+msgid "Customers"
+msgstr ""
+
+#: reports/class-wc-report-custom-sale.php:37
+#: reports/class-wc-report-custom-sale_2.php:37
+msgid "No customers found."
+msgstr ""
+
+#: reports/class-wc-report-custom-sale.php:92
+msgid "View orders"
+msgstr ""
+
+#: reports/class-wc-report-custom-sale.php:118
+msgid "Variation ID"
+msgstr ""
+
+#: reports/class-wc-report-custom-sale.php:120
+msgid "Product Name"
+msgstr ""
+
+#: reports/class-wc-report-custom-sale.php:121
+msgid "Actions"
+msgstr ""
+
+#: reports/class-wc-reports-manager.php:12
+msgid "Events"
+msgstr ""
+
+#: reports/class-wc-reports-manager.php:15
+msgid "List"
+msgstr ""
+
 #: templates/single-product/add-to-cart/registration.php:24
 msgid "This product is currently out of stock and unavailable."
 msgstr "Ese produto está atualmente indisponível."
 
-#: templates/single-product/add-to-cart/registration.php:35
+#: templates/single-product/add-to-cart/registration.php:37
 msgid "Clear selection"
 msgstr "Limpar seleção"
+
+#~ msgid "Prevent Past Events"
+#~ msgstr "Impedir Eventos Passados"
+
+#~ msgid "If you want to prevent past events from being registred in."
+#~ msgstr "Se você quer impossibilitar que registrem em eventos já passados."
+
+#~ msgid "Days before"
+#~ msgstr "Dias Antes"
+
+#~ msgid ""
+#~ "Select the number of days to before the vent happens to prevent purchase. "
+#~ "Empty or 0 means the same day."
+#~ msgstr ""
+#~ "Selecione o número de dias antes que o registro ficará indisponível. Nada "
+#~ "ou 0 significa no mesmo dia."
+
+#~ msgid ""
+#~ "Select the number of days to before the vent happens to prevent purchase. "
+#~ "0 means the same day."
+#~ msgstr ""
+#~ "Selecione o número de dias antes que o registro ficará indisponível. 0 "
+#~ "significa no mesmo dia."
+
+#~ msgid ""
+#~ "Select the number of days to before the vent happens to prevent purchase."
+#~ msgstr ""
+#~ "Selecione o número de dias antes que o registro ficará indisponível."
 
 #~ msgctxt "From date to date"
 #~ msgid "to"
