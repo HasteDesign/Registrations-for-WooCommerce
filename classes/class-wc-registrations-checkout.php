@@ -39,7 +39,7 @@ class WC_Registrations_Checkout {
 		/**
 		 * Display field value on the order edit page
 		 */
-		add_action( 'woocommerce_admin_order_data_after_billing_address', __CLASS__ . '::registrations_field_display_admin_order_meta', 10, 1 );
+		//add_action( 'woocommerce_admin_order_data_after_billing_address', __CLASS__ . '::registrations_field_display_admin_order_meta', 10, 1 );
 
 		/**
 		 * Prettifies the name of the variable on order details
@@ -180,7 +180,7 @@ class WC_Registrations_Checkout {
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 					//Get the variation meta date (JSON)
 					$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
-					$date ? $meta_name = $title . ' - ' . $date : $meta_name = $title;
+					$meta_name = WC_Registrations::$name . '|' . $_product->variation_id;
 
 					//Participant Name and Participant Email
 					if (! empty( $_POST['participant_name_' . $registrations ] ) &&
@@ -190,16 +190,12 @@ class WC_Registrations_Checkout {
 						//Ckeck if it's not the first data to be added
 						if( $i !== 1 ) {
 							$meta_value .= ','. sanitize_text_field( $_POST['participant_name_' . $registrations ] );
+							$meta_value .= ' '. sanitize_text_field( $_POST['participant_surname_' . $registrations ] );
 							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
 						} else {
 							$meta_value = sanitize_text_field( $_POST['participant_name_' . $registrations ] );
+							$meta_value .= ' '. sanitize_text_field( $_POST['participant_surname_' . $registrations ] );
 							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
-						}
-
-						$user = WC_Registrations_Checkout::create_registration_user( sanitize_text_field( $_POST['participant_name_' . $registrations ] ), sanitize_text_field( $_POST['participant_surname_' . $registrations ] ), sanitize_text_field( $_POST['participant_email_' . $registrations ] ));
-
-						if( !empty( $user ) ) {
-							$users[] = $user;
 						}
 					}
 
@@ -208,52 +204,7 @@ class WC_Registrations_Checkout {
 				//Update post meta
 				update_post_meta( $order_id, $meta_name, $meta_value );
 
-				/*
-				 * Create a registration group and add users to this group
-				 */
-				WC_Registrations_Checkout::create_registration_group( $title, $users );
-
 			}
-		}
-	}
-
-	public static function create_registration_group( $group_name, $users ) {
-		// Check if Groups plugin is active
-		if ( is_plugin_active( 'groups/groups.php' ) ) {
-			Groups_Group::create( array( 'name' => $group_name ) );
-
-			if ( $group = Groups_Group::read_by_name( $group_name ) ) {
-			    $group_id = $group->group_id;
-			}
-
-			if( !empty( $group_id ) ) {
-				foreach( $users as $user_id ) {
-					Groups_User_Group::create( array( 'user_id' => $user_id, 'group_id' => $group_id ) );
-				}
-			}
-		}
-	}
-
-	public static function create_registration_user( $name, $surname, $email ) {
-		$user_id = username_exists( $email );
-
-		if ( !$user_id && email_exists( $email ) == false ) {
-			$random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
-			$user_id = wp_create_user( $email, $random_password, $email );
-
-			if ( is_wp_error( $user_id ) ) {
-			    if (WP_DEBUG === true) {
-					$message = $user_id->get_error_message();
-			        error_log( print_r( $message, true ) );
-			    }
-				return false;
-			} else {
-				$user_id = wp_update_user( array( 'ID' => $user_id, 'first_name' => $name, 'last_name' => $surname ) );
-				wp_new_user_notification( $user_id, 'both' );
-				return $user_id;
-			}
-		} else {
-			return $user_id;
 		}
 	}
 
