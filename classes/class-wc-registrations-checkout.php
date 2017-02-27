@@ -275,7 +275,7 @@ class WC_Registrations_Checkout {
 				return false;
 			} else {
 				$user_id = wp_update_user( array( 'ID' => $user_id, 'first_name' => $name, 'last_name' => $surname ) );
-				wp_new_user_notification( $user_id, 'both' );
+				wp_new_user_notification( $user_id );
 				return $user_id;
 			}
 		} else {
