@@ -58,7 +58,7 @@ class WC_Registrations {
 	public static $name = 'registrations';
 	public static $activation_transient = 'woocommerce_registrations_activated';
 	public static $plugin_file = __FILE__;
-	public static $version = '1.0.0';
+	public static $version = '1.0.6';
 
 	/**
 	 * Set up the class, including it's hooks & filters, when the file is loaded.
@@ -70,7 +70,7 @@ class WC_Registrations {
 		add_action( 'admin_init', __CLASS__ . '::maybe_activate_woocommerce_registrations' );
 		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
 
-		// Overide the WC default "Add to Cart" text to "Sign Up Now" (in various places/templates)
+		// Override the WC default "Add to Cart" text to "Sign Up Now" (in various places/templates)
 		add_action( 'woocommerce_registrations_add_to_cart', __CLASS__ . '::registrations_add_to_cart' );
 
 		// Load translation files

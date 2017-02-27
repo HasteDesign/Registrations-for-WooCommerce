@@ -54,16 +54,16 @@ class WC_Registrations_Checkout {
 	 * @return array            the array now containing the name prettified
 	 * @since 1.0.7
 	 */
-	public static function prettify_variable_date_name($formatted, $order) {
+	public static function prettify_variable_date_name( $formatted, $order ) {
 
-		if ($order->product->parent->product_type == 'registrations') {
+		if ( $order->product->parent->product_type == 'registrations' ) {
 			foreach ( $formatted as $key => $value ) {
-				$decoded = json_decode($value['value']);
+				$decoded = json_decode( $value['value'] );
 				$str = '';
-				if (isset($decoded->date))
-					$str = WC_Registrations_Admin::format_variations_dates($decoded, get_option( 'date_format' ));
-				elseif (isset($decoded->dates))
-					$str = WC_Registrations_Admin::format_variations_dates($decoded, get_option( 'date_format' ));
+				if ( isset( $decoded->date ) )
+					$str = WC_Registrations_Admin::format_variations_dates( $decoded, get_option( 'date_format' ) );
+				elseif ( isset( $decoded->dates ) )
+					$str = WC_Registrations_Admin::format_variations_dates( $decoded, get_option( 'date_format' ) );
 
 				$value['value'] = $str;
 				$formatted[$key] = $value;
@@ -88,15 +88,15 @@ class WC_Registrations_Checkout {
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
 
-			if( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
+			if ( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
 				$qty = $values['quantity'];
 
-				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
+				for ( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 
-					if( $i == 1 ) {
+					if ( $i == 1 ) {
 						$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
 
-						if( $date ) {
+						if ( $date ) {
 							echo '<div id="registrations_fields"><h2>' . sprintf( __( 'Participants in %s - %s', 'registrations-for-woocommerce' ),  $_product->parent->post->post_title, esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) ) ) . '</h2>';
 						} else {
 							echo '<div id="registrations_fields"><h2>' . sprintf( __( 'Participants in %s', 'registrations-for-woocommerce' ), $_product->parent->post->post_title ) . '</h2>';
@@ -129,7 +129,7 @@ class WC_Registrations_Checkout {
 						), $checkout->get_value( 'participant_email_' . $registrations )
 					);
 
-					if( $i == $qty ) {
+					if ( $i == $qty ) {
 						echo '</div>';
 					}
 				}
@@ -137,17 +137,21 @@ class WC_Registrations_Checkout {
 		}
 	}
 
+	/**
+	 * Process the ckecout validation for registration product type
+	 * @since 1.0
+	 */
 	public static function registrations_checkout_process() {
 		global $woocommerce;
 		$registrations = 1;
 
-		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
+		foreach ( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
 
-			if( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
+			if ( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
 				$qty = $values['quantity'];
 
-				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
+				for ( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 					// Check if field is set, if it's not set add an error.
 					if ( ! $_POST['participant_name_' . $registrations] ) {
 						wc_add_notice( sprintf( __( 'Please enter a correct name to participant #%u ', 'registrations-for-woocommerce' ), $registrations ), 'error' );
@@ -161,6 +165,10 @@ class WC_Registrations_Checkout {
 		}
 	}
 
+	/**
+	 * Update order meta adding specific registration info, like participant name, email.
+	 * @since 1.0
+	 */
 	public static function registrations_checkout_field_update_order_meta( $order_id ) {
 		global $woocommerce;
 		$registrations = 1;
@@ -217,6 +225,13 @@ class WC_Registrations_Checkout {
 		}
 	}
 
+	/**
+	* Integration with Groups plugin. If is groups active, creates a new group
+	* based in registration product, adding the participant users to that group.
+	 * @param  string 	$group_name The name of group to be created
+	 * @param  array 	$users      An array of users to be added to group
+	 * @since 1.0
+	 */
 	public static function create_registration_group( $group_name, $users ) {
 		// Check if Groups plugin is active
 		if ( is_plugin_active( 'groups/groups.php' ) ) {
@@ -234,6 +249,17 @@ class WC_Registrations_Checkout {
 		}
 	}
 
+	/**
+	 * @since 1.0
+	 */
+
+	/**
+	 * Integration with Groups plugin. If is groups active, creates a new group
+	 * @param  string 	$name    	The user name
+	 * @param  string 	$surname 	The user surname
+	 * @param  string 	$email   	The user email
+	 * @return int		$user_id   	The user ID
+	 */
 	public static function create_registration_user( $name, $surname, $email ) {
 		$user_id = username_exists( $email );
 
@@ -242,7 +268,7 @@ class WC_Registrations_Checkout {
 			$user_id = wp_create_user( $email, $random_password, $email );
 
 			if ( is_wp_error( $user_id ) ) {
-			    if (WP_DEBUG === true) {
+			    if ( WP_DEBUG === true ) {
 					$message = $user_id->get_error_message();
 			        error_log( print_r( $message, true ) );
 			    }
@@ -257,11 +283,17 @@ class WC_Registrations_Checkout {
 		}
 	}
 
-	public static function registrations_field_display_admin_order_meta( $order ){
+	/**
+	 * Display additional registration product type data to order views, displaying
+	 * registered participant data.
+	 * @param  object 	$order The name of group to be created
+	 * @since 1.0
+	 */
+	public static function registrations_field_display_admin_order_meta( $order ) {
 		foreach( $order->get_items() as $item ) {
 			$date = get_post_meta( $item['variation_id'], 'attribute_dates', true );
 
-			if( $date ) {
+			if ( $date ) {
 				$meta_name = $item['name'] . ' - ' . $date;
 			} else {
 				$meta_name = $item['name'];
@@ -269,14 +301,15 @@ class WC_Registrations_Checkout {
 
 			$meta_value = get_post_meta( $order->id, $meta_name, true );
 
-			if( $meta_value ) {
+			if ( $meta_value ) {
 				$meta_names = explode( ' - ', $meta_name );
 				echo '<p><strong>'. $meta_names[0] . ' - '. esc_html( apply_filters( 'woocommerce_variation_option_name', $meta_names[1] ) ) .':</strong></p>';
 				$meta_values = explode( ',', $meta_value );
 
 				$i = 1;
-				foreach( $meta_values as $value ) {
-					if( $i % 2 == 0 ) {
+
+				foreach ( $meta_values as $value ) {
+					if ( $i % 2 == 0 ) {
 						//Display email
 						echo $value . '<br>';
 					} else {

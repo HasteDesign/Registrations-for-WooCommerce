@@ -8,13 +8,13 @@ jQuery( function( $ ) {
 		init: function() {
 			// Dates Tab Events
 			$( '#registration_dates' )
-			.on( 'change', '.event_date', this.update_hidden_field )
-			.on( 'click', '.add_date_field', this.add_date )
-			.on( 'click', '.remove_date', this.remove_date )
-			.on( 'click', '.add_day', this.add_day )
-			.on( 'click', '.remove_day', this.remove_day )
-			.on( 'change', '.event_start_date', this.validate_range_date )
-			.on( 'change', '.event_end_date', this.validate_range_date );
+			.on( 'change', 	'.event_date', 			this.update_hidden_field )
+			.on( 'click', 	'.add_date_field', 		this.add_date )
+			.on( 'click', 	'.remove_date', 		this.remove_date )
+			.on( 'click', 	'.add_day', 			this.add_day )
+			.on( 'click', 	'.remove_day', 			this.remove_day )
+			.on( 'change', 	'.event_start_date', 	this.validate_range_date )
+			.on( 'change', 	'.event_end_date', 		this.validate_range_date );
 
 			$( '#_prevent_past_events').on( 'change', this.display_past_event_days );
 
@@ -28,11 +28,11 @@ jQuery( function( $ ) {
 
 			$( '#variable_product_options' ).on( 'change', 'select[name^="attribute_dates"]', this.handle_range_date_meta );
 
-			$( 'body' ).on('woocommerce-product-type-change', this.show_hide_registration_meta );
+			$( 'body' ).on( 'woocommerce-product-type-change', this.show_hide_registration_meta );
 
 			// Re-count the hidden inputs index when new attribute added
 			if ( 'true' == WCRegistrations.isWCPre23 ){
-				$('button.add_attribute').on('click', this.adjust_attributes_index );
+				$( 'button.add_attribute' ).on( 'click', this.adjust_attributes_index );
 			} else {
 				// WC 2.3 - run after the Ajax request has inserted variation HTML
 				$( 'body' ).on( 'woocommerce_added_attribute' , this.adjust_attributes_index );
@@ -74,11 +74,11 @@ jQuery( function( $ ) {
 		},
 
 		display_past_event_days: function() {
-			if($(this).is(':checked')) {
-				$('.registration_inventory p.show_if_registration').show();
+			if( $(this).is(':checked') ) {
+				$( '.registration_inventory p.show_if_registration' ).show();
 			} else {
-				$('.registration_inventory p.show_if_registration').not($(this).parent()).hide();
-			}			
+				$( '.registration_inventory p.show_if_registration' ).not($(this).parent()).hide();
+			}
 		},
 
 		/**

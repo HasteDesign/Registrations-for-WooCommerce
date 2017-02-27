@@ -3,10 +3,12 @@ All the project notable changes will be documented here.
 
 ## [Unreleased]
 ### Added
+- Prevent registrations from past dates (New option in Inventory tab for Registration product type)
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
+- Prettify dates on order details
 - Hidden date attributes in WooCommerce attributes default panel
 ### Security
 
