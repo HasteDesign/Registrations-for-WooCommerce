@@ -30,6 +30,9 @@ jQuery( function( $ ) {
 
 			$( 'body' ).on( 'woocommerce-product-type-change', this.show_hide_registration_meta );
 
+			// Active tab
+			$( 'body' ).on( 'woocommerce-product-type-change', this.active_tab );
+
 			// Re-count the hidden inputs index when new attribute added
 			if ( 'true' == WCRegistrations.isWCPre23 ){
 				$( 'button.add_attribute' ).on( 'click', this.adjust_attributes_index );
@@ -51,6 +54,14 @@ jQuery( function( $ ) {
 			this.adjust_attributes_index();
 			this.update_hidden_field();
 			this.datepicker_init();
+			this.active_tab();
+		},
+
+		/**
+		 * Set the active tab in product meta boxes, on woocommerce-product-type-change and on page first load
+		 */
+		active_tab: function() {
+			$( 'ul.wc-tabs li:visible' ).eq( 0 ).find( 'a' ).click();
 		},
 
 		/**
@@ -64,9 +75,6 @@ jQuery( function( $ ) {
 				$( '.hide_if_registration' ).hide();
 				$( 'input#_manage_stock' ).change();
 				$( 'input#_downloadable' ).prop( 'checked', false );
-
-				// Active Tab
-				$( 'ul.wc-tabs li:visible' ).eq( 0 ).find( 'a' ).click();
 			} else {
 				$( '.show_if_registration' ).hide();
 			}
