@@ -57,19 +57,22 @@ jQuery( function( $ ) {
 		 * Show/Hide fields for registrations product-type
 		 */
 		show_hide_registration_meta: function() {
-			if ( $( 'select#product-type' ).val() == 'registrations' ) {
+			if ( $( 'select#product-type' ).val() === 'registrations' ) {
 				$( '.hide_if_virtual' ).hide();
 				$( '.show_if_variable' ).show();
 				$( '.show_if_registration' ).show();
 				$( '.hide_if_registration' ).hide();
-
 				$( 'input#_manage_stock' ).change();
 				$( 'input#_downloadable' ).prop( 'checked', false );
+
+				// Active Tab
+				$( 'ul.wc-tabs li:visible' ).eq( 0 ).find( 'a' ).click();
 			} else {
-				$('.show_if_registration').hide();
+				$( '.show_if_registration' ).hide();
 			}
-			if (! $('#_prevent_past_events').is(':checked')) {
-				$('p._days_to_prevent_field ').hide();
+
+			if ( ! $( '#_prevent_past_events' ).is( ':checked' ) ) {
+				$( 'p._days_to_prevent_field' ).hide();
 			}
 		},
 
