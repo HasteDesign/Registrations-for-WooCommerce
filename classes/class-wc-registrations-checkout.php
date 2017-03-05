@@ -202,6 +202,7 @@ class WC_Registrations_Checkout {
 		// Loop trough cart items
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
+			$participants = [];
 			$users = [];
 
 			// Check if is registration product type
@@ -221,14 +222,18 @@ class WC_Registrations_Checkout {
 					 	! empty( $_POST['participant_surname_' . $registrations ] ) &&
 						! empty( $_POST['participant_email_' . $registrations ] ) ) {
 
-						//Ckeck if it's not the first data to be added
+						//Ckeck if it's not the first data to be added, so put a comma at the init
 						if( $i !== 1 ) {
-							$meta_value .= ','. sanitize_text_field( $_POST['participant_name_' . $registrations ] );
+							$meta_value .= ',' . sanitize_text_field( $_POST['participant_name_' . $registrations ] );
+							$meta_value .= ' '. sanitize_text_field( $_POST['participant_surname_' . $registrations ] );
 							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
 						} else {
 							$meta_value = sanitize_text_field( $_POST['participant_name_' . $registrations ] );
+							$meta_value .= ' '. sanitize_text_field( $_POST['participant_surname_' . $registrations ] );
 							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
 						}
+
+						$meta_value = apply_filters( 'registrations_checkout_fields_order_meta_value', $meta_value, $registrations );
 
 						$user = WC_Registrations_Checkout::create_registration_user( sanitize_text_field( $_POST['participant_name_' . $registrations ] ), sanitize_text_field( $_POST['participant_surname_' . $registrations ] ), sanitize_text_field( $_POST['participant_email_' . $registrations ] ));
 
@@ -311,7 +316,7 @@ class WC_Registrations_Checkout {
 
 	/**
 	 * Display additional registration product type data to order views, displaying
-	 * registered participant data.
+	 * registered participant data that are stored as order meta separated by commas.
 	 * @param  object 	$order The name of group to be created
 	 * @since 1.0
 	 */
@@ -332,17 +337,12 @@ class WC_Registrations_Checkout {
 				echo '<p><strong>'. $meta_names[0] . ' - '. esc_html( apply_filters( 'woocommerce_variation_option_name', $meta_names[1] ) ) .':</strong></p>';
 				$meta_values = explode( ',', $meta_value );
 
-				$i = 1;
-
 				foreach ( $meta_values as $value ) {
-					if ( $i % 2 == 0 ) {
-						//Display email
-						echo $value . '<br>';
-					} else {
-						//Display Name
-						echo $value . ' - ';
-					}
-					$i++;
+					/**
+					 * Display participant data that are stored as order meta
+					 * separated by commas.
+					 */
+					echo $value . '<br>';
 				}
 			}
 		}
