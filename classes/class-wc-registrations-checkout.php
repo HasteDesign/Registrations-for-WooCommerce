@@ -202,7 +202,7 @@ class WC_Registrations_Checkout {
 		// Loop trough cart items
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
-			$participants = [];
+			$participants = array( 'date' => '', 'participants' => '' );
 			$users = [];
 
 			// Check if is registration product type
@@ -211,41 +211,42 @@ class WC_Registrations_Checkout {
 				$meta_value = '';
 				$title = $_product->parent->post->post_title;
 
+
 				// Run loop for each quantity of the product
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 					//Get the variation meta date (JSON)
 					$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
 					$date ? $meta_name = $title . ' - ' . $date : $meta_name = $title;
 
+					$participants['date'] = $meta_name;
+
 					//Participant Name and Participant Email
 					if (! empty( $_POST['participant_name_' . $registrations ] ) &&
 					 	! empty( $_POST['participant_surname_' . $registrations ] ) &&
 						! empty( $_POST['participant_email_' . $registrations ] ) ) {
 
-						//Ckeck if it's not the first data to be added, so put a comma at the init
-						if( $i !== 1 ) {
-							$meta_value .= ',' . sanitize_text_field( $_POST['participant_name_' . $registrations ] );
-							$meta_value .= ' '. sanitize_text_field( $_POST['participant_surname_' . $registrations ] );
-							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
-						} else {
-							$meta_value = sanitize_text_field( $_POST['participant_name_' . $registrations ] );
-							$meta_value .= ' '. sanitize_text_field( $_POST['participant_surname_' . $registrations ] );
-							$meta_value .= ','. sanitize_text_field( $_POST['participant_email_' . $registrations ] );
-						}
+						$participant = [];
 
-						$meta_value = apply_filters( 'registrations_checkout_fields_order_meta_value', $meta_value, $registrations );
+						$participant['name'] = sanitize_text_field( $_POST['participant_name_' . $registrations ] );
+						$participant['surname'] = sanitize_text_field( $_POST['participant_surname_' . $registrations ] );
+						$participant['email'] = sanitize_email( $_POST['participant_email_' . $registrations ] );
 
-						$user = WC_Registrations_Checkout::create_registration_user( sanitize_text_field( $_POST['participant_name_' . $registrations ] ), sanitize_text_field( $_POST['participant_surname_' . $registrations ] ), sanitize_text_field( $_POST['participant_email_' . $registrations ] ));
+						$participant = apply_filters( 'registrations_checkout_fields_order_meta_value', $participant, $registrations );
+
+						$user = WC_Registrations_Checkout::create_registration_user( $participant['name'], $participant['surname'], $participant['email'] );
 
 						if( !empty( $user ) ) {
 							$users[] = $user;
+							$participant['ID'] = $user;
 						}
+
+						$participants['participants'][] = $participant;
 					}
 
 				}
 
 				//Update post meta
-				update_post_meta( $order_id, $meta_name, $meta_value );
+				update_post_meta( $order_id, '_registrations_order_meta', maybe_serialize( $participants ) );
 
 				/*
 				 * Create a registration group and add users to this group
@@ -285,7 +286,7 @@ class WC_Registrations_Checkout {
 	 */
 
 	/**
-	 * Integration with Groups plugin. If is groups active, creates a new group
+	 * Integration with Groups plugin. If groups is active, creates a new group
 	 * @param  string 	$name    	The user name
 	 * @param  string 	$surname 	The user surname
 	 * @param  string 	$email   	The user email
