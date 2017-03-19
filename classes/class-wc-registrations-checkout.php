@@ -60,19 +60,16 @@ class WC_Registrations_Checkout {
 	 * @since 1.0.7
 	 */
 	public static function prettify_variable_date_name( $formatted, $order ) {
+		foreach ( $formatted as $key => $value ) {
+			$decoded = json_decode( $value['value'] );
+			$str = '';
 
-		if ( $order->product->parent->product_type == 'registrations' ) {
-			foreach ( $formatted as $key => $value ) {
-				$decoded = json_decode( $value['value'] );
-				$str = '';
-
-				if ( isset( $decoded->date ) || isset( $decoded->dates ) ) {
-					$str = WC_Registrations_Admin::format_variations_dates( $decoded, get_option( 'date_format' ) );
-				}
-
-				$value['value'] = $str;
-				$formatted[$key] = $value;
+			if ( isset( $decoded->date ) || isset( $decoded->dates ) ) {
+				$str = WC_Registrations_Admin::format_variations_dates( $decoded, get_option( 'date_format' ) );
 			}
+
+			$value['value'] = $str;
+			$formatted[$key] = $value;
 		}
 
 		return $formatted;
