@@ -53,7 +53,7 @@ class WC_Registrations_Checkout {
 	}
 
 	/**
-	 * Prettifies the name of the variable item in the order details back to the default Wordpress date format to present it to the user.
+	 * Prettifies the name of the variable item in the order details back to the default WordPress date format to present it to the user.
 	 * @param array  $formatted an array containing what's set to display
 	 * @param object $order     the woocommerce order object
 	 * @return array            the array now containing the name prettified
@@ -79,10 +79,10 @@ class WC_Registrations_Checkout {
 	}
 
 	/**
-	 * Adds all necessary admin styles.
+	 * Display specific registrations checkout fields, if there's any registration
+	 * product_type in cart.
 	 *
-	 * @param array Array of Product types & their labels, excluding the Subscription product type.
-	 * @return array Array of Product types & their labels, including the Subscription product type.
+	 * @param object $checkout The current checkout object.
 	 * @since 1.0
 	 */
 	public static function registrations_checkout_fields( $checkout ) {
@@ -198,6 +198,7 @@ class WC_Registrations_Checkout {
 	public static function registrations_checkout_field_update_order_meta( $order_id ) {
 		global $woocommerce;
 		$registrations = 1;
+		$registrations_meta = [];
 
 		// Loop trough cart items
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
@@ -210,7 +211,6 @@ class WC_Registrations_Checkout {
 				$qty = $values['quantity'];
 				$meta_value = '';
 				$title = $_product->parent->post->post_title;
-
 
 				// Run loop for each quantity of the product
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
@@ -242,11 +242,12 @@ class WC_Registrations_Checkout {
 
 						$participants['participants'][] = $participant;
 					}
-
 				}
 
+				$registrations_meta[] = $participants;
+
 				//Update post meta
-				update_post_meta( $order_id, '_registrations_order_meta', maybe_serialize( $participants ) );
+				update_post_meta( $order_id, '_registrations_order_meta', maybe_serialize( $registrations_meta ) );
 
 				/*
 				 * Create a registration group and add users to this group
@@ -317,35 +318,34 @@ class WC_Registrations_Checkout {
 
 	/**
 	 * Display additional registration product type data to order views, displaying
-	 * registered participant data that are stored as order meta separated by commas.
-	 * @param  object 	$order The name of group to be created
+	 * registered participant data that are stored serialized.
+	 * @param  object 	$order The current order to display additional meta.
 	 * @since 1.0
 	 */
 	public static function registrations_field_display_admin_order_meta( $order ) {
-		foreach( $order->get_items() as $item ) {
-			$date = get_post_meta( $item['variation_id'], 'attribute_dates', true );
+		$registration_meta = maybe_unserialize( get_post_meta( $order->id, '_registrations_order_meta', true ) );
 
-			if ( $date ) {
-				$meta_name = $item['name'] . ' - ' . $date;
-			} else {
-				$meta_name = $item['name'];
-			}
+		if ( ! empty( $registration_meta ) ) {
+			do_action( 'registrations_before_admin_order_meta' );
 
-			$meta_value = get_post_meta( $order->id, $meta_name, true );
+			foreach ( $registration_meta as $registration ) {
+				if( ! empty( $registration['date'] ) ) {
+					$meta_name = explode( ' - ', $registration['date'] );
+					echo '<p><strong>'. $meta_name[0] . ' - '. esc_html( apply_filters( 'woocommerce_variation_option_name', $meta_name[1] ) ) .':</strong></p>';
+				}
 
-			if ( $meta_value ) {
-				$meta_names = explode( ' - ', $meta_name );
-				echo '<p><strong>'. $meta_names[0] . ' - '. esc_html( apply_filters( 'woocommerce_variation_option_name', $meta_names[1] ) ) .':</strong></p>';
-				$meta_values = explode( ',', $meta_value );
-
-				foreach ( $meta_values as $value ) {
-					/**
-					 * Display participant data that are stored as order meta
-					 * separated by commas.
-					 */
-					echo $value . '<br>';
+				if( ! empty( $registration['participants'] ) ) {
+					foreach ( $registration['participants'] as $participant ) {
+						echo '<p>';
+						echo sprintf( __( 'Name: %s %s', 'registrations-for-woocommerce' ), $participant['name'], $participant['surname'] ) . '<br>';
+						echo sprintf( __( 'Email: %s', 'registrations-for-woocommerce' ), $participant['email'] ) . '<br>';
+						do_action( 'registrations_admin_order_meta_participant_fields', $participant );
+						echo '</p>';
+					}
 				}
 			}
+
+			do_action( 'registrations_after_admin_order_meta' );
 		}
 	}
 }
