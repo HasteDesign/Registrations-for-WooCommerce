@@ -17,7 +17,7 @@ jQuery(document).ready(function($){
             security: 		woocommerce_admin_meta_boxes.save_attributes_nonce
         };
 
-        if( $( '.product_attributes' ).find( 'input, select, textarea' ).serialize() != '' ) {
+        if( $( '.product_attributes' ).find( 'input, select, textarea' ).serialize() !== '' ) {
             data.data += '&' + $( '.product_attributes' ).find( 'input, select, textarea' ).serialize();
         }
 

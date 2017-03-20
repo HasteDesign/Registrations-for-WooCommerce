@@ -3,14 +3,21 @@ All the project notable changes will be documented here.
 
 ## [Unreleased]
 ### Added
-- Prevent registrations from past dates (New option in Inventory tab for Registration product type)
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
+### Security
+
+## (1.0.7) - 2017-03-19
+### Added
+- Prevent registrations from past dates (New option in Inventory tab for Registration product type)
+- Add 'registrations_display_participant_fields' hook to make easily to add custom participant fields
+### Changed
+- Changed how participant order meta is stored (serialized data instead of CSV now)
+### Fixed
 - Prettify dates on order details
 - Hidden date attributes in WooCommerce attributes default panel
-### Security
 
 ## (1.0.6) - 2017-01-25
 ### Added

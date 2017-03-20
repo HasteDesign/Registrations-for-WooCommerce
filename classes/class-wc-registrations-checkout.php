@@ -2,13 +2,12 @@
 /**
  * Registrations Checkout Class
  *
- * Adds custom fields for Registrations info to be sent.
+ * Add custom checkout fields for registrations product types and store that
+ * data as order meta.
  *
- * @package		Registrations for WooCommerce
- * @subpackage	WC_Registrations_Checkout
- * @category	Class
+ * @package		Registrations for WooCommerce\WC_Registrations_Checkout
  * @author		Allyson Souza
- * @since		1.0
+ * @since		1.0.0
  */
 
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
@@ -22,42 +21,36 @@ class WC_Registrations_Checkout {
 	 */
 	public static function init() {
 		/**
-		 * Add the field to the checkout
+		 * Add fields to checkout
+		 *
+		 * @since 1.0.0
 		 */
 		add_action( 'woocommerce_after_order_notes', __CLASS__ . '::registrations_checkout_fields' );
 
-		/**
-		 * Display participant fields in checkout
-		 */
+		// Display participant fields in checkout
 		add_action( 'registrations_display_participant_fields', __CLASS__ . '::registrations_display_participant_fields', 10, 2 );
 
-		/**
-		 * Process the checkout
-		 */
+		// Process the checkout for registration product type
 		add_action( 'woocommerce_checkout_process',  __CLASS__ . '::registrations_checkout_process');
 
-		/**
-		 * Update the order meta with field value
-		 */
+		// Generate order meta based on order registrations and participants
 		add_action( 'woocommerce_checkout_update_order_meta', __CLASS__ . '::registrations_checkout_field_update_order_meta' );
 
-		/**
-		 * Display field value on the order edit page
-		 */
+		// Display registration order meta on admin order page
 		add_action( 'woocommerce_admin_order_data_after_billing_address', __CLASS__ . '::registrations_field_display_admin_order_meta', 10, 1 );
 
-		/**
-		 * Prettifies the name of the variable on order details
-		 */
+		// Prettifies the name of the variable on order details
 		add_filter( 'woocommerce_order_items_meta_get_formatted', __CLASS__.'::prettify_variable_date_name', 10, 2 );
 	}
 
 	/**
 	 * Prettifies the name of the variable item in the order details back to the default WordPress date format to present it to the user.
+	 *
+	 * @since 1.0.7
+	 *
 	 * @param array  $formatted an array containing what's set to display
 	 * @param object $order     the woocommerce order object
 	 * @return array            the array now containing the name prettified
-	 * @since 1.0.7
 	 */
 	public static function prettify_variable_date_name( $formatted, $order ) {
 		foreach ( $formatted as $key => $value ) {
@@ -79,8 +72,9 @@ class WC_Registrations_Checkout {
 	 * Display specific registrations checkout fields, if there's any registration
 	 * product_type in cart.
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param object $checkout The current checkout object.
-	 * @since 1.0
 	 */
 	public static function registrations_checkout_fields( $checkout ) {
 		global $woocommerce;
@@ -131,7 +125,10 @@ class WC_Registrations_Checkout {
 	}
 
 	/**
-	 * Display WooCommerce form fields for participants in registrations checkout
+	 * Display WooCommerce form fields for participants in registrations checkout.
+	 *
+	 * @since 1.0.0
+	 *
 	 * @param int $registrations	The current participant number
 	 */
 	public static function registrations_display_participant_fields( $checkout, $current_participant ) {
@@ -161,8 +158,10 @@ class WC_Registrations_Checkout {
 	}
 
 	/**
-	 * Process the ckecout validation for registration product type
+	 * Process the ckecout validation for registration product type.
+	 *
 	 * @since 1.0
+	 *
 	 */
 	public static function registrations_checkout_process() {
 		global $woocommerce;
@@ -190,7 +189,9 @@ class WC_Registrations_Checkout {
 
 	/**
 	 * Update order meta adding specific registration info, like participant name, email.
+	 *
 	 * @since 1.0
+	 *
 	 */
 	public static function registrations_checkout_field_update_order_meta( $order_id ) {
 		global $woocommerce;
@@ -211,13 +212,13 @@ class WC_Registrations_Checkout {
 
 				// Run loop for each quantity of the product
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
-					//Get the variation meta date (JSON)
+					// Get the variation meta date (JSON)
 					$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
 					$date ? $meta_name = $title . ' - ' . $date : $meta_name = $title;
 
 					$participants['date'] = $meta_name;
 
-					//Participant Name and Participant Email
+					// Participant Name and Participant Email
 					if (! empty( $_POST['participant_name_' . $registrations ] ) &&
 					 	! empty( $_POST['participant_surname_' . $registrations ] ) &&
 						! empty( $_POST['participant_email_' . $registrations ] ) ) {
@@ -243,12 +244,10 @@ class WC_Registrations_Checkout {
 
 				$registrations_meta[] = $participants;
 
-				//Update post meta
+				// Update post meta
 				update_post_meta( $order_id, '_registrations_order_meta', maybe_serialize( $registrations_meta ) );
 
-				/*
-				 * Create a registration group and add users to this group
-				 */
+				// Create a registration group and add users to this group
 				WC_Registrations_Checkout::create_registration_group( $title, $users );
 
 			}
@@ -256,11 +255,12 @@ class WC_Registrations_Checkout {
 	}
 
 	/**
-	* Integration with Groups plugin. If is groups active, creates a new group
-	* based in registration product, adding the participant users to that group.
-	 * @param  string 	$group_name The name of group to be created
-	 * @param  array 	$users      An array of users to be added to group
+	 * Integration with Groups plugin. If is groups active, creates a new group
+	 * based in registration product, adding the participant users to that group.
+	 *
 	 * @since 1.0
+	 * @param  string 	$group_name The name of group to be created.
+  	 * @param  array 	$users      An array of users to be added to group.
 	 */
 	public static function create_registration_group( $group_name, $users ) {
 		// Check if Groups plugin is active
@@ -280,11 +280,10 @@ class WC_Registrations_Checkout {
 	}
 
 	/**
-	 * @since 1.0
-	 */
-
-	/**
-	 * Integration with Groups plugin. If groups is active, creates a new group
+	 * Integration with Groups plugin. If groups is active, creates a new group.
+	 *
+	 * @since 1.0.0
+	 *
 	 * @param  string 	$name    	The user name
 	 * @param  string 	$surname 	The user surname
 	 * @param  string 	$email   	The user email
@@ -316,8 +315,10 @@ class WC_Registrations_Checkout {
 	/**
 	 * Display additional registration product type data to order views, displaying
 	 * registered participant data that are stored serialized.
-	 * @param  object 	$order The current order to display additional meta.
+	 *
 	 * @since 1.0
+	 *
+	 * @param  object 	$order The current order to display additional meta.
 	 */
 	public static function registrations_field_display_admin_order_meta( $order ) {
 		$registration_meta = maybe_unserialize( get_post_meta( $order->id, '_registrations_order_meta', true ) );

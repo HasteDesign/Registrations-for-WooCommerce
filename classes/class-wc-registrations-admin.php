@@ -2,11 +2,10 @@
 /**
  * Registrations Admin Class
  *
- * Adds Registration product type with dates tab and saves dates as attributes used as variations of your product.
+ * Add Registration product type with dates tab, saving dates as attributes
+ * to be used as variations to sell registrations.
  *
- * @package		Registrations for WooCommerce
- * @subpackage	WC_Registrations_Admin
- * @category	Class
+ * @package		Registrations for WooCommerce\WC_Registrations_Admin
  * @author		Allyson Souza
  * @since		1.0
  */
@@ -18,10 +17,6 @@ class WC_Registrations_Admin {
 	 * @since 1.0
 	 */
 	public static function init() {
-        /*
-	     * Admin Panel
-	     */
-
 	 	// Enqueue scripts in product edit page
 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::enqueue_styles_scripts' );
 
@@ -108,9 +103,10 @@ class WC_Registrations_Admin {
     /**
 	 * Adds all necessary admin styles.
 	 *
+	 * @since 1.0
+	 *
 	 * @param array Array of Product types & their labels, excluding the Subscription product type.
 	 * @return array Array of Product types & their labels, including the Subscription product type.
-	 * @since 1.0
 	 */
 	public static function enqueue_styles_scripts() {
 		global $woocommerce, $post;
@@ -187,12 +183,13 @@ class WC_Registrations_Admin {
 		}
 	}
 
-  /**
+	/**
 	 * Add the 'registration' product type to the WooCommerce product type select box.
+	 *
+	 * @since 1.0
 	 *
 	 * @param array Array of Product types & their labels, excluding the Course product type.
 	 * @return array Array of Product types & their labels, including the Course product type.
-	 * @since 1.0
 	 */
 	public static function add_registrations_to_select( $product_types ){
 		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'registrations-for-woocommerce' );
@@ -213,9 +210,10 @@ class WC_Registrations_Admin {
   /**
 	 * Save meta data for registration product type when the "Edit Product" form is submitted.
 	 *
+	 * @since 1.0
+	 *
 	 * @param array Array of Product types & their labels, excluding the Course product type.
 	 * @return array Array of Product types & their labels, including the Course product type.
-	 * @since 1.0
 	 */
 	public static function save_variable_fields( $post_id ) {
 		// Run WooCommerce core saving routine
@@ -260,6 +258,16 @@ class WC_Registrations_Admin {
 		}
 	}
 
+	/**
+	 * Register dates tab.
+	 *
+	 * Register dates tab to be displayed if product type is registration.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  array $tabs WooCommerce default registered tabs.
+	 * @return array $tabs WooCommerce tabs with dates additional tab.
+	 */
 	public static function registration_dates_tab( $tabs ) {
 		// Adds the new dates tab
 		$tabs['dates'] = array(
@@ -271,10 +279,27 @@ class WC_Registrations_Admin {
 		return $tabs;
 	}
 
+	/**
+	 * Load date tab view
+	 *
+	 * @since 1.0.0
+	 */
     public static function show_dates_tab_content() {
 		include_once( 'views/html-dates-view.php' );
     }
 
+	/**
+	 * Format registration variation option name.
+	 *
+	 * Format registration variation option name, that is a JSON encoded string,
+	 * making an human friendly date format to display.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param  string $option      Registration variation option name. (JSON encoded)
+	 * @param  string $date_format PHP date format.
+	 * @return string $option      Formated registrations variation option name.
+	 */
 	public static function registration_variation_option_name( $option, $date_format = null ) {
 			if( $date_format == null ) {
 				$date_format = get_option( 'date_format' );
@@ -289,11 +314,17 @@ class WC_Registrations_Admin {
 	}
 
 	/**
-	 * Filter dates exhibition on additional in
-	 * @param  string $values_sanitized attribute sanitized string
-	 * @param  array  $attribute        current attribute to be displayed
-	 * @param  array  $values           attribute values array
-	 * @return string                   filtered date attribute according to the site date_format
+	 * Filter dates exhibition on additional information tab.
+	 *
+	 * Filter the dates exhibition on additional information tab on product
+	 * single page.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param  string $values_sanitized    attribute sanitized string
+	 * @param  array  $attribute           current attribute to be displayed
+	 * @param  array  $values              attribute values array
+	 * @return string $values_sanitized    filtered date attribute according to the site date_format
 	 */
 	public static function registration_variation_filter_additional_information( $values_sanitized, $attribute, $values ) {
 			if( $attribute['name'] == 'Dates' ) {
@@ -317,11 +348,14 @@ class WC_Registrations_Admin {
 	}
 
 	/**
-	 * Filter dates attribute name/label in multiple places
+	 * Filter dates attribute name/label in multiple places.
+	 *
+	 * @since  1.0.0
+	 *
 	 * @param  string $label
 	 * @param  array  $name
 	 * @param  array  $product
-	 * @return string $label		filtered date attribute name
+	 * @return string $label	filtered date attribute name
 	 */
 	public static function registration_attribute_label( $label, $name, $product ) {
 		if ( $name === 'Dates' || $name === 'dates' ) {
@@ -331,6 +365,19 @@ class WC_Registrations_Admin {
 		return $label;
 	}
 
+	/**
+	 * Filter dates variations options name.
+	 *
+	 * Display dates variations options names for each date type
+	 * (single, multiple, and range) formating then correctly to given
+	 * date format.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param  string $opt         JSON decoded with registrations type and date.
+	 * @param  string $date_format PHP date format to
+	 * @return string $opt         Formated registrations variation option name.
+	 */
 	public static function format_variations_dates( $opt, $date_format ) {
 		if ( $opt ) {
 			if ( $opt->type == 'single' ) {
@@ -381,7 +428,7 @@ class WC_Registrations_Admin {
 	}
 
 	/**
-	 * Display a welcome message. Called when the Registrations extension is activated.
+	 * Display a welcome message when the Registrations is activated.
 	 *
 	 * @since 1.0
 	 */
