@@ -182,6 +182,8 @@ class WC_Registrations_Checkout {
 					if ( ! $_POST['participant_email_' . $registrations ] ) {
 						wc_add_notice( sprintf( __( 'Please enter a correct email to participant #%u ', 'registrations-for-woocommerce' ), $registrations ), 'error' );
 					}
+
+					do_action( 'registrations_checkout_process_fields', $registrations );
 				}
 			}
 		}
