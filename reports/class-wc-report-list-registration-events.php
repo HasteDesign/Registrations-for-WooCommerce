@@ -162,10 +162,20 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 			}
 		}
 
+		$c = count($found);
+
+		for ($i = 0; $i < $c; $i++) {
+			for ($k = $i + 1; $k < $c; $k++) {
+				if ($found[$i][0]->variation_id == $found[$k][0]->variation_id) {
+					unset($found[$i]);
+					break;
+				}
+			}
+		}
 
 		$this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
 
-		$this->items = $found;
+		$this->items = array_values($found);
 
 		$this->set_pagination_args( array(
 			'total_items' => count($found),
