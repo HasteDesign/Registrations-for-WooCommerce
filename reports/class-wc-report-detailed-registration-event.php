@@ -158,7 +158,7 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 		$this->set_pagination_args( array(
 			'total_items' => count($found),
 			'per_page'    => count($found),
-			'total_pages' => count($found)
+			'total_pages' => 1
 		) );
 	}
 }
