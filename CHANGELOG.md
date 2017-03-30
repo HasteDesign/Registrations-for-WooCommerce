@@ -12,7 +12,7 @@ All the project notable changes will be documented here.
 ## (1.0.7) - 2017-03-19
 ### Added
 - Prevent registrations from past dates (New option in Inventory tab for Registration product type)
-- Add 'registrations_display_participant_fields' hook to make easily to add custom participant fields
+- Add multiple hooks to make easily to add custom participant fields
 ### Changed
 - Changed how participant order meta is stored (serialized data instead of CSV now)
 ### Fixed
@@ -57,6 +57,9 @@ All the project notable changes will be documented here.
 ### Added
 - Initial Release
 
+[1.0.7]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.7
+[1.0.6]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.6
+[1.0.5]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.5
 [1.0.4]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.4
 [1.0.3]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.3
 [1.0.2]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.2

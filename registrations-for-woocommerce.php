@@ -5,7 +5,7 @@
  * Description: Add registration product type to your WooCommerce.
  * Author: Haste - design and technology, Allyson Souza, Anyssa Ferreira
  * Author URI: http://www.hastedesign.com.br
- * Version: 1.0.6
+ * Version: 1.0.7
  * Text Domain: registrations-for-woocommerce
  * Domain Path: /languages
  *
