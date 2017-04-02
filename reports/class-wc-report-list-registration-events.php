@@ -34,12 +34,12 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 	 */
 	public function output_report() {
 
-		$details = get_query_var('details', -1);
-		parse_str($_SERVER['QUERY_STRING']);
+		$details = get_query_var( 'details', -1 );
+		parse_str( $_SERVER['QUERY_STRING'] );
 
-		if ($details != -1) {
+		if ( $details != -1 ) {
 
-			require_once(plugin_dir_path(__FILE__) . 'class-wc-report-detailed-registration-event.php');
+			require_once( plugin_dir_path(__FILE__) . 'class-wc-report-detailed-registration-event.php' );
 			$correct = new WC_Report_Detailed_Registration_Event();
 			$correct->output_report();
 
@@ -129,34 +129,34 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 			'post_status' => array('wc-processing', 'wc-completed'),
 		);
 
-		$parent_variantions_products = get_posts ( $args1 );
+		$parent_variantions_products = get_posts( $args1 );
 
-		$orders_query = get_posts ( $args2 );
+		$orders_query = get_posts( $args2 );
 
 		$orders = array();
 		$variations = array();
 		$products = array();
 
-		foreach ($orders_query as $order_query) {
-			$order = wc_get_order($order_query);
+		foreach ( $orders_query as $order_query ) {
+			$order = wc_get_order( $order_query );
 			$orders[] = $order;
 		}
 
-		foreach ($parent_variantions_products as $product_query) {
-			$product = wc_get_product($product_query);
+		foreach ( $parent_variantions_products as $product_query ) {
+			$product = wc_get_product( $product_query );
 			$products[] = $product;
-			foreach ($product->get_available_variations() as $variation) {
+			foreach ( $product->get_available_variations() as $variation ) {
 				$variations[] = $variation;
 			}
 		}
 
 		$found = array();
 
-		foreach ($orders as $order) {
-			foreach ($order->get_items() as $item) {
-				foreach ($variations as $variation) {
-					if ($variation['variation_id'] == $item['item_meta']['_variation_id'][0]) {
-						$found[] = array (wc_get_product($variation['variation_id']), $order);
+		foreach ( $orders as $order ) {
+			foreach ( $order->get_items() as $item ) {
+				foreach ( $variations as $variation ) {
+					if ( $variation['variation_id'] == $item['item_meta']['_variation_id'][0] ) {
+						$found[] = array( wc_get_product($variation['variation_id']), $order );
 					}
 				}
 			}
@@ -164,10 +164,10 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 
 		$c = count($found);
 
-		for ($i = 0; $i < $c; $i++) {
-			for ($k = $i + 1; $k < $c; $k++) {
-				if ($found[$i][0]->variation_id == $found[$k][0]->variation_id) {
-					unset($found[$i]);
+		for ( $i = 0; $i < $c; $i++ ) {
+			for ( $k = $i + 1; $k < $c; $k++ ) {
+				if ( $found[$i][0]->variation_id == $found[$k][0]->variation_id ) {
+					unset( $found[$i] );
 					break;
 				}
 			}
@@ -175,11 +175,11 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 
 		$this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
 
-		$this->items = array_values($found);
+		$this->items = array_values( $found );
 
 		$this->set_pagination_args( array(
-			'total_items' => count($found),
-			'per_page'    => count($found),
+			'total_items' => count( $found ),
+			'per_page'    => count( $found ),
 			'total_pages' => 1
 		) );
 	}
