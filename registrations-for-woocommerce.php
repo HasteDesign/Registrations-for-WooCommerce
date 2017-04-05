@@ -47,6 +47,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 }
 
 require_once( 'includes/classes/class-wc-registrations-admin.php' );
+require_once( 'includes/admin/class-registrations-settings.php' );
 require_once( 'includes/reports/class-wc-reports-manager.php' );
 
 /**
