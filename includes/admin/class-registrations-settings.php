@@ -60,14 +60,14 @@ class Registrations_Settings {
 		// Create user.
 		add_settings_field(
 			'create_user',
-			__( 'Create user for participants', 'registrations-for-woocommerce' ),
+			__( 'Create a new user for each participant', 'registrations-for-woocommerce' ),
 			array( $this, 'checkbox_element_callback' ),
 			$option,
 			'checkout_section',
 			array(
 				'menu' => $option,
 				'id' => 'create_user',
-				'description' => __( 'If checked Registrations fo WooCommerce will create a user for each participant in a registration.', 'registrations-for-woocommerce' ),
+				'description' => __( 'If checked Registrations for WooCommerce will create user credentials for each registered participant.', 'registrations-for-woocommerce' ),
 			)
 		);
 

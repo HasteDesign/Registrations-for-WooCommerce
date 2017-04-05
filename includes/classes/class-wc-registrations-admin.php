@@ -63,7 +63,7 @@ class WC_Registrations_Admin {
 			array(
 				'id'            => '_prevent_past_events',
 				'wrapper_class' => 'show_if_registration',
-				'label'         => __('Prevent late registrations', 'registrations-for-woocommerce' ),
+				'label'         => __('Prevent registrations to past events', 'registrations-for-woocommerce' ),
 				'description'   => __( 'If you want to prevent this event from being registred if a requirement is met.', 'registrations-for-woocommerce' )
 			)
 		);
@@ -74,7 +74,7 @@ class WC_Registrations_Admin {
 				'label'             => __( 'Days before', 'registrations-for-woocommerce' ),
 				'wrapper_class'     => 'show_if_registration',
 				'placeholder'       => '',
-				'description'       => __( 'Number of days before event to prevent registration purchase. Affects all variations. [-1 means disabled, 0 means allowed up to the same day]', 'registrations-for-woocommerce' ),
+				'description'       => __( 'Number of days before the event to prevent registration purchase. Affects all variations. [-1 means disabled, 0 means allowed up to the same day]', 'registrations-for-woocommerce' ),
 				'type'              => 'number',
 				'custom_attributes' => array(
 						'step' 	=> 'any',
@@ -192,7 +192,7 @@ class WC_Registrations_Admin {
 	 * @return array Array of Product types & their labels, including the Course product type.
 	 */
 	public static function add_registrations_to_select( $product_types ){
-		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'registrations-for-woocommerce' );
+		$product_types[ WC_Registrations::$name ] = __( 'Registration product', 'registrations-for-woocommerce' );
 
 		return $product_types;
 	}
