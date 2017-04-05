@@ -33,7 +33,7 @@
  * Required functions
  */
 if ( ! function_exists( 'woothemes_queue_update' ) || ! function_exists( 'is_woocommerce_active' ) ) {
-	require_once( 'woo-includes/woo-functions.php' );
+	require_once( 'includes/woo-includes/woo-functions.php' );
 }
 
 /**
@@ -46,8 +46,8 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-require_once( 'classes/class-wc-registrations-admin.php' );
-require_once( 'reports/class-wc-reports-manager.php' );
+require_once( 'includes/classes/class-wc-registrations-admin.php' );
+require_once( 'includes/reports/class-wc-reports-manager.php' );
 
 /**
  * The main registrations products class.
@@ -170,8 +170,8 @@ class WC_Registrations {
 		global $woocommerce;
 
 		if ( version_compare( $woocommerce->version, '2.0', '>=' ) ) {
-			require_once( 'classes/class-wc-product-registrations.php' );
-			require_once( 'classes/class-wc-registrations-checkout.php' );
+			require_once( 'includes/classes/class-wc-product-registrations.php' );
+			require_once( 'includes/classes/class-wc-registrations-checkout.php' );
 		}
 	}
 

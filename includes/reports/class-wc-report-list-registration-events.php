@@ -39,7 +39,7 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 
 		if ( $details != -1 ) {
 
-			require_once( plugin_dir_path(__FILE__) . 'class-wc-report-detailed-registration-event.php' );
+			require_once( plugin_dir_path( __FILE__ ) . 'class-wc-report-detailed-registration-event.php' );
 			$correct = new WC_Report_Detailed_Registration_Event();
 			$correct->output_report();
 
