@@ -46,9 +46,15 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-require_once( 'includes/classes/class-wc-registrations-admin.php' );
+require_once( 'includes/class-wc-registrations-admin.php' );
+
+require_once( 'includes/class-wc-registrations-cart.php' );
+
 require_once( 'includes/admin/class-registrations-settings.php' );
+
 require_once( 'includes/reports/class-wc-reports-manager.php' );
+
+
 
 /**
  * The main registrations products class.
@@ -171,8 +177,8 @@ class WC_Registrations {
 		global $woocommerce;
 
 		if ( version_compare( $woocommerce->version, '2.0', '>=' ) ) {
-			require_once( 'includes/classes/class-wc-product-registrations.php' );
-			require_once( 'includes/classes/class-wc-registrations-checkout.php' );
+			require_once( 'includes/class-wc-product-registrations.php' );
+			require_once( 'includes/class-wc-registrations-checkout.php' );
 		}
 	}
 
@@ -295,5 +301,4 @@ class WC_Registrations {
 		}
 	}
 }
-
 WC_Registrations::init();
