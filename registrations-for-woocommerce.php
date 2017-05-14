@@ -94,14 +94,16 @@ class WC_Registrations {
 		// Enqueue variation scripts
 		wp_enqueue_script( 'wc-add-to-cart-variation' );
 
-		wc_get_template(
-			'single-product/add-to-cart/registration.php',
+		// Get Available variations?
+		$get_variations = sizeof( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
+
+		// Load the template
+		wc_get_template( 'single-product/add-to-cart/variable.php',
 			array(
-				'available_variations'  => $product->get_available_variations(),
-				'attributes'   			=> $product->get_variation_attributes(),
-				'selected_attributes' 	=> $product->get_variation_default_attributes()
+				'available_variations' => $get_variations ? $product->get_available_variations() : false,
+				'attributes'           => $product->get_variation_attributes(),
+				'selected_attributes'  => $product->get_default_attributes(),
 			),
-			'',
 			plugin_dir_path( __FILE__ ) . 'templates/'
 		);
 	}

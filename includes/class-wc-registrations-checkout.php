@@ -83,41 +83,43 @@ class WC_Registrations_Checkout {
 
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
+			$parent   = ! empty( $_product->get_parent_id() ) ? wc_get_product( $_product->get_parent_id() ) : '';
 
-			/**
-			 * Loop trough each product of type registration
-			 *
-			 */
-			if ( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
-				$qty = $values['quantity'];
-
+			if( ! empty( $parent ) ) {
 				/**
-				 * Generate fields for each participant/quantity set in product
+				 * Loop trough each product of type registration
 				 */
-				for ( $i = 1; $i <= $qty; $i++, $registrations++ ) {
+				if ( $_product->get_type() === 'variation' && $parent->get_type() === 'registrations' ) {
+					$qty = $values['quantity'];
 
 					/**
-					 * Display the fields header if it's the first participant to be displayed
+					 * Generate fields for each participant/quantity set in product
 					 */
-					if ( $i == 1 ) {
-						$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
+					for ( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 
 						/**
-						 * Check if there's a date defined, if there's no date, display only the product name.
+						 * Display the fields header if it's the first participant to be displayed
 						 */
-						if ( $date ) {
-							echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s - %s', 'registrations-for-woocommerce' ),  $_product->parent->post->post_title, esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) ) ) . '</h3>';
-						} else {
-							echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s', 'registrations-for-woocommerce' ), $_product->parent->post->post_title ) . '</h3>';
+						if ( $i == 1 ) {
+							$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
+
+							/**
+							 * Check if there's a date defined, if there's no date, display only the product name.
+							 */
+							if ( $date ) {
+								echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s - %s', 'registrations-for-woocommerce' ),  $_product->get_parent_id()->post->post_title, esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) ) ) . '</h3>';
+							} else {
+								echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s', 'registrations-for-woocommerce' ), $_product->get_parent_id()->post->post_title ) . '</h3>';
+							}
 						}
-					}
 
-					echo "<h4>" . sprintf( __( 'Participant #%u', 'registrations-for-woocommerce' ), $registrations ) . '</h4>';
+						echo "<h4>" . sprintf( __( 'Participant #%u', 'registrations-for-woocommerce' ), $registrations ) . '</h4>';
 
-					do_action( 'registrations_display_participant_fields', $checkout, $registrations );
+						do_action( 'registrations_display_participant_fields', $checkout, $registrations );
 
-					if ( $i == $qty ) {
-						echo '</div>';
+						if ( $i == $qty ) {
+							echo '</div>';
+						}
 					}
 				}
 			}
@@ -170,7 +172,7 @@ class WC_Registrations_Checkout {
 		foreach ( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
 
-			if ( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
+			if ( $_product->is_type( 'variation' ) && $_product->get_parent_id()->is_type( 'registrations' ) ) {
 				$qty = $values['quantity'];
 
 				for ( $i = 1; $i <= $qty; $i++, $registrations++ ) {
@@ -207,10 +209,10 @@ class WC_Registrations_Checkout {
 			$users = [];
 
 			// Check if is registration product type
-			if( $_product->is_type( 'variation' ) && $_product->parent->is_type( 'registrations' ) ) {
+			if( $_product->is_type( 'variation' ) && $_product->get_parent_id()->is_type( 'registrations' ) ) {
 				$qty = $values['quantity'];
 				$meta_value = '';
-				$title = $_product->parent->post->post_title;
+				$title = $_product->get_parent_id()->post->post_title;
 
 				// Run loop for each quantity of the product
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {

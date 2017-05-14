@@ -71,9 +71,10 @@ jQuery( function( $ ) {
 			if ( $( 'select#product-type' ).val() === 'registrations' ) {
 				$( '.hide_if_virtual' ).hide();
 				$( '.show_if_variable' ).show();
+				$( '.hide_if_variable' ).hide();
 				$( '.show_if_registration' ).show();
 				$( '.hide_if_registration' ).hide();
-				$( 'input#_manage_stock' ).change();
+				$( 'div.stock_fields' ).hide();
 				$( 'input#_downloadable' ).prop( 'checked', false );
 			} else {
 				$( '.show_if_registration' ).hide();
@@ -161,7 +162,7 @@ jQuery( function( $ ) {
 		 * Update hidden field values looping through all date fields (single/multiple/range)
 		 */
 		update_hidden_field: function() {
-
+			console.log( 'update_hidden_field' );
 			//Cleanup Hidden Date Value
 			$('#hidden_date').attr( 'value', '' );
 
@@ -180,6 +181,8 @@ jQuery( function( $ ) {
 					wc_meta_boxes_product_registrations.range_date_value( this );
 				}
 			});
+
+			console.log( $('#hidden_date').attr( 'value' ) );
 
 			/*
 			* If hidden_value is not empty, set name to WooCommerce save the attribute and enable hidden_variation

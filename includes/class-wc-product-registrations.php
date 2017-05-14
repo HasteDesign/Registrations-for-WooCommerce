@@ -32,22 +32,35 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 * @access public
 	 * @param mixed $product
 	 */
-	public function __construct() {
-		// Register Registrations for WooCommerce Data Store
-		add_filter( 'woocommerce_data_stores', __CLASS__ . '::add_data_store', 10, 1 );
+	public function __construct( $product ) {
+		parent::__construct( $product );
+        $this->parent_product_type = $this->product_type;
+        $this->product_type = 'registrations';
+
+		/**
+		 * Register the custom data store
+		 */
+		add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
+
+		/**
+		 * Handle the add to cart for this product type
+		 */
+		add_filter( 'woocommerce_add_to_cart_handler', array( &$this, 'add_to_cart_handler' ), 10, 2 );
 	}
 
+
 	/**
-	 * Register data stores for WooCommerce 3.0+
+	 * Register data stores for registrations.
 	 *
-	 * @since 2.0.0
+	 * @param  array  $data_stores
+	 * @return array
 	 */
-	public static function add_data_store( $data_stores ) {
-		$data_stores['registrations']                   = 'WC_Product_Registrations_Data_Store_CPT';
-		return $data_stores;
+	public function register_data_stores( $data_stores = array() ) {
+	    $data_stores['product-registrations'] = 'WC_Product_Variable_Data_Store_CPT';
+	    return $data_stores;
 	}
 
-	/**
+    /**
 	 * Checks the product type to see if it is either this product's type or the parent's
 	 * product type.
 	 *
@@ -65,6 +78,21 @@ class WC_Product_Registrations extends WC_Product_Variable {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * Checks the product type to see if it is either this product's type or the parent's
+	 * product type.
+	 *
+	 * @access public
+	 * @param string $product_type A string representation of a product type
+	 * @return string $handler
+	 */
+	public function add_to_cart_handler( $handler, $product ) {
+		if ( 'registrations' === $handler ) {
+			$handler = 'variable';
+		}
+		return $handler;
 	}
 
 	/**
@@ -172,5 +200,56 @@ class WC_Product_Registrations extends WC_Product_Variable {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Sync a variable product with it's children. These sync functions sync
+	 * upwards (from child to parent) when the variation is saved.
+	 *
+	 * @param WC_Product|int $product Product object or ID for which you wish to sync.
+	 * @param bool $save If true, the prouduct object will be saved to the DB before returning it.
+	 * @return WC_Product Synced product object.
+	 */
+	public static function sync( $product, $save = true ) {
+		if ( ! is_a( $product, 'WC_Product' ) ) {
+			$product = wc_get_product( $product );
+		}
+		if ( is_a( $product, 'WC_Product_Registrations' ) ) {
+			$data_store = WC_Data_Store::load( 'product-variable' );
+			$data_store->sync_price( $product );
+			$data_store->sync_stock_status( $product );
+			self::sync_attributes( $product ); // Legacy update of attributes.
+
+			do_action( 'woocommerce_variable_product_sync_data', $product );
+
+			if ( $save ) {
+				$product->save();
+			}
+
+			wc_do_deprecated_action( 'woocommerce_variable_product_sync', array( $product->get_id(), $product->get_visible_children() ), '3.0', 'woocommerce_variable_product_sync_data, woocommerce_new_product or woocommerce_update_product' );
+		}
+		return $product;
+	}
+
+	/**
+	 * Sync parent stock status with the status of all children and save.
+	 *
+	 * @param WC_Product|int $product Product object or ID for which you wish to sync.
+	 * @param bool $save If true, the prouduct object will be saved to the DB before returning it.
+	 * @return WC_Product Synced product object.
+	 */
+	public static function sync_stock_status( $product, $save = true ) {
+		if ( ! is_a( $product, 'WC_Product' ) ) {
+			$product = wc_get_product( $product );
+		}
+		if ( is_a( $product, 'WC_Product_Registrations' ) ) {
+			$data_store = WC_Data_Store::load( 'product-variable' );
+			$data_store->sync_stock_status( $product );
+
+			if ( $save ) {
+				$product->save();
+			}
+		}
+		return $product;
 	}
 }
