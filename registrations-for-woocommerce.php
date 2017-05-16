@@ -54,8 +54,6 @@ require_once( 'includes/admin/class-registrations-settings.php' );
 
 require_once( 'includes/reports/class-wc-reports-manager.php' );
 
-
-
 /**
  * The main registrations products class.
  *
@@ -79,7 +77,7 @@ class WC_Registrations {
 		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
 
 		// Override the WC default "Add to Cart" text to "Sign Up Now" (in various places/templates)
-		add_action( 'woocommerce_registrations_add_to_cart', __CLASS__ . '::registrations_add_to_cart' );
+		add_action( 'woocommerce_registrations_add_to_cart', __CLASS__ . '::registrations_add_to_cart', 30 );
 
 		// Load translation files
 		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
@@ -98,12 +96,14 @@ class WC_Registrations {
 		$get_variations = sizeof( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
 
 		// Load the template
-		wc_get_template( 'single-product/add-to-cart/variable.php',
+		wc_get_template(
+			'single-product/add-to-cart/registration.php',
 			array(
 				'available_variations' => $get_variations ? $product->get_available_variations() : false,
 				'attributes'           => $product->get_variation_attributes(),
 				'selected_attributes'  => $product->get_default_attributes(),
 			),
+			'',
 			plugin_dir_path( __FILE__ ) . 'templates/'
 		);
 	}
