@@ -2,12 +2,10 @@
 /**
  * Registration Product Variation Class
  *
- * The subscription product variation class extends the WC_Product_Variation product class
- * to create subscription product variations.
+ * The registrations product variation class extends the WC_Product_Variation product class
+ * to create registrations product variations.
  *
- * @class 		WC_Product_Registrations
- * @package		Registrations for WooCommerce
- * @category	Class
+ * @package		Registrations for WooCommerce\WC_Product_Registrations
  * @since		1.3
  *
  */
@@ -19,6 +17,8 @@ class WC_Product_Registrations extends WC_Product_Variable {
 
 	/**
 	 * Create a variable registration product object.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @access public
 	 * @param mixed $product
@@ -42,6 +42,8 @@ class WC_Product_Registrations extends WC_Product_Variable {
     /**
 	 * Checks the product type to see if it is either this product's type or the parent's
 	 * product type.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @access public
 	 * @param mixed $type Array or string of types
@@ -129,9 +131,10 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	/**
 	 * Return the formated schedule of given registration variation by id.
 	 *
+	 * @since 1.0.1
+	 *
 	 * @access public
 	 * @param int $variation_id The variation ID to display schedule
-	 * @return
 	 */
 	public function registration_schedule( $variation_id ) {
 		$start = get_post_meta( $variation_id , '_event_start_time', true );
@@ -146,7 +149,9 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	/**
 	 * Return the formated date of given registration variation by id.
 	 *
-	 * @param int $variation_id The variation ID to display schedule
+	 * @since 1.0.0
+	 *
+	 * @param int $variation_id The variation ID to display schedule.
 	 */
 	public function registration_date( $variation_id, $date_format = null  ) {
 		$date = get_post_meta( $variation_id , 'attribute_dates', true );
@@ -159,6 +164,8 @@ class WC_Product_Registrations extends WC_Product_Variable {
 
 	/**
 	 * Return whic days of week the current registration will occurr.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param int $variation_id The variation ID to display schedule
 	 */
@@ -198,11 +205,9 @@ class WC_Product_Registrations extends WC_Product_Variable {
 							}
 
 							switch( $day ) {
-								case 'saturday': $content .= __( 'saturday', 'registrations-for-woocommerce' );
+								case 'sunday': $content .= __( 'sunday', 'registrations-for-woocommerce' );
 								break;
 								case 'monday': $content .= __( 'monday', 'registrations-for-woocommerce' );
-								break;
-								case 'sunday': $content .= __( 'sunday', 'registrations-for-woocommerce' );
 								break;
 								case 'tuesday': $content .= __( 'tuesday', 'registrations-for-woocommerce' );
 								break;
@@ -211,6 +216,8 @@ class WC_Product_Registrations extends WC_Product_Variable {
 								case 'thursday': $content .= __( 'thursday', 'registrations-for-woocommerce' );
 								break;
 								case 'friday': $content .= __( 'friday', 'registrations-for-woocommerce' );
+								break;
+								case 'saturday': $content .= __( 'saturday', 'registrations-for-woocommerce' );
 								break;
 								default:
 							}

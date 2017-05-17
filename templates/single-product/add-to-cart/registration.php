@@ -3,7 +3,7 @@
  * Registration product add to cart
  *
  * @author  Allyson Souza
- * @package WooCommerce Registration/Templates
+ * @package WooCommerce Registration\Templates
  * @version 1.0.0
  */
 

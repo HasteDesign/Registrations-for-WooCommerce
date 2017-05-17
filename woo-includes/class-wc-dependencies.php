@@ -2,7 +2,9 @@
 /**
  * WC Dependency Checker
  *
- * Checks if WooCommerce is enabled
+ * Checks if WooCommerce is enabled.
+ *
+ * @since 1.0.0
  */
 class WC_Dependencies {
 
@@ -24,5 +26,3 @@ class WC_Dependencies {
 	}
 
 }
-
-
