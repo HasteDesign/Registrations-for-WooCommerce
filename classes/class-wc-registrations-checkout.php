@@ -203,7 +203,7 @@ class WC_Registrations_Checkout {
 		// Loop trough cart items
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
-			$participants = array( 'date' => '', 'participants' => '' );
+			$participants = array( 'date' => '', 'participants' => array() );
 			$users = [];
 
 			// Check if is registration product type
