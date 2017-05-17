@@ -50,8 +50,8 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 	/**
 	 * Get column value.
 	 *
-	 * @param WP_User $user
-	 * @param string $column_name
+	 * @param  WP_User $user.
+	 * @param  string  $column_name.
 	 * @return string
 	 */
 	public function column_default( $row, $column_name ) {
@@ -89,33 +89,32 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 	 */
 	public function prepare_items() {
 
-
 		$args2 = array(
-			'post_type' => 'shop_order',
-			'post_status' => array('wc-processing', 'wc-completed'),
+			'post_type'   => 'shop_order',
+			'post_status' => array( 'wc-processing', 'wc-completed' ),
 		);
 
-		$orders_query = get_posts ( $args2 );
+		$orders_query = get_posts( $args2 );
 
 		$orders = array();
 		$variations = array();
 		$products = array();
 
-		foreach ($orders_query as $order_query) {
-			$order = wc_get_order($order_query);
+		foreach ( $orders_query as $order_query ) {
+			$order = wc_get_order( $order_query );
 			$orders[] = $order;
 		}
 
-		$details = get_query_var('details', -1);
-		parse_str($_SERVER['QUERY_STRING']);
+		$details = get_query_var( 'details', -1 );
+		parse_str( $_SERVER['QUERY_STRING'] );
 
-		$variation = wc_get_product($details);
+		$variation = wc_get_product( $details );
 		$found = array();
 
 		// Only save the oders that contain this variation
-		foreach ($orders as $order) {
-			foreach ($order->get_items() as $item) {
-				if ($variation->variation_id == $item['item_meta']['_variation_id'][0]) {
+		foreach ( $orders as $order ) {
+			foreach ( $order->get_items() as $item ) {
+				if ( $variation->variation_id == $item['item_meta']['_variation_id'][0] ) {
 					$found[] = $order;
 				}
 			}
@@ -124,19 +123,19 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 
 		$registred = array();
 
-		$variation_date = get_post_meta($variation->variation_id, 'attribute_dates', true);
+		$variation_date = get_post_meta( $variation->variation_id, 'attribute_dates', true );
 
-		foreach ($found as $order) {
+		foreach ( $found as $order ) {
 			// Grab the registrations data
 			$registration_meta = maybe_unserialize( get_post_meta( $order->id, '_registrations_order_meta', true ) );
 			if ( ! empty( $registration_meta ) ) {
 				foreach ( $registration_meta as $registration ) {
-					if( ! empty( $registration['date'] ) ) {
+					if ( ! empty( $registration['date'] ) ) {
 						// Filter just only for the correct variation
-						if ( strpos($registration['date'], $variation_date ) ) {
+						if ( strpos( $registration['date'], $variation_date ) ) {
 							if( ! empty( $registration['participants'] ) ) {
 							foreach ( $registration['participants'] as $participant ) {
-								array_push($registred, array(
+								array_push( $registred, array(
 									'name' => $participant['name'] . ' ' . $participant['surname'],
 									'email' => $participant['email']
 									));
@@ -156,8 +155,8 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 		 * Pagination.
 		 */
 		$this->set_pagination_args( array(
-			'total_items' => count($found),
-			'per_page'    => count($found),
+			'total_items' => count( $found ),
+			'per_page'    => count( $found ),
 			'total_pages' => 1
 		) );
 	}

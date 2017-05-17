@@ -233,15 +233,12 @@ class WC_Registrations_Checkout {
 
 						$participant = apply_filters( 'registrations_checkout_fields_order_meta_value', $participant, $registrations );
 
-						$user = WC_Registrations_Checkout::create_registration_user( $participant['name'], $participant['surname'], $participant['email'] );
-
-						if( !empty( $user ) ) {
-							$users[] = $user;
-							$participant['ID'] = $user;
-						}
+						do_action( 'registrations_participant_created', $participant );
 
 						$participants['participants'][] = $participant;
 					}
+
+					do_action( 'registrations_participants_created', $participants );
 				}
 
 				$registrations_meta[] = $participants;
@@ -249,68 +246,8 @@ class WC_Registrations_Checkout {
 				// Update post meta
 				update_post_meta( $order_id, '_registrations_order_meta', maybe_serialize( $registrations_meta ) );
 
-				// Create a registration group and add users to this group
-				WC_Registrations_Checkout::create_registration_group( $title, $users );
-
+				do_action( 'registrations_order_meta_created', $order_id );
 			}
-		}
-	}
-
-	/**
-	 * Integration with Groups plugin. If is groups active, creates a new group
-	 * based in registration product, adding the participant users to that group.
-	 *
-	 * @since 1.0
-	 * @param  string 	$group_name The name of group to be created.
-  	 * @param  array 	$users      An array of users to be added to group.
-	 */
-	public static function create_registration_group( $group_name, $users ) {
-		// Check if Groups plugin is active
-		if ( is_plugin_active( 'groups/groups.php' ) ) {
-			Groups_Group::create( array( 'name' => $group_name ) );
-
-			if ( $group = Groups_Group::read_by_name( $group_name ) ) {
-			    $group_id = $group->group_id;
-			}
-
-			if( !empty( $group_id ) ) {
-				foreach( $users as $user_id ) {
-					Groups_User_Group::create( array( 'user_id' => $user_id, 'group_id' => $group_id ) );
-				}
-			}
-		}
-	}
-
-	/**
-	 * Integration with Groups plugin. If groups is active, creates a new group.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param  string 	$name    	The user name
-	 * @param  string 	$surname 	The user surname
-	 * @param  string 	$email   	The user email
-	 * @return int		$user_id   	The user ID
-	 */
-	public static function create_registration_user( $name, $surname, $email ) {
-		$user_id = username_exists( $email );
-
-		if ( !$user_id && email_exists( $email ) == false ) {
-			$random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
-			$user_id = wp_create_user( $email, $random_password, $email );
-
-			if ( is_wp_error( $user_id ) ) {
-			    if ( WP_DEBUG === true ) {
-					$message = $user_id->get_error_message();
-			        error_log( print_r( $message, true ) );
-			    }
-				return false;
-			} else {
-				$user_id = wp_update_user( array( 'ID' => $user_id, 'first_name' => $name, 'last_name' => $surname ) );
-				wp_new_user_notification( $user_id );
-				return $user_id;
-			}
-		} else {
-			return $user_id;
 		}
 	}
 

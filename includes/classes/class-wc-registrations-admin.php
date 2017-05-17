@@ -63,7 +63,7 @@ class WC_Registrations_Admin {
 			array(
 				'id'            => '_prevent_past_events',
 				'wrapper_class' => 'show_if_registration',
-				'label'         => __('Prevent late registrations', 'registrations-for-woocommerce' ),
+				'label'         => __('Prevent registrations to past events', 'registrations-for-woocommerce' ),
 				'description'   => __( 'If you want to prevent this event from being registred if a requirement is met.', 'registrations-for-woocommerce' )
 			)
 		);
@@ -74,7 +74,7 @@ class WC_Registrations_Admin {
 				'label'             => __( 'Days before', 'registrations-for-woocommerce' ),
 				'wrapper_class'     => 'show_if_registration',
 				'placeholder'       => '',
-				'description'       => __( 'Number of days before event to prevent registration purchase. Affects all variations. [-1 means disabled, 0 means allowed up to the same day]', 'registrations-for-woocommerce' ),
+				'description'       => __( 'Number of days before the event to prevent registration purchase. Affects all variations. [-1 means disabled, 0 means allowed up to the same day]', 'registrations-for-woocommerce' ),
 				'type'              => 'number',
 				'custom_attributes' => array(
 						'step' 	=> 'any',
@@ -150,11 +150,11 @@ class WC_Registrations_Admin {
 			$script_params['isWCPre23']       = var_export( WC_Registrations::is_woocommerce_pre_2_3(), true );
 
 			// Registrations for WooCommerce Admin - admin.js
-			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . '/js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/admin.js' ) );
+			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . '/assets/js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'assets/js/admin.js' ) );
 			wp_localize_script( 'woocommerce_registrations_admin', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 
 			// Registrations for WooCommerce Ajax - wc-registrations-ajax.js
-			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( WC_Registrations::$plugin_file ) . '/js/wc-registrations-ajax.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'js/wc-registrations-ajax.js' ) );
+			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( WC_Registrations::$plugin_file ) . '/assets/js/wc-registrations-ajax.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'assets/js/wc-registrations-ajax.js' ) );
 			wp_localize_script( 'woocommerce_registrations_ajax', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 
 			// JQuery UI Datepicker
@@ -192,7 +192,7 @@ class WC_Registrations_Admin {
 	 * @return array Array of Product types & their labels, including the Course product type.
 	 */
 	public static function add_registrations_to_select( $product_types ){
-		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'registrations-for-woocommerce' );
+		$product_types[ WC_Registrations::$name ] = __( 'Registration product', 'registrations-for-woocommerce' );
 
 		return $product_types;
 	}
