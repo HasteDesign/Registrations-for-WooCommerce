@@ -60,17 +60,18 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 	 */
 	public function column_default( $row, $column_name ) {
 		global $wpdb;
+		$parent   = ! empty( $row[0]->get_parent_id() ) ? wc_get_product( $row[0]->get_parent_id() ) : '';
 
 		switch ( $column_name ) {
 
 			case 'variation_id' :
-				return $row[0]->variation_id;
+				return $row[0]->get_id();
 
 			case 'variation_name':
-				return $row[0]->parent->registration_date($row[0]->variation_id);
+				return $parent->registration_date( $row[0]->get_id() );
 
 			case 'product_name' :
-				return $row[0]->parent->post->post_title;
+				return $parent->get_title();
 
 
 			case 'user_actions' :
@@ -80,7 +81,7 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 						$actions = array();
 
 						$actions['view'] = array(
-							'url'       => add_query_arg( 'details', $row[0]->variation_id),
+							'url'       => add_query_arg( 'details', $row[0]->get_id() ),
 							'name'      => __( 'Customers', 'woocommerce' ),
 							'action'    => "view"
 						);
@@ -117,8 +118,6 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 	}
 
 	public function prepare_items() {
-
-
 		$args1 = array(
 			'post_type' => 'product',
 			'product_type' => WC_Registrations::$name,
@@ -155,8 +154,11 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 		foreach ( $orders as $order ) {
 			foreach ( $order->get_items() as $item ) {
 				foreach ( $variations as $variation ) {
-					if ( $variation['variation_id'] == $item['item_meta']['_variation_id'][0] ) {
-						$found[] = array( wc_get_product($variation['variation_id']), $order );
+					// echo '<pre>';
+					// var_dump( $variation );
+					// echo '</pre>';
+					if ( $variation['id'] == $item->get_variation_id() ) {
+						$found[] = array( wc_get_product( $variation['id'] ), $order );
 					}
 				}
 			}
@@ -166,7 +168,7 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 
 		for ( $i = 0; $i < $c; $i++ ) {
 			for ( $k = $i + 1; $k < $c; $k++ ) {
-				if ( $found[$i][0]->variation_id == $found[$k][0]->variation_id ) {
+				if ( $found[$i][0]->get_id() == $found[$k][0]->get_id() ) {
 					unset( $found[$i] );
 					break;
 				}
