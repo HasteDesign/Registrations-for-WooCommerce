@@ -214,7 +214,7 @@ class WC_Registrations_Checkout {
 			if ( $_product->get_type() === 'variation' && $parent->get_type() === 'registrations' ) {
 				$qty = $values['quantity'];
 				$meta_value = '';
-				$title = $_product->get_parent_id()->post->post_title;
+				$title = $parent->get_title();
 
 				// Run loop for each quantity of the product
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
@@ -264,7 +264,7 @@ class WC_Registrations_Checkout {
 	 * @param  object 	$order The current order to display additional meta.
 	 */
 	public static function registrations_field_display_admin_order_meta( $order ) {
-		$registration_meta = maybe_unserialize( get_post_meta( $order->id, '_registrations_order_meta', true ) );
+		$registration_meta = maybe_unserialize( get_post_meta( $order->get_id(), '_registrations_order_meta', true ) );
 
 		if ( ! empty( $registration_meta ) ) {
 			do_action( 'registrations_before_admin_order_meta' );
