@@ -72,18 +72,31 @@ class WC_Registrations {
 	 * @since 1.0
 	 **/
 	public static function init() {
-
 		add_action( 'admin_init', __CLASS__ . '::maybe_activate_woocommerce_registrations' );
 		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
 
 		// Override the WC default "Add to Cart" text to "Sign Up Now" (in various places/templates)
-		add_action( 'woocommerce_registrations_add_to_cart', __CLASS__ . '::registrations_add_to_cart', 30 );
+		add_action( 'woocommerce_registrations_add_to_cart', __CLASS__ . '::registrations_add_to_cart', 10 );
 
 		// Load translation files
 		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
 
 		// Load dependant files
 		add_action( 'plugins_loaded', __CLASS__ . '::load_dependant_classes' );
+
+		// Register the custom data store
+		add_filter( 'woocommerce_data_stores', __CLASS__ . '::register_data_stores', 10, 1 );
+	}
+
+	/**
+	 * Register data stores for registrations.
+	 *
+	 * @param  array  $data_stores
+	 * @return array
+	 */
+	public static function register_data_stores( $data_stores = array() ) {
+	    $data_stores['product-registrations'] = 'WC_Product_Variable_Data_Store_CPT';
+	    return $data_stores;
 	}
 
 	public static function registrations_add_to_cart() {

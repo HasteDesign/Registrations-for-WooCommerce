@@ -12,8 +12,26 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class WC_Product_Registrations extends WC_Product_Variable {
+	/**
+	 * Array of children variation IDs. Determined by children.
+	 *
+	 * @var array
+	 */
+	protected $children = array();
 
-	var $product_type;
+	/**
+	 * Array of visible children variation IDs. Determined by children.
+	 *
+	 * @var array
+	 */
+	protected $visible_children = array();
+
+	/**
+	 * Array of variation attributes IDs. Determined by children.
+	 *
+	 * @var array
+	 */
+	protected $variation_attributes = array();
 
 	/**
 	 * Get internal type.
@@ -24,75 +42,20 @@ class WC_Product_Registrations extends WC_Product_Variable {
 		return 'registrations';
 	}
 
-	/**
-	 * Create a variable registration product object.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @access public
-	 * @param mixed $product
-	 */
-	public function __construct( $product ) {
-		parent::__construct( $product );
-        $this->parent_product_type = $this->product_type;
-        $this->product_type = 'registrations';
-
-		/**
-		 * Register the custom data store
-		 */
-		add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
-
-		/**
-		 * Handle the add to cart for this product type
-		 */
-		add_filter( 'woocommerce_add_to_cart_handler', array( &$this, 'add_to_cart_handler' ), 10, 2 );
-	}
-
-
-	/**
-	 * Register data stores for registrations.
-	 *
-	 * @param  array  $data_stores
-	 * @return array
-	 */
-	public function register_data_stores( $data_stores = array() ) {
-	    $data_stores['product-registrations'] = 'WC_Product_Variable_Data_Store_CPT';
-	    return $data_stores;
-	}
-
     /**
 	 * Checks the product type to see if it is either this product's type or the parent's
 	 * product type.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @access public
 	 * @param mixed $type Array or string of types
 	 * @return bool
 	 */
-	public function registrations_is_type( $type ) {
-		if ( $this->product_type == $type || ( is_array( $type ) && in_array( $this->product_type, $type ) ) ) {
-			return true;
-		} elseif ( $this->parent_product_type == $type || ( is_array( $type ) && in_array( $this->parent_product_type, $type ) ) ) {
+	public function is_type( $type ) {
+		if ( 'registrations' == $type || ( is_array( $type ) && in_array( 'registrations', $type ) ) ) {
 			return true;
 		} else {
-			return false;
+			return parent::is_type( $type );
 		}
-	}
-
-	/**
-	 * Checks the product type to see if it is either this product's type or the parent's
-	 * product type.
-	 *
-	 * @access public
-	 * @param string $product_type A string representation of a product type
-	 * @return string $handler
-	 */
-	public function add_to_cart_handler( $handler, $product ) {
-		if ( 'registrations' === $handler ) {
-			$handler = 'variable';
-		}
-		return $handler;
 	}
 
 	/**
@@ -211,6 +174,8 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 * @return WC_Product Synced product object.
 	 */
 	public static function sync( $product, $save = true ) {
+		error_log( print_r( 'sync na ' . __CLASS__, true ) );
+
 		if ( ! is_a( $product, 'WC_Product' ) ) {
 			$product = wc_get_product( $product );
 		}
@@ -239,6 +204,8 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 * @return WC_Product Synced product object.
 	 */
 	public static function sync_stock_status( $product, $save = true ) {
+		error_log( print_r( 'sync_stock_status na ' . __CLASS__, true ) );
+
 		if ( ! is_a( $product, 'WC_Product' ) ) {
 			$product = wc_get_product( $product );
 		}
