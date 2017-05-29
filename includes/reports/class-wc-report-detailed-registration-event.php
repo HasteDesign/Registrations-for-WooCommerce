@@ -114,7 +114,7 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 		// Only save the oders that contain this variation
 		foreach ( $orders as $order ) {
 			foreach ( $order->get_items() as $item ) {
-				if ( $variation->variation_id == $item['item_meta']['_variation_id'][0] ) {
+				if ( $variation->get_id() == $item->get_variation_id() ) {
 					$found[] = $order;
 				}
 			}
@@ -123,11 +123,11 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 
 		$registred = array();
 
-		$variation_date = get_post_meta( $variation->variation_id, 'attribute_dates', true );
+		$variation_date = get_post_meta( $variation->get_id(), 'attribute_dates', true );
 
 		foreach ( $found as $order ) {
 			// Grab the registrations data
-			$registration_meta = maybe_unserialize( get_post_meta( $order->id, '_registrations_order_meta', true ) );
+			$registration_meta = maybe_unserialize( get_post_meta( $order->get_id(), '_registrations_order_meta', true ) );
 			if ( ! empty( $registration_meta ) ) {
 				foreach ( $registration_meta as $registration ) {
 					if ( ! empty( $registration['date'] ) ) {
