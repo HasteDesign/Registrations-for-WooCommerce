@@ -8,6 +8,14 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
+/**
+ * WC_Report_List_Registration_Events.
+ *
+ * @author      Shirkit, Allyson Souza
+ * @category    Admin
+ * @package     Registrations for WooCommerce/Reports
+ * @version     1.0.0
+ */
 class WC_Report_List_Registration_Events extends WP_List_Table {
 
 	/**

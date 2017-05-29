@@ -62,7 +62,7 @@ class WC_Registrations_Cart {
 				$days_to_prevent = get_post_meta( $product_id, '_days_to_prevent', true );
 
 				if ( empty( $days_to_prevent ) && $days_to_prevent != '0' ) {
-					$days_to_prevent = -1;
+					$days_to_prevent = 0;
 				}
 
 				$date = get_post_meta( $variation_id , 'attribute_dates', true );
@@ -79,7 +79,7 @@ class WC_Registrations_Cart {
 				$target_date = $current_time;
 				$max_date = $current_time;
 
-				if ( $days_to_prevent != -1 ) {
+				if ( $days_to_prevent >= 0 ) {
 					$target_date = date( 'd-m-Y', strtotime( '-' . $days_to_prevent . ' days' . $event_date ) );
 				}
 

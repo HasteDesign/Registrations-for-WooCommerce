@@ -123,6 +123,7 @@ jQuery( function( $ ) {
 			$( '.dates' ).append( el );
 			wc_meta_boxes_product_registrations.dates_ids();
 			wc_meta_boxes_product_registrations.datepicker_init();
+			$( '.event_date' ).trigger( 'change' );
 			event.preventDefault();
 		},
 
@@ -162,7 +163,6 @@ jQuery( function( $ ) {
 		 * Update hidden field values looping through all date fields (single/multiple/range)
 		 */
 		update_hidden_field: function() {
-			console.log( 'update_hidden_field' );
 			//Cleanup Hidden Date Value
 			$('#hidden_date').attr( 'value', '' );
 
@@ -181,8 +181,6 @@ jQuery( function( $ ) {
 					wc_meta_boxes_product_registrations.range_date_value( this );
 				}
 			});
-
-			console.log( $('#hidden_date').attr( 'value' ) );
 
 			/*
 			* If hidden_value is not empty, set name to WooCommerce save the attribute and enable hidden_variation

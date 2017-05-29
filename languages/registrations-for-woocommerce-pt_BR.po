@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Registrations for WooCommerce 1.0.2\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2017-04-05 17:22-0300\n"
+"POT-Creation-Date: 2017-05-29 01:09-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Anyssa Ferreira <anyssacristina@yahoo.com.br>\n"
 "Language-Team: Haste <contato@hastedesign.com.br>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;"
 "__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.0\n"
+"X-Generator: Poedit 2.0.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: includes/admin/class-registrations-settings.php:31
@@ -75,58 +75,54 @@ msgstr "Lista"
 msgid "Table"
 msgstr "Tabela"
 
-#: includes/classes/class-wc-product-registrations.php:124
-msgid "The selected date is no longer available."
-msgstr "A data selecionada não está mais disponível."
-
-#: includes/classes/class-wc-product-registrations.php:144
+#: includes/class-wc-product-registrations.php:74
 #, php-format
 msgid "From %s to %s"
 msgstr "Das %s às %s"
 
-#: includes/classes/class-wc-product-registrations.php:208
+#: includes/class-wc-product-registrations.php:138
 msgid "sunday"
 msgstr "domingo"
 
-#: includes/classes/class-wc-product-registrations.php:210
+#: includes/class-wc-product-registrations.php:140
 msgid "monday"
 msgstr "segunda-feira"
 
-#: includes/classes/class-wc-product-registrations.php:212
+#: includes/class-wc-product-registrations.php:142
 msgid "tuesday"
 msgstr "terça-feira"
 
-#: includes/classes/class-wc-product-registrations.php:214
+#: includes/class-wc-product-registrations.php:144
 msgid "wednesday"
 msgstr "quarta-feira"
 
-#: includes/classes/class-wc-product-registrations.php:216
+#: includes/class-wc-product-registrations.php:146
 msgid "thursday"
 msgstr "quinta-feira"
 
-#: includes/classes/class-wc-product-registrations.php:218
+#: includes/class-wc-product-registrations.php:148
 msgid "friday"
 msgstr "sexta-feira"
 
-#: includes/classes/class-wc-product-registrations.php:220
+#: includes/class-wc-product-registrations.php:150
 msgid "saturday"
 msgstr "sábado"
 
-#: includes/classes/class-wc-registrations-admin.php:66
+#: includes/class-wc-registrations-admin.php:66
 msgid "Prevent registrations to past events"
 msgstr "Impedir inscrições em eventos passados"
 
-#: includes/classes/class-wc-registrations-admin.php:67
+#: includes/class-wc-registrations-admin.php:67
 msgid ""
 "If you want to prevent this event from being registred if a requirement is "
 "met."
-msgstr ""
+msgstr "Caso você queira prevenir inscrições neste evento caso uma condição "
 
-#: includes/classes/class-wc-registrations-admin.php:74
+#: includes/class-wc-registrations-admin.php:74
 msgid "Days before"
 msgstr "Dias Antes"
 
-#: includes/classes/class-wc-registrations-admin.php:77
+#: includes/class-wc-registrations-admin.php:77
 msgid ""
 "Number of days before the event to prevent registration purchase. Affects "
 "all variations. [-1 means disabled, 0 means allowed up to the same day]"
@@ -134,20 +130,20 @@ msgstr ""
 "Número de dias antes do evento em que a inscrição ficará indisponível. [-1 "
 "desativa, 0 significa permitido até no mesmo dia]"
 
-#: includes/classes/class-wc-registrations-admin.php:195
-msgid "Registration product"
-msgstr "Produto de inscrição"
+#: includes/class-wc-registrations-admin.php:195
+msgid "Registration"
+msgstr "Inscrição"
 
-#: includes/classes/class-wc-registrations-admin.php:274
-#: includes/classes/class-wc-registrations-admin.php:362
+#: includes/class-wc-registrations-admin.php:274
+#: includes/class-wc-registrations-admin.php:362
 msgid "Dates"
 msgstr "Datas"
 
-#: includes/classes/class-wc-registrations-admin.php:403
+#: includes/class-wc-registrations-admin.php:403
 msgid " to "
 msgstr " até "
 
-#: includes/classes/class-wc-registrations-admin.php:439
+#: includes/class-wc-registrations-admin.php:439
 #, php-format
 msgid ""
 "%sRegistrations for WooCommerce Installed%s &#8211; %sYou're ready to start "
@@ -156,202 +152,229 @@ msgstr ""
 "%sRegistrations for WooCommerce instalado%s &#8211; %sVocê está pronto para "
 "vender suas inscrições!%s"
 
-#: includes/classes/class-wc-registrations-admin.php:442
+#: includes/class-wc-registrations-admin.php:442
 msgid "Sell course and events registrations with #WooCommerce"
 msgstr "Venda cursos e inscrições em eventos no #WooCommerce"
 
-#: includes/classes/class-wc-registrations-checkout.php:109
+#: includes/class-wc-registrations-cart.php:88
+msgid "The selected date is no longer available."
+msgstr "A data selecionada não está mais disponível."
+
+#: includes/class-wc-registrations-checkout.php:110
 #, php-format
 msgid "Participants in %s - %s"
 msgstr "Participantes em %s - %s"
 
-#: includes/classes/class-wc-registrations-checkout.php:111
+#: includes/class-wc-registrations-checkout.php:112
 #, php-format
 msgid "Participants in %s"
 msgstr "Participantes em %s"
 
-#: includes/classes/class-wc-registrations-checkout.php:115
+#: includes/class-wc-registrations-checkout.php:116
 #, php-format
 msgid "Participant #%u"
 msgstr "Participante #%u"
 
-#: includes/classes/class-wc-registrations-checkout.php:138
+#: includes/class-wc-registrations-checkout.php:140
 #: includes/reports/class-wc-report-detailed-registration-event.php:80
 msgid "Name"
 msgstr "Nome"
 
-#: includes/classes/class-wc-registrations-checkout.php:139
+#: includes/class-wc-registrations-checkout.php:141
 msgid "Mary Anna"
 msgstr "Maria Aparecida"
 
-#: includes/classes/class-wc-registrations-checkout.php:146
+#: includes/class-wc-registrations-checkout.php:148
 msgid "Surname"
 msgstr "Sobrenome"
 
-#: includes/classes/class-wc-registrations-checkout.php:147
+#: includes/class-wc-registrations-checkout.php:149
 msgid "Smith"
 msgstr "da Silva"
 
-#: includes/classes/class-wc-registrations-checkout.php:154
+#: includes/class-wc-registrations-checkout.php:156
 #: includes/reports/class-wc-report-detailed-registration-event.php:81
 msgid "Email"
 msgstr "Email"
 
-#: includes/classes/class-wc-registrations-checkout.php:155
+#: includes/class-wc-registrations-checkout.php:157
 msgid "mary@anna.com.br"
 msgstr "maria@aparecida.com.br"
 
-#: includes/classes/class-wc-registrations-checkout.php:179
+#: includes/class-wc-registrations-checkout.php:182
 #, php-format
 msgid "Please enter a correct name to participant #%u "
 msgstr "Por favor entre com um nome válido para o participante #%u"
 
-#: includes/classes/class-wc-registrations-checkout.php:183
+#: includes/class-wc-registrations-checkout.php:186
 #, php-format
 msgid "Please enter a correct email to participant #%u "
 msgstr "Por favor entre com um email válido para o participante #%u"
 
-#: includes/classes/class-wc-registrations-checkout.php:277
+#: includes/class-wc-registrations-checkout.php:281
 #, php-format
 msgid "Name: %s %s"
 msgstr "Nome: %s %s"
 
-#: includes/classes/class-wc-registrations-checkout.php:278
+#: includes/class-wc-registrations-checkout.php:282
 #, php-format
-#| msgid "Email"
 msgid "Email: %s"
 msgstr "Email: %s"
 
-#: includes/classes/views/html-dates-variation-fields-view.php:27
+#: includes/reports/class-wc-report-detailed-registration-event.php:27
+#: includes/reports/class-wc-report-list-registration-events.php:27
+msgid "Customer"
+msgstr "Cliente"
+
+#: includes/reports/class-wc-report-detailed-registration-event.php:28
+#: includes/reports/class-wc-report-list-registration-events.php:28
+#: includes/reports/class-wc-report-list-registration-events.php:93
+msgid "Customers"
+msgstr "Clientes"
+
+#: includes/reports/class-wc-report-detailed-registration-event.php:37
+#: includes/reports/class-wc-report-list-registration-events.php:37
+msgid "No customers found."
+msgstr "Nenhum cliente encontrado."
+
+#: includes/reports/class-wc-report-list-registration-events.php:119
+msgid "Variation ID"
+msgstr "ID da variação"
+
+#: includes/reports/class-wc-report-list-registration-events.php:120
+msgid "Date"
+msgstr "Data"
+
+#: includes/reports/class-wc-report-list-registration-events.php:121
+msgid "Product Name"
+msgstr "Nome do produto"
+
+#: includes/reports/class-wc-report-list-registration-events.php:122
+msgid "Actions"
+msgstr "Ações"
+
+#: includes/reports/class-wc-reports-manager.php:12
+msgid "Events"
+msgstr "Eventos"
+
+#: includes/views/html-dates-variation-fields-view.php:27
 msgid "Start Time"
 msgstr "Horário de Início"
 
-#: includes/classes/views/html-dates-variation-fields-view.php:29
+#: includes/views/html-dates-variation-fields-view.php:29
 msgid "End Time"
 msgstr "Horário de Término"
 
-#: includes/classes/views/html-dates-variation-fields-view.php:33
+#: includes/views/html-dates-variation-fields-view.php:33
 msgid "Days of Week when this event occurs."
 msgstr "Dias da semana em que o evento ocorrerá."
 
-#: includes/classes/views/html-dates-variation-fields-view.php:34
+#: includes/views/html-dates-variation-fields-view.php:34
 msgid "Monday"
 msgstr "Segunda-Feira"
 
-#: includes/classes/views/html-dates-variation-fields-view.php:35
+#: includes/views/html-dates-variation-fields-view.php:35
 msgid "Sunday"
 msgstr "Domingo"
 
-#: includes/classes/views/html-dates-variation-fields-view.php:36
+#: includes/views/html-dates-variation-fields-view.php:36
 msgid "Tuesday"
 msgstr "Terça-Feira"
 
-#: includes/classes/views/html-dates-variation-fields-view.php:37
+#: includes/views/html-dates-variation-fields-view.php:37
 msgid "Wednesday"
 msgstr "Quarta-Feira"
 
-#: includes/classes/views/html-dates-variation-fields-view.php:38
+#: includes/views/html-dates-variation-fields-view.php:38
 msgid "Thursday"
 msgstr "Quinta-Feira"
 
-#: includes/classes/views/html-dates-variation-fields-view.php:39
+#: includes/views/html-dates-variation-fields-view.php:39
 msgid "Friday"
 msgstr "Sexta-Feira"
 
-#: includes/classes/views/html-dates-variation-fields-view.php:40
+#: includes/views/html-dates-variation-fields-view.php:40
 msgid "Saturday"
 msgstr "Sábado"
 
-#: includes/classes/views/html-dates-view.php:60
-#: includes/classes/views/html-dates-view.php:131
+#: includes/views/html-dates-view.php:60 includes/views/html-dates-view.php:131
 msgid "Single Day"
 msgstr "Dia Único"
 
-#: includes/classes/views/html-dates-view.php:62
-#: includes/classes/views/html-dates-view.php:133
+#: includes/views/html-dates-view.php:62 includes/views/html-dates-view.php:133
 msgid "Event Day"
 msgstr "Dia do Evento"
 
-#: includes/classes/views/html-dates-view.php:64
-#: includes/classes/views/html-dates-view.php:99
-#: includes/classes/views/html-dates-view.php:135
-#: includes/classes/views/html-dates-view.php:172
+#: includes/views/html-dates-view.php:64 includes/views/html-dates-view.php:99
+#: includes/views/html-dates-view.php:135
+#: includes/views/html-dates-view.php:172
 msgid "Remove"
 msgstr "Remover"
 
-#: includes/classes/views/html-dates-view.php:72
-#: includes/classes/views/html-dates-view.php:142
+#: includes/views/html-dates-view.php:72 includes/views/html-dates-view.php:142
 msgid "Multiple Days"
 msgstr "Múltiplos Dias"
 
-#: includes/classes/views/html-dates-view.php:74
-#: includes/classes/views/html-dates-view.php:110
-#: includes/classes/views/html-dates-view.php:149
+#: includes/views/html-dates-view.php:74 includes/views/html-dates-view.php:110
+#: includes/views/html-dates-view.php:149
 msgid "Day"
 msgstr "Dia"
 
-#: includes/classes/views/html-dates-view.php:76
-#: includes/classes/views/html-dates-view.php:112
-#: includes/classes/views/html-dates-view.php:151
+#: includes/views/html-dates-view.php:76 includes/views/html-dates-view.php:112
+#: includes/views/html-dates-view.php:151
 msgid "Remove Day"
 msgstr "Remover Dia"
 
-#: includes/classes/views/html-dates-view.php:79
-#: includes/classes/views/html-dates-view.php:157
+#: includes/views/html-dates-view.php:79 includes/views/html-dates-view.php:157
 msgid "Remove All"
 msgstr "Remover Tudo"
 
-#: includes/classes/views/html-dates-view.php:80
-#: includes/classes/views/html-dates-view.php:158
+#: includes/views/html-dates-view.php:80 includes/views/html-dates-view.php:158
 msgid "Add Day"
 msgstr "Adicionar Dia"
 
-#: includes/classes/views/html-dates-view.php:88
-#: includes/classes/views/html-dates-view.php:165
-#: includes/classes/views/html-dates-view.php:192
+#: includes/views/html-dates-view.php:88 includes/views/html-dates-view.php:165
+#: includes/views/html-dates-view.php:192
 msgid "Range Date"
 msgstr "Intervalo de Datas"
 
-#: includes/classes/views/html-dates-view.php:90
-#: includes/classes/views/html-dates-view.php:167
+#: includes/views/html-dates-view.php:90 includes/views/html-dates-view.php:167
 msgid "Event start and end date"
 msgstr "Data de início do evento"
 
-#: includes/classes/views/html-dates-view.php:91
-#: includes/classes/views/html-dates-view.php:168
+#: includes/views/html-dates-view.php:91 includes/views/html-dates-view.php:168
 msgid "From"
 msgstr "Das"
 
-#: includes/classes/views/html-dates-view.php:93
-#: includes/classes/views/html-dates-view.php:170
+#: includes/views/html-dates-view.php:93 includes/views/html-dates-view.php:170
 msgid "to"
 msgstr "à"
 
-#: includes/classes/views/html-dates-view.php:102
+#: includes/views/html-dates-view.php:102
 msgid "Please set the end date after the start date."
 msgstr "Por favor, defina a data de término para após a data de início."
 
-#: includes/classes/views/html-dates-view.php:187
+#: includes/views/html-dates-view.php:187
 msgid "Save Dates"
 msgstr "Salvar Datas"
 
-#: includes/classes/views/html-dates-view.php:188
+#: includes/views/html-dates-view.php:188
 msgid "Add New Date"
 msgstr "Adicionar Nova Data"
 
-#: includes/classes/views/html-dates-view.php:190
+#: includes/views/html-dates-view.php:190
 msgid "Single Date"
 msgstr "Data Única"
 
-#: includes/classes/views/html-dates-view.php:191
+#: includes/views/html-dates-view.php:191
 msgid "Multiple Date"
 msgstr "Múltiplas Datas"
 
-#: includes/classes/views/html-dates-view.php:200
+#: includes/views/html-dates-view.php:200
 msgid "Saved Dates"
 msgstr "Datas Salvas"
 
-#: includes/classes/views/html-dates-view.php:201
+#: includes/views/html-dates-view.php:201
 msgid ""
 "Your dates have been saved. Go into the Variations Tab and create a "
 "variation for each of your dates and continue to configure your registration "
@@ -361,43 +384,7 @@ msgstr ""
 "cada uma de suas datas e continue a configuração específica de cada uma das "
 "suas datas de registro."
 
-#: includes/reports/class-wc-report-detailed-registration-event.php:27
-#: includes/reports/class-wc-report-list-registration-events.php:19
-msgid "Customer"
-msgstr "Cliente"
-
-#: includes/reports/class-wc-report-detailed-registration-event.php:28
-#: includes/reports/class-wc-report-list-registration-events.php:20
-#: includes/reports/class-wc-report-list-registration-events.php:84
-msgid "Customers"
-msgstr "Clientes"
-
-#: includes/reports/class-wc-report-detailed-registration-event.php:37
-#: includes/reports/class-wc-report-list-registration-events.php:29
-msgid "No customers found."
-msgstr "Nenhum cliente encontrado."
-
-#: includes/reports/class-wc-report-list-registration-events.php:110
-msgid "Variation ID"
-msgstr "ID da variação"
-
-#: includes/reports/class-wc-report-list-registration-events.php:111
-msgid "Date"
-msgstr "Data"
-
-#: includes/reports/class-wc-report-list-registration-events.php:112
-msgid "Product Name"
-msgstr "Nome do produto"
-
-#: includes/reports/class-wc-report-list-registration-events.php:113
-msgid "Actions"
-msgstr "Ações"
-
-#: includes/reports/class-wc-reports-manager.php:12
-msgid "Events"
-msgstr "Eventos"
-
-#: registrations-for-woocommerce.php:112
+#: registrations-for-woocommerce.php:133
 #, php-format
 msgid ""
 "%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s "
@@ -408,7 +395,7 @@ msgstr ""
 "estar ativo para que o WooCommerce Registrations funcione. Por favor, "
 "%sinstale e ative o WooCommerce%s"
 
-#: registrations-for-woocommerce.php:116
+#: registrations-for-woocommerce.php:137
 #, php-format
 msgid ""
 "%sRegistrations for WooCommerce is inactive.%s This version of Registrations "
@@ -419,7 +406,7 @@ msgstr ""
 "reque o WooCommerce 2.1 or mais superior. Por favor %satualize o WooCommerce "
 "para a versão 2.1 ou superior%s"
 
-#: registrations-for-woocommerce.php:189
+#: registrations-for-woocommerce.php:210
 #, php-format
 msgid ""
 "%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
@@ -431,7 +418,7 @@ msgstr ""
 "2.0. Por favor %satualize o WooCommerce para a versão 2.0 ou superior%s para "
 "evitar problemas."
 
-#: registrations-for-woocommerce.php:194
+#: registrations-for-woocommerce.php:215
 #, php-format
 msgid ""
 "%sYou have an out-of-date version of WooCommerce installed%s. Registrations "
@@ -442,13 +429,16 @@ msgstr ""
 "WooCommerce Registrations requer o WooCommerce 2.0.16 ou superior. Por "
 "favor, %satualize o WooCommerce para a versão mais recente%s."
 
-#: templates/single-product/add-to-cart/registration.php:24
+#: templates/single-product/add-to-cart/registration.php:30
 msgid "This product is currently out of stock and unavailable."
 msgstr "Ese produto está atualmente indisponível."
 
-#: templates/single-product/add-to-cart/registration.php:35
-msgid "Clear selection"
-msgstr "Limpar seleção"
+#: templates/single-product/add-to-cart/registration.php:41
+msgid "Clear"
+msgstr "Limpar"
+
+#~ msgid "Clear selection"
+#~ msgstr "Limpar seleção"
 
 #~ msgid "Prevent Past Events"
 #~ msgstr "Impedir Eventos Passados"

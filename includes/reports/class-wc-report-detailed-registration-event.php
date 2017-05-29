@@ -9,12 +9,12 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 }
 
 /**
- * WC_Report_Customer_List.
+ * WC_Report_Detailed_Registration_Event.
  *
- * @author      WooThemes
+ * @author      Shirkit, Allyson Souza
  * @category    Admin
- * @package     WooCommerce/Admin/Reports
- * @version     2.1.0
+ * @package     Registrations for WooCommerce/Reports
+ * @version     1.0.0
  */
 class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 
