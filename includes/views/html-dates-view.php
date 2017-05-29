@@ -70,7 +70,7 @@
             <script type="text/template" class="template-multiple_date">
                 <div class="multiple_date options_group wc-metabox">
                     <h3><?php  echo '#0 - ' . __( 'Multiple Days', 'registrations-for-woocommerce'); ?></h3>
-                    <p class="form-field multiple_date_inputs">
+                    <p class="form-field multiple_date_inputs wc-metabox">
                         <label for="event_start_date"><?php _e( 'Day', 'registrations-for-woocommerce'); ?></label>
                         <input type="date" class="wc_input_event_date event_date" name="event_start_date" value="<?php echo date("Y-m-d");?>">
                         <button type="button" class="remove_day button"><?php _e( 'Remove Day', 'registrations-for-woocommerce' ); ?></button>
