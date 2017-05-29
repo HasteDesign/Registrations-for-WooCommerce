@@ -174,8 +174,6 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 * @return WC_Product Synced product object.
 	 */
 	public static function sync( $product, $save = true ) {
-		error_log( print_r( 'sync na ' . __CLASS__, true ) );
-
 		if ( ! is_a( $product, 'WC_Product' ) ) {
 			$product = wc_get_product( $product );
 		}
@@ -204,8 +202,6 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 * @return WC_Product Synced product object.
 	 */
 	public static function sync_stock_status( $product, $save = true ) {
-		error_log( print_r( 'sync_stock_status na ' . __CLASS__, true ) );
-
 		if ( ! is_a( $product, 'WC_Product' ) ) {
 			$product = wc_get_product( $product );
 		}

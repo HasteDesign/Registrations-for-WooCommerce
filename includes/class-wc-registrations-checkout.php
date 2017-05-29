@@ -101,15 +101,15 @@ class WC_Registrations_Checkout {
 						 * Display the fields header if it's the first participant to be displayed
 						 */
 						if ( $i == 1 ) {
-							$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
+							$date = get_post_meta( $_product->get_id(), 'attribute_dates', true );
 
 							/**
 							 * Check if there's a date defined, if there's no date, display only the product name.
 							 */
 							if ( $date ) {
-								echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s - %s', 'registrations-for-woocommerce' ),  $_product->get_parent_id()->post->post_title, esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) ) ) . '</h3>';
+								echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s - %s', 'registrations-for-woocommerce' ),  $parent->get_title(), esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) ) ) . '</h3>';
 							} else {
-								echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s', 'registrations-for-woocommerce' ), $_product->get_parent_id()->post->post_title ) . '</h3>';
+								echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s', 'registrations-for-woocommerce' ), $parent->get_title() ) . '</h3>';
 							}
 						}
 
@@ -171,8 +171,9 @@ class WC_Registrations_Checkout {
 
 		foreach ( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
+			$parent   = ! empty( $_product->get_parent_id() ) ? wc_get_product( $_product->get_parent_id() ) : '';
 
-			if ( $_product->is_type( 'variation' ) && $_product->get_parent_id()->is_type( 'registrations' ) ) {
+			if ( $_product->get_type() === 'variation' && $parent->get_type() === 'registrations' ) {
 				$qty = $values['quantity'];
 
 				for ( $i = 1; $i <= $qty; $i++, $registrations++ ) {
@@ -207,9 +208,10 @@ class WC_Registrations_Checkout {
 			$_product = $values['data'];
 			$participants = array( 'date' => '', 'participants' => '' );
 			$users = [];
+			$parent   = ! empty( $_product->get_parent_id() ) ? wc_get_product( $_product->get_parent_id() ) : '';
 
 			// Check if is registration product type
-			if( $_product->is_type( 'variation' ) && $_product->get_parent_id()->is_type( 'registrations' ) ) {
+			if ( $_product->get_type() === 'variation' && $parent->get_type() === 'registrations' ) {
 				$qty = $values['quantity'];
 				$meta_value = '';
 				$title = $_product->get_parent_id()->post->post_title;
@@ -217,7 +219,7 @@ class WC_Registrations_Checkout {
 				// Run loop for each quantity of the product
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 					// Get the variation meta date (JSON)
-					$date = get_post_meta( $_product->variation_id, 'attribute_dates', true );
+					$date = get_post_meta( $_product->get_id(), 'attribute_dates', true );
 					$date ? $meta_name = $title . ' - ' . $date : $meta_name = $title;
 
 					$participants['date'] = $meta_name;
