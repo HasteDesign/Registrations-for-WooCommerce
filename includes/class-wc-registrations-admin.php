@@ -301,16 +301,16 @@ class WC_Registrations_Admin {
 	 * @return string $option      Formated registrations variation option name.
 	 */
 	public static function registration_variation_option_name( $option, $date_format = null ) {
-			if( $date_format == null ) {
-				$date_format = get_option( 'date_format' );
-			}
+		if( $date_format == null ) {
+			$date_format = get_option( 'date_format' );
+		}
 
-			$opt = json_decode( stripslashes( $option ) );
-			if( $opt ) {
-				return self::format_variations_dates( $opt, $date_format );
-			} else {
-				return $option;
-			}
+		$opt = json_decode( stripslashes( $option ) );
+		if( $opt ) {
+			return self::format_variations_dates( $opt, $date_format );
+		} else {
+			return $option;
+		}
 	}
 
 	/**
@@ -327,24 +327,24 @@ class WC_Registrations_Admin {
 	 * @return string $values_sanitized    filtered date attribute according to the site date_format
 	 */
 	public static function registration_variation_filter_additional_information( $values_sanitized, $attribute, $values ) {
-			if( $attribute['name'] == 'Dates' ) {
-				$dates = array();
-				$date_format = get_option( 'date_format' );
+		if( $attribute['name'] === 'Dates' ) {
+			$dates = array();
+			$date_format = get_option( 'date_format' );
 
-				$attribute['name'] == 'Dates';
+			$attribute['name'] === 'Dates';
 
-				foreach( $values as $date ) {
-					$opt = json_decode( stripslashes( $date ) );
+			foreach( $attribute->get_options() as $date ) {
+				$opt = json_decode( stripslashes( $date ) );
 
-					if( $opt ) {
-						 $dates[] = self::format_variations_dates( $opt, $date_format );
-					}
+				if( $opt ) {
+					 $dates[] = self::format_variations_dates( $opt, $date_format );
 				}
-
-				return wptexturize( implode( ', ', $dates ) );
-			} else {
-				return $values_sanitized;
 			}
+
+			return wptexturize( implode( ', ', $dates ) );
+		} else {
+			return $values_sanitized;
+		}
 	}
 
 	/**
