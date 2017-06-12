@@ -39,6 +39,8 @@ class WC_Registrations_Admin {
 		// Filter dates variations options name and display correctly for each date type (single, multiple, and range)
 		add_filter( 'woocommerce_variation_option_name', __CLASS__ . '::registration_variation_option_name' );
 		add_filter( 'woocommerce_attribute', __CLASS__ . '::registration_variation_filter_additional_information', 10, 3 );
+		add_filter( 'woocommerce_display_item_meta', __CLASS__ . '::registration_filter_display_item_meta', 10, 3 );
+
 
 		// Filter dates attribute name
 		add_filter( 'woocommerce_attribute_label', __CLASS__ . '::registration_attribute_label', 10, 3 );
@@ -344,6 +346,39 @@ class WC_Registrations_Admin {
 			return wptexturize( implode( ', ', $dates ) );
 		} else {
 			return $values_sanitized;
+		}
+	}
+
+	/**
+	 * Filter dates exhibition on order details item meta
+	 *
+	 * Filter the dates exhibition on order details item meta section
+	 * on checkout, after a successfull purchase.
+	 *
+	 * @since  2.0.0
+	 *
+	 * @param  string $values_sanitized    attribute sanitized string
+	 * @param  array  $attribute           current attribute to be displayed
+	 * @param  array  $values              attribute values array
+	 * @return string $values_sanitized    filtered date attribute according to the site date_format
+	 */
+	public static function registration_filter_display_item_meta( $html, $item, $args ) {
+		$strings = array();
+		$html    = '';
+
+		foreach ( $item->get_formatted_meta_data() as $meta_id => $meta ) {
+			$value = $args['autop'] ? wp_kses_post( $meta->display_value ) : apply_filters( 'woocommerce_variation_option_name', wp_kses_post( make_clickable( trim( strip_tags( $meta->display_value ) ) ) ) );
+			$strings[] = '<strong class="wc-item-meta-label">' . wp_kses_post( $meta->display_key ) . ':</strong> ' . $value;
+		}
+
+		if ( $strings ) {
+			$html = $args['before'] . implode( $args['separator'], $strings ) . $args['after'];
+		}
+
+		if ( $args['echo'] ) {
+			echo $html;
+		} else {
+			return $html;
 		}
 	}
 
