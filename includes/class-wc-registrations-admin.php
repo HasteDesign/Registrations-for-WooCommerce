@@ -274,7 +274,7 @@ class WC_Registrations_Admin {
 		$tabs['dates'] = array(
 			'label' 	=> __( 'Dates', 'registrations-for-woocommerce' ),
 			'target' 	=> 'registration_dates',
-			'class' 	=> array('show_if_registration')
+			'class' 	=> array( 'show_if_registration' )
 		);
 
 		return $tabs;
