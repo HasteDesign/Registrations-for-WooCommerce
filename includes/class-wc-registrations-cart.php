@@ -26,8 +26,9 @@ class WC_Registrations_Cart {
 		// Optional filter to prevent past events
 		add_filter( 'woocommerce_add_to_cart_validation', __CLASS__ . '::validate_registration', 10, 5 );
 
-		// Filter item name
+		// Filter item name in cart and order
 		add_filter( 'woocommerce_cart_item_name', __CLASS__ . '::remove_variation_from_name', 10, 3 );
+		add_filter( 'woocommerce_order_item_name', __CLASS__ . '::remove_variation_from_name', 10, 3 );
 	}
 
 	/**
