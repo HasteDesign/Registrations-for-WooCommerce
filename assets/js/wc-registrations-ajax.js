@@ -12,6 +12,7 @@ jQuery(document).ready(function($){
 
         var data = {
             post_id: 		woocommerce_admin_meta_boxes.post_id,
+            product_type:   $( '#product-type' ).val(),
             data:			$( '.general_dates' ).children( 'input' ).serialize(),
             action: 		'woocommerce_save_attributes',
             security: 		woocommerce_admin_meta_boxes.save_attributes_nonce
@@ -39,7 +40,7 @@ jQuery(document).ready(function($){
 
     // On save attributes, if registration product type, call .save_date_attributes click event
     $( '.save_attributes' ).on( 'click', function() {
-        if( $( 'select#product-type' ).val() == 'registrations' ) {
+        if( $( '#product-type' ).val() == 'registrations' ) {
             $( '.save_date_attributes' ).click();
         }
     });
