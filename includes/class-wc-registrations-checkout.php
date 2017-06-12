@@ -206,7 +206,7 @@ class WC_Registrations_Checkout {
 		// Loop trough cart items
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
-			$participants = array( 'date' => '', 'participants' => '' );
+			$participants = array( 'date' => '', 'participants' => array() );
 			$users = [];
 			$parent   = ! empty( $_product->get_parent_id() ) ? wc_get_product( $_product->get_parent_id() ) : '';
 
