@@ -9,6 +9,14 @@ All the project notable changes will be documented here.
 ### Fixed
 ### Security
 
+## (2.0.0) - 2017-06-12
+### Added
+- WooCommerce 3.0 compatibility
+- Using varibale product Data_Store
+- Fixed lot's of hooks to prettify date variation displays
+- Fixed Ajax attributes saving
+- Fixed Reports (major issues about new WC3.0 CRUD)
+
 ## (1.0.7) - 2017-03-19
 ### Added
 - Prevent registrations from past dates (New option in Inventory tab for Registration product type)
@@ -57,6 +65,7 @@ All the project notable changes will be documented here.
 ### Added
 - Initial Release
 
+[2.0.0]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.0
 [1.0.7]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.7
 [1.0.6]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.6
 [1.0.5]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.5
