@@ -25,6 +25,9 @@ class WC_Registrations_Cart {
 
 		// Optional filter to prevent past events
 		add_filter( 'woocommerce_add_to_cart_validation', __CLASS__ . '::validate_registration', 10, 5 );
+
+		// Filter item name
+		add_filter( 'woocommerce_cart_item_name', __CLASS__ . '::remove_variation_from_name', 10, 3 );
 	}
 
 	/**
@@ -90,6 +93,16 @@ class WC_Registrations_Cart {
 			}
 		}
 		return $passed;
+	}
+
+	/**
+	 * Remove the variation json after product name in cart table
+	 *
+	 * @access public
+	 */
+	public static function remove_variation_from_name( $name, $cart_item, $cart_item_key ) {
+		$_product = wc_get_product( $cart_item['product_id'] );
+		return sprintf( '<a href="%s">%s</a>', esc_url( $_product->get_permalink( $cart_item ) ), $_product->get_name() );
 	}
 }
 WC_Registrations_Cart::init();
