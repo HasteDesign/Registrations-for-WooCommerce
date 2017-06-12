@@ -11,11 +11,11 @@ Created by: @hastedesign, @allysonsouza, @anyssa
 
 - Requires at least: 3.0.1
 - Tested up to: 4.8
-- Stable tag: 2.0.0
+- Stable tag: 2.0.1
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-### 2.0 Release Note
+### 2.0.0 Release Note
 The plugin must be WooCoommerce 3.x compatible now, but there's no garantee to backwards compatibility with Registrations for WooCommerce previous versions, make sure you made a backup of your database.
 
 ### Description [en]

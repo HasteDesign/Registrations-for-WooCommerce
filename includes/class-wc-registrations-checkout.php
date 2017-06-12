@@ -83,7 +83,7 @@ class WC_Registrations_Checkout {
 
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
-			$parent   = ! empty( $_product->get_parent_id() ) ? wc_get_product( $_product->get_parent_id() ) : '';
+			$parent   = $_product->get_parent_id() ? wc_get_product( $_product->get_parent_id() ) : '';
 
 			if( ! empty( $parent ) ) {
 				/**
