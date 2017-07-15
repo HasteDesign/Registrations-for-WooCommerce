@@ -9,6 +9,10 @@ All the project notable changes will be documented here.
 ### Fixed
 ### Security
 
+## (2.0.1) - 2017-06-12
+### Fixed
+- Fixed bad ! empty statement that causes problems prior to PHP 5.5
+
 ## (2.0.0) - 2017-06-12
 ### Added
 - WooCommerce 3.0 compatibility
