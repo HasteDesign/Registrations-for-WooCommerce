@@ -165,7 +165,7 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 					// echo '<pre>';
 					// var_dump( $variation );
 					// echo '</pre>';
-					if ( $variation['id'] == $item->get_variation_id() ) {
+					if ( $variation['variation_id'] == $item->get_variation_id() ) {
 						$found[] = array( wc_get_product( $variation['id'] ), $order );
 					}
 				}
