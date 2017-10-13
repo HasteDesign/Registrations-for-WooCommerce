@@ -8,6 +8,7 @@ This plugin allows you to sell registrations for courses, lectures, events or an
 Este plugin permite a venda de inscrições para cursos, palestras, eventos, ou qualquer tipo de produto baseado em datas.
 
 Created by: @hastedesign, @allysonsouza, @anyssa
+
 Contributors: @Shirkit, @brettmhoffman
 
 - Requires at least: 3.0.1
