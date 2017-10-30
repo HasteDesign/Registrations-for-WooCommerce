@@ -3,8 +3,8 @@ Contributors: hastedesign, allysonsouza, anyssa
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=allyson_as%40hotmail%2ecom&lc=US&item_name=WooCommerce%20Registrations%20by%20Haste&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: woocommerce, registrations, attendees, subscriptions, tickets, events
 Requires at least: 3.0.1
-Tested up to: 4.8
-Stable tag: 2.0.1
+Tested up to: 4.8.2
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,12 @@ For more information about Variable Products see: [WooThemes Variable Product](h
 7. Additional checkout fields - theme: Storefront
 
 == Changelog ==
+
+= 2.0.2 - 2017-10-30
+- Fix registrations reports (contributor: @brettmhoffman)
+
+= 2.0.1 - 2017-06-12 =
+- Fixed bad ! empty statement that causes problems prior to PHP 5.5
 
 = 2.0.0 - 2017-06-12 =
 - WooCommerce 3.0 compatibility

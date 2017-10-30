@@ -9,6 +9,10 @@ All the project notable changes will be documented here.
 ### Fixed
 ### Security
 
+## (2.0.2) - 2017-10-30
+### Fixed
+- Fix registrations reports (contributor: @brettmhoffman)
+
 ## (2.0.1) - 2017-06-12
 ### Fixed
 - Fixed bad ! empty statement that causes problems prior to PHP 5.5
@@ -69,6 +73,7 @@ All the project notable changes will be documented here.
 ### Added
 - Initial Release
 
+[2.0.1]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.1
 [2.0.0]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.0
 [1.0.7]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.7
 [1.0.6]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.6
