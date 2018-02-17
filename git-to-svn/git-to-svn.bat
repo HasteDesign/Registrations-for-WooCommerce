@@ -14,7 +14,7 @@ SET interactive=0
 
 :: config
 SET plugin=registrations-for-woocommerce
-SET version=2.0.1
+SET version=2.0.3
 SET svndir=C:\web\svn\%plugin%
 SET assets=%svndir%\assets\
 SET tag=%svndir%\tags\%version%\
