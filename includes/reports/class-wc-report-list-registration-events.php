@@ -162,11 +162,8 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 		foreach ( $orders as $order ) {
 			foreach ( $order->get_items() as $item ) {
 				foreach ( $variations as $variation ) {
-					// echo '<pre>';
-					// var_dump( $variation );
-					// echo '</pre>';
 					if ( $variation['variation_id'] == $item->get_variation_id() ) {
-						$found[] = array( wc_get_product( $variation['id'] ), $order );
+						$found[] = array( wc_get_product( $variation['variation_id'] ), $order );
 					}
 				}
 			}

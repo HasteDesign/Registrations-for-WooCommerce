@@ -9,6 +9,10 @@ All the project notable changes will be documented here.
 ### Fixed
 ### Security
 
+## (2.0.3) - 2018-02-17
+### Fixed
+- Fix registrations reports: fixed undefined index in class-wc-report-list-registration.php
+
 ## (2.0.2) - 2017-10-30
 ### Fixed
 - Fix registrations reports (contributor: @brettmhoffman)
@@ -73,6 +77,8 @@ All the project notable changes will be documented here.
 ### Added
 - Initial Release
 
+[2.0.3]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.3
+[2.0.2]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.2
 [2.0.1]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.1
 [2.0.0]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.0
 [1.0.7]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.7
