@@ -214,7 +214,7 @@ class WC_Registrations_Checkout {
 			if ( $_product->get_type() === 'variation' && $parent->get_type() === 'registrations' ) {
 				$qty = $values['quantity'];
 				$meta_value = '';
-				$title = $parent->get_title();
+				$title = str_replace( " - ", " _ ", $parent->get_title() ); //don't allow '-' in the product title when storing.
 
 				// Run loop for each quantity of the product
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
@@ -271,7 +271,7 @@ class WC_Registrations_Checkout {
 
 			foreach ( $registration_meta as $registration ) {
 				if( ! empty( $registration['date'] ) ) {
-					$meta_name = explode( ' - ', $registration['date'] );
+					$meta_name = str_replace(" _ ", " - ", explode( ' - ', $registration['date'] )); //str_replace adds the '-' back into the string after exploding.
 					echo '<p><strong>'. $meta_name[0] . ' - '. esc_html( apply_filters( 'woocommerce_variation_option_name', $meta_name[1] ) ) .':</strong></p>';
 				}
 
