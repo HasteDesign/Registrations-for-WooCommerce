@@ -17,6 +17,7 @@ jQuery( function( $ ) {
 			.on( 'change', 	'.event_end_date', 		this.validate_range_date );
 
 			$( '#_prevent_past_events').on( 'change', this.display_past_event_days );
+			$( 'input#_manage_stock' ).on( 'change', this.show_hide_stock_options );
 
 			// Variations Tab Events
 			$( '#variable_product_options' ).on( 'woocommerce_variations_added' , function() {
@@ -69,12 +70,15 @@ jQuery( function( $ ) {
 		 */
 		show_hide_registration_meta: function() {
 			if ( $( 'select#product-type' ).val() === 'registrations' ) {
+				// Hide
 				$( '.hide_if_virtual' ).hide();
-				$( '.show_if_variable' ).show();
 				$( '.hide_if_variable' ).hide();
-				$( '.show_if_registration' ).show();
 				$( '.hide_if_registration' ).hide();
 				$( 'div.stock_fields' ).hide();
+				// Show
+				$( '.show_if_variable' ).show();
+				$( '.show_if_registration' ).show();
+				// Check
 				$( 'input#_downloadable' ).prop( 'checked', false );
 			} else {
 				$( '.show_if_registration' ).hide();
@@ -82,6 +86,20 @@ jQuery( function( $ ) {
 
 			if ( ! $( '#_prevent_past_events' ).is( ':checked' ) ) {
 				$( 'p._days_to_prevent_field' ).hide();
+			}
+
+			wc_meta_boxes_product_registrations.show_hide_stock_options();
+		},
+
+		show_hide_stock_options: function() {
+			if ( $( this ).is( ':checked' ) ) {
+				$( 'div.stock_fields' ).show();
+				$( 'p.stock_status_field' ).hide();
+			} else {
+				if ( $( 'select#product-type' ).val() === 'registrations' ) {
+					$( 'div.stock_fields' ).hide();
+					$( 'p.stock_status_field' ).hide();
+				}
 			}
 		},
 

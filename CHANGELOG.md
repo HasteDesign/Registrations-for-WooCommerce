@@ -10,6 +10,7 @@ All the project notable changes will be documented here.
 - Removed data store unused classes
 ### Fixed
 - Fix WC_Product_Registration properties default values from array() to null, to be compatible with WooCoommerce 3.4
+- Fix stock_status metabox visibility when editing registration product, preventing field to be visible on manage stock uncheck
 ### Security
 
 ## (2.0.3) - 2018-02-17
