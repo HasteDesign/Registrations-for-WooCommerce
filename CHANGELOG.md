@@ -4,6 +4,7 @@ All the project notable changes will be documented here.
 ## [Unreleased]
 ### Added
 ### Changed
+- Changed registration add to cart template according to WooCommerce 3.4
 ### Deprecated
 ### Removed
 ### Fixed
