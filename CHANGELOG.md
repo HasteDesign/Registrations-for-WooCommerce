@@ -7,6 +7,7 @@ All the project notable changes will be documented here.
 ### Deprecated
 ### Removed
 ### Fixed
+- Fix WC_Product_Registration properties default values from array() to null, to be compatible with WooCoommerce 3.4
 ### Security
 
 ## (2.0.3) - 2018-02-17

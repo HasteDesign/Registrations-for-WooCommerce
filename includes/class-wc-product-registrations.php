@@ -17,21 +17,21 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 *
 	 * @var array
 	 */
-	protected $children = array();
+	protected $children = null;
 
 	/**
 	 * Array of visible children variation IDs. Determined by children.
 	 *
 	 * @var array
 	 */
-	protected $visible_children = array();
+	protected $visible_children = null;
 
 	/**
 	 * Array of variation attributes IDs. Determined by children.
 	 *
 	 * @var array
 	 */
-	protected $variation_attributes = array();
+	protected $variation_attributes = null;
 
 	/**
 	 * Get internal type.
@@ -165,12 +165,18 @@ class WC_Product_Registrations extends WC_Product_Variable {
 		}
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Sync with child variations.
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Sync a variable product with it's children. These sync functions sync
 	 * upwards (from child to parent) when the variation is saved.
 	 *
 	 * @param WC_Product|int $product Product object or ID for which you wish to sync.
-	 * @param bool $save If true, the prouduct object will be saved to the DB before returning it.
+	 * @param bool           $save If true, the product object will be saved to the DB before returning it.
 	 * @return WC_Product Synced product object.
 	 */
 	public static function sync( $product, $save = true ) {
@@ -189,8 +195,14 @@ class WC_Product_Registrations extends WC_Product_Variable {
 				$product->save();
 			}
 
-			wc_do_deprecated_action( 'woocommerce_variable_product_sync', array( $product->get_id(), $product->get_visible_children() ), '3.0', 'woocommerce_variable_product_sync_data, woocommerce_new_product or woocommerce_update_product' );
+			wc_do_deprecated_action(
+				'woocommerce_variable_product_sync', array(
+					$product->get_id(),
+					$product->get_visible_children(),
+				), '3.0', 'woocommerce_variable_product_sync_data, woocommerce_new_product or woocommerce_update_product'
+			);
 		}
+
 		return $product;
 	}
 
@@ -198,7 +210,7 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 * Sync parent stock status with the status of all children and save.
 	 *
 	 * @param WC_Product|int $product Product object or ID for which you wish to sync.
-	 * @param bool $save If true, the prouduct object will be saved to the DB before returning it.
+	 * @param bool           $save If true, the product object will be saved to the DB before returning it.
 	 * @return WC_Product Synced product object.
 	 */
 	public static function sync_stock_status( $product, $save = true ) {
@@ -213,6 +225,7 @@ class WC_Product_Registrations extends WC_Product_Variable {
 				$product->save();
 			}
 		}
+
 		return $product;
 	}
 }
