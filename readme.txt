@@ -3,8 +3,8 @@ Contributors: hastedesign, allysonsouza, anyssa
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=allyson_as%40hotmail%2ecom&lc=US&item_name=WooCommerce%20Registrations%20by%20Haste&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: woocommerce, registrations, attendees, subscriptions, tickets, events
 Requires at least: 3.0.1
-Tested up to: 4.9.4
-Stable tag: 2.0.3
+Tested up to: 4.9.6
+Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,12 @@ For more information about Variable Products see: [WooThemes Variable Product](h
 7. Additional checkout fields - theme: Storefront
 
 == Changelog ==
+
+= 2.0.4 - 2018-05-31
+- Changed registration add to cart template according to WooCommerce 3.4
+- Removed data store unused classes
+- Fix WC_Product_Registration properties default values from array() to null, to be compatible with WooCoommerce 3.4
+- Fix stock_status metabox visibility when editing registration product, preventing field to be visible on manage stock uncheck
 
 = 2.0.3 - 2018-02-17
 - Fix registrations reports: fixed undefined index in class-wc-report-list-registration.php

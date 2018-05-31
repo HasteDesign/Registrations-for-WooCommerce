@@ -5,11 +5,11 @@
  * Description: Add registration product type to your WooCommerce.
  * Author: Haste - design and technology, Allyson Souza, Anyssa Ferreira
  * Author URI: http://www.hastedesign.com.br
- * Version: 2.0.3
+ * Version: 2.0.4
  * Text Domain: registrations-for-woocommerce
  * Domain Path: /languages
  *
- * Copyright 2017 Haste Design.  (email : contato@hastedesign.com.br)
+ * Copyright 2018 Haste Design.  (email: contato@hastedesign.com.br)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

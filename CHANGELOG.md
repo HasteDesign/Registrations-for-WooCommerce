@@ -4,6 +4,13 @@ All the project notable changes will be documented here.
 ## [Unreleased]
 ### Added
 ### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+## (2.0.4) - 2018-05-31
+### Changed
 - Changed registration add to cart template according to WooCommerce 3.4
 ### Deprecated
 ### Removed
@@ -11,7 +18,6 @@ All the project notable changes will be documented here.
 ### Fixed
 - Fix WC_Product_Registration properties default values from array() to null, to be compatible with WooCoommerce 3.4
 - Fix stock_status metabox visibility when editing registration product, preventing field to be visible on manage stock uncheck
-### Security
 
 ## (2.0.3) - 2018-02-17
 ### Fixed
@@ -81,6 +87,7 @@ All the project notable changes will be documented here.
 ### Added
 - Initial Release
 
+[2.0.4]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.4
 [2.0.3]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.3
 [2.0.2]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.2
 [2.0.1]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.1
