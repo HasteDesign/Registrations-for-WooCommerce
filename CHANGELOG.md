@@ -7,6 +7,7 @@ All the project notable changes will be documented here.
 - Changed registration add to cart template according to WooCommerce 3.4
 ### Deprecated
 ### Removed
+- Removed data store unused classes
 ### Fixed
 - Fix WC_Product_Registration properties default values from array() to null, to be compatible with WooCoommerce 3.4
 ### Security
