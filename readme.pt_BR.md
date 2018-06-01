@@ -3,7 +3,7 @@ Registrations for WooCommerce
 
 [![WordPress plugin](https://img.shields.io/wordpress/plugin/v/registrations-for-woocommerce.svg)](https://wordpress.org/plugins/registrations-for-woocommerce/) [![WordPress](https://img.shields.io/wordpress/v/registrations-for-woocommerce.svg)]() [![WordPress rating](https://img.shields.io/wordpress/plugin/r/registrations-for-woocommerce.svg)]() [![WordPress](https://img.shields.io/wordpress/plugin/dt/registrations-for-woocommerce.svg)](https://wordpress.org/plugins/registrations-for-woocommerce/advanced/)
 
-Read this in other languages: [https://github.com/HasteDesign/Registrations-for-WooCommerce/readme.md](English).
+Read this in other languages: [English](https://github.com/HasteDesign/Registrations-for-WooCommerce).
 
 Este plugin permite a venda de inscrições para cursos, palestras, eventos, ou qualquer tipo de produto baseado em datas.
 
