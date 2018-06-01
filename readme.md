@@ -3,26 +3,21 @@ Registrations for WooCommerce
 
 [![WordPress plugin](https://img.shields.io/wordpress/plugin/v/registrations-for-woocommerce.svg)](https://wordpress.org/plugins/registrations-for-woocommerce/) [![WordPress](https://img.shields.io/wordpress/v/registrations-for-woocommerce.svg)]() [![WordPress rating](https://img.shields.io/wordpress/plugin/r/registrations-for-woocommerce.svg)]() [![WordPress](https://img.shields.io/wordpress/plugin/dt/registrations-for-woocommerce.svg)](https://wordpress.org/plugins/registrations-for-woocommerce/advanced/)
 
-### [en]
+Read this in other languages: [https://github.com/HasteDesign/Registrations-for-WooCommerce/readme.pt_BR.md](Português (Brasil)).
+
 This plugin allows you to sell registrations for courses, lectures, events or any product based on dates.
 
-### [pt_BR]
-Este plugin permite a venda de inscrições para cursos, palestras, eventos, ou qualquer tipo de produto baseado em datas.
+Created by: hastedesign, allysonsouza, anyssa
 
-Created by: @hastedesign, @allysonsouza, @anyssa
-
-Contributors: @Shirkit, @brettmhoffman
+Contributors: Shirkit, brettmhoffman, ajlowndes
 
 - Requires at least: 3.0.1
-- Tested up to: 4.9.4
-- Stable tag: 2.0.3
+- Tested up to: 4.9.6
+- Stable tag: 2.0.4
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-### 2.0.0 Release Note
-The plugin must be WooCoommerce 3.x compatible now, but there's no garantee to backwards compatibility with Registrations for WooCommerce previous versions, make sure you made a backup of your database.
-
-### Description [en]
+### Description
 
 Registrations for WooCommerce allows the creation of the **registration** product type. Registration products can have dates as variations.
 
@@ -36,22 +31,7 @@ For each date variation you can set the price, schedule, and places available (s
 
 **Please notice that WooCommerce must be installed and active.**
 
-### Descrição [pt_BR]
-
-O Registrations for WooCommerce possibilita a criação do tipo de produto **inscrição** no WooCommerce.
-Utilizando o tipo de produto inscrição, é possível criar um único produto com variações correspondentes à datas.
-
-São 3 tipos de datas:
-
-1. Dia único;
-2. Múltiplos dias;
-3. Intervalo de datas.
-
-Para cada variação de data, você pode definir o valor, horário e vagas (estoque). Por isso, o Registrations for WooCommerce é um excelente plugin para ser utilizado em sites que vendem inscrições em cursos ou serviços com horário agendado.
-
-**Lembre-se: este plugin requer o WooCommerce instalado e ativado.**
-
-### How to create registration products [en]
+### How to create registration products
 
 1. Install and activate the Registrations for WooCommerce plugin;
 2. Create a new product.
@@ -62,18 +42,6 @@ Para cada variação de data, você pode definir o valor, horário e vagas (esto
 7. Save your variations and publish your product. You will see the available dates as a select field at the product page.
 
 For more information about Variable Products see: [WooThemes Variable Product](https://docs.woothemes.com/document/variable-product/)
-
-### Como criar produtos de inscrição [pt_BR]
-
-1. Instale e ative o plugin Registrations for WooCommerce
-2. Crie um novo produto.
-3. Na página de edição do produto, selecione `Inscrição` no campo **Dados do produto**.
-4. Vá até a seção Datas, e escolha o tipo de data. Adicione quantas datas forem necessárias. Salve as datas.
-5. Vá até a seção de Variações, e crie variações para todas as datas que você criou anteriormente.
-6. Configure cada uma das variações de datas. Marque como *virtual*, defina o preço, o estoque (vagas disponíveis), hora de início e fim. Se a sua data for do tipo intervalo de datas, você terá que definir os dias da semana também.
-7. Salve as variações e publique seu produto. Você poderá ver as datas disponíveis como um campo select na página do produto.
-
-Para entender mais sobre produtos variáveis, dê uma olhada em: [WooThemes Variable Product](https://docs.woothemes.com/document/variable-product/)
 
 ## Screenshots
 

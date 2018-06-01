@@ -12,8 +12,8 @@ Sell registrations for courses, lectures, events or any product based on dates.
 
 == Description ==
 
-= 2.0.0 Release Note =
-The plugin must be WooCoommerce 3.x compatible now, but there's no garantee to backwards compatibility with Registrations for WooCommerce previous versions, make sure you made a backup of your database.
+= v2.0.4 Release Note =
+Fixed out of stock issue caused by incompatibility with WooCommerce 3.4
 
 = Getting Started =
 Contribute with this project in **GitHub**: [https://github.com/HasteDesign/Registrations-for-WooCommerce](https://github.com/HasteDesign/Registrations-for-WooCommerce)
