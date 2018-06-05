@@ -32,17 +32,15 @@ class WC_Registrations_Checkout {
 			'participant_fields' => array(
 				array(
 					'class'         => array( 'participant-name', 'form-row-wide' ),
-					'label'         => __( 'Name', 'registrations-for-woocommerce' ),
+					'label'         => __( 'First name', 'registrations-for-woocommerce' ),
 					'name'          => 'name',
-					'placeholder'   => __( 'First Last', 'registrations-for-woocommerce'),
 					'type'          => 'text',
 					'required'      => true,
 				),
 				array(
 					'class'         => array( 'participant-surname', 'form-row-wide' ),
-					'label'         => __( 'Surname', 'registrations-for-woocommerce' ),
+					'label'         => __( 'Last name', 'registrations-for-woocommerce' ),
 					'name'          => 'surname',
-					'placeholder'   => __( 'Last', 'registrations-for-woocommerce'),
 					'type'          => 'text',
 				),
 				array(
