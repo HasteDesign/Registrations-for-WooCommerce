@@ -1,3 +1,7 @@
+<p align="center">
+  <img alt="A calendar icon followed by the plugin title, Registrations for WooCommerce, over a violet and blue squares pattern." src="https://ps.w.org/registrations-for-woocommerce/assets/banner-772x250.png">
+ </p>
+ 
 Registrations for WooCommerce
 ============================
 
