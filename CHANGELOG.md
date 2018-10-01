@@ -4,6 +4,7 @@ All the project notable changes will be documented here.
 ## [Unreleased]
 ### Added
 ### Changed
+- Improved registrations-for-woocommerce.php inline documentation
 ### Deprecated
 ### Removed
 ### Fixed
