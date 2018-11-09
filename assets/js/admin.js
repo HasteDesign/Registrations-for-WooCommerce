@@ -389,6 +389,8 @@ jQuery( function( $ ) {
 				} else {
 					$startField.val(end_val);
 				}
+			} else if ( this.classList.contains('wc_input_event_start_date') && ! $endField.val() ) {
+				$endField.val(start_val);
 			}
 		},
 
