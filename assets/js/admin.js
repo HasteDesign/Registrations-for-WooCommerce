@@ -5,6 +5,9 @@ jQuery( function( $ ) {
 		/**
 		 * Initialize event binding and call show/hide functions
 		 */
+		load: function() {
+			console.log('load');
+		},
 		init: function() {
 			// Dates Tab Events
 			$( '#registration_dates' )
@@ -13,8 +16,8 @@ jQuery( function( $ ) {
 			.on( 'click', 	'.remove_date', 		this.remove_date )
 			.on( 'click', 	'.add_day', 			this.add_day )
 			.on( 'click', 	'.remove_day', 			this.remove_day )
-			.on( 'change', 	'.event_start_date', 	this.validate_range_date )
-			.on( 'change', 	'.event_end_date', 		this.validate_range_date );
+			.on( 'change', 	'.wc_input_event_start_date', this.validate_range_date )
+			.on( 'change', 	'.wc_input_event_end_date',   this.validate_range_date );
 
 			$( '#_prevent_past_events').on( 'change', this.display_past_event_days );
 			$( 'input#_manage_stock' ).on( 'change', this.show_hide_stock_options );
@@ -372,12 +375,22 @@ jQuery( function( $ ) {
 		},
 
 		validate_range_date: function() {
-			var start = new Date( $( this ).parent().find( '.event_start_date' ).val() );
-			var end = new Date( $( this ).parent().find( '.event_end_date' ).val() );
+			var $this = $( this ),
+				$startField = $this.parent().find( '.wc_input_event_start_date' ),
+				$endField = $this.parent().find( '.wc_input_event_end_date' ),
+				start_val = $startField.val(),
+				end_val = $endField.val(),
+				start = new Date( start_val ),
+				end = new Date( end_val );
 
 			if( start >= end ) {
-				//message here
-				$( this ).parent().siblings('.validation_message').fadeIn().delay(5000).fadeOut();
+				if ( this.classList.contains('wc_input_event_start_date') ) {
+					$endField.val(start_val);
+				} else {
+					$startField.val(end_val);
+				}
+			} else if ( this.classList.contains('wc_input_event_start_date') && ! $endField.val() ) {
+				$endField.val(start_val);
 			}
 		},
 

@@ -15,11 +15,44 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 class WC_Registrations_Checkout {
 
 	/**
+	 * Holds the Registration Fields
+	 *
+	 * @since 2.0.5
+	 */
+	protected static $settings;
+	
+
+	/**
 	 * Bootstraps the class and hooks required actions & filters.
 	 *
 	 * @since 1.0
 	 */
 	public static function init() {
+		self::$settings = array(
+			'participant_fields' => array(
+				array(
+					'class'         => array( 'participant-name', 'form-row-wide' ),
+					'label'         => __( 'First name', 'registrations-for-woocommerce' ),
+					'name'          => 'name',
+					'type'          => 'text',
+					'required'      => true,
+				),
+				array(
+					'class'         => array( 'participant-surname', 'form-row-wide' ),
+					'label'         => __( 'Last name', 'registrations-for-woocommerce' ),
+					'name'          => 'surname',
+					'type'          => 'text',
+				),
+				array(
+					'class'         => array( 'participant-email', 'form-row-wide' ),
+					'label'         => __( 'Email address', 'registrations-for-woocommerce' ),
+					'name'          => 'email',
+					'type'          => 'text',
+					'required'      => true,
+				),
+			),
+		);
+
 		/**
 		 * Add fields to checkout
 		 *
@@ -134,29 +167,16 @@ class WC_Registrations_Checkout {
 	 * @param int $registrations	The current participant number
 	 */
 	public static function registrations_display_participant_fields( $checkout, $current_participant ) {
-		woocommerce_form_field( 'participant_name_' . $current_participant , array(
-			'type'          => 'text',
-			'class'         => array('participant-name form-row-wide'),
-			'label'         => __( 'Name', 'registrations-for-woocommerce' ),
-			'placeholder'   => __( 'Mary Anna', 'registrations-for-woocommerce'),
-			), $checkout->get_value( 'participant_name_' . $current_participant )
-		);
+		$participant_fields = apply_filters( 'registrations_participant_fields', self::$settings['participant_fields'] );
+		$participant_key    = 'participant_%s_%d';
 
-		woocommerce_form_field( 'participant_surname_' . $current_participant , array(
-			'type'          => 'text',
-			'class'         => array('participant-surname form-row-wide'),
-			'label'         => __( 'Surname', 'registrations-for-woocommerce' ),
-			'placeholder'   => __( 'Smith', 'registrations-for-woocommerce'),
-		), $checkout->get_value( 'participant_surname_' . $current_participant )
-		);
-
-		woocommerce_form_field( 'participant_email_' . $current_participant , array(
-			'type'          => 'email',
-			'class'         => array('participant-email form-row-wide'),
-			'label'         => __( 'Email', 'registrations-for-woocommerce' ),
-			'placeholder'   => __( 'mary@anna.com.br', 'registrations-for-woocommerce'),
-			), $checkout->get_value( 'participant_email_' . $current_participant )
-		);
+		if ( $participant_fields ) {
+			foreach( $participant_fields as $field ) {
+				$field_key = sprintf($participant_key, $field['name'], $current_participant);
+				unset($field['name']);
+				woocommerce_form_field( $field_key, $field, $checkout->get_value( $field_key ) );
+			}
+		}
 	}
 
 	/**
@@ -169,6 +189,9 @@ class WC_Registrations_Checkout {
 		global $woocommerce;
 		$registrations = 1;
 
+		$participant_fields = apply_filters( 'registrations_participant_fields', self::$settings['participant_fields'] );
+		$participant_key    = 'participant_%s_%d';
+
 		foreach ( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
 			$parent   = ! empty( $_product->get_parent_id() ) ? wc_get_product( $_product->get_parent_id() ) : '';
@@ -177,15 +200,12 @@ class WC_Registrations_Checkout {
 				$qty = $values['quantity'];
 
 				for ( $i = 1; $i <= $qty; $i++, $registrations++ ) {
-					// Check if field is set, if it's not set add an error.
-					if ( ! $_POST['participant_name_' . $registrations] ) {
-						wc_add_notice( sprintf( __( 'Please enter a correct name to participant #%u ', 'registrations-for-woocommerce' ), $registrations ), 'error' );
+					foreach( $participant_fields as $field ) {
+						$field_key = sprintf($participant_key, $field['name'], $registrations);
+						if ( ! empty($field['required']) && empty($_POST[$field_key]) ) {
+							wc_add_notice( sprintf( __( 'Please enter a correct %s to participant #%u ', 'registrations-for-woocommerce' ), strtolower($field['label']), $registrations ), 'error' );
+						}
 					}
-
-					if ( ! $_POST['participant_email_' . $registrations ] ) {
-						wc_add_notice( sprintf( __( 'Please enter a correct email to participant #%u ', 'registrations-for-woocommerce' ), $registrations ), 'error' );
-					}
-
 					do_action( 'registrations_checkout_process_fields', $registrations );
 				}
 			}
@@ -202,6 +222,9 @@ class WC_Registrations_Checkout {
 		global $woocommerce;
 		$registrations = 1;
 		$registrations_meta = [];
+
+		$participant_fields = apply_filters( 'registrations_participant_fields', self::$settings['participant_fields'] );
+		$participant_key    = 'participant_%s_%d';
 
 		// Loop trough cart items
 		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
@@ -220,30 +243,26 @@ class WC_Registrations_Checkout {
 				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
 					// Get the variation meta date (JSON)
 					$date = get_post_meta( $_product->get_id(), 'attribute_dates', true );
-					$date ? $meta_name = $title . ' - ' . $date : $meta_name = $title;
+					$meta_name = ( $date ) ? "$title - $date" : $title;
 
 					$participants['date'] = $meta_name;
 
-					// Participant Name and Participant Email
-					if (! empty( $_POST['participant_name_' . $registrations ] ) &&
-					 	! empty( $_POST['participant_surname_' . $registrations ] ) &&
-						! empty( $_POST['participant_email_' . $registrations ] ) ) {
-
-						$participant = [];
-
-						$participant['name'] = sanitize_text_field( $_POST['participant_name_' . $registrations ] );
-						$participant['surname'] = sanitize_text_field( $_POST['participant_surname_' . $registrations ] );
-						$participant['email'] = sanitize_email( $_POST['participant_email_' . $registrations ] );
-
-						$participant = apply_filters( 'registrations_checkout_fields_order_meta_value', $participant, $registrations );
-
-						do_action( 'registrations_participant_created', $participant );
-
-						$participants['participants'][] = $participant;
+					// Process the fields
+					$participant = [];
+					foreach( $participant_fields as $field ) {
+						$sanitize = ( 'email' === $field['name'] ) ? 'sanitize_email' : 'sanitize_text_field';
+						$field_key = sprintf($participant_key, $field['name'], $registrations);
+						if ( ! empty($_POST[$field_key]) ) {
+							$participant[$field['name']] = call_user_func( $sanitize, $_POST[$field_key] );
+						}
 					}
 
-					do_action( 'registrations_participants_created', $participants );
+					$participant = apply_filters( 'registrations_checkout_fields_order_meta_value', $participant, $registrations );
+					do_action( 'registrations_participant_created', $participant );
+					$participants['participants'][] = $participant;
 				}
+
+				do_action( 'registrations_participants_created', $participants );
 
 				$registrations_meta[] = $participants;
 
@@ -266,6 +285,8 @@ class WC_Registrations_Checkout {
 	public static function registrations_field_display_admin_order_meta( $order ) {
 		$registration_meta = maybe_unserialize( get_post_meta( $order->get_id(), '_registrations_order_meta', true ) );
 
+		$participant_fields = apply_filters( 'registrations_participant_fields', self::$settings['participant_fields'] );
+
 		if ( ! empty( $registration_meta ) ) {
 			do_action( 'registrations_before_admin_order_meta' );
 
@@ -276,12 +297,19 @@ class WC_Registrations_Checkout {
 				}
 
 				if( ! empty( $registration['participants'] ) ) {
+					$count = 1;
 					foreach ( $registration['participants'] as $participant ) {
-						echo '<p>';
-						echo sprintf( __( 'Name: %s %s', 'registrations-for-woocommerce' ), $participant['name'], $participant['surname'] ) . '<br>';
-						echo sprintf( __( 'Email: %s', 'registrations-for-woocommerce' ), $participant['email'] ) . '<br>';
-						do_action( 'registrations_admin_order_meta_participant_fields', $participant );
-						echo '</p>';
+?>
+						<p id="participant-<?php echo $count; ?>" class="participant">
+						<?php foreach ( $participant_fields as $field ) : ?>
+							<?php if ( ! empty($participant[$field['name']]) ) : ?>
+							<span class="participant-<?php echo esc_attr( $field['name'] ); ?>"><?php echo esc_html( $field['label'] ); ?>: <?php echo esc_html( $participant[$field['name']] ); ?><br>
+							<?php endif; ?>
+						<?php endforeach; ?>
+						<?php do_action( 'registrations_admin_order_meta_participant_fields', $participant ); ?>
+						</p>
+<?php
+						$count++;
 					}
 				}
 			}
