@@ -55,7 +55,8 @@ require_once( 'includes/class-wc-registrations-cart.php' );
 // Registrations Settings
 require_once( 'includes/admin/class-registrations-settings.php' );
 
-// Registrations Reports
+require_once( 'includes/admin/class-wc-registrations-orders.php' );
+
 require_once( 'includes/reports/class-wc-reports-manager.php' );
 
 /**
