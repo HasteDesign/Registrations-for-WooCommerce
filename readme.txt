@@ -12,8 +12,11 @@ Sell registrations for courses, lectures, events or any product based on dates.
 
 == Description ==
 
-= v2.0.4 Release Note =
-Fixed out of stock issue caused by incompatibility with WooCommerce 3.4
+= v2.0.5 Release Note =
+- Add registrations column to orders page
+- Improved registrations-for-woocommerce.php inline documentation
+- Participant form fields fiterable
+- Participant form fields aligned with WooCommerce standard
 
 = Getting Started =
 Contribute with this project in **GitHub**: [https://github.com/HasteDesign/Registrations-for-WooCommerce](https://github.com/HasteDesign/Registrations-for-WooCommerce)
@@ -55,6 +58,12 @@ For more information about Variable Products see: [WooThemes Variable Product](h
 7. Additional checkout fields - theme: Storefront
 
 == Changelog ==
+
+= (2.0.5) - 2018-11-28
+- Add registrations column to orders page
+- Improved registrations-for-woocommerce.php inline documentation
+- Participant form fields fiterable
+- Participant form fields aligned with WooCommerce standard
 
 = 2.0.4 - 2018-05-31
 - Changed registration add to cart template according to WooCommerce 3.4

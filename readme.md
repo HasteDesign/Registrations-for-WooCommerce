@@ -13,7 +13,7 @@ This plugin allows you to sell registrations for courses, lectures, events or an
 
 Created by: hastedesign, allysonsouza, anyssa
 
-Contributors: Shirkit, brettmhoffman, ajlowndes
+Contributors: Shirkit, brettmhoffman, ajlowndes, jupitercow
 
 - Requires at least: 3.0.1
 - Tested up to: 4.9.6

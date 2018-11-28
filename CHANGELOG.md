@@ -4,11 +4,19 @@ All the project notable changes will be documented here.
 ## [Unreleased]
 ### Added
 ### Changed
-- Improved registrations-for-woocommerce.php inline documentation
 ### Deprecated
 ### Removed
 ### Fixed
 ### Security
+
+## (2.0.5) - 2018-11-28
+### Added
+- Add registrations column to orders page
+### Changed
+- Improved registrations-for-woocommerce.php inline documentation
+### Fixed
+- Participant form fields fiterable
+- Participant form fields aligned with WooCommerce standard
 
 ## (2.0.4) - 2018-05-31
 ### Changed
