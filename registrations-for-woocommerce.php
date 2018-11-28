@@ -1,13 +1,17 @@
 <?php
 /**
  * Plugin Name: Registrations for WooCommerce
- * Plugin URI: http://www.hastedesign.com.br
+ * Plugin URI: https://www.hastedesign.com.br/lab/registrations-for-woocommerce/
  * Description: Add registration product type to your WooCommerce.
+ * Version: 2.0.5
  * Author: Haste - design and technology, Allyson Souza, Anyssa Ferreira
  * Author URI: http://www.hastedesign.com.br
- * Version: 2.0.5
+ * License: GNU General Public License v3.0
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: registrations-for-woocommerce
  * Domain Path: /languages
+ * WC tested up to: 3.5
+ * WC requires at least: 3.1
  *
  * Copyright 2018 Haste Design.  (email: contato@hastedesign.com.br)
  *
@@ -92,7 +96,7 @@ class WC_Registrations {
 	 * 
 	 * @var string $name
 	 */
-	public static $version = '2.0.4';
+	public static $version = '2.0.5';
 
 	/**
 	 * Set up the class, including it's hooks & filters, when the file is loaded.

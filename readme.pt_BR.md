@@ -12,8 +12,8 @@ Criado por: hastedesign, allysonsouza, anyssa
 Contribuidores: Shirkit, brettmhoffman, ajlowndes
 
 - Requer ao menos o WordPress: 3.0.1
-- Testado até o: 4.9.6
-- Versão estável: 2.0.4
+- Testado até o: 4.9.8
+- Versão estável: 2.0.5
 - Licença: GPLv2 or later
 - URI da licença: http://www.gnu.org/licenses/gpl-2.0.html
 
