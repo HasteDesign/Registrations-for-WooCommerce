@@ -54,7 +54,6 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 		} else {
 
 			$this->prepare_items();
-
 			$this->display();
 		}
 	}
