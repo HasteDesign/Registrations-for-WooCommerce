@@ -52,17 +52,14 @@ if ( ! is_woocommerce_active() ) {
 	return;
 }
 
-// Registrations Classes
-require_once( 'includes/class-wc-registrations-admin.php' );
-require_once( 'includes/class-wc-registrations-cart.php' );
-//require_once( 'includes/admin/class-registrations-settings.php' );
-require_once( 'includes/admin/class-wc-registrations-orders.php' );
-require_once( 'includes/reports/class-wc-reports-manager.php' );
-
 /**
  * The main registrations products class.
  *
- * @since 1.0
+ * This class is intended to install and create the ground of registrations for WooCommerce to work.
+ *
+ * @package		Registrations for WooCommerce\WC_Registrations_Admin
+ * @author		Allyson Souza
+ * @since		1.0
  */
 class WC_Registrations {
 
@@ -78,7 +75,7 @@ class WC_Registrations {
 	 * 
 	 * @var string $name
 	 */
-	public static $activation_transient = 'woocommerce_registrations_activated';
+	public static $activation_transient = 'registrations_for_woocommerce_activated';
 
 	/**
 	 * Plugin main file
@@ -106,14 +103,14 @@ class WC_Registrations {
 		// Activates Registrations for WooCommerce
 		add_action( 'admin_init', __CLASS__ . '::maybe_activate_woocommerce_registrations' );
 
-		// Changes "add to cart" to "sign up now"
-		add_action( 'woocommerce_registrations_add_to_cart', __CLASS__ . '::registrations_add_to_cart', 10 );
+		// Welcome notice
+		add_action( 'admin_enqueue_scripts', __CLASS__ . '::activation_notices' );
 
 		// Load translation
 		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
 
-		// Load WooCommerce dependant classes
-		add_action( 'plugins_loaded', __CLASS__ . '::load_dependant_classes' );
+		// Load includes
+		add_action( 'plugins_loaded', __CLASS__ . '::includes' );
 
 		// Register a new data store
 		add_filter( 'woocommerce_data_stores', __CLASS__ . '::register_data_stores', 10, 1 );
@@ -130,17 +127,18 @@ class WC_Registrations {
 	}
 
 	/**
-	 * Loads classes that depend on WooCommerce base classes.
+	 * Loads classes
 	 *
 	 * @since 1.2.4
 	 */
-	public static function load_dependant_classes() {
-		global $woocommerce;
-
-		if ( version_compare( $woocommerce->version, '2.0', '>=' ) ) {
-			require_once( 'includes/class-wc-product-registrations.php' );
-			require_once( 'includes/class-wc-registrations-checkout.php' );
-		}
+	public static function includes() {
+		require_once( 'includes/class-wc-product-registrations.php' );
+		require_once( 'includes/class-wc-registrations-checkout.php' );
+		require_once( 'includes/class-wc-registrations-admin.php' );
+		require_once( 'includes/class-wc-registrations-cart.php' );
+		require_once( 'includes/class-wc-registrations-helpers.php' );
+		require_once( 'includes/admin/class-wc-registrations-orders.php' );
+		require_once( 'includes/reports/class-wc-reports-manager.php' );
 	}
 
 	/**
@@ -163,7 +161,6 @@ class WC_Registrations {
 		$is_active = get_option( 'woocommerce_registrations_is_active', false );
 
 		if ( $is_active == false ) {
-
 			// Add the "Registrations" product type
 			if ( ! get_term_by( 'slug', self::$name, 'product_type' ) ) {
 				wp_insert_term( self::$name, 'product_type' );
@@ -171,9 +168,8 @@ class WC_Registrations {
 
 			add_option( 'woocommerce_registrations_is_active', true );
 			set_transient( self::$activation_transient, true, 60 * 60 );
-			do_action( 'woocommerce_registrations_activated' );
+			do_action( 'registrations_for_woocommerce_activated' );
 		}
-
 	}
 
 	/**
@@ -187,33 +183,6 @@ class WC_Registrations {
 	public static function register_data_stores( $data_stores = array() ) {
 	    $data_stores['product-registrations'] = 'WC_Product_Variable_Data_Store_CPT';
 	    return $data_stores;
-	}
-
-	/**
-	 * Load registrations add to cart right template
-	 * 
-	 * @since 1.0
-	 */
-	public static function registrations_add_to_cart() {
-		global $product;
-
-		// Enqueue variation scripts
-		wp_enqueue_script( 'wc-add-to-cart-variation' );
-
-		// Get Available variations?
-		$get_variations = sizeof( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
-
-		// Load the template
-		wc_get_template(
-			'single-product/add-to-cart/registration.php',
-			array(
-				'available_variations' => $get_variations ? $product->get_available_variations() : false,
-				'attributes'           => $product->get_variation_attributes(),
-				'selected_attributes'  => $product->get_default_attributes(),
-			),
-			'',
-			plugin_dir_path( __FILE__ ) . 'templates/'
-		);
 	}
 
 	/**
@@ -233,6 +202,46 @@ class WC_Registrations {
 				</div>
 			<?php endif; ?>
 		<?php endif;
+	}
+
+	/**
+	 * Display notices on registrations activation
+	 *
+	 * @since 1.0
+	 */
+	public static function activation_notices() {
+		global $woocommerce, $post;
+
+		$is_activation_screen  = ( get_transient( self::$activation_transient ) == true ) ? true : false;
+
+		if ( $is_activation_screen ) {
+			
+			if ( ! isset( $_GET['page'] ) || 'wcs-about' != $_GET['page'] ) {
+				add_action( 'admin_notices', __CLASS__ . '::admin_installed_notice' );
+			}
+
+			delete_transient( self::$activation_transient );
+		}
+	}
+
+	/**
+	 * Display a welcome message when Registrations is activated
+	 *
+	 * @since 1.0
+	 */
+	public static function admin_installed_notice() {
+		?>
+		<div class="updated notice notice-success is-dismissible">
+			<div class="squeezer">
+				<h4><?php printf( __( '%sRegistrations for WooCommerce Installed%s &#8211; %sYou\'re ready to start selling registrations!%s', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></h4>
+
+				<p class="submit">
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wordpress.org/plugins/registrations-for-woocommerce/" data-text="<?php _e( 'Sell course and events registrations with #WooCommerce', 'registrations-for-woocommerce' ); ?>" data-via="HasteDesign" data-size="large">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				</p>
+			</div>
+		</div>
+		<?php
 	}
 }
 

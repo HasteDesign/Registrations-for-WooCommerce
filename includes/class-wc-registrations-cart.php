@@ -2,7 +2,7 @@
 /**
  * Registrations Cart Class
  *
- * Add some hooks to work with registrations in cart
+ * Registratons add to cart handler and settings
  *
  * @package		Registrations for WooCommerce
  * @category	Class

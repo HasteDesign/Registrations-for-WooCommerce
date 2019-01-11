@@ -2,8 +2,7 @@
 /**
  * Registrations Admin Class
  *
- * Add Registration product type with dates tab, saving dates as attributes
- * to be used as variations to sell registrations.
+ * Manage panel features and resources of Registrations and provide some general helper functions.
  *
  * @package		Registrations for WooCommerce\WC_Registrations_Admin
  * @author		Allyson Souza
@@ -17,36 +16,82 @@ class WC_Registrations_Admin {
 	 * @since 1.0
 	 */
 	public static function init() {
-	 	// Enqueue scripts in product edit page
+		// Load registration add to cart template
+		add_action( 'woocommerce_registrations_add_to_cart', __CLASS__ . '::registrations_add_to_cart_template', 10 );
+
+	 	// Enqueue scripts
 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::enqueue_styles_scripts' );
 
-	    // Add registrations to the product select box
+		// Product edit
 	    add_filter( 'product_type_selector', __CLASS__ . '::add_registrations_to_select' );
-
-		// Add variations custom fields (time and days)
 	    add_action( 'woocommerce_product_after_variable_attributes', __CLASS__ . '::variable_registration_pricing_fields', 10, 3 );
+		add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registration_dates_tab' );
+        add_action( 'woocommerce_product_data_panels', __CLASS__. '::show_dates_tab_content' );
+		add_action( 'woocommerce_product_options_inventory_product_data', __CLASS__.'::past_events_fields' );
 
 		// Saves registrations meta fields
 	    add_action( 'woocommerce_process_product_meta_registrations', __CLASS__ . '::save_variable_fields', 11 );
 		add_action( 'woocommerce_ajax_save_product_variations', __CLASS__ . '::save_variable_fields' );
-
-		// Add registrations dates tab
-		add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registration_dates_tab' );
-
-		// Load the view to display dates tab content
-        add_action( 'woocommerce_product_data_panels', __CLASS__. '::show_dates_tab_content' );
+		add_action( 'woocommerce_process_product_meta', __CLASS__.'::past_events_fields_save' );
 
 		// Filter dates variations options name and display correctly for each date type (single, multiple, and range)
 		add_filter( 'woocommerce_variation_option_name', __CLASS__ . '::registration_variation_option_name' );
 		add_filter( 'woocommerce_attribute', __CLASS__ . '::registration_variation_filter_additional_information', 10, 3 );
 		add_filter( 'woocommerce_display_item_meta', __CLASS__ . '::registration_filter_display_item_meta', 10, 3 );
-
-		// Filter dates attribute name
 		add_filter( 'woocommerce_attribute_label', __CLASS__ . '::registration_attribute_label', 10, 3 );
+	}
 
-		// Filter past events
-		add_action( 'woocommerce_product_options_inventory_product_data', __CLASS__.'::past_events_fields' );
-		add_action( 'woocommerce_process_product_meta', __CLASS__.'::past_events_fields_save' );
+    /**
+	 * Adds all necessary admin styles.
+	 *
+	 * @since 1.0
+	 *
+	 * @param array Array of Product types & their labels, excluding the Subscription product type.
+	 * @return array Array of Product types & their labels, including the Subscription product type.
+	 */
+	public static function enqueue_styles_scripts() {
+		global $woocommerce, $post;
+
+		if ( WC_Registrations_Helpers::is_woocommerce_screen() ) {
+
+			$dependencies = self::product_edit_script_dependencies();
+			$script_params = self::product_edit_script_params();
+
+			// Registrations for WooCommerce Admin - admin.js
+			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . '/assets/js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'assets/js/admin.js' ) );
+			wp_localize_script( 'woocommerce_registrations_admin', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
+
+			// Registrations for WooCommerce Ajax - wc-registrations-ajax.js
+			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( WC_Registrations::$plugin_file ) . '/assets/js/wc-registrations-ajax.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'assets/js/wc-registrations-ajax.js' ) );
+			wp_localize_script( 'woocommerce_registrations_ajax', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
+
+			// jQuery UI Datepicker
+			wp_enqueue_style( 'jquery-ui-datepicker' );
+		}
+	}
+
+	/**
+	 * Add the 'registration' product type to the WooCommerce product type select box.
+	 *
+	 * @since 1.0
+	 *
+	 * @param array Array of Product types & their labels, excluding the Course product type.
+	 * @return array Array of Product types & their labels, including the Course product type.
+	 */
+	public static function add_registrations_to_select( $product_types ){
+		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'registrations-for-woocommerce' );
+
+		return $product_types;
+	}
+
+	/**
+	 * Output the registration specific fields on the "Edit Product" admin page.
+	 *
+	 * @since 1.0
+	 */
+	public static function variable_registration_pricing_fields( $loop, $variation_data, $variation ) {
+		include( 'views/html-dates-variation-fields-view.php' );
+		do_action( 'woocommerce_registrations_after_variation', $loop, $variation_data, $variation );
 	}
 
 	/**
@@ -85,7 +130,6 @@ class WC_Registrations_Admin {
 		);
 
 		echo '</div>';
-
 	}
 
 	/**
@@ -99,100 +143,6 @@ class WC_Registrations_Admin {
 
 		$_days_to_prevent = $_POST['_days_to_prevent'];
 		update_post_meta( $post_id, '_days_to_prevent', esc_attr( $_days_to_prevent ) );
-	}
-
-    /**
-	 * Adds all necessary admin styles.
-	 *
-	 * @since 1.0
-	 *
-	 * @param array Array of Product types & their labels, excluding the Subscription product type.
-	 * @return array Array of Product types & their labels, including the Subscription product type.
-	 */
-	public static function enqueue_styles_scripts() {
-		global $woocommerce, $post;
-
-		// Get admin screen id
-		$screen = get_current_screen();
-
-		$is_woocommerce_screen = ( in_array( $screen->id, array( 'product', 'edit-shop_order', 'shop_order', 'users', 'woocommerce_page_wc-settings' ) ) ) ? true : false;
-		$is_activation_screen  = ( get_transient( WC_Registrations::$activation_transient ) == true ) ? true : false;
-
-		if ( $is_woocommerce_screen ) {
-
-			$dependencies = array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' );
-			$woocommerce_admin_script_handle = 'wc-admin-meta-boxes';
-
-			if( $screen->id == 'product' ) {
-				$dependencies[] = $woocommerce_admin_script_handle;
-
-				$dependencies[] = 'wc-admin-product-meta-boxes';
-				$dependencies[] = 'wc-admin-variation-meta-boxes';
-
-				$script_params = array(
-					'productType' => WC_Registrations::$name,
-				);
-			}
-
-			$script_params['ajaxLoaderImage'] = $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif';
-			$script_params['ajaxUrl']         = admin_url('admin-ajax.php');
-
-			// Registrations for WooCommerce Admin - admin.js
-			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . '/assets/js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'assets/js/admin.js' ) );
-			wp_localize_script( 'woocommerce_registrations_admin', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
-
-			// Registrations for WooCommerce Ajax - wc-registrations-ajax.js
-			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( WC_Registrations::$plugin_file ) . '/assets/js/wc-registrations-ajax.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'assets/js/wc-registrations-ajax.js' ) );
-			wp_localize_script( 'woocommerce_registrations_ajax', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
-
-			// JQuery UI Datepicker
-			wp_enqueue_style( 'jquery-ui-datepicker' );
-		}
-
-		// Maybe add the admin notice
-		if ( $is_activation_screen ) {
-
-			$woocommerce_plugin_dir_file = self::get_woocommerce_plugin_dir_file();
-
-			if ( ! empty( $woocommerce_plugin_dir_file ) ) {
-
-				wp_enqueue_style( 'woocommerce-activation', plugins_url(  '/assets/css/activation.css', self::get_woocommerce_plugin_dir_file() ), array(), WC_Registrations::$version );
-
-				if ( ! isset( $_GET['page'] ) || 'wcs-about' != $_GET['page'] ) {
-					add_action( 'admin_notices', __CLASS__ . '::admin_installed_notice' );
-				}
-
-			}
-			delete_transient( WC_Registrations::$activation_transient );
-		}
-
-		if ( $is_woocommerce_screen || $is_activation_screen ) {
-			wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css', array(), WC_Registrations::$version );
-		}
-	}
-
-	/**
-	 * Add the 'registration' product type to the WooCommerce product type select box.
-	 *
-	 * @since 1.0
-	 *
-	 * @param array Array of Product types & their labels, excluding the Course product type.
-	 * @return array Array of Product types & their labels, including the Course product type.
-	 */
-	public static function add_registrations_to_select( $product_types ){
-		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'registrations-for-woocommerce' );
-
-		return $product_types;
-	}
-
-	/**
-	 * Output the registration specific fields on the "Edit Product" admin page.
-	 *
-	 * @since 1.0
-	 */
-	public static function variable_registration_pricing_fields( $loop, $variation_data, $variation ) {
-		include( 'views/html-dates-variation-fields-view.php' );
-		do_action( 'woocommerce_registrations_after_variation', $loop, $variation_data, $variation );
 	}
 
   /**
@@ -302,7 +252,7 @@ class WC_Registrations_Admin {
 	}
 
 	/**
-	 * Filter dates exhibition on additional information tab.
+	 * Filter dates exhibition
 	 *
 	 * Filter the dates exhibition on additional information tab on product
 	 * single page.
@@ -336,7 +286,7 @@ class WC_Registrations_Admin {
 	}
 
 	/**
-	 * Filter dates exhibition on order details item meta
+	 * Filter dates exhibition
 	 *
 	 * Filter the dates exhibition on order details item meta section
 	 * on checkout, after a successfull purchase.
@@ -429,43 +379,72 @@ class WC_Registrations_Admin {
 	}
 
 	/**
-	 * Searches through the list of active plugins to find WooCommerce. Just in case
-	 * WooCommerce resides in a folder other than /woocommerce/
-	 *
+	 * Load registrations add to cart right template
+	 * 
 	 * @since 1.0
 	 */
-	public static function get_woocommerce_plugin_dir_file() {
+	public static function registrations_add_to_cart_template() {
+		global $product;
 
-		$woocommerce_plugin_file = '';
+		// Enqueue variation scripts
+		wp_enqueue_script( 'wc-add-to-cart-variation' );
 
-		foreach ( get_option( 'active_plugins', array() ) as $plugin ) {
-			if ( substr( $plugin, strlen( '/woocommerce.php' ) * -1 ) === '/woocommerce.php' ) {
-				$woocommerce_plugin_file = $plugin;
-				break;
-			}
-		}
+		// Get Available variations?
+		$get_variations = sizeof( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
 
-		return $woocommerce_plugin_file;
+		// Load the template
+		wc_get_template(
+			'single-product/add-to-cart/registration.php',
+			array(
+				'available_variations' => $get_variations ? $product->get_available_variations() : false,
+				'attributes'           => $product->get_variation_attributes(),
+				'selected_attributes'  => $product->get_default_attributes(),
+			),
+			'',
+			plugin_dir_path( WC_Registrations::$plugin_file ) . 'templates/'
+		);
 	}
 
 	/**
-	 * Display a welcome message when the Registrations is activated.
-	 *
-	 * @since 1.0
+	 * Return script dependency array
+	 * 
+	 * Verify wich panel page is been displayed and return the right array with
+	 * script dependencies.
+	 * 
+	 * @return Array $dependencies	An array with dependency scripts for registrations.
 	 */
-	public static function admin_installed_notice() {
-		?>
-		<div id="message" class="updated woocommerce-message wc-connect registrations-for-woocommerce-activated">
-			<div class="squeezer">
-				<h4><?php printf( __( '%sRegistrations for WooCommerce Installed%s &#8211; %sYou\'re ready to start selling registrations!%s', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></h4>
+	private static function product_edit_script_dependencies() {
+		$dependencies = array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' );
+			
+		if( get_current_screen()->id == 'product' ) {
+			$dependencies[] = 'wc-admin-meta-boxes';
+			$dependencies[] = 'wc-admin-product-meta-boxes';
+			$dependencies[] = 'wc-admin-variation-meta-boxes';
+		}
 
-				<p class="submit">
-					<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wordpress.org/plugins/registrations-for-woocommerce/" data-text="<?php _e( 'Sell course and events registrations with #WooCommerce', 'registrations-for-woocommerce' ); ?>" data-via="HasteDesign" data-size="large">Tweet</a>
-					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-				</p>
-			</div>
-		</div>
-		<?php
+		return $dependencies;
+	}
+
+	/**
+	 * Return script params
+	 * 
+	 * Define script params for registrations js
+	 * 
+	 * @return array $script_params	An array of parameters to be passed to scripts
+	 */
+	private static function product_edit_script_params() {
+		global $woocommerce;
+
+		if( get_current_screen()->id == 'product' ) {
+			$script_params = array(
+				'productType' => WC_Registrations::$name,
+			);
+		}
+
+		$script_params['ajaxLoaderImage'] = $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif';
+		$script_params['ajaxUrl']         = admin_url('admin-ajax.php');
+
+		return $script_params;
 	}
 }
 
