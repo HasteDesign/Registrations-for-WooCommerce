@@ -121,34 +121,21 @@ class WC_Registrations_Admin {
 		if ( $is_woocommerce_screen ) {
 
 			$dependencies = array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' );
-
-			// Version juggling
-			if ( WC_Registrations::is_woocommerce_pre_2_1() ) { // WC 2.0
-				$woocommerce_admin_script_handle = 'woocommerce_writepanel';
-			} elseif ( WC_Registrations::is_woocommerce_pre_2_2() ) { // WC 2.1
-				$woocommerce_admin_script_handle = 'woocommerce_admin_meta_boxes';
-			} else {
-				$woocommerce_admin_script_handle = 'wc-admin-meta-boxes';
-			}
+			$woocommerce_admin_script_handle = 'wc-admin-meta-boxes';
 
 			if( $screen->id == 'product' ) {
 				$dependencies[] = $woocommerce_admin_script_handle;
 
-				if ( ! WC_Registrations::is_woocommerce_pre_2_2() ) {
-					$dependencies[] = 'wc-admin-product-meta-boxes';
-					$dependencies[] = 'wc-admin-variation-meta-boxes';
-				}
+				$dependencies[] = 'wc-admin-product-meta-boxes';
+				$dependencies[] = 'wc-admin-variation-meta-boxes';
 
 				$script_params = array(
-					'productType'              => WC_Registrations::$name,
+					'productType' => WC_Registrations::$name,
 				);
 			}
 
 			$script_params['ajaxLoaderImage'] = $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif';
 			$script_params['ajaxUrl']         = admin_url('admin-ajax.php');
-			$script_params['isWCPre21']       = var_export( WC_Registrations::is_woocommerce_pre_2_1(), true );
-			$script_params['isWCPre22']       = var_export( WC_Registrations::is_woocommerce_pre_2_2(), true );
-			$script_params['isWCPre23']       = var_export( WC_Registrations::is_woocommerce_pre_2_3(), true );
 
 			// Registrations for WooCommerce Admin - admin.js
 			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . '/assets/js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'assets/js/admin.js' ) );
