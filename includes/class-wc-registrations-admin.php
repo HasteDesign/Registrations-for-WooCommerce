@@ -99,25 +99,16 @@ class WC_Registrations_Admin {
 	public static function past_events_fields() {
 		echo '<div class="options_group registration_inventory">';
 
-		woocommerce_wp_checkbox(
-			array(
-				'id'            => '_prevent_past_events',
-				'wrapper_class' => 'show_if_registration',
-				'label'         => __( 'Prevent registrations to past events', 'registrations-for-woocommerce' ),
-				'description'   => __( 'If you want to prevent this event from being registred if a requirement is met.', 'registrations-for-woocommerce' )
-			)
-		);
-
 		woocommerce_wp_text_input(
 			array(
 				'id'                => '_days_to_prevent',
-				'label'             => __( 'Days before', 'registrations-for-woocommerce' ),
+				'label'             => __( 'Allow registrations until', 'registrations-for-woocommerce' ),
 				'wrapper_class'     => 'show_if_registration',
 				'placeholder'       => '',
-				'description'       => __( 'Number of days before the event to prevent registration purchase. Affects all variations. [0 means allowed up to the same day]', 'registrations-for-woocommerce' ),
+				'description'       => __( 'days before the event.', 'registrations-for-woocommerce' ),
 				'type'              => 'number',
 				'custom_attributes' => array(
-						'step' 	=> 'any',
+						'step' 	=> '1',
 						'min'	=> '0'
 					)
 			)
@@ -132,12 +123,8 @@ class WC_Registrations_Admin {
 	 * @since 1.0.7
 	 */
 	public static function save_product_meta( $post_id ) {
-		// Prevent past events
-		$_prevent_past_events = isset( $_POST['_prevent_past_events'] ) ? 'yes' : 'no';
-		update_post_meta( $post_id, '_prevent_past_events', $_prevent_past_events );
-
 		// Days to prevent
-		$_days_to_prevent = $_POST['_days_to_prevent'];
+		$_days_to_prevent = isset( $_POST['_days_to_prevent'] ) ? $_POST['_days_to_prevent'] : '';
 		update_post_meta( $post_id, '_days_to_prevent', esc_attr( $_days_to_prevent ) );
 	}
 
@@ -325,12 +312,15 @@ class WC_Registrations_Admin {
 
 		// Get Available variations?
 		$get_variations = sizeof( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
+		$available_variations = $get_variations ? $product->get_available_variations() : false;
+
+		$available_variations = apply_filters( 'registrations_available_variations', $product->get_id(), $available_variations );
 
 		// Load the template
 		wc_get_template(
 			'single-product/add-to-cart/registration.php',
 			array(
-				'available_variations' => $get_variations ? $product->get_available_variations() : false,
+				'available_variations' => $available_variations,
 				'attributes'           => $product->get_variation_attributes(),
 				'selected_attributes'  => $product->get_default_attributes(),
 			),

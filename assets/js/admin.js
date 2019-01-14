@@ -5,9 +5,6 @@ jQuery( function( $ ) {
 		/**
 		 * Initialize event binding and call show/hide functions
 		 */
-		load: function() {
-			console.log('load');
-		},
 		init: function() {
 			// Dates Tab Events
 			$( '#registration_dates' )
@@ -19,7 +16,6 @@ jQuery( function( $ ) {
 			.on( 'change', 	'.wc_input_event_start_date', this.validate_range_date )
 			.on( 'change', 	'.wc_input_event_end_date',   this.validate_range_date );
 
-			$( '#_prevent_past_events').on( 'change', this.display_past_event_days );
 			$( 'input#_manage_stock' ).on( 'change', this.show_hide_stock_options );
 
 			// Variations Tab Events
@@ -87,10 +83,6 @@ jQuery( function( $ ) {
 				$( '.show_if_registration' ).hide();
 			}
 
-			if ( ! $( '#_prevent_past_events' ).is( ':checked' ) ) {
-				$( 'p._days_to_prevent_field' ).hide();
-			}
-
 			wc_meta_boxes_product_registrations.show_hide_stock_options();
 		},
 
@@ -103,14 +95,6 @@ jQuery( function( $ ) {
 					$( 'div.stock_fields' ).hide();
 					$( 'p.stock_status_field' ).hide();
 				}
-			}
-		},
-
-		display_past_event_days: function() {
-			if( $(this).is(':checked') ) {
-				$( '.registration_inventory p.show_if_registration' ).show();
-			} else {
-				$( '.registration_inventory p.show_if_registration' ).not($(this).parent()).hide();
 			}
 		},
 
