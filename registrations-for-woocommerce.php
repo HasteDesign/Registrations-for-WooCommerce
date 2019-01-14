@@ -104,7 +104,7 @@ class WC_Registrations {
 		add_action( 'admin_init', __CLASS__ . '::maybe_activate_woocommerce_registrations' );
 
 		// Welcome notice
-		add_action( 'admin_enqueue_scripts', __CLASS__ . '::activation_notices' );
+		add_action( 'admin_enqueue_scripts', __CLASS__ . '::activation_notice' );
 
 		// Load translation
 		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
@@ -209,7 +209,7 @@ class WC_Registrations {
 	 *
 	 * @since 1.0
 	 */
-	public static function activation_notices() {
+	public static function activation_notice() {
 		global $woocommerce, $post;
 
 		$is_activation_screen  = ( get_transient( self::$activation_transient ) == true ) ? true : false;

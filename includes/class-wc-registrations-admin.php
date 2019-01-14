@@ -9,7 +9,6 @@
  * @since		1.0
  */
 class WC_Registrations_Admin {
-
 	/**
 	 * Bootstraps the class and hooks required actions & filters.
 	 *
@@ -25,14 +24,15 @@ class WC_Registrations_Admin {
 		// Product edit
 	    add_filter( 'product_type_selector', __CLASS__ . '::add_registrations_to_select' );
 	    add_action( 'woocommerce_product_after_variable_attributes', __CLASS__ . '::variable_registration_pricing_fields', 10, 3 );
-		add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registration_dates_tab' );
+		add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registrations_dates_tab' );
+		add_action( 'admin_head', __CLASS__ . '::registrations_dates_tab_icon' );
         add_action( 'woocommerce_product_data_panels', __CLASS__. '::show_dates_tab_content' );
 		add_action( 'woocommerce_product_options_inventory_product_data', __CLASS__.'::past_events_fields' );
 
-		// Saves registrations meta fields
-	    add_action( 'woocommerce_process_product_meta_registrations', __CLASS__ . '::save_variable_fields', 11 );
-		add_action( 'woocommerce_ajax_save_product_variations', __CLASS__ . '::save_variable_fields' );
-		add_action( 'woocommerce_process_product_meta', __CLASS__.'::past_events_fields_save' );
+		// Saves registrations meta (product and variations)
+	    add_action( 'woocommerce_save_product_variation', __CLASS__ . '::save_variation_meta', 10, 2 );
+		add_action( 'woocommerce_ajax_save_product_variation', __CLASS__ . '::save_variation_meta', 10, 2 );
+		add_action( 'woocommerce_process_product_meta', __CLASS__.'::save_product_meta' );
 
 		// Filter dates variations options name and display correctly for each date type (single, multiple, and range)
 		add_filter( 'woocommerce_variation_option_name', __CLASS__ . '::registration_variation_option_name' );
@@ -42,12 +42,9 @@ class WC_Registrations_Admin {
 	}
 
     /**
-	 * Adds all necessary admin styles.
+	 * Enqueue styles.
 	 *
 	 * @since 1.0
-	 *
-	 * @param array Array of Product types & their labels, excluding the Subscription product type.
-	 * @return array Array of Product types & their labels, including the Subscription product type.
 	 */
 	public static function enqueue_styles_scripts() {
 		global $woocommerce, $post;
@@ -71,7 +68,7 @@ class WC_Registrations_Admin {
 	}
 
 	/**
-	 * Add the 'registration' product type to the WooCommerce product type select box.
+	 * Adds 'registration' product type to select
 	 *
 	 * @since 1.0
 	 *
@@ -100,9 +97,6 @@ class WC_Registrations_Admin {
 	 * @since 1.0.7
 	 */
 	public static function past_events_fields() {
-
-		global $woocommerce, $post;
-
 		echo '<div class="options_group registration_inventory">';
 
 		woocommerce_wp_checkbox(
@@ -133,66 +127,42 @@ class WC_Registrations_Admin {
 	}
 
 	/**
-	 * Adds the option to block event purchases from past or after a certain date.
+	 * Save product meta
 	 *
 	 * @since 1.0.7
 	 */
-	public static function past_events_fields_save( $post_id ) {
+	public static function save_product_meta( $post_id ) {
+		// Prevent past events
 		$_prevent_past_events = isset( $_POST['_prevent_past_events'] ) ? 'yes' : 'no';
 		update_post_meta( $post_id, '_prevent_past_events', $_prevent_past_events );
 
+		// Days to prevent
 		$_days_to_prevent = $_POST['_days_to_prevent'];
 		update_post_meta( $post_id, '_days_to_prevent', esc_attr( $_days_to_prevent ) );
 	}
 
-  /**
-	 * Save meta data for registration product type when the "Edit Product" form is submitted.
+  	/**
+	 * Save variation meta
 	 *
 	 * @since 1.0
-	 *
-	 * @param array Array of Product types & their labels, excluding the Course product type.
-	 * @return array Array of Product types & their labels, including the Course product type.
 	 */
-	public static function save_variable_fields( $post_id ) {
-		// Run WooCommerce core saving routine
-		if ( ! class_exists( 'WC_Meta_Box_Product_Data' ) ) { // WC < 2.1
-			process_product_meta_variable( $post_id );
-		} elseif ( ! is_ajax() ) { // WC < 2.4
-			WC_Meta_Box_Product_Data::save_variations( $post_id, get_post( $post_id ) );
+	public static function save_variation_meta( $variation_id, $i ) {
+		// Start time
+		$event_start_time = $_POST['_event_start_time'][ $i ];
+		if( ! empty( $event_start_time ) ) {
+			update_post_meta( $variation_id, '_event_start_time', stripslashes( $event_start_time ) );
 		}
 
-		if ( ! isset( $_REQUEST['variable_post_id'] ) ) {
-			return;
+		// End time
+		$event_end_time = $_POST['_event_end_time'][ $i ];
+		if( ! empty( $event_end_time ) ) {
+			update_post_meta( $variation_id, '_event_end_time', stripslashes( $event_end_time ) );
 		}
 
-		$variable_post_ids = $_POST['variable_post_id'];
-
-		isset( $_POST['_event_start_time'] ) ? $_event_start_time = $_POST['_event_start_time'] : $_event_start_time = null;
-		isset( $_POST['_event_end_time']   ) ? $_event_end_time =   $_POST['_event_end_time'] : $_event_end_time = null;
-		isset( $_POST['_week_days']        ) ? $_week_days =        $_POST['_week_days'] : $_week_days = null ;
-
-		$max_loop = max( array_keys( $variable_post_ids ) );
-
-		// Save each variations details
-		for ( $i = 0; $i <= $max_loop; $i++ ) {
-
-			if ( ! isset( $variable_post_ids[ $i ] ) ) {
-				continue;
-			}
-
-			$variation_id = (int) $variable_post_ids[$i];
-
-			if ( isset( $_event_start_time[$i] ) ) {
-				update_post_meta( $variation_id, '_event_start_time', stripslashes( $_event_start_time[$i] ) );
-			}
-
-			if( isset( $_event_end_time[$i] ) ) {
-				update_post_meta( $variation_id, '_event_end_time', stripslashes( $_event_end_time[$i] ) );
-			}
-
-			if( isset( $_week_days[$i] ) ) {
-				update_post_meta( $variation_id, '_week_days', $_week_days[$i] );
-			}
+		// Week days
+		$week_days = $_POST['_week_days'][ $i ];
+		if( ! empty( $week_days ) ) {
+			update_post_meta( $variation_id, '_week_days', $week_days );
 		}
 	}
 
@@ -206,7 +176,7 @@ class WC_Registrations_Admin {
 	 * @param  array $tabs WooCommerce default registered tabs.
 	 * @return array $tabs WooCommerce tabs with dates additional tab.
 	 */
-	public static function registration_dates_tab( $tabs ) {
+	public static function registrations_dates_tab( $tabs ) {
 		// Adds the new dates tab
 		$tabs['dates'] = array(
 			'label' 	=> __( 'Dates', 'registrations-for-woocommerce' ),
@@ -215,6 +185,19 @@ class WC_Registrations_Admin {
 		);
 
 		return $tabs;
+	}
+
+	/**
+	 * Registrations dates tab icon
+	 * 
+	 * @since 2.1
+	 */
+	public static function registrations_dates_tab_icon() {
+		?>
+		<style>
+			#woocommerce-product-data ul.wc-tabs li.dates_options a:before { font-family: WooCommerce; content: '\e00e'; }
+		</style>
+	<?php
 	}
 
 	/**
@@ -239,16 +222,14 @@ class WC_Registrations_Admin {
 	 * @return string $option      Formated registrations variation option name.
 	 */
 	public static function registration_variation_option_name( $option, $date_format = null ) {
-		if( $date_format == null ) {
-			$date_format = get_option( 'date_format' );
+		// If variation $option is a JSON, then try to get the formatted date
+		if ( json_decode( $option ) ) {
+			$date = WC_Registrations_Helpers::get_formatted_date( $option, $date_format );
+			
+			return $date;
 		}
 
-		$opt = json_decode( stripslashes( $option ) );
-		if( $opt ) {
-			return self::format_variations_dates( $opt, $date_format );
-		} else {
-			return $option;
-		}
+		return $option;
 	}
 
 	/**
@@ -269,14 +250,9 @@ class WC_Registrations_Admin {
 			$dates = array();
 			$date_format = get_option( 'date_format' );
 
-			$attribute['name'] === 'Dates';
-
 			foreach( $attribute->get_options() as $date ) {
-				$opt = json_decode( stripslashes( $date ) );
-
-				if( $opt ) {
-					 $dates[] = self::format_variations_dates( $opt, $date_format );
-				}
+				$dates[] = WC_Registrations_Helpers::get_formatted_date( $date );
+				
 			}
 
 			return wptexturize( implode( ', ', $dates ) );

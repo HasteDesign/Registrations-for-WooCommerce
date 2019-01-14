@@ -87,14 +87,13 @@ class WC_Registrations_Checkout {
 	 */
 	public static function prettify_variable_date_name( $formatted, $order ) {
 		foreach ( $formatted as $key => $value ) {
-			$decoded = json_decode( $value['value'] );
-			$str = '';
+			$date = '';
 
-			if ( isset( $decoded->date ) || isset( $decoded->dates ) ) {
-				$str = WC_Registrations_Admin::format_variations_dates( $decoded, get_option( 'date_format' ) );
+			if ( json_decode( $value['value'] ) ) {
+				$date = WC_Registrations_Helpers::get_formatted_date( $value['value'], get_option( 'date_format' ) );
 			}
 
-			$value['value'] = $str;
+			$value['value'] = $date . ' Hi World!';
 			$formatted[$key] = $value;
 		}
 
