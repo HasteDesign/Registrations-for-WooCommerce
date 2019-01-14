@@ -109,8 +109,11 @@ class WC_Registrations_Cart {
 	}
 
 	public static function format_registration_variation_on_titles( $rtrim, $product, $title_base, $title_suffix ) {
-		//error_log( print_r( WC_Registrations_Helpers::get_formatted_date( $title_suffix ), true ) );
-		return $title_base . ' - ' . WC_Registrations_Helpers::get_formatted_date( $title_suffix );
+		if ( json_decode( $title_suffix ) ) {
+			return $title_base . ' - ' . WC_Registrations_Helpers::get_formatted_date( $title_suffix );
+		}
+
+		return $rtrim;
 	}
 }
 WC_Registrations_Cart::init();
