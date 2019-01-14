@@ -28,9 +28,6 @@ class WC_Registrations_Cart {
 
 		// Filter item name in cart and order
 		add_filter( 'woocommerce_product_variation_title',  __CLASS__ . '::format_registration_variation_on_titles', 10, 4 ); 
-
-		//add_filter( 'woocommerce_cart_item_name', __CLASS__ . '::remove_variation_from_name', 10, 3 );
-		//add_filter( 'woocommerce_order_item_name', __CLASS__ . '::remove_variation_from_name', 10, 3 );
 	}
 
 	/**
@@ -96,16 +93,6 @@ class WC_Registrations_Cart {
 			}
 		}
 		return $passed;
-	}
-
-	/**
-	 * Remove the variation json after product name in cart table
-	 *
-	 * @access public
-	 */
-	public static function remove_variation_from_name( $name, $cart_item, $cart_item_key ) {
-		$_product = wc_get_product( $cart_item['product_id'] );
-		return sprintf( '<a href="%s">%s</a>', esc_url( $_product->get_permalink( $cart_item ) ), $_product->get_name() );
 	}
 
 	public static function format_registration_variation_on_titles( $rtrim, $product, $title_base, $title_suffix ) {

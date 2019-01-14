@@ -148,19 +148,19 @@ class WC_Registrations_Admin {
 	 */
 	public static function save_variation_meta( $variation_id, $i ) {
 		// Start time
-		$event_start_time = $_POST['_event_start_time'][ $i ];
+		$event_start_time = isset( $_POST['_event_start_time'][ $i ] ) ? $_POST['_event_start_time'][ $i ] : '';
 		if( ! empty( $event_start_time ) ) {
 			update_post_meta( $variation_id, '_event_start_time', stripslashes( $event_start_time ) );
 		}
 
 		// End time
-		$event_end_time = $_POST['_event_end_time'][ $i ];
+		$event_end_time = isset( $_POST['_event_end_time'][ $i ] ) ? $_POST['_event_end_time'][ $i ] : '';
 		if( ! empty( $event_end_time ) ) {
 			update_post_meta( $variation_id, '_event_end_time', stripslashes( $event_end_time ) );
 		}
 
 		// Week days
-		$week_days = $_POST['_week_days'][ $i ];
+		$week_days = isset( $_POST['_week_days'][ $i ] ) ? $_POST['_week_days'][ $i ] : '';
 		if( ! empty( $week_days ) ) {
 			update_post_meta( $variation_id, '_week_days', $week_days );
 		}
@@ -310,48 +310,6 @@ class WC_Registrations_Admin {
 		}
 
 		return $label;
-	}
-
-	/**
-	 * Filter dates variations options name.
-	 *
-	 * Display dates variations options names for each date type
-	 * (single, multiple, and range) formating then correctly to given
-	 * date format.
-	 *
-	 * @since  1.0.0
-	 *
-	 * @param  string $opt         JSON decoded with registrations type and date.
-	 * @param  string $date_format PHP date format to
-	 * @return string $opt         Formated registrations variation option name.
-	 */
-	public static function format_variations_dates( $opt, $date_format ) {
-		if ( $opt ) {
-			if ( $opt->type == 'single' ) {
-
-				return date_i18n( $date_format, strtotime( $opt->date ) );
-
-			} elseif ( $opt->type == 'multiple' ) {
-
-				$date_option = '';
-				$size = count( $opt->dates );
-
-				for( $i = 0; $i < $size ; $i++ ) {
-					if( $date_option == '' ) {
-						$date_option .= date_i18n( $date_format, strtotime( $opt->dates[ $i ] ) );
-					} else {
-						$date_option .= ', ' . date_i18n( $date_format, strtotime( $opt->dates[ $i ] ) );
-					}
-				}
-
-				return $date_option;
-
-			} elseif ( $opt->type == 'range' ) {
-				return date_i18n( $date_format, strtotime( $opt->dates[0] ) ) . ' ' . __( 'to' , 'registrations-for-woocommerce' ) . ' ' . date_i18n( $date_format, strtotime( $opt->dates[1] ) );
-			} else {
-				return $opt;
-			}
-		}
 	}
 
 	/**
