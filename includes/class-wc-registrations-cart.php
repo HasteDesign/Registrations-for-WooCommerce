@@ -96,11 +96,13 @@ class WC_Registrations_Cart {
 	}
 
 	/**
-	 * Allowed days to register before
+	 * Get variation date
 	 * 
-	 * How many days before the event user can register in an event.
+	 * Get variation date from variation ID.
 	 * 
 	 * @since 2.1
+	 * 
+	 * @return string $event_date	The variation date in YYYY-MM-DD format.
 	 */
 	private static function get_variation_date( $variation_id ) {
 		$date = get_post_meta( $variation_id, 'attribute_dates', true );
@@ -116,7 +118,15 @@ class WC_Registrations_Cart {
 		return $event_date;
 	}
 
-
+	/**
+	 * Format dates on product titles
+	 * 
+	 * Format registration dates in product title, preventing the JSON format to be displayed.
+	 * 
+	 * @since 2.1
+	 * 
+	 * @return string $rtrim	The product title with date formatted.
+	 */
 	public static function format_registration_variation_on_titles( $rtrim, $product, $title_base, $title_suffix ) {
 		if ( json_decode( $title_suffix ) ) {
 			return $title_base . ' - ' . WC_Registrations_Helpers::get_formatted_date( $title_suffix );

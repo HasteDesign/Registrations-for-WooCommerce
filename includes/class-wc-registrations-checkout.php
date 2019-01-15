@@ -53,11 +53,7 @@ class WC_Registrations_Checkout {
 			),
 		);
 
-		/**
-		 * Add fields to checkout
-		 *
-		 * @since 1.0.0
-		 */
+		// Add fields to checkout
 		add_action( 'woocommerce_after_order_notes', __CLASS__ . '::registrations_checkout_fields' );
 
 		// Display participant fields in checkout
@@ -109,51 +105,56 @@ class WC_Registrations_Checkout {
 	 * @param object $checkout The current checkout object.
 	 */
 	public static function registrations_checkout_fields( $checkout ) {
-		global $woocommerce;
-		$cart = $woocommerce->cart->get_cart();
+		$cart = WC()->cart->get_cart();
 		$registrations = 1;
 
-		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
-			$_product = $values['data'];
-			$parent   = $_product->get_parent_id() ? wc_get_product( $_product->get_parent_id() ) : '';
+		/**
+		 * Loop trough each cart item, if it's a product that haves a parent, check if the parent
+		 * product is of type registrations, if yes, then display the registrations additional
+		 * checkout fields.
+		 */
+		foreach( $cart as $cart_item_key => $values ) {
+			$product = $values['data'];
+			$parent   = $product->get_parent_id() ? wc_get_product( $product->get_parent_id() ) : '';
 
+			// Check if product have a parent (variable/registrations)
 			if( ! empty( $parent ) ) {
-				/**
-				 * Loop trough each product of type registration
-				 */
-				if ( $_product->get_type() === 'variation' && $parent->get_type() === 'registrations' ) {
-					$qty = $values['quantity'];
 
-					/**
-					 * Generate fields for each participant/quantity set in product
-					 */
-					for ( $i = 1; $i <= $qty; $i++, $registrations++ ) {
-
-						/**
-						 * Display the fields header if it's the first participant to be displayed
-						 */
-						if ( $i == 1 ) {
-							$date = get_post_meta( $_product->get_id(), 'attribute_dates', true );
-
-							/**
-							 * Check if there's a date defined, if there's no date, display only the product name.
-							 */
-							if ( $date ) {
-								echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s - %s', 'registrations-for-woocommerce' ),  $parent->get_title(), esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) ) ) . '</h3>';
-							} else {
-								echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s', 'registrations-for-woocommerce' ), $parent->get_title() ) . '</h3>';
-							}
-						}
-
-						echo "<h4>" . sprintf( __( 'Participant #%u', 'registrations-for-woocommerce' ), $registrations ) . '</h4>';
-
-						do_action( 'registrations_display_participant_fields', $checkout, $registrations );
-
-						if ( $i == $qty ) {
-							echo '</div>';
-						}
-					}
+				// Check if product parent is of type registrations
+				if ( $product->get_type() === 'variation' && $parent->get_type() === 'registrations' ) {
+					self::registrations_the_checkout_fields( $product, $values['quantity'], $parent, $checkout );
 				}
+			}
+		}
+	}
+
+	/**
+	 * Display registrations checkout fields
+	 * 
+	 * @since 2.1
+	 */
+	public static function registrations_the_checkout_fields( $product, $quantity, $parent, $checkout ) {
+		// Generate fields for each participant/quantity set in product
+		for ( $count = 1; $count <= $quantity; $count++ ) {
+
+			// Display the header if it's the first participant to be displayed
+			if ( $count == 1 ) {
+				$date = get_post_meta( $product->get_id(), 'attribute_dates', true );
+
+				// Check if there's a date defined, if there's no date, display only the product name.
+				if ( $date ) {
+					echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s - %s', 'registrations-for-woocommerce' ),  $parent->get_title(), esc_html( apply_filters( 'woocommerce_variation_option_name', $date ) ) ) . '</h3>';
+				} else {
+					echo '<div id="registrations_fields"><h3>' . sprintf( __( 'Participants in %s', 'registrations-for-woocommerce' ), $parent->get_title() ) . '</h3>';
+				}
+			}
+
+			echo '<h4>' . sprintf( __( 'Participant #%u', 'registrations-for-woocommerce' ), $count ) . '</h4>';
+
+			do_action( 'registrations_display_participant_fields', $checkout, $count );
+
+			if ( $count == $quantity ) {
+				echo '</div>';
 			}
 		}
 	}

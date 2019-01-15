@@ -105,7 +105,7 @@ class WC_Registrations_Admin {
 				'label'             => __( 'Allow registrations until', 'registrations-for-woocommerce' ),
 				'wrapper_class'     => 'show_if_registration',
 				'placeholder'       => '',
-				'description'       => __( 'days before the event.', 'registrations-for-woocommerce' ),
+				'description'       => __( 'day(s) before the event.', 'registrations-for-woocommerce' ),
 				'type'              => 'number',
 				'custom_attributes' => array(
 						'step' 	=> '1',
