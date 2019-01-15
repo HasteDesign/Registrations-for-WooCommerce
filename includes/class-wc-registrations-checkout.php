@@ -160,11 +160,14 @@ class WC_Registrations_Checkout {
 	}
 
 	/**
+	 * Display participant fields
+	 * 
 	 * Display WooCommerce form fields for participants in registrations checkout.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int $registrations	The current participant number
+	 * @param object $checkout			Current checkout object
+	 * @param int $current_participant	Current participant number
 	 */
 	public static function registrations_display_participant_fields( $checkout, $current_participant ) {
 		$participant_fields = apply_filters( 'registrations_participant_fields', self::$settings['participant_fields'] );
@@ -172,8 +175,8 @@ class WC_Registrations_Checkout {
 
 		if ( $participant_fields ) {
 			foreach( $participant_fields as $field ) {
-				$field_key = sprintf($participant_key, $field['name'], $current_participant);
-				unset($field['name']);
+				$field_key = sprintf( $participant_key, $field['name'], $current_participant );
+				unset( $field['name'] );
 				woocommerce_form_field( $field_key, $field, $checkout->get_value( $field_key ) );
 			}
 		}
@@ -183,7 +186,6 @@ class WC_Registrations_Checkout {
 	 * Process the ckecout validation for registration product type.
 	 *
 	 * @since 1.0
-	 *
 	 */
 	public static function registrations_checkout_process() {
 		global $woocommerce;
