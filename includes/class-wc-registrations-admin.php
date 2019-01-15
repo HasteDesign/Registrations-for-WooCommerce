@@ -314,8 +314,6 @@ class WC_Registrations_Admin {
 		$get_variations = sizeof( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
 		$available_variations = $get_variations ? $product->get_available_variations() : false;
 
-		$available_variations = apply_filters( 'registrations_available_variations', $product->get_id(), $available_variations );
-
 		// Load the template
 		wc_get_template(
 			'single-product/add-to-cart/registration.php',

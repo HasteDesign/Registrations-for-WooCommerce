@@ -23,8 +23,8 @@ class WC_Registrations_Cart {
 		// Define the add_to_cart handler
 		add_filter( 'woocommerce_add_to_cart_handler', __CLASS__ . '::add_to_cart_handler', 10, 2 );
 
-		// Optional filter to prevent past events
-		add_filter( 'registrations_available_variations', __CLASS__ . '::validate_registration', 10, 2 );
+		// Check if registration should be displayed
+		add_filter( 'woocommerce_variation_is_visible', __CLASS__ . '::registration_is_visible', 10, 4 ); 
 
 		// Filter item name in cart and order
 		add_filter( 'woocommerce_product_variation_title',  __CLASS__ . '::format_registration_variation_on_titles', 10, 4 ); 
@@ -44,38 +44,39 @@ class WC_Registrations_Cart {
 	}
 
 	/**
-	 * Optionally validates an attemp to put an item on the cart to validate if the event
-	 * is not on the past or after the maximum registration date.
+	 * Registration is visible
+	 * 
+	 * Check if a registration date must be displayed in dropdown. Hide past events.
 	 *
 	 * @access public
-	 * @param bool 	$passed 		if the validation has passed up to this point
-	 * @param int 	$product_id 	the woocommerce's product id
-	 * @param int 	$quantity 		the amount that was put into the cart
+	 * @param bool 	$visible 		if the validation has passed up to this point
 	 * @param int 	$variation_id 	the current woocommerce's variation id
+	 * @param int 	$product_id 	the woocommerce's product id
+	 * @param int 	$variation 		the WC_Product_Variation object
 	 *
-	 * @return bool $passed the new validation status
+	 * @return bool 				if the variation should ou should not be displayed.
 	 */
-	public static function validate_registration( $product_id, $available_variations ) {
-		foreach ( $available_variations as $key => $variation ) {
-			if ( $variation['variation_id'] != null && self::allowed_days_to_register_before( $product_id ) ) {
-				$days_to_prevent = self::allowed_days_to_register_before( $product_id );
-				$event_date = self::get_variation_date( $variation['variation_id'] );
+	public static function registration_is_visible( $visible, $variation_id, $product_id, $variation ) {
+		$attributes = $variation->get_variation_attributes();
 
-				$current_time = date( 'd-m-Y', time() );
-				$target_date = $current_time;
-				$max_date = $current_time;
+		if ( isset( $attributes['attribute_dates'] ) ) {
+			$days_to_prevent = self::allowed_days_to_register_before( $product_id );
+			$event_date = self::get_variation_date( $variation->get_id() );	
 
-				if ( $days_to_prevent >= 0 ) {
-					$target_date = date( 'd-m-Y', strtotime( '-' . $days_to_prevent . ' days' . $event_date ) );
-				}
+			$current_time = date( 'd-m-Y', time() );
+			$target_date = $current_time;
+			$max_date = $current_time;
 
-				if ( strtotime( $current_time ) > strtotime( $target_date ) || strtotime( $current_time ) > strtotime( $max_date ) ) {
-					unset( $available_variations[$key] );
-				}
+			if ( $days_to_prevent >= 0 ) {
+				$target_date = date( 'd-m-Y', strtotime( '-' . $days_to_prevent . ' days' . $event_date ) );
+			}
+
+			if ( strtotime( $current_time ) > strtotime( $target_date ) || strtotime( $current_time ) > strtotime( $max_date ) ) {
+				return false;
 			}
 		}
 
-		return $available_variations;
+		return $visible;
 	}
 
 	/**
