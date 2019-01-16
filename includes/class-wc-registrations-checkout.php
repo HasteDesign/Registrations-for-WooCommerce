@@ -188,27 +188,24 @@ class WC_Registrations_Checkout {
 	 * @since 1.0
 	 */
 	public static function registrations_checkout_process() {
-		global $woocommerce;
-		$registrations = 1;
-
 		$participant_fields = apply_filters( 'registrations_participant_fields', self::$settings['participant_fields'] );
 		$participant_key    = 'participant_%s_%d';
 
-		foreach ( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
+		foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
 			$parent   = ! empty( $_product->get_parent_id() ) ? wc_get_product( $_product->get_parent_id() ) : '';
 
 			if ( $_product->get_type() === 'variation' && $parent->get_type() === 'registrations' ) {
 				$qty = $values['quantity'];
 
-				for ( $i = 1; $i <= $qty; $i++, $registrations++ ) {
+				for ( $count = 1; $count <= $qty; $count++ ) {
 					foreach( $participant_fields as $field ) {
-						$field_key = sprintf($participant_key, $field['name'], $registrations);
-						if ( ! empty($field['required']) && empty($_POST[$field_key]) ) {
-							wc_add_notice( sprintf( __( 'Please enter a correct %s to participant #%u ', 'registrations-for-woocommerce' ), strtolower($field['label']), $registrations ), 'error' );
+						$field_key = sprintf( $participant_key, $field['name'], $count );
+						if ( ! empty( $field['required'] ) && empty( $_POST[$field_key] ) ) {
+							wc_add_notice( sprintf( __( 'Please enter a correct %s to participant #%u ', 'registrations-for-woocommerce' ), strtolower( $field['label'] ), $count ), 'error' );
 						}
 					}
-					do_action( 'registrations_checkout_process_fields', $registrations );
+					do_action( 'registrations_checkout_proccess_fields', $count );
 				}
 			}
 		}
@@ -221,7 +218,6 @@ class WC_Registrations_Checkout {
 	 *
 	 */
 	public static function registrations_checkout_field_update_order_meta( $order_id ) {
-		global $woocommerce;
 		$registrations = 1;
 		$registrations_meta = [];
 
@@ -229,7 +225,7 @@ class WC_Registrations_Checkout {
 		$participant_key    = 'participant_%s_%d';
 
 		// Loop trough cart items
-		foreach( $woocommerce->cart->get_cart() as $cart_item_key => $values ) {
+		foreach( WC()->cart->get_cart() as $cart_item_key => $values ) {
 			$_product = $values['data'];
 			$participants = array( 'date' => '', 'participants' => array() );
 			$users = [];
@@ -242,7 +238,7 @@ class WC_Registrations_Checkout {
 				$title = str_replace( " - ", " _ ", $parent->get_title() ); //don't allow '-' in the product title when storing.
 
 				// Run loop for each quantity of the product
-				for( $i = 1; $i <= $qty; $i++, $registrations++ ) {
+				for( $count = 1; $count <= $qty; $count++ ) {
 					// Get the variation meta date (JSON)
 					$date = get_post_meta( $_product->get_id(), 'attribute_dates', true );
 					$meta_name = ( $date ) ? "$title - $date" : $title;
@@ -253,14 +249,17 @@ class WC_Registrations_Checkout {
 					$participant = [];
 					foreach( $participant_fields as $field ) {
 						$sanitize = ( 'email' === $field['name'] ) ? 'sanitize_email' : 'sanitize_text_field';
-						$field_key = sprintf($participant_key, $field['name'], $registrations);
+						$field_key = sprintf($participant_key, $field['name'], $count);
+
 						if ( ! empty($_POST[$field_key]) ) {
 							$participant[$field['name']] = call_user_func( $sanitize, $_POST[$field_key] );
 						}
 					}
 
-					$participant = apply_filters( 'registrations_checkout_fields_order_meta_value', $participant, $registrations );
+					$participant = apply_filters( 'registrations_checkout_fields_order_meta_value', $participant, $count );
+
 					do_action( 'registrations_participant_created', $participant );
+
 					$participants['participants'][] = $participant;
 				}
 
@@ -268,7 +267,6 @@ class WC_Registrations_Checkout {
 
 				$registrations_meta[] = $participants;
 
-				// Update post meta
 				update_post_meta( $order_id, '_registrations_order_meta', maybe_serialize( $registrations_meta ) );
 
 				do_action( 'registrations_order_meta_created', $order_id );
@@ -301,7 +299,7 @@ class WC_Registrations_Checkout {
 				if( ! empty( $registration['participants'] ) ) {
 					$count = 1;
 					foreach ( $registration['participants'] as $participant ) {
-?>
+					?>
 						<p id="participant-<?php echo $count; ?>" class="participant">
 						<?php foreach ( $participant_fields as $field ) : ?>
 							<?php if ( ! empty($participant[$field['name']]) ) : ?>
@@ -310,7 +308,7 @@ class WC_Registrations_Checkout {
 						<?php endforeach; ?>
 						<?php do_action( 'registrations_admin_order_meta_participant_fields', $participant ); ?>
 						</p>
-<?php
+						<?php
 						$count++;
 					}
 				}
