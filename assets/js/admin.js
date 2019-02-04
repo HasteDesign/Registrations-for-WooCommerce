@@ -171,6 +171,8 @@ jQuery( function( $ ) {
 			//Cleanup Hidden Date Value
 			$('#hidden_date').attr( 'value', '' );
 
+			$( document.body ).trigger( 'registrations_before_update_hidden' );
+
 			//Loop trough all date sections and catch your values
 			$( '.dates' ).children().each( function() {
 				if( $( this ).hasClass( 'single_date' ) )
