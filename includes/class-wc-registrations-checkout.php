@@ -243,7 +243,7 @@ class WC_Registrations_Checkout {
 					$date = get_post_meta( $_product->get_id(), 'attribute_dates', true );
 					$meta_name = ( $date ) ? "$title - $date" : $title;
 
-					$participants['product_id'] = $parent->get_id()
+					$participants['product_id'] = $parent->get_id();
 					$participants['variation_product_id'] = $_product->get_id();
 					$participants['date'] = $meta_name;
 
