@@ -319,7 +319,7 @@ class WC_Registrations_Admin {
 			'single-product/add-to-cart/registration.php',
 			array(
 				'available_variations' => $available_variations,
-				'attributes'           => $product->get_variation_attributes(),
+				'attributes'           => apply_filters( 'registrations_available_attributes', $product->get_variation_attributes(), $product->get_id() ),
 				'selected_attributes'  => $product->get_default_attributes(),
 			),
 			'',
