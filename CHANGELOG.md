@@ -9,6 +9,45 @@ All the project notable changes will be documented here.
 ### Fixed
 ### Security
 
+## (2.0.5) - 2018-11-28
+### Added
+- Add registrations column to orders page
+### Changed
+- Improved registrations-for-woocommerce.php inline documentation
+### Fixed
+- Participant form fields fiterable
+- Participant form fields aligned with WooCommerce standard
+
+## (2.0.4) - 2018-05-31
+### Changed
+- Changed registration add to cart template according to WooCommerce 3.4
+### Deprecated
+### Removed
+- Removed data store unused classes
+### Fixed
+- Fix WC_Product_Registration properties default values from array() to null, to be compatible with WooCoommerce 3.4
+- Fix stock_status metabox visibility when editing registration product, preventing field to be visible on manage stock uncheck
+
+## (2.0.3) - 2018-02-17
+### Fixed
+- Fix registrations reports: fixed undefined index in class-wc-report-list-registration.php
+
+## (2.0.2) - 2017-10-30
+### Fixed
+- Fix registrations reports (contributor: @brettmhoffman)
+
+## (2.0.1) - 2017-06-12
+### Fixed
+- Fixed bad ! empty statement that causes problems prior to PHP 5.5
+
+## (2.0.0) - 2017-06-12
+### Added
+- WooCommerce 3.0 compatibility
+- Using varibale product Data_Store
+- Fixed lot's of hooks to prettify date variation displays
+- Fixed Ajax attributes saving
+- Fixed Reports (major issues about new WC3.0 CRUD)
+
 ## (1.0.7) - 2017-03-19
 ### Added
 - Prevent registrations from past dates (New option in Inventory tab for Registration product type)
@@ -57,6 +96,11 @@ All the project notable changes will be documented here.
 ### Added
 - Initial Release
 
+[2.0.4]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.4
+[2.0.3]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.3
+[2.0.2]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.2
+[2.0.1]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.1
+[2.0.0]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v2.0.0
 [1.0.7]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.7
 [1.0.6]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.6
 [1.0.5]: https://github.com/HasteDesign/Registrations-for-WooCommerce/releases/tag/v1.0.5

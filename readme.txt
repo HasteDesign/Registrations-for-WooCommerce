@@ -3,8 +3,9 @@ Contributors: hastedesign, allysonsouza, anyssa
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=allyson_as%40hotmail%2ecom&lc=US&item_name=WooCommerce%20Registrations%20by%20Haste&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: woocommerce, registrations, attendees, subscriptions, tickets, events
 Requires at least: 3.0.1
-Tested up to: 4.7.1
-Stable tag: 1.0.6
+Requires PHP: 7.0
+Tested up to: 4.9.8
+Stable tag: 2.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,6 +13,13 @@ Sell registrations for courses, lectures, events or any product based on dates.
 
 == Description ==
 
+= v2.0.5 Release Note =
+- Add registrations column to orders page
+- Improved registrations-for-woocommerce.php inline documentation
+- Participant form fields fiterable
+- Participant form fields aligned with WooCommerce standard
+
+= Getting Started =
 Contribute with this project in **GitHub**: [https://github.com/HasteDesign/Registrations-for-WooCommerce](https://github.com/HasteDesign/Registrations-for-WooCommerce)
 
 Registrations for WooCommerce allows the creation of the **registration** product type. Registration products can have dates as variations.
@@ -28,7 +36,7 @@ For each date variation you can set the price, schedule, and places available (s
 
 == Installation ==
 
-= How to create registration products [en] =
+= How to create registration products =
 
 1. Install and activate the Registrations for WooCommerce plugin;
 2. Create a new product.
@@ -39,13 +47,6 @@ For each date variation you can set the price, schedule, and places available (s
 7. Save your variations and publish your product. You will see the available dates as a select field at the product page.
 
 For more information about Variable Products see: [WooThemes Variable Product](https://docs.woothemes.com/document/variable-product/)
-
-== Frequently Asked Questions ==
-= FAQ =
-
-**My Variations are gone, what do I do ?**
-
-Sometimes it's possible that variations go away when you delete or save new dates. If this happens, you can try to refresh your page and access the 'Variations' tab again and check if they are loaded.
 
 == Screenshots ==
 
@@ -58,6 +59,30 @@ Sometimes it's possible that variations go away when you delete or save new date
 7. Additional checkout fields - theme: Storefront
 
 == Changelog ==
+
+= (2.0.5) - 2018-11-28
+- Add registrations column to orders page
+- Improved registrations-for-woocommerce.php inline documentation
+- Participant form fields fiterable
+- Participant form fields aligned with WooCommerce standard
+
+= 2.0.4 - 2018-05-31
+- Changed registration add to cart template according to WooCommerce 3.4
+- Removed data store unused classes
+- Fix WC_Product_Registration properties default values from array() to null, to be compatible with WooCoommerce 3.4
+- Fix stock_status metabox visibility when editing registration product, preventing field to be visible on manage stock uncheck
+
+= 2.0.3 - 2018-02-17
+- Fix registrations reports: fixed undefined index in class-wc-report-list-registration.php
+
+= 2.0.2 - 2017-10-30
+- Fix registrations reports (contributor: @brettmhoffman)
+
+= 2.0.1 - 2017-06-12 =
+- Fixed bad ! empty statement that causes problems prior to PHP 5.5
+
+= 2.0.0 - 2017-06-12 =
+- WooCommerce 3.0 compatibility
 
 = 1.0.6 - 2017-01-25 =
 - Fixed checkout that won't validate participant fields

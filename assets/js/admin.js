@@ -13,10 +13,10 @@ jQuery( function( $ ) {
 			.on( 'click', 	'.remove_date', 		this.remove_date )
 			.on( 'click', 	'.add_day', 			this.add_day )
 			.on( 'click', 	'.remove_day', 			this.remove_day )
-			.on( 'change', 	'.event_start_date', 	this.validate_range_date )
-			.on( 'change', 	'.event_end_date', 		this.validate_range_date );
+			.on( 'change', 	'.wc_input_event_start_date', this.validate_range_date )
+			.on( 'change', 	'.wc_input_event_end_date',   this.validate_range_date );
 
-			$( '#_prevent_past_events').on( 'change', this.display_past_event_days );
+			$( 'input#_manage_stock' ).on( 'change', this.show_hide_stock_options );
 
 			// Variations Tab Events
 			$( '#variable_product_options' ).on( 'woocommerce_variations_added' , function() {
@@ -69,26 +69,32 @@ jQuery( function( $ ) {
 		 */
 		show_hide_registration_meta: function() {
 			if ( $( 'select#product-type' ).val() === 'registrations' ) {
+				// Hide
 				$( '.hide_if_virtual' ).hide();
+				$( '.hide_if_variable' ).hide();
+				$( '.hide_if_registration' ).hide();
+				$( 'div.stock_fields' ).hide();
+				// Show
 				$( '.show_if_variable' ).show();
 				$( '.show_if_registration' ).show();
-				$( '.hide_if_registration' ).hide();
-				$( 'input#_manage_stock' ).change();
+				// Check
 				$( 'input#_downloadable' ).prop( 'checked', false );
 			} else {
 				$( '.show_if_registration' ).hide();
 			}
 
-			if ( ! $( '#_prevent_past_events' ).is( ':checked' ) ) {
-				$( 'p._days_to_prevent_field' ).hide();
-			}
+			wc_meta_boxes_product_registrations.show_hide_stock_options();
 		},
 
-		display_past_event_days: function() {
-			if( $(this).is(':checked') ) {
-				$( '.registration_inventory p.show_if_registration' ).show();
+		show_hide_stock_options: function() {
+			if ( $( this ).is( ':checked' ) ) {
+				$( 'div.stock_fields' ).show();
+				$( 'p.stock_status_field' ).hide();
 			} else {
-				$( '.registration_inventory p.show_if_registration' ).not($(this).parent()).hide();
+				if ( $( 'select#product-type' ).val() === 'registrations' ) {
+					$( 'div.stock_fields' ).hide();
+					$( 'p.stock_status_field' ).hide();
+				}
 			}
 		},
 
@@ -122,6 +128,7 @@ jQuery( function( $ ) {
 			$( '.dates' ).append( el );
 			wc_meta_boxes_product_registrations.dates_ids();
 			wc_meta_boxes_product_registrations.datepicker_init();
+			$( '.event_date' ).trigger( 'change' );
 			event.preventDefault();
 		},
 
@@ -161,9 +168,10 @@ jQuery( function( $ ) {
 		 * Update hidden field values looping through all date fields (single/multiple/range)
 		 */
 		update_hidden_field: function() {
-
 			//Cleanup Hidden Date Value
 			$('#hidden_date').attr( 'value', '' );
+
+			$( document.body ).trigger( 'registrations_before_update_hidden' );
 
 			//Loop trough all date sections and catch your values
 			$( '.dates' ).children().each( function() {
@@ -353,12 +361,22 @@ jQuery( function( $ ) {
 		},
 
 		validate_range_date: function() {
-			var start = new Date( $( this ).parent().find( '.event_start_date' ).val() );
-			var end = new Date( $( this ).parent().find( '.event_end_date' ).val() );
+			var $this = $( this ),
+				$startField = $this.parent().find( '.wc_input_event_start_date' ),
+				$endField = $this.parent().find( '.wc_input_event_end_date' ),
+				start_val = $startField.val(),
+				end_val = $endField.val(),
+				start = new Date( start_val ),
+				end = new Date( end_val );
 
 			if( start >= end ) {
-				//message here
-				$( this ).parent().siblings('.validation_message').fadeIn().delay(5000).fadeOut();
+				if ( this.classList.contains('wc_input_event_start_date') ) {
+					$endField.val(start_val);
+				} else {
+					$startField.val(end_val);
+				}
+			} else if ( this.classList.contains('wc_input_event_start_date') && ! $endField.val() ) {
+				$endField.val(start_val);
 			}
 		},
 

@@ -24,13 +24,13 @@ if ( ! isset( $thepostid ) ) {
 ?>
 <div class="show_if_registration">
     <p class="form-row form-row-first">
-        <label><?php _e( 'Start Time', 'registrations-for-woocommerce'); ?> <a class="tips" href="#">[?]</a></label>
+        <label><?php _e( 'Start Time', 'registrations-for-woocommerce'); ?> <span class="woocommerce-help-tip" data-tip="<?php _e( 'Set the event start time here.', 'registrations-for-woocommerce' ); ?>"></span></label>
         <input type="time" name="_event_start_time[<?php echo $loop; ?>]" step="900" class="wc_input_event_start_time" value="<?php echo $event_start_time; ?>">
-        <label><?php _e( 'End Time', 'registrations-for-woocommerce'); ?> <a class="tips" href="#">[?]</a></label>
+        <label><?php _e( 'End Time', 'registrations-for-woocommerce'); ?> <span class="woocommerce-help-tip" data-tip="<?php _e( 'Set the event end time here.', 'registrations-for-woocommerce' ); ?>"></span></label>
         <input type="time" name="_event_end_time[<?php echo $loop; ?>]" step="900" class="wc_input_event_end_time" value="<?php echo $event_end_time; ?>">
     </p>
     <p class="form-row form-row-last show_if_range_date">
-        <label><?php _e( 'Days of Week when this event occurs.', 'registrations-for-woocommerce'); ?> <a class="tips" href="#">[?]</a></label>
+        <label><?php _e( 'Days of Week when this event occurs.', 'registrations-for-woocommerce'); ?> <span class="woocommerce-help-tip" data-tip="<?php _e( 'Mark in which days of week the event will occur.', 'registrations-for-woocommerce' ); ?>"></span></label>
         <label><input type="checkbox" name="_week_days[<?php echo $loop; ?>][]" <?php if( in_array( 'monday', $week_days ) ) { echo 'checked'; } ?>    value="monday" /><?php _e( 'Monday', 'registrations-for-woocommerce' ); ?></label>
         <label><input type="checkbox" name="_week_days[<?php echo $loop; ?>][]" <?php if( in_array( 'sunday', $week_days ) ) { echo 'checked'; } ?>    value="sunday" /><?php _e( 'Sunday', 'registrations-for-woocommerce' ); ?></label>
         <label><input type="checkbox" name="_week_days[<?php echo $loop; ?>][]" <?php if( in_array( 'tuesday', $week_days ) ) { echo 'checked'; } ?>   value="tuesday" /><?php _e( 'Tuesday', 'registrations-for-woocommerce' ); ?></label>

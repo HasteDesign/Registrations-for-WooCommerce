@@ -12,120 +12,50 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class WC_Product_Registrations extends WC_Product_Variable {
-
-	var $product_type;
+	/**
+	 * Array of children variation IDs. Determined by children.
+	 *
+	 * @var array
+	 */
+	protected $children = null;
 
 	/**
-	 * Create a variable registration product object.
+	 * Array of visible children variation IDs. Determined by children.
 	 *
-	 * @since 1.0.0
-	 *
-	 * @access public
-	 * @param mixed $product
+	 * @var array
 	 */
-	public function __construct( $product ) {
+	protected $visible_children = null;
 
-		parent::__construct( $product );
+	/**
+	 * Array of variation attributes IDs. Determined by children.
+	 *
+	 * @var array
+	 */
+	protected $variation_attributes = null;
 
-        $this->parent_product_type = $this->product_type;
-
-        $this->product_type = 'registrations';
-
-		add_filter( 'woocommerce_add_to_cart_handler', array( &$this, 'add_to_cart_handler' ), 10, 2 );
-
-		/**
-		 * Optional filter to prevent past events
-		 */
-		add_filter( 'woocommerce_add_to_cart_validation', __CLASS__ . '::validate_registration', 10, 5 );
+	/**
+	 * Get internal type.
+	 *
+	 * @return string
+	 */
+	public function get_type() {
+		return 'registrations';
 	}
 
     /**
 	 * Checks the product type to see if it is either this product's type or the parent's
 	 * product type.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @access public
 	 * @param mixed $type Array or string of types
 	 * @return bool
 	 */
-	public function registrations_is_type( $type ) {
-		if ( $this->product_type == $type || ( is_array( $type ) && in_array( $this->product_type, $type ) ) ) {
-			return true;
-		} elseif ( $this->parent_product_type == $type || ( is_array( $type ) && in_array( $this->parent_product_type, $type ) ) ) {
+	public function is_type( $type ) {
+		if ( 'registrations' == $type || ( is_array( $type ) && in_array( 'registrations', $type ) ) ) {
 			return true;
 		} else {
-			return false;
+			return parent::is_type( $type );
 		}
-	}
-
-	/**
-	 * Checks the product type to see if it is either this product's type or the parent's
-	 * product type.
-	 *
-	 * @access public
-	 * @param string $product_type A string representation of a product type
-	 * @return string $handler
-	 */
-	public function add_to_cart_handler( $handler, $product ) {
-
-		if ( 'registrations' === $handler ) {
-			$handler = 'variable';
-		}
-
-		return $handler;
-	}
-
-	/**
-	 * Optionally validates an attemp to put an item on the cart to validate if the event
-	 * is not on the past or after the maximum registration date.
-	 *
-	 * @access public
-	 * @param bool 	$passed if the validation has passed up to this point
-	 * @param int 	$product_id the woocommerce's product id
-	 * @param int 	$quantity the amount that was put into the cart
-	 * @param int 	$variation_id the current woocommerce's variation id
-	 *
-	 * @return bool $passed the new validation status
-	 */
-	public static function validate_registration( $passed, $product_id, $quantity = null, $variation_id = null, $variations = null ) {
-
-		if ( $variation_id != null ) {
-			$prevent_past_events = get_post_meta( $product_id, '_prevent_past_events', true );
-
-			if ( $prevent_past_events == 'yes' ) {
-
-				$days_to_prevent = get_post_meta( $product_id, '_days_to_prevent', true );
-
-				if ( empty( $days_to_prevent ) && $days_to_prevent != '0' ) {
-					$days_to_prevent = -1;
-				}
-
-				$date = get_post_meta( $variation_id , 'attribute_dates', true );
-				$decoded_date = json_decode($date);
-				$event_date = '';
-
-				if ( $decoded_date->type == 'single' ) {
-					$event_date = $decoded_date->date;
-				} else {
-					$event_date = $decoded_date->dates[0];
-				}
-
-				$current_time = date( 'd-m-Y', time() );
-				$target_date = $current_time;
-				$max_date = $current_time;
-
-				if ( $days_to_prevent != -1 ) {
-					$target_date = date( 'd-m-Y', strtotime( '-' . $days_to_prevent . ' days' . $event_date ) );
-				}
-
-				if ( strtotime( $current_time ) > strtotime( $target_date ) || strtotime( $current_time ) > strtotime( $max_date ) ) {
-					$passed = false;
-					wc_add_notice( __( 'The selected date is no longer available.', 'registrations-for-woocommerce' ), 'error' );
-				}
-			}
-		}
-		return $passed;
 	}
 
 	/**
@@ -233,5 +163,69 @@ class WC_Product_Registrations extends WC_Product_Variable {
 				}
 			}
 		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Sync with child variations.
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Sync a variable product with it's children. These sync functions sync
+	 * upwards (from child to parent) when the variation is saved.
+	 *
+	 * @param WC_Product|int $product Product object or ID for which you wish to sync.
+	 * @param bool           $save If true, the product object will be saved to the DB before returning it.
+	 * @return WC_Product Synced product object.
+	 */
+	public static function sync( $product, $save = true ) {
+		if ( ! is_a( $product, 'WC_Product' ) ) {
+			$product = wc_get_product( $product );
+		}
+		if ( is_a( $product, 'WC_Product_Registrations' ) ) {
+			$data_store = WC_Data_Store::load( 'product-variable' );
+			$data_store->sync_price( $product );
+			$data_store->sync_stock_status( $product );
+			self::sync_attributes( $product ); // Legacy update of attributes.
+
+			do_action( 'woocommerce_variable_product_sync_data', $product );
+
+			if ( $save ) {
+				$product->save();
+			}
+
+			wc_do_deprecated_action(
+				'woocommerce_variable_product_sync', array(
+					$product->get_id(),
+					$product->get_visible_children(),
+				), '3.0', 'woocommerce_variable_product_sync_data, woocommerce_new_product or woocommerce_update_product'
+			);
+		}
+
+		return $product;
+	}
+
+	/**
+	 * Sync parent stock status with the status of all children and save.
+	 *
+	 * @param WC_Product|int $product Product object or ID for which you wish to sync.
+	 * @param bool           $save If true, the product object will be saved to the DB before returning it.
+	 * @return WC_Product Synced product object.
+	 */
+	public static function sync_stock_status( $product, $save = true ) {
+		if ( ! is_a( $product, 'WC_Product' ) ) {
+			$product = wc_get_product( $product );
+		}
+		if ( is_a( $product, 'WC_Product_Registrations' ) ) {
+			$data_store = WC_Data_Store::load( 'product-variable' );
+			$data_store->sync_stock_status( $product );
+
+			if ( $save ) {
+				$product->save();
+			}
+		}
+
+		return $product;
 	}
 }
