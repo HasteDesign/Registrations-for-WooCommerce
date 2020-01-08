@@ -67,15 +67,15 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 	 */
 	public function column_default( $row, $column_name ) {
 		global $wpdb;
-		$parent   = ! empty( $row[0]->get_parent_id() ) ? wc_get_product( $row[0]->get_parent_id() ) : '';
+		$parent   = ! empty( $row->get_parent_id() ) ? wc_get_product( $row->get_parent_id() ) : '';
 
 		switch ( $column_name ) {
 
 			case 'variation_id' :
-				return $row[0]->get_id();
+				return $row->get_id();
 
 			case 'variation_name':
-				return $parent->registration_date( $row[0]->get_id() );
+				return $parent->registration_date( $row->get_id() );
 
 			case 'product_name' :
 				return $parent->get_title();
@@ -88,7 +88,7 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 						$actions = array();
 
 						$actions['view'] = array(
-							'url'       => add_query_arg( 'details', $row[0]->get_id() ),
+							'url'       => add_query_arg( 'details', $row->get_id() ),
 							'name'      => __( 'Customers', 'woocommerce' ),
 							'action'    => "view"
 						);
@@ -130,62 +130,24 @@ class WC_Report_List_Registration_Events extends WP_List_Table {
 			'product_type' => WC_Registrations::$name,
 		);
 
-		$args2 = array(
-			'post_type' => 'shop_order',
-			'post_status' => array('wc-processing', 'wc-completed'),
-		);
-
 		$parent_variantions_products = get_posts( $args1 );
 
-		$orders_query = get_posts( $args2 );
-
-		$orders = array();
-		$variations = array();
-		$products = array();
-
-		foreach ( $orders_query as $order_query ) {
-			$order = wc_get_order( $order_query );
-			$orders[] = $order;
-		}
+		$dates = array();
 
 		foreach ( $parent_variantions_products as $product_query ) {
 			$product = wc_get_product( $product_query );
-			$products[] = $product;
-			foreach ( $product->get_available_variations() as $variation ) {
-				$variations[] = $variation;
-			}
-		}
-
-		$found = array();
-
-		foreach ( $orders as $order ) {
-			foreach ( $order->get_items() as $item ) {
-				foreach ( $variations as $variation ) {
-					if ( $variation['variation_id'] == $item->get_variation_id() ) {
-						$found[] = array( wc_get_product( $variation['variation_id'] ), $order );
-					}
-				}
-			}
-		}
-
-		$c = count($found);
-
-		for ( $i = 0; $i < $c; $i++ ) {
-			for ( $k = $i + 1; $k < $c; $k++ ) {
-				if ( $found[$i][0]->get_id() == $found[$k][0]->get_id() ) {
-					unset( $found[$i] );
-					break;
-				}
+			foreach ( $product->get_children() as $variation ) {
+				$dates[] = wc_get_product($variation);
 			}
 		}
 
 		$this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
 
-		$this->items = array_values( $found );
+		$this->items = $dates;
 
 		$this->set_pagination_args( array(
-			'total_items' => count( $found ),
-			'per_page'    => count( $found ),
+			'total_items' => count( $dates ),
+			'per_page'    => count( $dates ),
 			'total_pages' => 1
 		) );
 	}
