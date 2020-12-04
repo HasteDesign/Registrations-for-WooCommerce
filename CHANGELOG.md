@@ -7,6 +7,7 @@ All the project notable changes will be documented here.
 ### Deprecated
 ### Removed
 ### Fixed
+- Added verification to DOM loaded before product data tabs manipulation
 ### Security
 
 ## (2.0.5) - 2018-11-28
