@@ -105,13 +105,13 @@ class WC_Registrations {
 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::activation_notice' );
 
 		// Translation
-		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
-
-		// Includes
-		add_action( 'plugins_loaded', __CLASS__ . '::includes' );
+		add_action( 'plugins_loaded', __CLASS__ . '::load_textdomain' );
 
 		// Data Store
 		add_filter( 'woocommerce_data_stores', __CLASS__ . '::register_data_stores', 10, 1 );
+		
+		// Includes
+		add_action( 'plugins_loaded', __CLASS__ . '::includes' );
 	}
 
 	/**
@@ -146,7 +146,7 @@ class WC_Registrations {
 	 *
 	 * @since 1.0
 	 */
-	public static function load_plugin_textdomain() {
+	public static function load_textdomain() {
 		load_plugin_textdomain( 'registrations-for-woocommerce', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 
