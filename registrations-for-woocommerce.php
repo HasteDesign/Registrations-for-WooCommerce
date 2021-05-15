@@ -4,16 +4,14 @@
  * Plugin URI: https://www.hastedesign.com.br/lab/registrations-for-woocommerce/
  * Description: Add registration product type to your WooCommerce.
  * Version: 2.0.5
- * Author: Haste - design and technology, Allyson Souza, Anyssa Ferreira
- * Author URI: http://www.hastedesign.com.br
+ * Author: Haste Studio, Allyson Souza, Anyssa Ferreira
+ * Author URI: https://www.hastedesign.com.br
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: registrations-for-woocommerce
  * Domain Path: /languages
  * WC tested up to: 3.5
  * WC requires at least: 3.1
- *
- * Copyright 2018 Haste Design.  (email: contato@hastedesign.com.br)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,7 +53,7 @@ if ( ! is_woocommerce_active() ) {
 /**
  * The main registrations products class.
  *
- * This class is intended to install and create the ground of registrations for WooCommerce to work.
+ * This class is intended to install and create the ground for Registrations for WooCommerce to work.
  *
  * @package		Registrations for WooCommerce\WC_Registrations_Admin
  * @author		Allyson Souza
@@ -97,31 +95,31 @@ class WC_Registrations {
 	 * @since 1.0
 	 **/
 	public static function init() {
-		// Fired on deactivation of Registrations for WooCommerce
-		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
-
-		// Activates Registrations for WooCommerce
+		// Deactivation
+		register_deactivation_hook( __FILE__, __CLASS__ . '::on_deactivation' );
+		
+		// Activation
 		add_action( 'admin_init', __CLASS__ . '::maybe_activate_woocommerce_registrations' );
 
-		// Welcome notice
+		// Welcome
 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::activation_notice' );
 
-		// Load translation
+		// Translation
 		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
 
-		// Load includes
+		// Includes
 		add_action( 'plugins_loaded', __CLASS__ . '::includes' );
 
-		// Register a new data store
+		// Data Store
 		add_filter( 'woocommerce_data_stores', __CLASS__ . '::register_data_stores', 10, 1 );
 	}
 
 	/**
-	 * Deletes the woocommerce_registrations_is_active option and fires an action.
+	 * Delete the woocommerce_registrations_is_active option and fires an action.
 	 *
 	 * @since 0.1
 	 */
-	public static function deactivate_woocommerce_registrations() {
+	public static function on_deactivation() {
 		delete_option( 'woocommerce_registrations_is_active' );
 		do_action( 'woocommerce_registrations_deactivated' );
 	}
@@ -162,7 +160,7 @@ class WC_Registrations {
 
 		$is_active = get_option( 'woocommerce_registrations_is_active', false );
 
-		if ( $is_active == false ) {
+		if ( $is_active === false ) {
 			// Add the "Registrations" product type
 			if ( ! get_term_by( 'slug', self::$name, 'product_type' ) ) {
 				wp_insert_term( self::$name, 'product_type' );
@@ -193,17 +191,16 @@ class WC_Registrations {
 	 * @since 1.0
 	 */
 	public static function woocommerce_inactive_notice() {
-		if ( current_user_can( 'activate_plugins' ) ) :
-			if ( ! is_woocommerce_active() ) : ?>
+		if ( current_user_can( 'activate_plugins' ) ) {
+			if ( ! is_woocommerce_active() ) { ?>
+				
 				<div id="message" class="error">
 					<p><?php printf( __( '%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s must be active for Registrations for WooCommerce to work. Please %sinstall & activate WooCommerce%s', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . admin_url( 'plugin-install.php?s=WooCommerce&tab=search&type=term' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
 				</div>
-						<?php elseif ( version_compare( get_option( 'woocommerce_db_version' ), '2.1', '<' ) ) : ?>
-				<div id="message" class="error">
-					<p><?php printf( __( '%sRegistrations for WooCommerce is inactive.%s This version of Registrations requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version 2.1 or newer%s', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugin-install.php?s=WooCommerce&tab=search&type=term' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
-				</div>
-			<?php endif; ?>
-		<?php endif;
+
+			<?php
+			}
+		}
 	}
 
 	/**
