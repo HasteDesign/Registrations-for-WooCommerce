@@ -64,6 +64,9 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 
 			case 'email' :
 				return $row['email'];
+				
+			case 'phone' :
+				return $row['phone'];
 
 		}
 
@@ -78,10 +81,37 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 	public function get_columns() {
 		$columns = array(
 			'name'    => __( 'Name', 'registrations-for-woocommerce' ),
+			'phone'   => __( 'Phone', 'registrations-for-woocommerce' ),
 			'email'   => __( 'Email', 'registrations-for-woocommerce' ),
 		);
 
 		return $columns;
+	}
+	
+	/**
+	 * Get All orders IDs for a given product ID.
+	 *
+	 * @param  integer  $product_id (required)
+	 * @param  array    $order_status (optional) Default is 'wc-completed'
+	 *
+	 * @return array
+	 */
+	static function get_orders_ids_by_product_id( $product_id, $order_status = array( 'wc-completed' ) ){
+		global $wpdb;
+
+		$results = $wpdb->get_col("
+			SELECT order_items.order_id
+			FROM {$wpdb->prefix}woocommerce_order_items as order_items
+			LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
+			LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
+			WHERE posts.post_type = 'shop_order'
+			AND posts.post_status IN ( '" . implode( "','", $order_status ) . "' )
+			AND order_items.order_item_type = 'line_item'
+			AND order_item_meta.meta_key = '_variation_id'
+			AND order_item_meta.meta_value = '$product_id'
+		");
+
+		return $results;
 	}
 
 	/**
@@ -89,43 +119,18 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 	 */
 	public function prepare_items() {
 
-		$args2 = array(
-			'post_type'   => 'shop_order',
-			'post_status' => array( 'wc-processing', 'wc-completed' ),
-		);
-
-		$orders_query = get_posts( $args2 );
-
-		$orders = array();
-		$variations = array();
-		$products = array();
-
-		foreach ( $orders_query as $order_query ) {
-			$order = wc_get_order( $order_query );
-			$orders[] = $order;
-		}
-
 		$details = get_query_var( 'details', -1 );
 		parse_str( $_SERVER['QUERY_STRING'] );
 
 		$variation = wc_get_product( $details );
-		$found = array();
-
-		// Only save the oders that contain this variation
-		foreach ( $orders as $order ) {
-			foreach ( $order->get_items() as $item ) {
-				if ( $variation->get_id() == $item->get_variation_id() ) {
-					$found[] = $order;
-				}
-			}
-		}
-
+		$orders_ids = $this->get_orders_ids_by_product_id( $details, array( 'wc-processing', 'wc-completed' ));
 
 		$registred = array();
 
 		$variation_date = get_post_meta( $variation->get_id(), 'attribute_dates', true );
 
-		foreach ( $found as $order ) {
+		foreach ( $orders_ids as $order_id ) {
+			$order = wc_get_order ( $order_id);
 			// Grab the registrations data
 			$registration_meta = maybe_unserialize( get_post_meta( $order->get_id(), '_registrations_order_meta', true ) );
 			if ( ! empty( $registration_meta ) ) {
@@ -137,7 +142,8 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 							foreach ( $registration['participants'] as $participant ) {
 								array_push( $registred, array(
 									'name' => $participant['name'] . ' ' . $participant['surname'],
-									'email' => $participant['email']
+									'email' => $participant['email'],
+									'phone' => $participant['phone']
 									));
 								}
 							}
@@ -155,8 +161,8 @@ class WC_Report_Detailed_Registration_Event extends WP_List_Table {
 		 * Pagination.
 		 */
 		$this->set_pagination_args( array(
-			'total_items' => count( $found ),
-			'per_page'    => count( $found ),
+			'total_items' => count( $registred ),
+			'per_page'    => count( $registred ),
 			'total_pages' => 1
 		) );
 	}
