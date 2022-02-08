@@ -1,0 +1,24 @@
+{
+    "name": "yan-kairalla/registration-for-woocommerce",
+    "require-dev": {
+        "lucatume/wp-browser": "^3.1",
+        "codeception/module-asserts": "^1.0",
+        "codeception/module-phpbrowser": "^1.0",
+        "codeception/module-webdriver": "^1.0",
+        "codeception/module-db": "^1.0",
+        "codeception/module-filesystem": "^1.0",
+        "codeception/module-cli": "^1.0",
+        "codeception/util-universalframework": "^1.0"
+    },
+    "authors": [
+        {
+            "name": "Yan Kairalla",
+            "email": "yanmkairalla@hotmail.com"
+        }
+    ],
+    "require": {},
+    "scripts": {
+        "wp-browser": "vendor/bin/codecept.bat init wpbrowser",
+        "codecept-acceptance": "codecept run acceptance"
+    }
+}
