@@ -26,6 +26,7 @@ error_log
 # MODULES AND CACHE
 node_modules/
 .sass-cache/
+vendor/
 
 # OTHER
 git-to-svn/
