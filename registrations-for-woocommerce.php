@@ -140,7 +140,6 @@ class WC_Registrations {
 		require_once( 'includes/class-wc-registrations-import.php' );
 		require_once( 'includes/class-wc-registrations-export.php' );
 		require_once( 'includes/admin/class-wc-registrations-orders.php' );
-		require_once( 'includes/reports/class-wc-reports-manager.php' );
 	}
 
 	/**

@@ -42,7 +42,7 @@ class WC_Product_Registrations extends WC_Product_Variable {
 		return 'registrations';
 	}
 
-    /**
+	/**
 	 * Checks the product type to see if it is either this product's type or the parent's
 	 * product type.
 	 *
