@@ -22,6 +22,7 @@ error_log
 .*
 ~*
 !.gitignore
+!.env.testing
 
 # MODULES AND CACHE
 node_modules/
@@ -31,3 +32,5 @@ vendor/
 # OTHER
 git-to-svn/
 /vendor/
+
+#Excepetions
