@@ -33,24 +33,13 @@
  * @since		1.0
  */
 
+namespace Haste\RegistrationsForWoo;
+
+use Haste\RegistrationsForWoo\Admin;
+
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Required functions
- */
-if ( ! function_exists( 'woothemes_queue_update' ) || ! function_exists( 'is_woocommerce_active' ) ) {
-	require_once( 'includes/woo-includes/woo-functions.php' );
-}
-
-/**
- * Check if WooCommerce is active
- *
- * @since 0.0.1
- */
-if ( ! is_woocommerce_active() ) {
-	add_action( 'admin_notices', 'WC_Registrations::woocommerce_inactive_notice' );
-	return;
-}
+require 'vendor/autoload.php';
 
 /**
  * The main registrations products class.
@@ -61,7 +50,7 @@ if ( ! is_woocommerce_active() ) {
  * @author		Allyson Souza
  * @since		1.0
  */
-class WC_Registrations {
+final class RegistrationsForWoo {
 
 	/**
 	 * Plugin name
@@ -85,26 +74,18 @@ class WC_Registrations {
 	public static $plugin_file = __FILE__;
 
 	/**
-	 * Version number
-	 * 
-	 * @var string $name
-	 */
-	public static $version = '2.0.5';
-
-	/**
 	 * Hook into action and filters
 	 *
 	 * @since 1.0
 	 **/
 	public static function init() {
+		Admin\Notices::init();
+
 		// Fired on deactivation of Registrations for WooCommerce
 		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
 
 		// Activates Registrations for WooCommerce
 		add_action( 'admin_init', __CLASS__ . '::maybe_activate_woocommerce_registrations' );
-
-		// Welcome notice
-		add_action( 'admin_enqueue_scripts', __CLASS__ . '::activation_notice' );
 
 		// Load translation
 		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
@@ -114,6 +95,21 @@ class WC_Registrations {
 
 		// Register a new data store
 		add_filter( 'woocommerce_data_stores', __CLASS__ . '::register_data_stores', 10, 1 );
+	}
+
+	/**
+	 * Check if WooCommerce is activated.
+	 */
+	public static function is_woocommerce_activated() {
+		$active_plugins = (array) get_option( 'active_plugins', array() );
+
+		if ( in_array( 'woocommerce/woocommerce.php', $active_plugins, true ) ) {
+			return true;
+		}
+
+		add_action( 'admin_notices', 'Haste\RegistrationsForWoo\Admin\Notices::woocommerce_inactive_notice' );
+
+		return false;
 	}
 
 	/**
@@ -185,65 +181,8 @@ class WC_Registrations {
 	    $data_stores['product-registrations'] = 'WC_Product_Variable_Data_Store_CPT';
 	    return $data_stores;
 	}
-
-	/**
-	 * When WooCommerce is inactive display a notice.
-	 *
-	 * @since 1.0
-	 */
-	public static function woocommerce_inactive_notice() {
-		if ( current_user_can( 'activate_plugins' ) ) :
-			if ( ! is_woocommerce_active() ) : ?>
-				<div id="message" class="error">
-					<p><?php printf( __( '%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s must be active for Registrations for WooCommerce to work. Please %sinstall & activate WooCommerce%s', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . admin_url( 'plugin-install.php?s=WooCommerce&tab=search&type=term' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
-				</div>
-						<?php elseif ( version_compare( get_option( 'woocommerce_db_version' ), '2.1', '<' ) ) : ?>
-				<div id="message" class="error">
-					<p><?php printf( __( '%sRegistrations for WooCommerce is inactive.%s This version of Registrations requires WooCommerce 2.1 or newer. Please %supdate WooCommerce to version 2.1 or newer%s', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<a href="' . admin_url( 'plugin-install.php?s=WooCommerce&tab=search&type=term' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
-				</div>
-			<?php endif; ?>
-		<?php endif;
-	}
-
-	/**
-	 * Display notices on registrations activation
-	 *
-	 * @since 1.0
-	 */
-	public static function activation_notice() {
-		global $woocommerce, $post;
-
-		$is_activation_screen  = ( get_transient( self::$activation_transient ) == true ) ? true : false;
-
-		if ( $is_activation_screen ) {
-			
-			if ( ! isset( $_GET['page'] ) || 'wcs-about' != $_GET['page'] ) {
-				add_action( 'admin_notices', __CLASS__ . '::admin_installed_notice' );
-			}
-
-			delete_transient( self::$activation_transient );
-		}
-	}
-
-	/**
-	 * Display a welcome message when Registrations is activated
-	 *
-	 * @since 1.0
-	 */
-	public static function admin_installed_notice() {
-		?>
-		<div class="updated notice notice-success is-dismissible">
-			<div class="squeezer">
-				<h4><?php printf( __( '%sRegistrations for WooCommerce Installed%s &#8211; %sYou\'re ready to start selling registrations!%s', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<em>', '</em>' ); ?></h4>
-
-				<p class="submit">
-					<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wordpress.org/plugins/registrations-for-woocommerce/" data-text="<?php _e( 'Sell course and events registrations with #WooCommerce', 'registrations-for-woocommerce' ); ?>" data-via="HasteDesign" data-size="large">Tweet</a>
-					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-				</p>
-			</div>
-		</div>
-		<?php
-	}
 }
 
-WC_Registrations::init();
+if ( RegistrationsForWoo::is_woocommerce_activated() ) {
+	RegistrationsForWoo::init();
+}

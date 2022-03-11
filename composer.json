@@ -1,5 +1,18 @@
 {
-    "require": {
-        "squizlabs/php_codesniffer": "*"
-    }
+    "name": "haste/registrations-for-woocommerce",
+    "description": "Registrations for WooCommerce plugin.",
+    "type": "wordpress-plugin",
+    "license": "GPLv3",
+    "autoload": {
+        "psr-4": {
+            "Haste\\RegistrationsForWoo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Haste Studio",
+            "email": "wp@hastedesign.com.br"
+        }
+    ],
+    "require": {}
 }

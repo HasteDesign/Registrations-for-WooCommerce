@@ -55,11 +55,11 @@ class WC_Registrations_Admin {
 			$script_params = self::product_edit_script_params();
 
 			// Registrations for WooCommerce Admin - admin.js
-			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( WC_Registrations::$plugin_file ) . '/assets/js/admin.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'assets/js/admin.js' ) );
+			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . '/assets/js/admin.js', $dependencies, filemtime( plugin_dir_path( Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . 'assets/js/admin.js' ) );
 			wp_localize_script( 'woocommerce_registrations_admin', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 
 			// Registrations for WooCommerce Ajax - wc-registrations-ajax.js
-			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( WC_Registrations::$plugin_file ) . '/assets/js/wc-registrations-ajax.js', $dependencies, filemtime( plugin_dir_path( WC_Registrations::$plugin_file ) . 'assets/js/wc-registrations-ajax.js' ) );
+			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . '/assets/js/wc-registrations-ajax.js', $dependencies, filemtime( plugin_dir_path( Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . 'assets/js/wc-registrations-ajax.js' ) );
 			wp_localize_script( 'woocommerce_registrations_ajax', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 
 			// jQuery UI Datepicker
@@ -76,7 +76,7 @@ class WC_Registrations_Admin {
 	 * @return array Array of Product types & their labels, including the Course product type.
 	 */
 	public static function add_registrations_to_select( $product_types ){
-		$product_types[ WC_Registrations::$name ] = __( 'Registration', 'registrations-for-woocommerce' );
+		$product_types[ Haste\RegistrationsForWoo\RegistrationsForWoo::$name ] = __( 'Registration', 'registrations-for-woocommerce' );
 
 		return $product_types;
 	}
@@ -323,7 +323,7 @@ class WC_Registrations_Admin {
 				'selected_attributes'  => $product->get_default_attributes(),
 			),
 			'',
-			plugin_dir_path( WC_Registrations::$plugin_file ) . 'templates/'
+			plugin_dir_path( Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . 'templates/'
 		);
 	}
 
@@ -359,7 +359,7 @@ class WC_Registrations_Admin {
 
 		if( get_current_screen()->id == 'product' ) {
 			$script_params = array(
-				'productType' => WC_Registrations::$name,
+				'productType' => Haste\RegistrationsForWoo\RegistrationsForWoo::$name,
 			);
 		}
 
