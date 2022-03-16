@@ -5,16 +5,48 @@ namespace Haste\RegistrationsForWoo\Admin;
 defined( 'ABSPATH' ) || exit;
 
 class Notices {
-
 	/**
 	 * Activation transient
 	 * 
 	 * @var string $name
 	 */
-	public static $activation_transient = 'registrations_for_woocommerce_activated';
+	public static $display_notices = 'rfwoo_activated';
 
 	public static function init() {
+		add_action('admin_init', __CLASS__ . '::set_transient');
 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::activation_notice' );
+	}
+
+	/**
+	 * Display notices on registrations activation
+	 *
+	 * @since 1.0
+	 */
+	public static function activation_notice() {
+		if ( get_transient(self::$display_notices) ) {
+		
+			if ( ! isset( $_GET['page'] ) || 'wcs-about' != $_GET['page'] ) {
+				add_action( 'admin_notices', __CLASS__ . '::admin_installed_notice' );
+			}
+
+			delete_transient( self::$display_notices );
+		}
+	}
+
+	/**
+	 * 
+	 * Create an option and transient to indicate if plugin is active
+	 *
+	 * @since 1.0
+	 */
+	public static function set_transient() {
+		if ( ! get_option( 'rfwoo_is_active', false ) ) {
+			
+			add_option( 'rfwoo_is_active', true );
+
+			set_transient( self::$display_notices, true, 60 * 60 );
+
+		}
 	}
 
 	/**
@@ -28,26 +60,6 @@ class Notices {
 				<p><?php printf( __( '%sRegistrations for WooCommerce is inactive.%s The %sWooCommerce plugin%s must be active for Registrations for WooCommerce to work. Please %sinstall & activate WooCommerce%s', 'registrations-for-woocommerce' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . admin_url( 'plugin-install.php?s=WooCommerce&tab=search&type=term' ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
 			</div>
 		<?php
-		}
-	}
-
-	/**
-	 * Display notices on registrations activation
-	 *
-	 * @since 1.0
-	 */
-	public static function activation_notice() {
-		global $woocommerce, $post;
-
-		$is_activation_screen  = ( get_transient( self::$activation_transient ) == true ) ? true : false;
-
-		if ( $is_activation_screen ) {
-			
-			if ( ! isset( $_GET['page'] ) || 'wcs-about' != $_GET['page'] ) {
-				add_action( 'admin_notices', __CLASS__ . '::admin_installed_notice' );
-			}
-
-			delete_transient( self::$activation_transient );
 		}
 	}
 

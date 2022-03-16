@@ -60,13 +60,6 @@ final class RegistrationsForWoo {
 	public static $name = 'registrations';
 
 	/**
-	 * Activation transient
-	 * 
-	 * @var string $name
-	 */
-	public static $activation_transient = 'registrations_for_woocommerce_activated';
-
-	/**
 	 * Plugin main file
 	 * 
 	 * @var string $name
@@ -80,12 +73,12 @@ final class RegistrationsForWoo {
 	 **/
 	public static function init() {
 		Admin\Notices::init();
-
+		
 		// Fired on deactivation of Registrations for WooCommerce
 		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
-
-		// Activates Registrations for WooCommerce
-		add_action( 'admin_init', __CLASS__ . '::maybe_activate_woocommerce_registrations' );
+		
+		// Add the "Registrations" product type 
+		add_action('admin_init', __CLASS__. "::create_registration_product_type");
 
 		// Load translation
 		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
@@ -118,7 +111,7 @@ final class RegistrationsForWoo {
 	 * @since 0.1
 	 */
 	public static function deactivate_woocommerce_registrations() {
-		delete_option( 'woocommerce_registrations_is_active' );
+		delete_option( 'rfwoo_is_active' );
 		do_action( 'woocommerce_registrations_deactivated' );
 	}
 
@@ -147,26 +140,14 @@ final class RegistrationsForWoo {
 		load_plugin_textdomain( 'registrations-for-woocommerce', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 
+
 	/**
-	 * Activate Registrations for WooCommerce if it's not activated yet.
+	 * Add the "Registrations" product type 
 	 *
-	 * @since 1.0
+	 * @return void
 	 */
-	public static function maybe_activate_woocommerce_registrations() {
-		global $wpdb;
-
-		$is_active = get_option( 'woocommerce_registrations_is_active', false );
-
-		if ( $is_active == false ) {
-			// Add the "Registrations" product type
-			if ( ! get_term_by( 'slug', self::$name, 'product_type' ) ) {
-				wp_insert_term( self::$name, 'product_type' );
-			}
-
-			add_option( 'woocommerce_registrations_is_active', true );
-			set_transient( self::$activation_transient, true, 60 * 60 );
-			do_action( 'registrations_for_woocommerce_activated' );
-		}
+	public static function create_registration_product_type() {
+		return  ! get_term_by( 'slug', self::$name, 'product_type' ) ? wp_insert_term( self::$name, 'product_type' ) : false;
 	}
 
 	/**
