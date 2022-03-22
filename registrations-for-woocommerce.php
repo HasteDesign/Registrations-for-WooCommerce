@@ -28,9 +28,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package		Registrations for WooCommerce
- * @author		Allyson Souza
- * @since		1.0
+ * @package     Registrations for WooCommerce
+ * @author      Allyson Souza
+ * @since       1.0
  */
 
 namespace Haste\RegistrationsForWoo;
@@ -46,22 +46,22 @@ require 'vendor/autoload.php';
  *
  * This class is intended to install and create the ground of registrations for WooCommerce to work.
  *
- * @package		Registrations for WooCommerce\WC_Registrations_Admin
- * @author		Allyson Souza
- * @since		1.0
+ * @package     Registrations for WooCommerce\WC_Registrations_Admin
+ * @author      Allyson Souza
+ * @since       1.0
  */
 final class RegistrationsForWoo {
 
 	/**
 	 * Plugin name
-	 * 
+	 *
 	 * @var string $name
 	 */
 	public static $name = 'registrations';
 
 	/**
 	 * Plugin main file
-	 * 
+	 *
 	 * @var string $name
 	 */
 	public static $plugin_file = __FILE__;
@@ -73,12 +73,12 @@ final class RegistrationsForWoo {
 	 **/
 	public static function init() {
 		Admin\Notices::init();
-		
+
 		// Fired on deactivation of Registrations for WooCommerce
 		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
-		
-		// Add the "Registrations" product type 
-		add_action('admin_init', __CLASS__. "::create_registration_product_type");
+
+		// Add the "Registrations" product type
+		add_action( 'admin_init', __CLASS__ . '::create_registration_product_type' );
 
 		// Load translation
 		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
@@ -121,7 +121,7 @@ final class RegistrationsForWoo {
 	 * @since 1.2.4
 	 */
 	public static function includes() {
-		require_once( 'includes/class-wc-product-registrations.php' );
+		require_once( 'src/Products/WC_Product_Registrations.php' );
 		require_once( 'includes/class-wc-registrations-checkout.php' );
 		require_once( 'includes/class-wc-registrations-admin.php' );
 		require_once( 'includes/class-wc-registrations-cart.php' );
@@ -137,30 +137,30 @@ final class RegistrationsForWoo {
 	 * @since 1.0
 	 */
 	public static function load_plugin_textdomain() {
-		load_plugin_textdomain( 'registrations-for-woocommerce', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'registrations-for-woocommerce', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 
 
 	/**
-	 * Add the "Registrations" product type 
+	 * Add the "Registrations" product type
 	 *
 	 * @return void
 	 */
 	public static function create_registration_product_type() {
-		return  ! get_term_by( 'slug', self::$name, 'product_type' ) ? wp_insert_term( self::$name, 'product_type' ) : false;
+		return ! get_term_by( 'slug', self::$name, 'product_type' ) ? wp_insert_term( self::$name, 'product_type' ) : false;
 	}
 
 	/**
 	 * Register data stores for registrations.
-	 * 
+	 *
 	 * @since 2.0
-	 * 
+	 *
 	 * @param  array  $data_stores
 	 * @return array
 	 */
 	public static function register_data_stores( $data_stores = array() ) {
-	    $data_stores['product-registrations'] = 'WC_Product_Variable_Data_Store_CPT';
-	    return $data_stores;
+		$data_stores['product-registrations'] = 'WC_Product_Variable_Data_Store_CPT';
+		return $data_stores;
 	}
 }
 

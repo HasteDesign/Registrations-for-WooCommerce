@@ -1,15 +1,19 @@
 <?php
+
 /**
  * Registration Product Variation Class
  *
- * The registrations product variation class extends the WC_Product_Variation product class
+ * The registrations product variation class extends the WC_Product_Variable product class
  * to create registrations product variations.
  *
- * @package		Registrations for WooCommerce\WC_Product_Registrations
- * @since		1.3
+ * @package     Registrations for WooCommerce\WC_Product_Registrations
+ * @since       1.3
  *
  */
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 class WC_Product_Registrations extends WC_Product_Variable {
 	/**
@@ -67,11 +71,11 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 * @param int $variation_id The variation ID to display schedule
 	 */
 	public function registration_schedule( $variation_id ) {
-		$start = get_post_meta( $variation_id , '_event_start_time', true );
-		$end = get_post_meta( $variation_id , '_event_end_time', true );
+		$start = get_post_meta( $variation_id, '_event_start_time', true );
+		$end   = get_post_meta( $variation_id, '_event_end_time', true );
 
-		if ( !empty( $start ) && !empty( $end ) ) {
-			$schedule = sprintf( __( 'From %s to %s' , 'registrations-for-woocommerce' ), $start, $end );
+		if ( ! empty( $start ) && ! empty( $end ) ) {
+			$schedule = sprintf( __( 'From %1$s to %2$s', 'registrations-for-woocommerce' ), $start, $end );
 			echo $schedule;
 		}
 	}
@@ -83,10 +87,10 @@ class WC_Product_Registrations extends WC_Product_Variable {
 	 *
 	 * @param int $variation_id The variation ID to display schedule.
 	 */
-	public function registration_date( $variation_id, $date_format = null  ) {
-		$date = get_post_meta( $variation_id , 'attribute_dates', true );
+	public function registration_date( $variation_id, $date_format = null ) {
+		$date = get_post_meta( $variation_id, 'attribute_dates', true );
 
-		if ( !empty( $date ) ) {
+		if ( ! empty( $date ) ) {
 			$formated_date = WC_Registrations_Admin::registration_variation_option_name( $date, $date_format );
 			echo $formated_date;
 		}
@@ -123,10 +127,13 @@ class WC_Product_Registrations extends WC_Product_Variable {
 			}
 
 			wc_do_deprecated_action(
-				'woocommerce_variable_product_sync', array(
+				'woocommerce_variable_product_sync',
+				array(
 					$product->get_id(),
 					$product->get_visible_children(),
-				), '3.0', 'woocommerce_variable_product_sync_data, woocommerce_new_product or woocommerce_update_product'
+				),
+				'3.0',
+				'woocommerce_variable_product_sync_data, woocommerce_new_product or woocommerce_update_product'
 			);
 		}
 
