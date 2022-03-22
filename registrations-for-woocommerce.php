@@ -35,7 +35,9 @@
 
 namespace Haste\RegistrationsForWoo;
 
-use Haste\RegistrationsForWoo\Admin;
+use Haste\RegistrationsForWoo\Admin,
+	Haste\RegistrationsForWoo\Products;
+
 
 defined( 'ABSPATH' ) || exit;
 
@@ -73,7 +75,7 @@ final class RegistrationsForWoo {
 	 **/
 	public static function init() {
 		Admin\Notices::init();
-
+		Products\Cart::init();
 		// Fired on deactivation of Registrations for WooCommerce
 		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
 
@@ -124,7 +126,6 @@ final class RegistrationsForWoo {
 		require_once( 'src/Products/WC_Product_Registrations.php' );
 		require_once( 'includes/class-wc-registrations-checkout.php' );
 		require_once( 'includes/class-wc-registrations-admin.php' );
-		require_once( 'includes/class-wc-registrations-cart.php' );
 		require_once( 'includes/class-wc-registrations-helpers.php' );
 		require_once( 'includes/class-wc-registrations-import.php' );
 		require_once( 'includes/class-wc-registrations-export.php' );

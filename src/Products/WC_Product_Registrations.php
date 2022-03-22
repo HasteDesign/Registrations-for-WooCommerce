@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Registration Product Variation Class
  *
@@ -162,4 +161,21 @@ class WC_Product_Registrations extends WC_Product_Variable {
 
 		return $product;
 	}
+		/**
+	 * Allowed days to register before
+	 *
+	 * How many days before the event user can register in an event.
+	 *
+	 * @since 2.1
+	 */
+	public static function allowed_days_to_register_before( $product_id ) {
+		$days = get_post_meta( $product_id, '_days_to_prevent', true );
+
+		if ( empty( $days ) ) {
+			$days = 0;
+		}
+
+		return $days;
+	}
+
 }
