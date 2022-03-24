@@ -1,9 +1,13 @@
 <?php
+
 namespace Haste\RegistrationsForWoo\Products;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+
+use Haste\RegistrationsForWoo\Products\Formatter;
+
 
 /**
  * Registrations Cart Class
@@ -116,7 +120,7 @@ class Cart {
 	 */
 	public static function format_registration_variation_on_titles( $rtrim, $product, $title_base, $title_suffix ) {
 		if ( json_decode( $title_suffix ) ) {
-			return $title_base . ' - ' . \WC_Registrations_Helpers::get_formatted_date( $title_suffix );
+			return $title_base . ' - ' . Formatter::get_formatted_date( $title_suffix );
 		}
 
 		return $rtrim;

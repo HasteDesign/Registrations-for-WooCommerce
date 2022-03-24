@@ -4,9 +4,9 @@
  *
  * Manage panel features and resources of Registrations and provide some general helper functions.
  *
- * @package		Registrations for WooCommerce\WC_Registrations_Admin
- * @author		Allyson Souza
- * @since		1.0
+ * @package     Registrations for WooCommerce\WC_Registrations_Admin
+ * @author      Allyson Souza
+ * @since       1.0
  */
 class WC_Registrations_Admin {
 	/**
@@ -18,21 +18,21 @@ class WC_Registrations_Admin {
 		// Load registration add to cart template
 		add_action( 'woocommerce_registrations_add_to_cart', __CLASS__ . '::registrations_add_to_cart_template', 10 );
 
-	 	// Enqueue scripts
+		// Enqueue scripts
 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::enqueue_styles_scripts' );
 
 		// Product edit
-	    add_filter( 'product_type_selector', __CLASS__ . '::add_registrations_to_select' );
-	    add_action( 'woocommerce_product_after_variable_attributes', __CLASS__ . '::variable_registration_pricing_fields', 10, 3 );
+		add_filter( 'product_type_selector', __CLASS__ . '::add_registrations_to_select' );
+		add_action( 'woocommerce_product_after_variable_attributes', __CLASS__ . '::variable_registration_pricing_fields', 10, 3 );
 		add_filter( 'woocommerce_product_data_tabs', __CLASS__ . '::registrations_dates_tab' );
 		add_action( 'admin_head', __CLASS__ . '::registrations_dates_tab_icon' );
-        add_action( 'woocommerce_product_data_panels', __CLASS__. '::show_dates_tab_content' );
-		add_action( 'woocommerce_product_options_inventory_product_data', __CLASS__.'::past_events_fields' );
+		add_action( 'woocommerce_product_data_panels', __CLASS__ . '::show_dates_tab_content' );
+		add_action( 'woocommerce_product_options_inventory_product_data', __CLASS__ . '::past_events_fields' );
 
 		// Saves registrations meta (product and variations)
-	    add_action( 'woocommerce_save_product_variation', __CLASS__ . '::save_variation_meta', 10, 2 );
+		add_action( 'woocommerce_save_product_variation', __CLASS__ . '::save_variation_meta', 10, 2 );
 		add_action( 'woocommerce_ajax_save_product_variation', __CLASS__ . '::save_variation_meta', 10, 2 );
-		add_action( 'woocommerce_process_product_meta', __CLASS__.'::save_product_meta' );
+		add_action( 'woocommerce_process_product_meta', __CLASS__ . '::save_product_meta' );
 
 		// Filter dates variations options name and display correctly for each date type (single, multiple, and range)
 		add_filter( 'woocommerce_variation_option_name', __CLASS__ . '::registration_variation_option_name' );
@@ -41,17 +41,16 @@ class WC_Registrations_Admin {
 		add_filter( 'woocommerce_attribute_label', __CLASS__ . '::registration_attribute_label', 10, 3 );
 	}
 
-    /**
+	/**
 	 * Enqueue styles.
 	 *
 	 * @since 1.0
 	 */
 	public static function enqueue_styles_scripts() {
-		global $woocommerce, $post;
 
-		if ( WC_Registrations_Helpers::is_woocommerce_screen() ) {
+		if ( self::is_woocommerce_screen() ) {
 
-			$dependencies = self::product_edit_script_dependencies();
+			$dependencies  = self::product_edit_script_dependencies();
 			$script_params = self::product_edit_script_params();
 
 			// Registrations for WooCommerce Admin - admin.js
@@ -75,7 +74,7 @@ class WC_Registrations_Admin {
 	 * @param array Array of Product types & their labels, excluding the Course product type.
 	 * @return array Array of Product types & their labels, including the Course product type.
 	 */
-	public static function add_registrations_to_select( $product_types ){
+	public static function add_registrations_to_select( $product_types ) {
 		$product_types[ Haste\RegistrationsForWoo\RegistrationsForWoo::$name ] = __( 'Registration', 'registrations-for-woocommerce' );
 
 		return $product_types;
@@ -108,9 +107,9 @@ class WC_Registrations_Admin {
 				'description'       => __( 'day(s) before the event.', 'registrations-for-woocommerce' ),
 				'type'              => 'number',
 				'custom_attributes' => array(
-						'step' 	=> '1',
-						'min'	=> '0'
-					)
+					'step' => '1',
+					'min'  => '0',
+				),
 			)
 		);
 
@@ -128,7 +127,7 @@ class WC_Registrations_Admin {
 		update_post_meta( $post_id, '_days_to_prevent', esc_attr( $_days_to_prevent ) );
 	}
 
-  	/**
+	/**
 	 * Save variation meta
 	 *
 	 * @since 1.0
@@ -136,19 +135,19 @@ class WC_Registrations_Admin {
 	public static function save_variation_meta( $variation_id, $i ) {
 		// Start time
 		$event_start_time = isset( $_POST['_event_start_time'][ $i ] ) ? $_POST['_event_start_time'][ $i ] : '';
-		if( ! empty( $event_start_time ) ) {
+		if ( ! empty( $event_start_time ) ) {
 			update_post_meta( $variation_id, '_event_start_time', stripslashes( $event_start_time ) );
 		}
 
 		// End time
 		$event_end_time = isset( $_POST['_event_end_time'][ $i ] ) ? $_POST['_event_end_time'][ $i ] : '';
-		if( ! empty( $event_end_time ) ) {
+		if ( ! empty( $event_end_time ) ) {
 			update_post_meta( $variation_id, '_event_end_time', stripslashes( $event_end_time ) );
 		}
 
 		// Week days
 		$week_days = isset( $_POST['_week_days'][ $i ] ) ? $_POST['_week_days'][ $i ] : '';
-		if( ! empty( $week_days ) ) {
+		if ( ! empty( $week_days ) ) {
 			update_post_meta( $variation_id, '_week_days', $week_days );
 		}
 	}
@@ -166,9 +165,9 @@ class WC_Registrations_Admin {
 	public static function registrations_dates_tab( $tabs ) {
 		// Adds the new dates tab
 		$tabs['dates'] = array(
-			'label' 	=> __( 'Dates', 'registrations-for-woocommerce' ),
-			'target' 	=> 'registration_dates',
-			'class' 	=> array( 'show_if_registration' )
+			'label'  => __( 'Dates', 'registrations-for-woocommerce' ),
+			'target' => 'registration_dates',
+			'class'  => array( 'show_if_registration' ),
 		);
 
 		return $tabs;
@@ -176,7 +175,7 @@ class WC_Registrations_Admin {
 
 	/**
 	 * Registrations dates tab icon
-	 * 
+	 *
 	 * @since 2.1
 	 */
 	public static function registrations_dates_tab_icon() {
@@ -184,7 +183,7 @@ class WC_Registrations_Admin {
 		<style>
 			#woocommerce-product-data ul.wc-tabs li.dates_options a:before { font-family: WooCommerce; content: '\e00e'; }
 		</style>
-	<?php
+		<?php
 	}
 
 	/**
@@ -192,9 +191,9 @@ class WC_Registrations_Admin {
 	 *
 	 * @since 1.0.0
 	 */
-    public static function show_dates_tab_content() {
+	public static function show_dates_tab_content() {
 		include_once( 'views/html-dates-view.php' );
-    }
+	}
 
 	/**
 	 * Format registration variation option name.
@@ -211,8 +210,8 @@ class WC_Registrations_Admin {
 	public static function registration_variation_option_name( $option, $date_format = null ) {
 		// If variation $option is a JSON, then try to get the formatted date
 		if ( json_decode( $option ) ) {
-			$date = WC_Registrations_Helpers::get_formatted_date( $option, $date_format );
-			
+			$date = Haste\RegistrationsForWoo\Products\Formatter::get_formatted_date( $option, $date_format );
+
 			return $date;
 		}
 
@@ -233,13 +232,13 @@ class WC_Registrations_Admin {
 	 * @return string $values_sanitized    filtered date attribute according to the site date_format
 	 */
 	public static function registration_variation_filter_additional_information( $values_sanitized, $attribute, $values ) {
-		if( $attribute['name'] === 'Dates' ) {
-			$dates = array();
+		if ( $attribute['name'] === 'Dates' ) {
+			$dates       = array();
 			$date_format = get_option( 'date_format' );
 
-			foreach( $attribute->get_options() as $date ) {
-				$dates[] = WC_Registrations_Helpers::get_formatted_date( $date );
-				
+			foreach ( $attribute->get_options() as $date ) {
+				$dates[] = Haste\RegistrationsForWoo\Products\Formatter::get_formatted_date( $date );
+
 			}
 
 			return wptexturize( implode( ', ', $dates ) );
@@ -266,7 +265,7 @@ class WC_Registrations_Admin {
 		$html    = '';
 
 		foreach ( $item->get_formatted_meta_data() as $meta_id => $meta ) {
-			$value = $args['autop'] ? wp_kses_post( $meta->display_value ) : apply_filters( 'woocommerce_variation_option_name', wp_kses_post( make_clickable( trim( strip_tags( $meta->display_value ) ) ) ) );
+			$value     = $args['autop'] ? wp_kses_post( $meta->display_value ) : apply_filters( 'woocommerce_variation_option_name', wp_kses_post( make_clickable( trim( strip_tags( $meta->display_value ) ) ) ) );
 			$strings[] = '<strong class="wc-item-meta-label">' . wp_kses_post( $meta->display_key ) . ':</strong> ' . $value;
 		}
 
@@ -289,7 +288,7 @@ class WC_Registrations_Admin {
 	 * @param  string $label
 	 * @param  array  $name
 	 * @param  array  $product
-	 * @return string $label	filtered date attribute name
+	 * @return string $label    filtered date attribute name
 	 */
 	public static function registration_attribute_label( $label, $name, $product ) {
 		if ( $name === 'Dates' || $name === 'dates' ) {
@@ -301,7 +300,7 @@ class WC_Registrations_Admin {
 
 	/**
 	 * Load registrations add to cart right template
-	 * 
+	 *
 	 * @since 1.0
 	 */
 	public static function registrations_add_to_cart_template() {
@@ -311,7 +310,7 @@ class WC_Registrations_Admin {
 		wp_enqueue_script( 'wc-add-to-cart-variation' );
 
 		// Get Available variations?
-		$get_variations = sizeof( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
+		$get_variations       = sizeof( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
 		$available_variations = $get_variations ? $product->get_available_variations() : false;
 
 		// Load the template
@@ -329,16 +328,16 @@ class WC_Registrations_Admin {
 
 	/**
 	 * Return script dependency array
-	 * 
+	 *
 	 * Verify wich panel page is been displayed and return the right array with
 	 * script dependencies.
-	 * 
-	 * @return Array $dependencies	An array with dependency scripts for registrations.
+	 *
+	 * @return Array $dependencies  An array with dependency scripts for registrations.
 	 */
 	private static function product_edit_script_dependencies() {
 		$dependencies = array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' );
-			
-		if( get_current_screen()->id == 'product' ) {
+
+		if ( get_current_screen()->id == 'product' ) {
 			$dependencies[] = 'wc-admin-meta-boxes';
 			$dependencies[] = 'wc-admin-product-meta-boxes';
 			$dependencies[] = 'wc-admin-variation-meta-boxes';
@@ -349,25 +348,31 @@ class WC_Registrations_Admin {
 
 	/**
 	 * Return script params
-	 * 
+	 *
 	 * Define script params for registrations js
-	 * 
-	 * @return array $script_params	An array of parameters to be passed to scripts
+	 *
+	 * @return array $script_params An array of parameters to be passed to scripts
 	 */
 	private static function product_edit_script_params() {
 		global $woocommerce;
 
-		if( get_current_screen()->id == 'product' ) {
+		if ( get_current_screen()->id == 'product' ) {
 			$script_params = array(
 				'productType' => Haste\RegistrationsForWoo\RegistrationsForWoo::$name,
 			);
 		}
 
 		$script_params['ajaxLoaderImage'] = $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif';
-		$script_params['ajaxUrl']         = admin_url('admin-ajax.php');
+		$script_params['ajaxUrl']         = admin_url( 'admin-ajax.php' );
 
 		return $script_params;
 	}
+
+	public static function is_woocommerce_screen() {
+		$screen = get_current_screen();
+		return in_array( $screen->id, array( 'product', 'edit-shop_order', 'shop_order', 'users', 'woocommerce_page_wc-settings' ) ) ? true : false;
+	}
+
 }
 
 WC_Registrations_Admin::init();

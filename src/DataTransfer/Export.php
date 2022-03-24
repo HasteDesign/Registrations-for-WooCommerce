@@ -2,6 +2,8 @@
 
 namespace Haste\RegistrationsForWoo\DataTransfer;
 
+use Haste\RegistrationsForWoo\Products\Formatter;
+
 /**
  * Registrations Export Class
  *
@@ -42,7 +44,7 @@ class Export {
 
 					foreach ( $dates as $date ) {
 
-						$formatted = WC_Registrations_Helpers::get_formatted_date( $date, 'm/d/Y' );
+						$formatted = Formatter::get_formatted_date( $date, 'm/d/Y' );
 
 						if ( empty( $formatted ) ) {
 							$formatted_dates[] = $date;

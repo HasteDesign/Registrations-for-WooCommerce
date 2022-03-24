@@ -129,9 +129,6 @@ final class RegistrationsForWoo {
 		require_once( 'src/Products/WC_Product_Registrations.php' );
 		require_once( 'includes/class-wc-registrations-checkout.php' );
 		require_once( 'includes/class-wc-registrations-admin.php' );
-		require_once( 'includes/class-wc-registrations-helpers.php' );
-		require_once( 'includes/class-wc-registrations-import.php' );
-		require_once( 'includes/class-wc-registrations-export.php' );
 		require_once( 'includes/admin/class-wc-registrations-orders.php' );
 	}
 

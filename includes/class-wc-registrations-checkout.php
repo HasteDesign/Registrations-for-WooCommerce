@@ -86,7 +86,7 @@ class WC_Registrations_Checkout {
 			$date = '';
 
 			if ( json_decode( $value['value'] ) ) {
-				$date = WC_Registrations_Helpers::get_formatted_date( $value['value'], get_option( 'date_format' ) );
+				$date = Haste\RegistrationsForWoo\Products\Formatter::get_formatted_date( $value['value'], get_option( 'date_format' ) );
 			}
 
 			$value['value'] = $date . ' Hi World!';

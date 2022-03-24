@@ -1,5 +1,7 @@
 <?php
+
 namespace Haste\RegistrationsForWoo\DataTransfer;
+
 /**
  * Registrations Import Class
  *
