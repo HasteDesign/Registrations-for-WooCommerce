@@ -1,4 +1,7 @@
 <?php
+
+namespace Haste\RegistrationsForWoo\DataTransfer;
+
 /**
  * Registration Product Variation Class
  *

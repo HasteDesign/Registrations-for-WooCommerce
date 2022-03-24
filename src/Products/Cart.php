@@ -1,7 +1,6 @@
 <?php
 namespace Haste\RegistrationsForWoo\Products;
 
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }

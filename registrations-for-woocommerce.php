@@ -36,8 +36,8 @@
 namespace Haste\RegistrationsForWoo;
 
 use Haste\RegistrationsForWoo\Admin,
-	Haste\RegistrationsForWoo\Products;
-
+	Haste\RegistrationsForWoo\Products,
+	Haste\RegistrationsForWoo\DataTransfer;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -76,6 +76,9 @@ final class RegistrationsForWoo {
 	public static function init() {
 		Admin\Notices::init();
 		Products\Cart::init();
+		DataTransfer\Import::init();
+		DataTransfer\Export::init();
+
 		// Fired on deactivation of Registrations for WooCommerce
 		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
 

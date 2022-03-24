@@ -1,4 +1,7 @@
 <?php
+
+namespace Haste\RegistrationsForWoo\DataTransfer;
+
 /**
  * Registrations Export Class
  *
@@ -8,7 +11,7 @@
  * @author      Allyson Souza
  * @since       1.0
  */
-class WC_Registrations_Export {
+class Export {
 
 	/**
 	 * Bootstraps the class and hooks required actions & filters.
@@ -79,5 +82,3 @@ class WC_Registrations_Export {
 		return implode( ', ', $values_to_implode );
 	}
 }
-
-WC_Registrations_Export::init();
