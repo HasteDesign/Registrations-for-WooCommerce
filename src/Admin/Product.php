@@ -1,4 +1,9 @@
 <?php
+
+namespace Haste\RegistrationsForWoo\Admin;
+
+use Haste\RegistrationsForWoo\Products;
+
 /**
  * Registrations Admin Class
  *
@@ -8,7 +13,7 @@
  * @author      Allyson Souza
  * @since       1.0
  */
-class WC_Registrations_Admin {
+class Product {
 	/**
 	 * Bootstraps the class and hooks required actions & filters.
 	 *
@@ -54,11 +59,11 @@ class WC_Registrations_Admin {
 			$script_params = self::product_edit_script_params();
 
 			// Registrations for WooCommerce Admin - admin.js
-			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . '/assets/js/admin.js', $dependencies, filemtime( plugin_dir_path( Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . 'assets/js/admin.js' ) );
+			wp_enqueue_script( 'woocommerce_registrations_admin', plugin_dir_url( \Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . '/assets/js/admin.js', $dependencies, filemtime( plugin_dir_path( \Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . 'assets/js/admin.js' ) );
 			wp_localize_script( 'woocommerce_registrations_admin', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 
 			// Registrations for WooCommerce Ajax - wc-registrations-ajax.js
-			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . '/assets/js/wc-registrations-ajax.js', $dependencies, filemtime( plugin_dir_path( Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . 'assets/js/wc-registrations-ajax.js' ) );
+			wp_enqueue_script( 'woocommerce_registrations_ajax', plugin_dir_url( \Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . '/assets/js/wc-registrations-ajax.js', $dependencies, filemtime( plugin_dir_path( \Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . 'assets/js/wc-registrations-ajax.js' ) );
 			wp_localize_script( 'woocommerce_registrations_ajax', 'WCRegistrations', apply_filters( 'woocommerce_registrations_admin_script_parameters', $script_params ) );
 
 			// jQuery UI Datepicker
@@ -75,7 +80,7 @@ class WC_Registrations_Admin {
 	 * @return array Array of Product types & their labels, including the Course product type.
 	 */
 	public static function add_registrations_to_select( $product_types ) {
-		$product_types[ Haste\RegistrationsForWoo\RegistrationsForWoo::$name ] = __( 'Registration', 'registrations-for-woocommerce' );
+		$product_types[ \Haste\RegistrationsForWoo\RegistrationsForWoo::$name ] = __( 'Registration', 'registrations-for-woocommerce' );
 
 		return $product_types;
 	}
@@ -210,7 +215,7 @@ class WC_Registrations_Admin {
 	public static function registration_variation_option_name( $option, $date_format = null ) {
 		// If variation $option is a JSON, then try to get the formatted date
 		if ( json_decode( $option ) ) {
-			$date = Haste\RegistrationsForWoo\Products\Formatter::get_formatted_date( $option, $date_format );
+			$date = Products\Formatter::get_formatted_date( $option, $date_format );
 
 			return $date;
 		}
@@ -237,7 +242,7 @@ class WC_Registrations_Admin {
 			$date_format = get_option( 'date_format' );
 
 			foreach ( $attribute->get_options() as $date ) {
-				$dates[] = Haste\RegistrationsForWoo\Products\Formatter::get_formatted_date( $date );
+				$dates[] = Products\Formatter::get_formatted_date( $date );
 
 			}
 
@@ -322,7 +327,7 @@ class WC_Registrations_Admin {
 				'selected_attributes'  => $product->get_default_attributes(),
 			),
 			'',
-			plugin_dir_path( Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . 'templates/'
+			plugin_dir_path( \Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . 'templates/'
 		);
 	}
 
@@ -358,7 +363,7 @@ class WC_Registrations_Admin {
 
 		if ( get_current_screen()->id == 'product' ) {
 			$script_params = array(
-				'productType' => Haste\RegistrationsForWoo\RegistrationsForWoo::$name,
+				'productType' => \Haste\RegistrationsForWoo\RegistrationsForWoo::$name,
 			);
 		}
 
@@ -374,5 +379,3 @@ class WC_Registrations_Admin {
 	}
 
 }
-
-WC_Registrations_Admin::init();
