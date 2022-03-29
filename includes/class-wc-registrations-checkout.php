@@ -69,7 +69,7 @@ class WC_Registrations_Checkout {
 		add_action( 'woocommerce_admin_order_data_after_billing_address', __CLASS__ . '::registrations_field_display_admin_order_meta', 10, 1 );
 
 		// Prettifies the name of the variable on order details
-		add_filter( 'woocommerce_order_items_meta_get_formatted', __CLASS__.'::prettify_variable_date_name', 10, 2 );
+		// add_filter( 'woocommerce_order_items_meta_get_formatted', __CLASS__.'::prettify_variable_date_name', 10, 2 );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class WC_Registrations_Checkout {
 				$date = Haste\RegistrationsForWoo\Products\Formatter::get_formatted_date( $value['value'], get_option( 'date_format' ) );
 			}
 
-			$value['value'] = $date . ' Hi World!';
+			$value['value'] = $date;
 			$formatted[$key] = $value;
 		}
 

@@ -78,6 +78,7 @@ final class RegistrationsForWoo {
 		Products\Cart::init();
 		DataTransfer\Import::init();
 		DataTransfer\Export::init();
+		Admin\Orders::init();
 
 		// Fired on deactivation of Registrations for WooCommerce
 		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
@@ -129,7 +130,6 @@ final class RegistrationsForWoo {
 		require_once( 'src/Products/WC_Product_Registrations.php' );
 		require_once( 'includes/class-wc-registrations-checkout.php' );
 		require_once( 'includes/class-wc-registrations-admin.php' );
-		require_once( 'includes/admin/class-wc-registrations-orders.php' );
 	}
 
 	/**
