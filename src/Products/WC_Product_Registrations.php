@@ -178,5 +178,4 @@ class WC_Product_Registrations extends WC_Product_Variable {
 
 		return $days;
 	}
-
 }

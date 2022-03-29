@@ -20,9 +20,6 @@ class Product {
 	 * @since 1.0
 	 */
 	public static function init() {
-		// Load registration add to cart template
-		add_action( 'woocommerce_registrations_add_to_cart', __CLASS__ . '::registrations_add_to_cart_template', 10 );
-
 		// Enqueue scripts
 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::enqueue_styles_scripts' );
 
@@ -301,34 +298,6 @@ class Product {
 		}
 
 		return $label;
-	}
-
-	/**
-	 * Load registrations add to cart right template
-	 *
-	 * @since 1.0
-	 */
-	public static function registrations_add_to_cart_template() {
-		global $product;
-
-		// Enqueue variation scripts
-		wp_enqueue_script( 'wc-add-to-cart-variation' );
-
-		// Get Available variations?
-		$get_variations       = sizeof( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
-		$available_variations = $get_variations ? $product->get_available_variations() : false;
-
-		// Load the template
-		wc_get_template(
-			'single-product/add-to-cart/registration.php',
-			array(
-				'available_variations' => $available_variations,
-				'attributes'           => apply_filters( 'registrations_available_attributes', $product->get_variation_attributes(), $product->get_id() ),
-				'selected_attributes'  => $product->get_default_attributes(),
-			),
-			'',
-			plugin_dir_path( \Haste\RegistrationsForWoo\RegistrationsForWoo::$plugin_file ) . 'templates/'
-		);
 	}
 
 	/**
