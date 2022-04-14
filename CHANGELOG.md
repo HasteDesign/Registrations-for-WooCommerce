@@ -4,6 +4,7 @@ All the project notable changes will be documented here.
 ## [Unreleased]
 ### Added
 ### Changed
+- Changed classes from `/includes` to `/src` and implemented autoload
 ### Deprecated
 ### Removed
 ### Fixed
