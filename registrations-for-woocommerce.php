@@ -40,7 +40,6 @@ use Haste\RegistrationsForWoo\Admin,
 	Haste\RegistrationsForWoo\DataTransfer,
 	Haste\RegistrationsForWoo\Checkout;
 
-
 defined( 'ABSPATH' ) || exit;
 
 require 'vendor/autoload.php';
