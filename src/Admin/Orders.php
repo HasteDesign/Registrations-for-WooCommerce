@@ -3,6 +3,8 @@ namespace Haste\RegistrationsForWoo\Admin;
 
 use Haste\RegistrationsForWoo\Checkout;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Registrations Orders Class
  *
@@ -13,10 +15,6 @@ use Haste\RegistrationsForWoo\Checkout;
  * @author    Aaron Lowndes
  * @since   2.0
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
-
 class Orders {
 
 	/**

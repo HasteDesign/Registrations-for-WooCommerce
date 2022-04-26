@@ -4,6 +4,8 @@ namespace Haste\RegistrationsForWoo\Admin;
 
 use Haste\RegistrationsForWoo\Products;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Registrations Admin Class
  *
