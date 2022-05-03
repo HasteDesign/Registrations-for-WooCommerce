@@ -1,0 +1,1 @@
+ReactDOM.render(<h1>Registrations</h1>, document.getElementById('registrations-root') )

@@ -1,3 +1,10 @@
 let mix = require('laravel-mix')
 
-mix.js('assets/js/teste.js', 'assets/js/registrations-settings.js').react()
+mix.options(
+	{
+		manifest: false
+	}
+)
+
+mix.js('app/Settings/index.js','assets/js/settings.js').react()
+   .sass('app/styles/admin-settings.scss','assets/css/admin-settings.css')
