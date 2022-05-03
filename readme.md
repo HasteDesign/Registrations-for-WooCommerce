@@ -23,6 +23,14 @@ Contributors: Shirkit, brettmhoffman, ajlowndes, jupitercow
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
+### Developement
+
+Clone the plugin to your WordPress dev install and run the following commands from plugin dir:
+
+- `composer install`
+- `npm install`
+- `npx mix watch`
+
 ### Description
 
 Registrations for WooCommerce allows the creation of the **registration** product type. Registration products can have dates as variations.
