@@ -90,10 +90,6 @@ class ProductEdit {
 	public static function enqueueScripts() {
 		$screen = get_current_screen();
 
-		// echo '<pre>';
-		// var_dump( $screen );
-		// echo '</pre>';
-
 		if ( 'post' === $screen->base && 'product' === $screen->post_type ) {
 			
 			wp_enqueue_script(
