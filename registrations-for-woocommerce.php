@@ -78,6 +78,7 @@ final class RegistrationsForWoo {
 		Admin\Settings::init();
 		Admin\Notices::init();
 		Admin\Product::init();
+		Admin\ProductEdit::init();
 		Admin\Orders::init();
 		DataTransfer\Import::init();
 		DataTransfer\Export::init();

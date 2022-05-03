@@ -51,19 +51,22 @@ class Settings {
 	 * @return [type]
 	 */
 	public static function enqueueScripts() {
-		wp_enqueue_script(
-			'registrations-settings',
-			plugins_url( '../../assets/js/settings.js', __FILE__ ),
-			array( 'wp-element' ),
-			'',
-			true
-		);
+		if ( isset( $_GET['page'] ) && 'registrations' === $_GET['page'] ) {
+			
+			wp_enqueue_script(
+				'registrations-settings',
+				plugins_url( '../../assets/js/settings.js', __FILE__ ),
+				array( 'wp-element' ),
+				'',
+				true
+			);
 
-		wp_enqueue_style(
-			'registrations-settings',
-			plugins_url( '../../assets/css/admin-settings.css', __FILE__ ),
-			array(),
-			''
-		);
+			wp_enqueue_style(
+				'registrations-settings',
+				plugins_url( '../../assets/css/admin-settings.css', __FILE__ ),
+				array(),
+				''
+			);
+		}
 	}
 }
