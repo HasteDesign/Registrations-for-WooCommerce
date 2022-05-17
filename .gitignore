@@ -32,3 +32,8 @@ node_modules/
 
 # OTHER
 git-to-svn/
+
+#Files js compiled
+
+assets/js/product.js
+assets/js/settings.js
