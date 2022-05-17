@@ -29,7 +29,7 @@ error_log
 # MODULES AND CACHE
 node_modules/
 .sass-cache/
-
+package-lock.json
 # OTHER
 git-to-svn/
 
