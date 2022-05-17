@@ -75,13 +75,15 @@ final class RegistrationsForWoo {
 	 * @since 1.0
 	 **/
 	public static function init() {
+		Admin\Settings::init();
 		Admin\Notices::init();
-		Products\Cart::init();
+		Admin\Product::init();
+		Admin\ProductEdit::init();
+		Admin\Orders::init();
 		DataTransfer\Import::init();
 		DataTransfer\Export::init();
-		Admin\Orders::init();
+		Products\Cart::init();
 		Checkout\Checkout::init();
-		Admin\Product::init();
 
 		// Fired on deactivation of Registrations for WooCommerce
 		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );

@@ -1,0 +1,32 @@
+{
+  "name": "registration-for-woocommerce",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r   <img alt=\"A calendar icon followed by the plugin title, Registrations for WooCommerce, over a violet and blue squares pattern.\" src=\"https://ps.w.org/registrations-for-woocommerce/assets/banner-772x250.png\">\r  </p>",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HasteDesign/Registrations-for-WooCommerce.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HasteDesign/Registrations-for-WooCommerce/issues"
+  },
+  "homepage": "https://github.com/HasteDesign/Registrations-for-WooCommerce#readme",
+  "devDependencies": {
+    "@babel/preset-react": "^7.16.7",
+    "laravel-mix": "^6.0.43",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.51.0",
+    "sass-loader": "^12.1.0"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}

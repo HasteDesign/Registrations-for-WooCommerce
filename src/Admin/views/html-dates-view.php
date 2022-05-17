@@ -200,5 +200,4 @@
         <h3><?php _e( 'Saved Dates', 'registrations-for-woocommerce' ); ?></h3>
         <p><?php _e( 'Your dates have been saved. Go into the Variations Tab and create a variation for each of your dates and continue to configure your registration date specific information.', 'registrations-for-woocommerce' ); ?></p>
     </div>
-
 </div>
