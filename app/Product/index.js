@@ -1,1 +1,4 @@
-ReactDOM.render(<h1>Registrations Product</h1>, document.getElementById('registrations-root') )
+import ProductApp from './ProductApp'
+
+
+ReactDOM.render(<ProductApp />, document.getElementById('registrations-root'))
