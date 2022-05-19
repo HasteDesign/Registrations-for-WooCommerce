@@ -1,4 +1,7 @@
 {
-    "phpcs.enable": true,
-    "phpcs.standard": "WordPress",
+  "phpcs.enable": true,
+  "phpcs.standard": "PSR12",
+  "phpcs.executablePath": "./vendor/bin/phpcs.bat",
+  "php-cs-fixer.rules": "@PSR12",
+  "php-cs-fixer.onsave": true
 }
