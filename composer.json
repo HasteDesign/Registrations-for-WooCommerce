@@ -14,5 +14,8 @@
             "email": "wp@hastedesign.com.br"
         }
     ],
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*"
+    }
 }
