@@ -33,7 +33,8 @@ package-lock.json
 # OTHER
 git-to-svn/
 
-#Files js compiled
+#Files in assets
 
 assets/js/product.js
 assets/js/settings.js
+assets/css
