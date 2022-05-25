@@ -22,7 +22,6 @@ error_log
 *.zip
 
 # FILES STARTING WITH . OR ~ EXCETP .gitignore
-.*
 ~*
 !.gitignore
 
