@@ -1,0 +1,18 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Rubik', sans-serif;
+}
+
+h1 {
+    font-size:$h1-font-size;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+    line-height: 150%;
+    font-size: $font-size-base;
+}

@@ -1,3 +1,26 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Rubik", sans-serif;
+}
+
 h1 {
-  color: red !important;
+  font-size: 32px;
+}
+
+p {
+  font-family: "Roboto", sans-serif;
+  line-height: 150%;
+  font-size: 16px;
+}
+
+#settings-app .getting-started {
+  text-align: center;
+  margin: 168px 117px 0px 97px;
+}
+#settings-app .getting-started h1 {
+  line-height: 38px;
 }

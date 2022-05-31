@@ -1,3 +1,16 @@
-h1 {
-	color: red !important;
+@import 'variables';
+@import 'typography';
+
+#settings-app {
+
+
+  .getting-started {
+    text-align: center;
+    margin: 168px 117px 0px 97px;
+
+    h1 {
+      line-height: 38px;
+    }
+
+  }
 }

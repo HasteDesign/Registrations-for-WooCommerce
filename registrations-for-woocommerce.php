@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: Registrations for WooCommerce
  * Plugin URI: https://www.hastedesign.com.br/lab/registrations-for-woocommerce/
@@ -40,7 +41,7 @@ use Haste\RegistrationsForWoo\Admin,
 	Haste\RegistrationsForWoo\DataTransfer,
 	Haste\RegistrationsForWoo\Checkout;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 require 'vendor/autoload.php';
 
@@ -53,7 +54,8 @@ require 'vendor/autoload.php';
  * @author      Allyson Souza
  * @since       1.0
  */
-final class RegistrationsForWoo {
+final class RegistrationsForWoo
+{
 
 	/**
 	 * Plugin name
@@ -74,7 +76,8 @@ final class RegistrationsForWoo {
 	 *
 	 * @since 1.0
 	 **/
-	public static function init() {
+	public static function init()
+	{
 		Admin\Settings::init();
 		Admin\Notices::init();
 		Admin\Product::init();
@@ -86,32 +89,33 @@ final class RegistrationsForWoo {
 		Checkout\Checkout::init();
 
 		// Fired on deactivation of Registrations for WooCommerce
-		register_deactivation_hook( __FILE__, __CLASS__ . '::deactivate_woocommerce_registrations' );
+		register_deactivation_hook(__FILE__, __CLASS__ . '::deactivate_woocommerce_registrations');
 
 		// Add the "Registrations" product type
-		add_action( 'admin_init', __CLASS__ . '::create_registration_product_type' );
+		add_action('admin_init', __CLASS__ . '::create_registration_product_type');
 
 		// Load translation
-		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain' );
+		add_action('plugins_loaded', __CLASS__ . '::load_plugin_textdomain');
 
 		// Load includes
-		add_action( 'plugins_loaded', __CLASS__ . '::includes' );
+		add_action('plugins_loaded', __CLASS__ . '::includes');
 
 		// Register a new data store
-		add_filter( 'woocommerce_data_stores', __CLASS__ . '::register_data_stores', 10, 1 );
+		add_filter('woocommerce_data_stores', __CLASS__ . '::register_data_stores', 10, 1);
 	}
 
 	/**
 	 * Check if WooCommerce is activated.
 	 */
-	public static function is_woocommerce_activated() {
-		$active_plugins = (array) get_option( 'active_plugins', array() );
+	public static function is_woocommerce_activated()
+	{
+		$active_plugins = (array) get_option('active_plugins', array());
 
-		if ( in_array( 'woocommerce/woocommerce.php', $active_plugins, true ) ) {
+		if (in_array('woocommerce/woocommerce.php', $active_plugins, true)) {
 			return true;
 		}
 
-		add_action( 'admin_notices', 'Haste\RegistrationsForWoo\Admin\Notices::woocommerce_inactive_notice' );
+		add_action('admin_notices', 'Haste\RegistrationsForWoo\Admin\Notices::woocommerce_inactive_notice');
 
 		return false;
 	}
@@ -121,9 +125,10 @@ final class RegistrationsForWoo {
 	 *
 	 * @since 0.1
 	 */
-	public static function deactivate_woocommerce_registrations() {
-		delete_option( 'rfwoo_is_active' );
-		do_action( 'woocommerce_registrations_deactivated' );
+	public static function deactivate_woocommerce_registrations()
+	{
+		delete_option('rfwoo_is_active');
+		do_action('woocommerce_registrations_deactivated');
 	}
 
 	/**
@@ -131,8 +136,9 @@ final class RegistrationsForWoo {
 	 *
 	 * @since 1.2.4
 	 */
-	public static function includes() {
-		require_once( 'src/Products/WC_Product_Registrations.php' );
+	public static function includes()
+	{
+		require_once('src/Products/WC_Product_Registrations.php');
 	}
 
 	/**
@@ -140,8 +146,9 @@ final class RegistrationsForWoo {
 	 *
 	 * @since 1.0
 	 */
-	public static function load_plugin_textdomain() {
-		load_plugin_textdomain( 'registrations-for-woocommerce', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+	public static function load_plugin_textdomain()
+	{
+		load_plugin_textdomain('registrations-for-woocommerce', false, basename(dirname(__FILE__)) . '/languages/');
 	}
 
 
@@ -150,8 +157,9 @@ final class RegistrationsForWoo {
 	 *
 	 * @return void
 	 */
-	public static function create_registration_product_type() {
-		return ! get_term_by( 'slug', self::$name, 'product_type' ) ? wp_insert_term( self::$name, 'product_type' ) : false;
+	public static function create_registration_product_type()
+	{
+		return !get_term_by('slug', self::$name, 'product_type') ? wp_insert_term(self::$name, 'product_type') : false;
 	}
 
 	/**
@@ -162,12 +170,14 @@ final class RegistrationsForWoo {
 	 * @param  array  $data_stores
 	 * @return array
 	 */
-	public static function register_data_stores( $data_stores = array() ) {
+	public static function register_data_stores($data_stores = array())
+	{
 		$data_stores['product-registrations'] = 'WC_Product_Variable_Data_Store_CPT';
 		return $data_stores;
 	}
+
 }
 
-if ( RegistrationsForWoo::is_woocommerce_activated() ) {
+if (RegistrationsForWoo::is_woocommerce_activated()) {
 	RegistrationsForWoo::init();
 }

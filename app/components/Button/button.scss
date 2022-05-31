@@ -1,0 +1,12 @@
+@import '../../styles/variables';
+
+.haste-btn {
+    border: none;
+    border-radius: 3px;
+    padding: 8px 6px;
+    font-family: 'Segoe UI', sans-serif;
+    &.gradient {
+        background: $gradient-redpink;
+        color: $white;
+    }
+}

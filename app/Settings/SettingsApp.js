@@ -1,3 +1,8 @@
+import GettingStartedPage from '../Pages/GettingStarted'
 export default function SettingsApp() {
-  return <h1>Settings App</h1>
+  return (
+    <div id="settings-app">
+      <GettingStartedPage />
+    </div>
+  )
 }
