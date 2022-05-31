@@ -3,8 +3,16 @@
 .haste-btn {
     border: none;
     border-radius: 3px;
-    padding: 8px 6px;
+    padding: $btn-padding-y $btn-padding-x;
     font-family: 'Segoe UI', sans-serif;
+    cursor: pointer;
+    
+    //Size Variant 
+    &.large {
+        padding: $btn-padding-y-lg $btn-padding-x-lg;
+    }
+
+    //Colors Variant
     &.gradient {
         background: $gradient-redpink;
         color: $white;

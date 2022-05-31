@@ -7,7 +7,7 @@ export default function Button({
   size = 'normal'
 }) {
   return (
-    <button type={type} className={`haste-btn ${className}`}>
+    <button type={type} className={`haste-btn ${className} ${size}`}>
       {children}
     </button>
   )

@@ -12,7 +12,7 @@ export default function GettingStartedPage() {
           inscrição, é possível criar um único produto com variações
           correspondentes à datas.
         </p>
-        <Button className='gradient'>Getting started</Button>
+        <Button className='gradient' size='large'>Getting started</Button>
       </Box>
     </div>
   )
