@@ -1,19 +1,30 @@
-
-
 //Colors
 $white: #ffffff;
 
 //Gradient colors
-$gradient-redpink: linear-gradient(92.69deg, #FF2C18 -9.73%, #DF19F4 109.95%);
+$gradient-redpink: linear-gradient(92.69deg, #ff2c18 -9.73%, #df19f4 109.95%);
 
 //Font size
+$font-size-sm: 13px;
 $font-size-base: 16px;
 $font-size-l: 32px;
 
 //Font size heading
 $h1-font-size: 32px;
 
+//Line Height
+
+$h1-line-height: 1.1875em;
+
+
+//border-radius
+$border-radius: 4px;
+
 //Padding
+
+$box-padding-base: 10px;
+$box-padding-x: 98px;
+$box-padding-y: 61px;
 
 $btn-padding-y: 6px;
 $btn-padding-x: 2 * $btn-padding-y;
@@ -21,8 +32,5 @@ $btn-padding-x: 2 * $btn-padding-y;
 $btn-padding-y-lg: 13px;
 $btn-padding-x-lg: 2 * $btn-padding-y-lg;
 
-
 //Shadow box
 $shadow-box-primary: 0px 4px 15px rgba(0, 0, 0, 0.25);
-
-

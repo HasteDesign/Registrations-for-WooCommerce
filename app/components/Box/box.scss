@@ -3,5 +3,9 @@
 .haste-box {
   background: $white;
   box-shadow: $shadow-box-primary;
-  padding: 10px;
+  padding: $box-padding-base;
+
+  &.large {
+    padding: $box-padding-y $box-padding-x;
+  }
 }

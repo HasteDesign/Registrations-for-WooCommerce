@@ -9,6 +9,8 @@ h6 {
 
 h1 {
   font-size: 32px;
+  line-height: 1.1875em;
+  margin-bottom: 25px;
 }
 
 p {
@@ -21,6 +23,6 @@ p {
   text-align: center;
   margin: 168px 117px 0px 97px;
 }
-#settings-app .getting-started h1 {
-  line-height: 38px;
+#settings-app .getting-started .paragraph-start {
+  margin-bottom: 40px;
 }

@@ -2,11 +2,11 @@
 
 .haste-btn {
     border: none;
-    border-radius: 3px;
-    padding: $btn-padding-y $btn-padding-x;
-    font-family: 'Segoe UI', sans-serif;
+    border-radius: $border-radius;
     cursor: pointer;
-    
+    font-family: 'Segoe UI', sans-serif;
+    font-size: $font-size-sm;
+    padding: $btn-padding-y $btn-padding-x;
     //Size Variant 
     &.large {
         padding: $btn-padding-y-lg $btn-padding-x-lg;
