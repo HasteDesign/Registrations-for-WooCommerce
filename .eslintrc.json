@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "extends": ["airbnb", "plugin:prettier/recommended","plugin:react-hooks/recommended"],
   "plugins": ["prettier"],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
