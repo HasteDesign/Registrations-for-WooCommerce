@@ -17,4 +17,10 @@
         background: $gradient-redpink;
         color: $white;
     }
+
+    &.outline {
+        border: 1px solid $violet;
+        background-color: $off-white;
+        color: $violet;
+    }
 }

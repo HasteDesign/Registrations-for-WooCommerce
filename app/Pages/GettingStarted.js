@@ -24,9 +24,28 @@ export default function GettingStartedPage() {
           </Button>
         </Box>
       ) : (
-        <Box>
-          <img src={assets_path + 'icon-128x128.png'} alt="Logo do Registrations" />
-          <h1>Registrations for WooCommerce</h1>
+        <Box size="large">
+          <div>
+            <img
+              src={assets_path + 'icon-128x128.png'}
+              alt="Logo do Registrations"
+            />
+            <h1>Registrations for WooCommerce</h1>
+          </div>
+          <p className='paragraaph-start'>
+            Olá! Gostaríamos de solicitar autorização para recebermos alguns
+            dados referentes ao seu uso do nosso plugin. Caso você aceite, nosso
+            time poderá continuamente aprimorar o Registrations! Também
+            compartilharemos com você novidades via email.
+          </p>
+          <div>
+            <Button className='gradient'>
+            Permitir e continuar
+            </Button>
+            <Button className='outline'>
+              Pular
+            </Button>
+          </div>
         </Box>
       )}
     </div>
