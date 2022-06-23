@@ -66,6 +66,9 @@ class Settings
 				true
 			);
 
+			$plugin_url = plugins_url('../../assets/', __FILE__);
+			wp_add_inline_script('registrations-settings', "var assets_path =  '$plugin_url'", 'before');
+
 			wp_enqueue_style(' add_google_fonts ', 'https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap', false);
 			wp_enqueue_style(' add_google_fonts2 ', 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap', false);
 

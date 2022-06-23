@@ -25,7 +25,7 @@ export default function GettingStartedPage() {
         </Box>
       ) : (
         <Box>
-          <img src="/icon-128x128.png" alt="Logo do Registrations" />
+          <img src={assets_path + 'icon-128x128.png'} alt="Logo do Registrations" />
           <h1>Registrations for WooCommerce</h1>
         </Box>
       )}

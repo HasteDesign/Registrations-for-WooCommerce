@@ -91,6 +91,8 @@ final class RegistrationsForWoo
 		// Fired on deactivation of Registrations for WooCommerce
 		register_deactivation_hook(__FILE__, __CLASS__ . '::deactivate_woocommerce_registrations');
 
+
+
 		// Add the "Registrations" product type
 		add_action('admin_init', __CLASS__ . '::create_registration_product_type');
 

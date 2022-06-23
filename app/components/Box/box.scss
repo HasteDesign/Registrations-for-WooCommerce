@@ -6,6 +6,10 @@
   padding: $box-padding-base;
 
   &.large {
-    padding: $box-padding-y $box-padding-x;
+    padding: $box-padding-y-lg $box-padding-x-lg;
+  }
+
+  p {
+    margin-bottom: 20px;
   }
 }
